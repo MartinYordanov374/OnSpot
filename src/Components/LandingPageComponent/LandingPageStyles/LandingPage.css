@@ -7,6 +7,11 @@
   text-align: center !important;
 }
 
+.welcomeText .signUpButtonWrapper .signUpButtonLink {
+  text-decoration: none;
+  color: white;
+}
+
 .mapIcon {
   margin-left: 1rem;
 }

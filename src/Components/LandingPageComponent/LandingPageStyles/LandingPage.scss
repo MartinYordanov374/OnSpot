@@ -2,6 +2,10 @@
     font-size: 3rem;
     color: white;
     .signUpButtonWrapper{
+        .signUpButtonLink{
+            text-decoration: none;
+            color: white;
+        }
         text-align: center !important;
     }
 }
