@@ -1,0 +1,21 @@
+.welcomeText {
+  font-size: 3rem;
+  color: white;
+}
+
+.welcomeText .signUpButtonWrapper {
+  text-align: center !important;
+}
+
+.mapIcon {
+  margin-left: 1rem;
+}
+
+.secondRow {
+  margin-top: 6rem;
+}
+
+.secondRow .welcomeImageWrapper .welcomeImage {
+  width: 25rem;
+}
+/*# sourceMappingURL=LandingPage.css.map */
