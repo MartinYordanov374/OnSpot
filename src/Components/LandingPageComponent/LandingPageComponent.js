@@ -17,7 +17,9 @@ export default class LandingPageComponent extends Component {
             <div className='welcomeText col-sm-6 col-md-6'>
               <p>Join a meeting you’re excited to attend anywhere, at any time.</p>
               <div className='signUpButtonWrapper'>
-                <p className = 'signUpButton'>Sign Up</p>
+                <a href='/register'> 
+                  <p className = 'signUpButton'>Sign Up</p>
+                </a>
               </div>
             </div>
             <div className='mapIcon col-sm-6 col-md-3'>
