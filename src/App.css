@@ -2,6 +2,12 @@
   text-align: center;
 }
 
+html, body{
+  background-image: linear-gradient(154deg, #72B2E4,#92E1E2);
+  width: 100%;
+  height:100%;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
