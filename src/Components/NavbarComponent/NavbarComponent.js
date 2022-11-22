@@ -11,7 +11,7 @@ export default class NavbarComponent extends Component {
         <NavbarBrand href="/">OnSpot</NavbarBrand>
         <Nav className="mr-auto">
           <Nav.Link href="/ExporeEvents">Explore events</Nav.Link>
-          <Nav.Link href="/HostEvent">Host an Event</Nav.Link>
+          <Nav.Link className= 'hostEventLink' href="/HostEvent">Host an Event</Nav.Link>
 
           <Nav.Link href="/profile">
             <img 

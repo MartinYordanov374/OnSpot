@@ -10,6 +10,14 @@
   color: black;
 }
 
+.hostEventLink {
+  color: white;
+}
+
+.hostEventLink:hover {
+  color: whitesmoke;
+}
+
 .navbar-brand {
   font-size: 2rem;
 }
