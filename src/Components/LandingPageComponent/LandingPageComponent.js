@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import NavbarComponent from '../NavbarComponent/NavbarComponent'
+import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
+import NavbarComponentNotRegisteredUser from '../NavbarComponent/NavbarComponentNotRegisteredUser'
 
 export default class LandingPageComponent extends Component {
   render() {
     return (
       <div>
-        <NavbarComponent/>
+        <NavbarComponentNotRegisteredUser/>
       </div>
     )
   }

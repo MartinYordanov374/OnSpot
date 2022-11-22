@@ -6,7 +6,7 @@ import './NavbarStyles.css'
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-export default class NavbarComponent extends Component {
+export default class NavbarComponentRegisteredUser extends Component {
   render() {
     return (
       
