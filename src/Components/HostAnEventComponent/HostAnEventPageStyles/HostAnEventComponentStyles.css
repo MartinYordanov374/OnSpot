@@ -1,1 +1,43 @@
-/* No CSS *//*# sourceMappingURL=HostAnEventComponentStyles.css.map */
+.HostEventCard {
+  background-color: #F3EDED;
+  margin-top: 5%;
+}
+
+.HostEventCard .hostEventButton {
+  font-size: 25px !important;
+  font-weight: bold;
+  margin-top: 5%;
+  width: 30%;
+  background-color: #FF7A00;
+  border-color: #FF7A00;
+}
+
+.HostEventCard .hostEventButton:active {
+  background-color: #e97100;
+  border-color: #e97100;
+}
+
+.HostEventCard .fieldLabel {
+  font-weight: bold !important;
+}
+
+.HostEventCard .inputField {
+  height: 3rem;
+}
+
+.HostEventCard .inputField::-webkit-input-placeholder {
+  font-weight: bold;
+}
+
+.HostEventCard .inputField:-ms-input-placeholder {
+  font-weight: bold;
+}
+
+.HostEventCard .inputField::-ms-input-placeholder {
+  font-weight: bold;
+}
+
+.HostEventCard .inputField::placeholder {
+  font-weight: bold;
+}
+/*# sourceMappingURL=HostAnEventComponentStyles.css.map */

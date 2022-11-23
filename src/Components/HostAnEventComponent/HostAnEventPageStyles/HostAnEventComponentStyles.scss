@@ -1,0 +1,29 @@
+$button-color: #FF7A00;
+$button-color-pressed: #e97100;
+.HostEventCard{
+    background-color: #F3EDED;
+    margin-top: 5%;
+    .hostEventButton{
+        font-size: 25px !important;
+        font-weight: bold;
+        margin-top: 5%;
+        width: 30%;
+        background-color: $button-color;
+        border-color: $button-color;
+
+        &:active{
+            background-color: $button-color-pressed;
+            border-color: $button-color-pressed;
+        }
+    }
+    
+    .fieldLabel{
+        font-weight: bold !important;
+    }
+    .inputField{
+        height: 3rem;
+        &::placeholder{
+            font-weight: bold;
+        }
+    }
+}
