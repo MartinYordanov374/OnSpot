@@ -1,0 +1,62 @@
+.searchPageWrapper {
+  margin-top: 5%;
+}
+
+.searchPageWrapper .searchBar {
+  width: 50%;
+  height: 3rem;
+  border-style: none;
+  border-bottom-style: solid;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.searchPageWrapper .searchBar::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0.517);
+}
+
+.searchPageWrapper .searchBar:-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.517);
+}
+
+.searchPageWrapper .searchBar::-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.517);
+}
+
+.searchPageWrapper .searchBar::placeholder {
+  color: rgba(0, 0, 0, 0.517);
+}
+
+.searchPageWrapper .searchBar:focus {
+  border-style: none;
+  border-bottom-style: solid;
+  background-color: transparent;
+  color: white;
+  font-weight: bold;
+}
+
+.searchPageWrapper .searchBar:focus::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.637);
+  font-weight: bold;
+}
+
+.searchPageWrapper .searchBar:focus:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.637);
+  font-weight: bold;
+}
+
+.searchPageWrapper .searchBar:focus::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.637);
+  font-weight: bold;
+}
+
+.searchPageWrapper .searchBar:focus::placeholder {
+  color: rgba(255, 255, 255, 0.637);
+  font-weight: bold;
+}
+
+.searchPageWrapper .searchResults {
+  margin-top: 5%;
+  color: white;
+}
+/*# sourceMappingURL=ExploreEventsStyle.css.map */
