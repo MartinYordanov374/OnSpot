@@ -6,10 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container } from 'react-bootstrap'
 import conversation from '../../Images/conversation.png'
 import './LandingPageStyles/LandingPage.css'
+import EventCardComponent from '../EventCardComponent/EventCardComponent';
 
 export default class LandingPageComponent extends Component {
   render() {
-    let isLoggedIn = false;
+    let isLoggedIn = true;
     return (
       <div>
         {isLoggedIn == false ?
@@ -41,7 +42,8 @@ export default class LandingPageComponent extends Component {
         </div>
         :
         <div>
-        <NavbarComponentRegisteredUser/>
+          <NavbarComponentRegisteredUser/>
+          <EventCardComponent/>
         </div>
         }
       </div>
