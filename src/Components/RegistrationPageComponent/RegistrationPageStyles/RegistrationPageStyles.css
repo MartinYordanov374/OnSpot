@@ -25,6 +25,11 @@
   margin-right: 2%;
 }
 
+.SignUpComponentWrapper .field {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+          box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+}
+
 .AlreadyRegisteredWrapper .alreadyRegistered {
   font-weight: bold;
 }

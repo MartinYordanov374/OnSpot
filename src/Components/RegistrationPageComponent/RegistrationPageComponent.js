@@ -15,7 +15,7 @@ export default class RegistrationPageComponent extends Component {
                         <Form.Control className='usernameField field right' placeholder='Preferred username'/>
                     </InputGroup>
                     <InputGroup className='passwordForms'>
-                        <Form.Control className='passwordField field left' placeholder='Password'/>
+                        <Form.Control className='passwordField field left ' placeholder='Password'/>
                         <Form.Control className='confirmPasswordField field left' placeholder='Confirm password'/>
                     </InputGroup>
                 </div>
