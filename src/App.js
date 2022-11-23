@@ -8,6 +8,7 @@ import LoginPageComponent from './Components/LoginPageComponent/LoginPageCompone
 import HostAnEventPageComponent from './Components/HostAnEventComponent/HostAnEventPageComponent';
 import ExploreEventsComponent from './Components/ExploreEventsComponent/ExploreEventsComponent';
 import EventPageComponent from './Components/EventPageComponent/EventPageComponent';
+import CommentComponent from './Components/CommentComponent/CommentComponent';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
       <Route path = '/HostEvent' element={<HostAnEventPageComponent/>}/>
       <Route path = '/ExploreEvents' element={<ExploreEventsComponent/>}/>
       <Route path = '/Event' element={<EventPageComponent/>}/> 
+      <Route path = '/comment' element={<CommentComponent/>}/> 
+
       {/* TODO: ADD EVENT ID TO THE ROUTE */}
 
       <Route path = '*' element={<ErrorPage/>}/>
