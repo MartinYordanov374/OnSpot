@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Button,Card, } from 'react-bootstrap'
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
-
 export default class EventPageComponent extends Component {
   render() {
     return (
@@ -24,8 +23,17 @@ export default class EventPageComponent extends Component {
 
 
                 </div>
-                <h3>Martin Yordanov</h3>
-                <p>Martin Yordanov is an AI enthusiast with a humble experience in AI.</p>
+                <div className='row'>
+                    <div className='col'>
+                        <h3>Martin Yordanov</h3>
+                        <p>Martin Yordanov is an AI enthusiast with a humble experience in AI.</p>
+
+                    </div>
+                    <div className='mapWrapper col'>
+                        <p>This is where the map will be</p>
+                    </div>
+
+                </div>
           </Card>   
       </Container>
     )
