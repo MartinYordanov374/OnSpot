@@ -20,7 +20,7 @@ export default class EventCardComponent extends Component {
                 </Card.Header>
                 <Card.Body className = 'eventCardBody'>
                     <Card.Title className='eventCardTitle'>Artificial Intellgence outlooks</Card.Title>
-                    <Card.Subtitle className='eventCardDescription'>Is artificial intelligence that dang...</Card.Subtitle>
+                    <Card.Subtitle className='eventCardDescription'>Is artificial intelligence that dangerous technology or have we been lied to?</Card.Subtitle>
                 </Card.Body>
                 <Card.Footer className = 'eventCardFooter'>
                         <Button className='learnMore btn-light'>Learn more</Button>
