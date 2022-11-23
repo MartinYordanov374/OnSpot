@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { Container, FormControl, Button } from 'react-bootstrap'
+import { Container, FormControl } from 'react-bootstrap'
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
 import './ExploreEventsStyles/ExploreEventsStyle.css'
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export default class ExploreEventsComponent extends Component {
   render() {
