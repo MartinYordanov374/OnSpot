@@ -9,9 +9,12 @@ import './LandingPageStyles/LandingPage.css'
 
 export default class LandingPageComponent extends Component {
   render() {
+    let isLoggedIn = false;
     return (
       <div>
-        <NavbarComponentNotRegisteredUser/>
+        {isLoggedIn == false ?
+        <div>
+          <NavbarComponentNotRegisteredUser/>
           <Container>
           <div className='row'>
             <div className='welcomeText col-sm-6 col-md-6'>
@@ -34,8 +37,13 @@ export default class LandingPageComponent extends Component {
               <p>Your best networking partner; even introverts use it.</p>
             </div>
           </div>
-        </Container>
-
+          </Container>
+        </div>
+        :
+        <div>
+        <NavbarComponentRegisteredUser/>
+        </div>
+        }
       </div>
     )
   }
