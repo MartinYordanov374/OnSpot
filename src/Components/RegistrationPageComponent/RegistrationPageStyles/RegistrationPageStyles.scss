@@ -1,10 +1,9 @@
 .SignUpComponentWrapper{
-    margin-top: 33%;
-    .AlreadyRegisteredWrapper{
-        .alreadyRegistered{
-            font-weight: bold;
-        }
-    }
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+
     .buttonWrapper{
         .signUpButton{
             font-weight: bold;
@@ -15,5 +14,21 @@
     .signUpText{
         font-weight: bold;
         font-size: 3rem;
+    }
+    .emailUsernameForms{
+        .emailField{
+            margin-right: 2%;
+        }
+    }
+    .passwordForms{
+        .passwordField{
+            margin-right: 2%;
+        }
+
+    }
+}
+.AlreadyRegisteredWrapper{
+    .alreadyRegistered{
+        font-weight: bold;
     }
 }

@@ -7,26 +7,26 @@ export default class RegistrationPageComponent extends Component {
     return (
         <Container>
             <NavbarComponentNotRegisteredUser/>
-            <div className='SignUpComponentWrapper mx-auto'>
+            <div className='SignUpComponentWrapper ' >
                 <h1 className='signUpText'>Sign Up</h1>
                 <div className='registrationFormWrapper'>
-                    <InputGroup className='mb-5'>
-                        <Form.Control placeholder='Email'/>
-                        <Form.Control placeholder='Preferred username'/>
+                    <InputGroup className='emailUsernameForms mb-5'>
+                        <Form.Control className='emailField field left' placeholder='Email'/>
+                        <Form.Control className='usernameField field right' placeholder='Preferred username'/>
                     </InputGroup>
-                    <InputGroup>
-                        <Form.Control placeholder='Password'/>
-                        <Form.Control placeholder='Confirm password'/>
+                    <InputGroup className='passwordForms'>
+                        <Form.Control className='passwordField field left' placeholder='Password'/>
+                        <Form.Control className='confirmPasswordField field left' placeholder='Confirm password'/>
                     </InputGroup>
                 </div>
                 <div className='buttonWrapper text-center'>
                     <Button className='mt-3 signUpButton'>Sign Up</Button>
 
                 </div>
+            </div>
                 <div className='AlreadyRegisteredWrapper text-center fixed-bottom'>
                     <p className='alreadyRegistered'>You already have an account? Log in here.</p>
                 </div>
-            </div>
         </Container>
     )
   }

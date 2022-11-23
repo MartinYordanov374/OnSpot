@@ -1,9 +1,9 @@
 .SignUpComponentWrapper {
-  margin-top: 33%;
-}
-
-.SignUpComponentWrapper .AlreadyRegisteredWrapper .alreadyRegistered {
-  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 .SignUpComponentWrapper .buttonWrapper .signUpButton {
@@ -15,5 +15,17 @@
 .SignUpComponentWrapper .signUpText {
   font-weight: bold;
   font-size: 3rem;
+}
+
+.SignUpComponentWrapper .emailUsernameForms .emailField {
+  margin-right: 2%;
+}
+
+.SignUpComponentWrapper .passwordForms .passwordField {
+  margin-right: 2%;
+}
+
+.AlreadyRegisteredWrapper .alreadyRegistered {
+  font-weight: bold;
 }
 /*# sourceMappingURL=RegistrationPageStyles.css.map */
