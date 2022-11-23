@@ -5,6 +5,7 @@ import LandingPageComponent from './Components/LandingPageComponent/LandingPageC
 import ErrorPage from './Components/ErrorPageComponent/ErorPage';
 import RegistrationPageComponent from './Components/RegistrationPageComponent/RegistrationPageComponent';
 import LoginPageComponent from './Components/LoginPageComponent/LoginPageComponent';
+import HostAnEventPageComponent from './Components/HostAnEventComponent/HostAnEventPageComponent';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path = '/' element={<LandingPageComponent/>}/>
       <Route path = '/register' element={<RegistrationPageComponent/>}/>
       <Route path = '/login' element={<LoginPageComponent/>}/>
+      <Route path = '/HostEvent' element={<HostAnEventPageComponent/>}/>
 
       <Route path = '*' element={<ErrorPage/>}/>
 
