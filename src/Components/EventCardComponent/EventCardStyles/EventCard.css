@@ -1,6 +1,15 @@
+.eventCard {
+  color: white;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+          box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+  width: 75%;
+  margin-left: 18%;
+  background-image: linear-gradient(10deg, #2A2B2A, #9CEBB3) !important;
+  border-style: none;
+}
+
 .eventCard .eventCardHeader {
-  border-bottom: none;
-  background-color: white;
+  border-style: none;
 }
 
 .eventCard .eventCardHeader .eventCardHeaderDetails .eventCardHeaderDetail {
@@ -11,8 +20,25 @@
   border-radius: 50%;
 }
 
+.eventCard .eventCardBody .eventCardTitle {
+  font-size: 2.5rem;
+}
+
+.eventCard .eventCardBody .eventCardDescription {
+  font-size: 1.25rem;
+}
+
 .eventCard .eventCardFooter {
   border-top: none;
-  background-color: white;
+  margin-left: auto;
+}
+
+.eventCard .eventCardFooter .Attend {
+  margin-left: 20px;
+}
+
+.eventCard .eventCardFooter .btn {
+  font-size: medium;
+  font-weight: bold;
 }
 /*# sourceMappingURL=EventCard.css.map */

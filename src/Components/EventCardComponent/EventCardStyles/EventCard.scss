@@ -1,8 +1,13 @@
 $header-footer-color: white;
 .eventCard{
+    color: $header-footer-color;
+    box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+    width: 75%;
+    margin-left: 18%;
+    background-image: linear-gradient(10deg, #2A2B2A, #9CEBB3) !important;
+    border-style: none;
     .eventCardHeader{
-        border-bottom: none;
-        background-color: $header-footer-color;
+        border-style: none;
         .eventCardHeaderDetails{
             // display: flex;
             .eventCardHeaderDetail
@@ -11,15 +16,29 @@ $header-footer-color: white;
             }
             .eventHostPFP{
                 border-radius: 50%;
+                
             }
         }
+
     }
     .eventCardBody{
-        
+        .eventCardTitle{
+            font-size: 2.5rem;
+        }
+        .eventCardDescription{
+            font-size: 1.25rem;
+        }
     }
     .eventCardFooter{
         border-top: none;
-        background-color: $header-footer-color;
+        margin-left: auto;
+        .Attend{
+            margin-left: 20px;
+        }
+        .btn{
+            font-size: medium;
+            font-weight: bold;
+        }
 
     }
 }

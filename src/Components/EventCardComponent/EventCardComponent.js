@@ -5,7 +5,7 @@ import '../EventCardComponent/EventCardStyles/EventCard.css'
 export default class EventCardComponent extends Component {
   render() {
     return (
-        <Container>
+        <Container className='eventCardWrapper'>
             <Card className='eventCard'>
                 <Card.Header className = 'eventCardHeader'>
                     <div className = 'eventCardHeaderDetails row'>
@@ -23,8 +23,8 @@ export default class EventCardComponent extends Component {
                     <Card.Subtitle className='eventCardDescription'>Is artificial intelligence that dang...</Card.Subtitle>
                 </Card.Body>
                 <Card.Footer className = 'eventCardFooter'>
-                    <Button className='learnMore btn'>Learn more</Button>
-                    <Button className='Attend btn'>Attend</Button>
+                        <Button className='learnMore btn-light'>Learn more</Button>
+                        <Button className='Attend btn btn-light'>Attend</Button>
                 </Card.Footer>
             </Card>
         </Container>
