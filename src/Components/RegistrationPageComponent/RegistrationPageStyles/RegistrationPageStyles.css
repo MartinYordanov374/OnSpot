@@ -1,4 +1,19 @@
 .SignUpComponentWrapper {
-  margin-top: 11rem;
+  margin-top: 33%;
+}
+
+.SignUpComponentWrapper .AlreadyRegisteredWrapper .alreadyRegistered {
+  font-weight: bold;
+}
+
+.SignUpComponentWrapper .buttonWrapper .signUpButton {
+  font-weight: bold;
+  width: 10rem;
+  font-size: larger;
+}
+
+.SignUpComponentWrapper .signUpText {
+  font-weight: bold;
+  font-size: 3rem;
 }
 /*# sourceMappingURL=RegistrationPageStyles.css.map */
