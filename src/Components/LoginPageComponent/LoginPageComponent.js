@@ -8,10 +8,8 @@ export default class LoginPageComponent extends Component {
       <Container>
         <NavbarComponentNotRegisteredUser/>
         <div className='LoginFormWrapper'>
-            <InputGroup>
-                <Form.Control placeholder='Email'/>      
-                <Form.Control placeholder='Password' type='password'/>            
-            </InputGroup>
+            <Form.Control placeholder='Email'/>      
+            <Form.Control placeholder='Password' type='password'/>    
             <Button> Log In </Button>
 
         </div>
