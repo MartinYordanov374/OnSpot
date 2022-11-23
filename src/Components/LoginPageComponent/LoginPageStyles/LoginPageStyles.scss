@@ -3,4 +3,28 @@
     left:50%;
     top:50%;
     transform:translate(-50%, -50%);
+    .logInText{
+        font-weight: bold;
+        font-size: 3rem;
+    }
+    .field{
+        margin-top: 2rem;
+    }
+    .logInButtonWrapper{
+        text-align: center;
+        .LogInButton{
+            margin-top: 2rem;
+            font-weight: bold;
+            width: 100%;
+        }
+    }
+}
+.NotRegisteredYetWrapper{
+    .NotRegisteredYet{
+        font-weight: bold;
+    }
+    .registerLink{
+        text-decoration: none;
+        transition: 0.5s linear;
+    }
 }
