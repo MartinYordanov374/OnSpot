@@ -10,6 +10,19 @@ import EventCardComponent from '../EventCardComponent/EventCardComponent';
 
 export default class LandingPageComponent extends Component {
   render() {
+    let events =[
+        {EventHost: 'martin', 
+        EventTitle: 'Artificial intelligence outlooks', 
+        EventDescription: 'Is artificial intelligence really as dangerous as people make it seem?',
+        EventType: 'public',
+      EventClass: 'Tech'},
+
+        {EventHost: 'AIFellas', 
+        EventTitle: 'AI Discussion meeting', 
+        EventDescription: 'We will be discussing the future of AI',
+        EventType: 'public',
+        EventClass: 'Tech'}
+    ]
     let isLoggedIn = true;
     return (
       <div>
@@ -43,7 +56,11 @@ export default class LandingPageComponent extends Component {
         :
         <div>
           <NavbarComponentRegisteredUser/>
-          <EventCardComponent/>
+          {events.map((event) => {
+            return <EventCardComponent props={event}/>
+
+          })}
+          
         </div>
         }
       </div>
