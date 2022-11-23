@@ -42,10 +42,18 @@
   color: #008CDB;
 }
 
+.profilePageWrapper .profilePageUserDetails .userInteractionBtns .messageUser:hover {
+  cursor: pointer;
+}
+
 .profilePageWrapper .profilePageUserDetails .userInteractionBtns .followUser {
   font-size: larger;
   font-weight: bold;
   color: #008CDB;
+}
+
+.profilePageWrapper .profilePageUserDetails .userInteractionBtns .followUser:hover {
+  cursor: pointer;
 }
 
 .profilePageWrapper .userEvents {
