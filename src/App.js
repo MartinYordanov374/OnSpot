@@ -20,7 +20,6 @@ function App() {
       <Route path = '/HostEvent' element={<HostAnEventPageComponent/>}/>
       <Route path = '/ExploreEvents' element={<ExploreEventsComponent/>}/>
       <Route path = '/Event' element={<EventPageComponent/>}/> 
-      <Route path = '/comment' element={<CommentComponent/>}/> 
 
       {/* TODO: ADD EVENT ID TO THE ROUTE */}
 
