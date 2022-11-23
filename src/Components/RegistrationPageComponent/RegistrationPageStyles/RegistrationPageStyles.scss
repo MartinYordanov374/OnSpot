@@ -21,6 +21,7 @@
         }
     }
     .passwordForms{
+        
         .passwordField{
             margin-right: 2%;
         }
@@ -33,5 +34,10 @@
 .AlreadyRegisteredWrapper{
     .alreadyRegistered{
         font-weight: bold;
+        .loginLink{
+            text-decoration: none;
+            transition: 0.5s linear;
+
+        }
     }
 }

@@ -10,13 +10,13 @@ export default class RegistrationPageComponent extends Component {
             <div className='SignUpComponentWrapper ' >
                 <h1 className='signUpText'>Sign Up</h1>
                 <div className='registrationFormWrapper'>
-                    <InputGroup className='emailUsernameForms mb-5'>
+                    <InputGroup className='emailUsernameForms mb-5' >
                         <Form.Control className='emailField field left' placeholder='Email'/>
                         <Form.Control className='usernameField field right' placeholder='Preferred username'/>
                     </InputGroup>
-                    <InputGroup className='passwordForms'>
-                        <Form.Control className='passwordField field left ' placeholder='Password'/>
-                        <Form.Control className='confirmPasswordField field left' placeholder='Confirm password'/>
+                    <InputGroup className = 'passwordForms'>
+                        <Form.Control className = 'passwordField field left'  type='password' placeholder='Password'/>
+                        <Form.Control className = 'confirmPasswordField field left' type='password' placeholder='Confirm password'/>
                     </InputGroup>
                 </div>
                 <div className='buttonWrapper text-center'>
@@ -25,7 +25,7 @@ export default class RegistrationPageComponent extends Component {
                 </div>
             </div>
                 <div className='AlreadyRegisteredWrapper text-center fixed-bottom'>
-                    <p className='alreadyRegistered'>You already have an account? Log in here.</p>
+                    <p className='alreadyRegistered'>You already have an account? <a href='/login' className='loginLink'>Log in here</a></p>
                 </div>
         </Container>
     )

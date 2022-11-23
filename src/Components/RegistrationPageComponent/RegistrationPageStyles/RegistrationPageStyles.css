@@ -33,4 +33,10 @@
 .AlreadyRegisteredWrapper .alreadyRegistered {
   font-weight: bold;
 }
+
+.AlreadyRegisteredWrapper .alreadyRegistered .loginLink {
+  text-decoration: none;
+  -webkit-transition: 0.5s linear;
+  transition: 0.5s linear;
+}
 /*# sourceMappingURL=RegistrationPageStyles.css.map */
