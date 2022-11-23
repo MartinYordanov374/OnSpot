@@ -1,9 +1,21 @@
 import React, { Component } from 'react'
-
+import NavbarComponentNotRegisteredUser from '../NavbarComponent/NavbarComponentNotRegisteredUser'
+import { Container, InputGroup, Form, Button } from 'react-bootstrap'
+import '../LoginPageComponent/LoginPageStyles/LoginPageStyles.css'
 export default class LoginPageComponent extends Component {
   render() {
     return (
-      <div>LoginPageComponent</div>
+      <Container>
+        <NavbarComponentNotRegisteredUser/>
+        <div className='LoginFormWrapper'>
+            <InputGroup>
+                <Form.Control placeholder='Email'/>      
+                <Form.Control placeholder='Password' type='password'/>            
+            </InputGroup>
+            <Button> Log In </Button>
+
+        </div>
+      </Container>
     )
   }
 }
