@@ -3,6 +3,16 @@ $header-footer-color: white;
     .eventCardHeader{
         border-bottom: none;
         background-color: $header-footer-color;
+        .eventCardHeaderDetails{
+            // display: flex;
+            .eventCardHeaderDetail
+            {
+                margin-left: 10px;
+            }
+            .eventHostPFP{
+                border-radius: 50%;
+            }
+        }
     }
     .eventCardBody{
         

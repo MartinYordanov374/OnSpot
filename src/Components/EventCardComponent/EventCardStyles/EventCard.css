@@ -3,6 +3,14 @@
   background-color: white;
 }
 
+.eventCard .eventCardHeader .eventCardHeaderDetails .eventCardHeaderDetail {
+  margin-left: 10px;
+}
+
+.eventCard .eventCardHeader .eventCardHeaderDetails .eventHostPFP {
+  border-radius: 50%;
+}
+
 .eventCard .eventCardFooter {
   border-top: none;
   background-color: white;
