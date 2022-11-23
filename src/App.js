@@ -8,7 +8,6 @@ import LoginPageComponent from './Components/LoginPageComponent/LoginPageCompone
 import HostAnEventPageComponent from './Components/HostAnEventComponent/HostAnEventPageComponent';
 import ExploreEventsComponent from './Components/ExploreEventsComponent/ExploreEventsComponent';
 import EventPageComponent from './Components/EventPageComponent/EventPageComponent';
-import CommentComponent from './Components/CommentComponent/CommentComponent';
 
 function App() {
   return (

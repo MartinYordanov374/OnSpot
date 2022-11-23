@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Button,Card, } from 'react-bootstrap'
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
+import './EventPageStyles/EventPageStyling.css'
 export default class EventPageComponent extends Component {
   render() {
     return (
@@ -34,7 +35,8 @@ export default class EventPageComponent extends Component {
                     </div>
 
                 </div>
-          </Card>   
+          </Card>
+
       </Container>
     )
   }
