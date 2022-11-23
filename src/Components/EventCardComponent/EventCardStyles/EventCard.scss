@@ -1,0 +1,15 @@
+$header-footer-color: white;
+.eventCard{
+    .eventCardHeader{
+        border-bottom: none;
+        background-color: $header-footer-color;
+    }
+    .eventCardBody{
+        
+    }
+    .eventCardFooter{
+        border-top: none;
+        background-color: $header-footer-color;
+
+    }
+}

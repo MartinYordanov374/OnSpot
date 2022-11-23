@@ -1,0 +1,10 @@
+.eventCard .eventCardHeader {
+  border-bottom: none;
+  background-color: white;
+}
+
+.eventCard .eventCardFooter {
+  border-top: none;
+  background-color: white;
+}
+/*# sourceMappingURL=EventCard.css.map */

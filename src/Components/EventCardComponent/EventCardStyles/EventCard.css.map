@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AACI,UADM,CACN,gBAAgB,CAAA;EACZ,aAAa,EAAE,IAAI;EACnB,gBAAgB,EAJF,KAAK;CAKtB;;AAJL,AAQI,UARM,CAQN,gBAAgB,CAAA;EACZ,UAAU,EAAE,IAAI;EAChB,gBAAgB,EAXF,KAAK;CAatB",
+    "sources": [
+        "EventCard.scss"
+    ],
+    "names": [],
+    "file": "EventCard.css"
+}
