@@ -16,7 +16,7 @@ export default class NavbarComponentRegisteredUser extends Component {
           <FontAwesomeIcon icon={faLocationDot}/> OnSpot
         </NavbarBrand>
         <Nav className="mr-auto"> 
-          <Nav.Link href="/ExporeEvents">Explore events</Nav.Link>
+          <Nav.Link href="/ExploreEvents">Explore events</Nav.Link>
           <Nav.Link className= 'hostEventLink' href="/HostEvent">Host an Event</Nav.Link>
 
           <Nav.Link href="/profile">
