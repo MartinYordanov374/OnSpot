@@ -1,24 +1,26 @@
 import React, { Component } from 'react'
 import NavbarComponentNotRegisteredUser from '../NavbarComponent/NavbarComponentNotRegisteredUser'
 import { Container, InputGroup, Form, Button } from 'react-bootstrap'
-
+import '../RegistrationPageComponent/RegistrationPageStyles/RegistrationPageStyles.css'
 export default class RegistrationPageComponent extends Component {
   render() {
     return (
         <Container>
             <NavbarComponentNotRegisteredUser/>
-            <h1>Sign Up</h1>
-            <div className='registrationFormWrapper'>
-                <InputGroup className='mb-5'>
-                    <Form.Control placeholder='Email'/>
-                    <Form.Control placeholder='Preferred username'/>
-                </InputGroup>
-                <InputGroup>
-                    <Form.Control placeholder='Password'/>
-                    <Form.Control placeholder='Confirm password'/>
-                </InputGroup>
+            <div className='SignUpComponentWrapper'>
+                <h1 className='signUpText'>Sign Up</h1>
+                <div className='registrationFormWrapper'>
+                    <InputGroup className='mb-5'>
+                        <Form.Control placeholder='Email'/>
+                        <Form.Control placeholder='Preferred username'/>
+                    </InputGroup>
+                    <InputGroup>
+                        <Form.Control placeholder='Password'/>
+                        <Form.Control placeholder='Confirm password'/>
+                    </InputGroup>
+                </div>
                 <div className='buttonWrapper text-center'>
-                    <Button className='mt-3' >Sign Up</Button>
+                    <Button className='mt-3'>Sign Up</Button>
 
                 </div>
                 <div className='AlreadyRegisteredWrapper text-center fixed-bottom'>
