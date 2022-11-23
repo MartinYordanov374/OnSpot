@@ -1,0 +1,55 @@
+.profilePageWrapper .profilePageBackgroundImage {
+  height: 200px;
+  background-color: black;
+}
+
+.profilePageWrapper .userPFP {
+  width: 10rem;
+  border-radius: 50%;
+  margin-top: 5rem;
+  margin-left: 3rem;
+}
+
+.profilePageWrapper .profilePageUserDetails {
+  background-color: white;
+}
+
+.profilePageWrapper .profilePageUserDetails .username {
+  margin-top: 3rem;
+  margin-left: 2.5rem;
+  font-size: 40px;
+  font-weight: bold;
+  color: black;
+}
+
+.profilePageWrapper .profilePageUserDetails .followers {
+  margin-left: 4rem;
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
+}
+
+.profilePageWrapper .profilePageUserDetails .userInteractionBtns {
+  margin-top: 8rem;
+  margin-left: auto;
+  margin-right: 1rem;
+  font-size: 25px;
+}
+
+.profilePageWrapper .profilePageUserDetails .userInteractionBtns .messageUser {
+  font-size: larger;
+  font-weight: bold;
+  color: #008CDB;
+}
+
+.profilePageWrapper .profilePageUserDetails .userInteractionBtns .followUser {
+  font-size: larger;
+  font-weight: bold;
+  color: #008CDB;
+}
+
+.profilePageWrapper .userEvents {
+  height: 700px;
+  background-color: white;
+}
+/*# sourceMappingURL=ProfilePageStyle.css.map */
