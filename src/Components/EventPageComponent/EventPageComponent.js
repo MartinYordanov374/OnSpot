@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { Container, Button,Card, } from 'react-bootstrap'
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
+import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './EventPageStyles/EventPageStyling.css'
 export default class EventPageComponent extends Component {
   render() {
     return (
-      <Container>
+        <div>
+            <SidebarComponent/>
+        <Container>
           <NavbarComponentRegisteredUser/>
           <Card className='eventCard'>
                 <Card.Header className = 'eventCardHeader'>
@@ -45,7 +48,9 @@ export default class EventPageComponent extends Component {
                 </div>
           </Card>
 
-      </Container>
+        </Container> 
+        </div>
+
     )
   }
 }

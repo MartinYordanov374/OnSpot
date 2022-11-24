@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import { Container, Button,Card, } from 'react-bootstrap'
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
+import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './ProfilePageStyles/ProfilePageStyle.css'
 export default class ProfilePageComponent extends Component {
   render() {
     return (
+        <div>
+        <SidebarComponent/>
+        
         <Container>
             <NavbarComponentRegisteredUser/>
             <div className='profilePageWrapper'>
@@ -33,6 +37,7 @@ export default class ProfilePageComponent extends Component {
                 </div>
             </div>
         </Container>
+        </div>
     )
   }
 }

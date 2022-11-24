@@ -24,7 +24,7 @@ function App() {
 
       {/* TODO: ADD ID TO THE EVENT AND PROFILE ROUTES */}
 
-      <Route path = '*' element={<ErrorPage/>}/>
+      <Route path = '*' element={<LandingPageComponent/>}/>
 
     </Routes>
    </Router>
