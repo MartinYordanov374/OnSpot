@@ -5,6 +5,16 @@ import './HostAnEventPageStyles/HostAnEventComponentStyles.css'
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 export default class HostAnEventPageComponent extends Component {
+
+handleSelect(value){
+    let dropdown = document.querySelector('.eventTypeField')
+    dropdown.placeholder = value
+  }
+  handleSelectCategory(value)
+  {
+    let dropdown = document.querySelector('.eventCategoryField')
+    dropdown.placeholder = value
+  }
   render() {
     return (
         <Container>
@@ -19,10 +29,10 @@ export default class HostAnEventPageComponent extends Component {
                         <div className='eventTypeWrapper col-sm mt-5'>
                             <h2 className='fieldLabel'>Event type</h2>
                             <InputGroup>
-                            <FormControl className='inputField' placeholder='Public' aria-describedby='dropdownAddon' disabled='true'/>
-                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon'>
-                                    <Dropdown.Item>Public</Dropdown.Item>
-                                    <Dropdown.Item>Private</Dropdown.Item>
+                            <FormControl className='inputField eventTypeField' placeholder='Public' aria-describedby='dropdownAddon' disabled='true'/>
+                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelect}>
+                                    <Dropdown.Item eventKey = {'Public'}>Public</Dropdown.Item>
+                                    <Dropdown.Item eventKey = {'Private'} >Private</Dropdown.Item>
                                 </DropdownButton>
                             
                             </InputGroup>
@@ -35,7 +45,17 @@ export default class HostAnEventPageComponent extends Component {
                         </div>
                         <div className='eventCategoryWrapper col-sm mt-5'>
                             <h2 className='fieldLabel'>Event category</h2>
-                            <FormControl className='inputField' placeholder='Event category'/>
+                            <InputGroup>
+                                <FormControl className='inputField eventCategoryField' placeholder='e.g. Tech' disabled='true'/>
+                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectCategory}>
+                                    <Dropdown.Item eventKey = {'Tech'}>Tech</Dropdown.Item>
+                                    <Dropdown.Item eventKey = {'Business'} >Business</Dropdown.Item>
+                                    <Dropdown.Item eventKey = {'Hangout'} >Hangout</Dropdown.Item>
+                                    <Dropdown.Item eventKey = {'Other'} >Other</Dropdown.Item>
+
+                                </DropdownButton>
+                            </InputGroup>
+
                         </div>
                     </div>
                     <div className='buttonWrapper d-flex justify-content-center mt-3'>
