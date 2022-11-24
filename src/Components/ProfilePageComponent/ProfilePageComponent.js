@@ -26,7 +26,7 @@ export default class ProfilePageComponent extends Component {
                 </div>
                 <div className='userEvents'>
                     {/* I should probably include what the user attended as well?? */}
-                    <h1>Latest Events</h1>
+                    <h1 className='userActivityHeader'>Latest Activity</h1>
                     <div className='EventsActivity'>
                         
                     </div>

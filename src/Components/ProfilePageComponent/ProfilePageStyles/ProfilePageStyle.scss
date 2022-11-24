@@ -4,29 +4,29 @@
         background-color: black;
     }
     .userPFP{
-        width: 10rem;
+        width: 15rem;
         border-radius: 50%;
         margin-top: 5rem;
-        margin-left: 3rem;
+        margin-left: 2rem;
     }
     .profilePageUserDetails{
         background-color: white;
         
         .username{
-            margin-top: 3rem;
-            margin-left: 2.5rem;
+            margin-top:7rem;
+            margin-left: 4rem;
             font-size: 40px;
             font-weight: bold;
             color: black;
         }
         .followers{
-            margin-left: 4rem;
+            margin-left: 5.7rem;
             font-size: 25px;
             font-weight: bold;
             color: black;
         }
         .userInteractionBtns{
-            margin-top: 8rem;
+            margin-top: 10rem;
             margin-left: auto;
             margin-right: 1rem;
             font-size: 25px;
@@ -49,8 +49,13 @@
         }
     }
     .userEvents{
+        border-top-style: solid;
         height: 700px;
         background-color: white;
+        .userActivityHeader{
+            margin-top: 2rem;
+            margin-left: 2rem;
+        }
         .EventsActivity{
 
         }
