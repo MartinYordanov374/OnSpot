@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Container,Card,Button, FormControl, Form } from 'react-bootstrap'
+import { Container,Card,Button, FormControl, DropdownButton, Dropdown, InputGroup } from 'react-bootstrap'
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
 import './HostAnEventPageStyles/HostAnEventComponentStyles.css'
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 export default class HostAnEventPageComponent extends Component {
   render() {
     return (
@@ -16,7 +18,14 @@ export default class HostAnEventPageComponent extends Component {
                         </div>
                         <div className='eventTypeWrapper col-sm mt-5'>
                             <h2 className='fieldLabel'>Event type</h2>
-                            <FormControl className='inputField' placeholder='Enter your event type, e.g.'/>
+                            <InputGroup>
+                            <FormControl className='inputField' placeholder='Public' aria-describedby='dropdownAddon' disabled='true'/>
+                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon'>
+                                    <Dropdown.Item>Public</Dropdown.Item>
+                                    <Dropdown.Item>Private</Dropdown.Item>
+                                </DropdownButton>
+                            
+                            </InputGroup>
                         </div>
                     </div>
                     <div className='row'>
