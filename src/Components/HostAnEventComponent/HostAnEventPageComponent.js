@@ -52,12 +52,28 @@ handleSelect(value){
                                     <Dropdown.Item eventKey = {'Business'} >Business</Dropdown.Item>
                                     <Dropdown.Item eventKey = {'Hangout'} >Hangout</Dropdown.Item>
                                     <Dropdown.Item eventKey = {'Other'} >Other</Dropdown.Item>
+                                </DropdownButton>
+                            </InputGroup>
+                        </div>
+                    </div>
+
+                    <div className='row'>
+                    <div className='eventCategoryWrapper col-sm mt-5'>
+                            <h2 className='fieldLabel'>Event Location</h2>
+                            <FormControl className='inputField eventLocationField' placeholder='e.g. Menlo Park'/>
+
+                        </div>
+                        <div className='eventCategoryWrapper col-sm mt-5'>
+                            <h2 className='fieldLabel'>Event Date</h2>
+                            <InputGroup>
+                                <FormControl className='inputField eventDateField' placeholder='e.g. 28/01/2022' disabled='true'/>
+                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectDate}>
 
                                 </DropdownButton>
                             </InputGroup>
-
                         </div>
                     </div>
+                    
                     <div className='buttonWrapper d-flex justify-content-center mt-3'>
                         <Button className='hostEventButton'>Host event</Button>
                     </div>
