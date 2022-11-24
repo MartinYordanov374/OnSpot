@@ -1,12 +1,45 @@
 .sidebarWrapper {
-  border-style: solid;
   margin-left: auto;
   width: 18%;
-  height: 10vh;
-}
-
-.sidebarWrapper {
   float: left;
   height: 100vh;
+  background-color: #7E1AFF;
+}
+
+.sidebarWrapper .ProfileDataWrapper {
+  text-align: center;
+}
+
+.sidebarWrapper .ProfileDataWrapper .userPFP {
+  border-radius: 50%;
+  width: 100px;
+}
+
+.sidebarWrapper .ProfileDataWrapper .username {
+  color: white;
+}
+
+.sidebarWrapper .ProfileDataWrapper .followers {
+  color: #BDA9A9;
+}
+
+.sidebarWrapper .safeMenu {
+  color: white;
+}
+
+.sidebarWrapper .safeMenu .menuItem {
+  margin-top: 5rem;
+}
+
+.sidebarWrapper .dangerousMenu .settings {
+  color: #BDA9A9;
+}
+
+.sidebarWrapper .dangerousMenu .logout {
+  color: black;
+}
+
+.sidebarWrapper .menu {
+  margin-left: 2rem;
 }
 /*# sourceMappingURL=SidebarStyle.css.map */
