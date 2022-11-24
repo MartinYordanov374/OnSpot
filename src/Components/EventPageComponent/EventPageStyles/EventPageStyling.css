@@ -1,1 +1,75 @@
-/* No CSS *//*# sourceMappingURL=EventPageStyling.css.map */
+.card {
+  font-weight: bold;
+  font-size: large;
+}
+
+.card .eventCardHeader {
+  text-align: center;
+}
+
+.card .eventCardDescWrapper {
+  margin-top: 1rem;
+}
+
+.card .eventCardDescription {
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: 5rem;
+}
+
+.card .eventCardDescription .attendButtonWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card .eventCardDescription .attendButtonWrapper .attendButton {
+  background-color: #FF7A00;
+  border-color: #FF7A00;
+  color: white;
+  font-weight: bold;
+  font-size: large;
+  width: 40%;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+          box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+}
+
+.card .eventCardDescription .attendButtonWrapper .attendButton:active {
+  background-color: #cf6400;
+  border-color: #cf6400;
+  color: rgba(255, 255, 255, 0.862);
+}
+
+.card .eventDetails {
+  font-size: 30px;
+}
+
+.card .eventHostData {
+  margin-top: 5rem;
+  margin-left: 5rem;
+}
+
+.card .eventHostData .eventHostDataContainer {
+  margin-top: 2%;
+}
+
+.card .eventHostData .eventHostPfp {
+  border-radius: 50%;
+  width: 54px;
+}
+
+.card .eventHostData .eventHostName {
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: 1.5rem;
+  margin-top: 0.3rem;
+}
+
+.card .eventHostData .eventHostBio {
+  font-size: 30px;
+  font-weight: bold;
+}
+/*# sourceMappingURL=EventPageStyling.css.map */

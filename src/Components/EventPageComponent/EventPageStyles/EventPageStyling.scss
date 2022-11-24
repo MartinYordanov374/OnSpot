@@ -1,0 +1,59 @@
+$shortTextFontSize: 30px;
+.card{
+    font-weight: bold;
+    font-size: large;
+    .eventCardHeader{
+        text-align: center;
+    }
+    .eventCardDescWrapper{
+        margin-top: 1rem;
+    }
+    .eventCardDescription{
+        font-size: $shortTextFontSize;
+        font-weight: bold;
+        margin-left: 5rem;
+        .attendButtonWrapper{
+            display: flex;
+            justify-content: center;
+            .attendButton{
+                background-color: #FF7A00;
+                border-color: #FF7A00;
+                color: white;
+                font-weight: bold;
+                font-size: large;
+                width: 40%;
+                box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+    
+                &:active{
+                    background-color: #cf6400;
+                    border-color: #cf6400;
+                    color: rgba(255, 255, 255, 0.862);
+                }
+            }
+        }
+    }
+    .eventDetails{
+        font-size: $shortTextFontSize;
+    }
+    .eventHostData{
+        margin-top: 5rem;
+        margin-left: 5rem;
+        .eventHostDataContainer{
+            margin-top: 2%;
+        }
+        .eventHostPfp{
+            border-radius: 50%;
+            width: 54px;
+        }
+        .eventHostName{
+            font-size: $shortTextFontSize;
+            font-weight: bold;
+            margin-left: 1.5rem;
+            margin-top: 0.3rem;
+        }
+        .eventHostBio{
+            font-size: $shortTextFontSize;
+            font-weight: bold;
+        }
+    }
+}
