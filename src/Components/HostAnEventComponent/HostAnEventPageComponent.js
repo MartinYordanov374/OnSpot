@@ -2,19 +2,31 @@ import React, { Component } from 'react'
 import { Container,Card,Button, FormControl, DropdownButton, Dropdown, InputGroup } from 'react-bootstrap'
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
 import './HostAnEventPageStyles/HostAnEventComponentStyles.css'
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css';
 export default class HostAnEventPageComponent extends Component {
 
 handleSelect(value){
     let dropdown = document.querySelector('.eventTypeField')
     dropdown.placeholder = value
-  }
-  handleSelectCategory(value)
-  {
-    let dropdown = document.querySelector('.eventCategoryField')
+  }  
+handleSelectCategory(value)
+{
+  let dropdown = document.querySelector('.eventCategoryField')
+  dropdown.placeholder = value
+}
+handleSelectLocation(value)
+{
+    let dropdown = document.querySelector('.eventLocationField')
     dropdown.placeholder = value
-  }
+}
+handleSelectDate(value)
+{
+    let dropdown = document.querySelector('.eventDateField')
+    let formattedDate = value.toString().split(' ').splice(1,3).join(' ')
+    dropdown.placeholder = formattedDate
+
+}
   render() {
     return (
         <Container>
@@ -67,8 +79,8 @@ handleSelect(value){
                             <h2 className='fieldLabel'>Event Date</h2>
                             <InputGroup>
                                 <FormControl className='inputField eventDateField' placeholder='e.g. 28/01/2022' disabled='true'/>
-                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectDate}>
-
+                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon' drop='start'>
+                                    <Calendar onChange={this.handleSelectDate}/>
                                 </DropdownButton>
                             </InputGroup>
                         </div>
