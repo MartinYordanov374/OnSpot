@@ -1,0 +1,12 @@
+.sidebarWrapper {
+  border-style: solid;
+  margin-left: auto;
+  width: 18%;
+  height: 10vh;
+}
+
+.sidebarWrapper {
+  float: left;
+  height: 100vh;
+}
+/*# sourceMappingURL=SidebarStyle.css.map */

@@ -7,6 +7,7 @@ import { Container } from 'react-bootstrap'
 import conversation from '../../Images/conversation.png'
 import './LandingPageStyles/LandingPage.css'
 import EventCardComponent from '../EventCardComponent/EventCardComponent';
+import SidebarComponent from '../SidebarComponent/SidebarComponent';
 
 export default class LandingPageComponent extends Component {
   render() {
@@ -55,12 +56,15 @@ export default class LandingPageComponent extends Component {
         </div>
         :
         <div>
-          <NavbarComponentRegisteredUser/>
-          {events.map((event) => {
-            return <EventCardComponent props={event}/>
+          <SidebarComponent/>
+          <Container>
+            <NavbarComponentRegisteredUser/>
+            {events.map((event) => {
+              return <EventCardComponent props={event}/>
 
-          })}
-          
+            })}
+            
+          </Container>
         </div>
         }
       </div>
