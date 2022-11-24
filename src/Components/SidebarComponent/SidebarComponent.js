@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import './SidebarStyling/SidebarStyle.css'
+import { faCog, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 export default class SidebarComponent extends Component {
   render() {
     return (
@@ -17,8 +19,8 @@ export default class SidebarComponent extends Component {
 
         </div>
         <div className='dangerousMenu menu fixed-bottom'>
-            <h2 className='settings menuItem'>Settings</h2>
-            <h2 className='logout menuItem'>Log out</h2>
+            <h2 className='settings menuItem'> <FontAwesomeIcon icon={faCog}/> Settings</h2>
+            <h2 className='logout menuItem'> <FontAwesomeIcon icon={faSignOut}/> Log out</h2>
         </div>
      </div>
     )
