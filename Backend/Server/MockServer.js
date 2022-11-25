@@ -48,8 +48,15 @@ app.post('/login', async (req, res) => {
 })
 
 app.post('/register', async (req,res) => {
+    const usernameRegex = /^[A-Za-z0-9]{3,256}$/
+    const passwordUppercaseRegex = /[A-Z]/
+    const passwordNumbersRegex = /(?<numbers>\d{2,256})/
+    const passwordCharacterRegex = /(?<=[\.\?\!]).|(?=[\.\?\!])./
+
     let username = req.body.username;
     let password = req.body.password;
+    let email = req.body.email;
+
     // change those checks as you need
     if(username.length <= 3 || password.length <= 3)
     {
@@ -64,7 +71,7 @@ app.post('/register', async (req,res) => {
         }
         else
         {
-            await registerUser(username, password)
+            await registerUser(username, password, email)
             res.status(200).send('User successfully registered') 
         }
     }
@@ -77,10 +84,10 @@ app.listen(port, () => {
 
 //#region Functions
 
-async function registerUser(username, password)
+async function registerUser(username, password, email)
 {
     let hashedPass = await bcrypt.hash(password, saltRounds)
-    await sql.query`INSERT INTO dbo.USERS VALUES(${username}, ${hashedPass})`
+    await sql.query`INSERT INTO dbo.USERS(Username, Email, HashedPassword) VALUES(${username}, ${email}, ${hashedPass})`
     
 }
 

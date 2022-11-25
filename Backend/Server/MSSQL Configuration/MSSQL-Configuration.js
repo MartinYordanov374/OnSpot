@@ -8,8 +8,6 @@ let connectionStringData = {
     password: process.env.REACT_APP_SERVER_PASSWORD,
     options: {"trustServerCertificate": true}
 }
-
-console.log(process.env)
 async function connectWithMSSQLDatabase() {
     try{
         sql.connect(connectionStringData)
