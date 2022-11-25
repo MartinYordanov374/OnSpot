@@ -1,7 +1,7 @@
 const usernameRegex = /^[A-Za-z0-9]{3,256}$/
-const passwordUppercaseRegex = /^(?<uppercasePattern>[A-Z]*|.[A-Z])$/
-const passwordNumbersRegex = /^(?<numbers>\d{2,256})$/
-const passwordCharacterRegex = /^(?<uppercasePattern>[\.\?\!]*|.[\.\?\!])$/
+const passwordUppercaseRegex = /[A-Z]/
+const passwordNumbersRegex = /(?<numbers>\d{2,256})/
+const passwordCharacterRegex = /(?<=[\.\?\!]).|(?=[\.\?\!])./
 
 let validatePassword = (password) => {
     if(password.length <= 3)
@@ -37,7 +37,7 @@ let validateUsername = (username) => {
     }
     else
     {
-        return {status: true, msg: 'The username should be at least 3 characters and it should be a combination of letters and digits.'}
+        return {status: false, msg: 'The username should be at least 3 characters. It is recommended that it include digits as well.'}
     }
 }
 

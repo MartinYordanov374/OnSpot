@@ -4,6 +4,7 @@ let cors = require('cors')
 
 let sql = require('mssql')
 let mssql_configuration = require('./MSSQL Configuration/MSSQL-Configuration.js')
+const { validateUsername, validatePassword } = require('./Validations.js')
 //#region Variables
 let port = 3300
 let saltRounds = 9
@@ -54,11 +55,7 @@ app.post('/register', async (req,res) => {
     let password = req.body.password;
     let email = req.body.email;
 
-    if(username.length <= 3 || password.length <= 3)
-    {
-      res.status(401).send('Registration failed. Invalid credentials.')
-    }
-    else
+    if(validateUsername(username).status && validatePassword(password).status)
     {
         let targetUser = await (await UserExists(username)).recordset
         if(targetUser.length > 0)
@@ -69,6 +66,17 @@ app.post('/register', async (req,res) => {
         {
             await registerUser(username, password, email)
             res.status(200).send('User successfully registered') 
+        }
+    }
+    else
+    {
+        if(validateUsername(username).status == false)
+        {
+            res.status(401).send(validateUsername(username).msg)
+        }
+        else
+        {
+            res.status(401).send(validatePassword(password).msg)
         }
     }
 })
