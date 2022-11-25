@@ -74,10 +74,13 @@ app.post('/register', async (req,res) => {
         {
             res.status(401).send(validateUsername(username).msg)
         }
-        else
+        res.status(200).send(validateUsername(username).msg)
+
+        if(validatePassword(password).status == false)
         {
             res.status(401).send(validatePassword(password).msg)
         }
+        res.status(200).send(validatePassword(password).msg)
     }
 })
 
