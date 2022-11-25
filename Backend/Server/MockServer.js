@@ -48,16 +48,12 @@ app.post('/login', async (req, res) => {
 })
 
 app.post('/register', async (req,res) => {
-    const usernameRegex = /^[A-Za-z0-9]{3,256}$/
-    const passwordUppercaseRegex = /[A-Z]/
-    const passwordNumbersRegex = /(?<numbers>\d{2,256})/
-    const passwordCharacterRegex = /(?<=[\.\?\!]).|(?=[\.\?\!])./
+
 
     let username = req.body.username;
     let password = req.body.password;
     let email = req.body.email;
 
-    // change those checks as you need
     if(username.length <= 3 || password.length <= 3)
     {
       res.status(401).send('Registration failed. Invalid credentials.')
