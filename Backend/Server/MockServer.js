@@ -4,10 +4,11 @@ let cors = require('cors')
 
 let sql = require('mssql')
 let mssql_configuration = require('./MSSQL Configuration/MSSQL-Configuration.js')
+
 const { validateUsername, validatePassword } = require('./Validations.js')
 //#region Variables
-let port = 3300
-let saltRounds = 9
+let port = process.env.REACT_APP_SERVER_PORT
+let saltRounds = process.env.REACT_APP_SALT_ROUNDS
 //#endregion
 
 app = express()
