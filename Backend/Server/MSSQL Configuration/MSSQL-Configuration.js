@@ -1,14 +1,15 @@
 const sql = require('mssql')
-
+require('dotenv').config()
 // you should be able to get the following data from your connection string
 let connectionStringData = {
-    server: 'your server address',
-    database: 'your target database',
-    user: 'your connection string user (usually sa)',
-    password: 'your connection string password',
+    server: process.env.REACT_APP_SERVER_ADDRESS,
+    database: process.env.REACT_APP_SERVER_DATABASENAME,
+    user: process.env.REACT_APP_SERVER_USER,
+    password: process.env.REACT_APP_SERVER_PASSWORD,
     options: {"trustServerCertificate": true}
 }
 
+console.log(process.env)
 async function connectWithMSSQLDatabase() {
     try{
         sql.connect(connectionStringData)

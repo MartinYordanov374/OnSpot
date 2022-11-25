@@ -9,7 +9,6 @@ import HostAnEventPageComponent from './Components/HostAnEventComponent/HostAnEv
 import ExploreEventsComponent from './Components/ExploreEventsComponent/ExploreEventsComponent';
 import EventPageComponent from './Components/EventPageComponent/EventPageComponent';
 import ProfilePageComponent from './Components/ProfilePageComponent/ProfilePageComponent';
-
 function App() {
   return (
    <Router>

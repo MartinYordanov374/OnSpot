@@ -4,7 +4,6 @@ let cors = require('cors')
 
 let sql = require('mssql')
 let mssql_configuration = require('./MSSQL Configuration/MSSQL-Configuration.js')
-
 //#region Variables
 let port = 3300
 let saltRounds = 9
