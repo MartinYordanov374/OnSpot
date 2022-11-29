@@ -54,7 +54,7 @@ app.post('/register', async (req,res) => {
 
     let username = req.body.username;
     let password = req.body.password;
-    let email = req.body.email;
+    let email = req.body.email.toLowerCase();
 
     if(validateUsername(username).status && validatePassword(password).status)
     {

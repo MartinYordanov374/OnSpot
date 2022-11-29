@@ -2,7 +2,7 @@ const usernameRegex = /^[A-Za-z0-9]{3,256}$/
 const passwordUppercaseRegex = /[A-Z]/
 const passwordNumbersRegex = /(?<numbers>\d{2,256})/
 const passwordCharacterRegex = /(?<=[\.\?\!]).|(?=[\.\?\!])./
-
+const emailRegex = /[a-z]+@[a-z]+\.[a-z]+/
 let validatePassword = (password) => {
     if(password.length <= 3)
     {
@@ -41,7 +41,18 @@ let validateUsername = (username) => {
     }
 }
 
+let validateEmail = (email) => {
+    if(emailRegex.text(email))
+    {
+        return {status: true, msg: 'The email is successfully validated.'}
+    }
+    else
+    {
+        return {status: false, msg: 'Invalid email'}
+    }
+}
 module.exports = {
     validatePassword,
-    validateUsername
+    validateUsername,
+    validateEmail
 }
