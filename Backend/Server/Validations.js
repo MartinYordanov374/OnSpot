@@ -42,7 +42,7 @@ let validateUsername = (username) => {
 }
 
 let validateEmail = (email) => {
-    if(emailRegex.text(email))
+    if(emailRegex.test(email))
     {
         return {status: true, msg: 'The email is successfully validated.'}
     }

@@ -5,10 +5,10 @@ let cors = require('cors')
 let sql = require('mssql')
 let mssql_configuration = require('./MSSQL Configuration/MSSQL-Configuration.js')
 
-const { validateUsername, validatePassword } = require('./Validations.js')
+const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 //#region Variables
 let port = process.env.REACT_APP_SERVER_PORT
-let saltRounds = process.env.REACT_APP_SALT_ROUNDS
+let saltRounds = Number(process.env.REACT_APP_SALT_ROUNDS)
 //#endregion
 
 app = express()
@@ -56,7 +56,7 @@ app.post('/register', async (req,res) => {
     let password = req.body.password;
     let email = req.body.email.toLowerCase();
 
-    if(validateUsername(username).status && validatePassword(password).status)
+    if(validateUsername(username).status && validatePassword(password).status && validateEmail(email).status)
     {
         let targetUser = await (await UserExists(username)).recordset
         if(targetUser.length > 0)
@@ -75,13 +75,16 @@ app.post('/register', async (req,res) => {
         {
             res.status(401).send(validateUsername(username).msg)
         }
-        res.status(200).send(validateUsername(username).msg)
 
         if(validatePassword(password).status == false)
         {
             res.status(401).send(validatePassword(password).msg)
         }
-        res.status(200).send(validatePassword(password).msg)
+
+        if(validateEmail(email).status == false)
+        {
+            res.status(401).send(validateEmail(email).msg)
+        }
     }
 })
 
