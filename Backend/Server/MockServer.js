@@ -25,28 +25,24 @@ app.get('/', (req,res) => {
 app.post('/login', async (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
-    // change those checks as you need
-    if(username.length <= 3 || password.length <= 3)
+    // TODO GENERATE JWT TOKEN UPON LOGIN, SO THAT YOU CAN KEEP THE USER SESSION
+
+    let targetUser = await (await UserExists(username)).recordset
+    if(targetUser.length > 0)
     {
-        res.status(401).send('Log In failed. Invalid credentials.')
-    }
-    else{
-        let targetUser = await (await UserExists(username)).recordset
-        if(targetUser.length > 0)
+        if(await bcrypt.compare(password, targetUser[0].HashedPassword))
         {
-            if(await bcrypt.compare(password, targetUser[0].hashedPass))
-            {
-                res.status(200).send('User logged in successfully') 
-            }
-            else{
-                res.status(401).send('Wrong password.')
-            }
+            res.status(200).send('User logged in successfully') 
         }
-        else
-        {
-            res.status(404).send('This user does not exist.')
+        else{
+            res.status(401).send('Wrong password.')
         }
     }
+    else
+    {
+        res.status(404).send('This user does not exist.')
+    }
+    
 })
 
 app.post('/register', async (req,res) => {
