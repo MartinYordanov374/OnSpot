@@ -146,7 +146,7 @@ let start = async() =>
         {
             delete req.session.user
         }
-        res.status(200).send('Log out successfull')
+        res.status(200).send('Log out successfull.')
     })
 
     app.listen(port, () => {

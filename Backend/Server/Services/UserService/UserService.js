@@ -36,6 +36,11 @@ async function LoginUser(username, password)
     }
 }
 
+async function generateUserToken()
+{
+    
+}
+
 module.exports = {
     registerUser,
     UserExists, 
