@@ -97,10 +97,34 @@ async function GetAllEvents()
     }
 }
 
+async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName, 
+    updatedEventCategory, updatedEventDate, updatedEventDesc, updatedEventType )
+    {
+        let tokenData = validateToken(CurrentUserToken)
+        if(tokenData.status == true)
+        {
+            try{
+
+                await sql.query`UPDATE dbo.Events 
+                SET EventDescription = ${updatedEventDesc}, 
+                EventName = ${UdpatedEventName},
+                EventType = ${updatedEventType},
+                EventDate = ${updatedEventDate},
+                EventCategory = ${updatedEventCategory}
+                WHERE EventHosterID = ${tokenData.userID} AND EventID = ${TargetEventID} `
+                return {status: 200, msg: 'Event successfully edited.'}
+            }
+            catch(err)
+            {
+                return {status: 409, msg: 'You can not do this action.'}
+            }
+        }
+    }
 module.exports = {
     HostEvent,
     CheckIfUserAlreadyCreatedEvent,
     DeleteEvent,
     AttendEvent,
-    GetAllEvents
+    GetAllEvents,
+    EditEvent
 }

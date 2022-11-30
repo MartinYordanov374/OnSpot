@@ -240,7 +240,8 @@ let start = async() =>
         let targetEventID = Number(req.params.eventID)
         let currentUserToken = req.params.userToken;
 
-        let result = await EditEvent()
+        let result = await EditEvent(targetEventID, currentUserToken, updatedEventName, updatedEventCategory, updatedEventDate, updatedEventDesc, updatedEventType )
+        res.status(result.status).send(result.msg)
 
     })
     app.listen(port, () => {
