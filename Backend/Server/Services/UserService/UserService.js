@@ -42,13 +42,26 @@ async function FollowUser(FollowerUserID, FollowedUserID)
     // check if user already follows that user
     if(await CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID) == true)
     {
-        console.log(`User ID: ${FollowerUserID} unfollowed ${FollowedUserID}`)
-        await sql.query`DELETE FROM dbo.FollowersTable WHERE FollowerUserID = ${FollowerUserID} and FollowedUserID = ${FollowedUserID}`
+        try{
+            await sql.query`DELETE FROM dbo.FollowersTable WHERE FollowerUserID = ${FollowerUserID} and FollowedUserID = ${FollowedUserID}`
+            return {status: 200, msg: 'You no longer follow this user.'}
+        }   
+        catch(err)
+        {
+            return {status: 500, msg: 'Internal server error.'}
+        }
+        
     }
     else
     {
-        console.log(`User ID: ${FollowerUserID} started following ${FollowedUserID}`)
-        await sql.query`INSERT INTO dbo.FollowersTable(FollowerUserID, FollowedUserID) VALUES(${FollowerUserID}, ${FollowedUserID})`
+        try{
+            await sql.query`INSERT INTO dbo.FollowersTable(FollowerUserID, FollowedUserID) VALUES(${FollowerUserID}, ${FollowedUserID})`
+            return {status: 200, msg: 'You now follow this user.'}
+        }
+        catch(err)
+        {
+            return {status: 500, msg: 'Internal server error.'}
+        }
     }
 }
 

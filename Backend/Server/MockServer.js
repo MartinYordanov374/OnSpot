@@ -166,7 +166,12 @@ let start = async() =>
         let isTokenValid = validateToken(followerToken)
         if( isTokenValid.status == true )
         {
-            await FollowUser( Number(isTokenValid.userID), userToBeFollowedId)
+           let result =  await FollowUser( Number(isTokenValid.userID), userToBeFollowedId)
+           res.status(result.status).send(result.msg)
+        }
+        else
+        {
+            res.status(409).send('You cannot do this action!')
         }
     })
 
