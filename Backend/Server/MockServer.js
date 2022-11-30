@@ -85,14 +85,16 @@ app.post('/register', async (req,res) => {
 })
 
 app.post('/hostEvent', async (req,res) => {
+    // TODO FIGURE LOCATION OUT + user ID
+    // TODO ADD CHECK IF USER ALREADY CREATED SUCH AN EVENT
     let eventName = req.body.name;
     let eventDescription = req.body.description;
     let eventLocation = req.body.location;
-    let eventType = req.body.type;
+    let eventType = req.body.type == 'Public' ? 1 : 0 ;
     let eventCategory = req.body.category;
-    let eventDate = req.body.date;
-
-    console.log(`Name: ${eventName} Desc: ${eventDescription} Loc: ${eventLocation} Type: ${eventType} Category: ${eventCategory} Date: ${eventDate}`)
+    let eventDate = new Date(req.body.date).toISOString();
+    let EventHosterID = 1;
+    let result = await HostEvent(EventHosterID, eventName, eventDescription, eventLocation, eventCategory, eventType, eventDate)
 })
 /* TODO:
     -- create(host) event endpoint
@@ -139,6 +141,15 @@ async function registerUser(username, password, email)
 async function UserExists(username)
 {
     let result = await sql.query`SELECT * FROM dbo.users WHERE username = ${username}`
+    return result
+}
+
+async function HostEvent(EventHosterID, EventName, EventDescription, location, EventClass, EventType, EventDate)
+{
+    let result = await sql.query`
+    INSERT INTO dbo.Events(EventHosterID, EventName, EventDescription, EventClass, EventType, EventDate) 
+    VALUES(${EventHosterID}, ${EventName}, ${EventDescription}, ${EventClass}, ${EventType}, ${EventDate})`
+
     return result
 }
 //#endregion
