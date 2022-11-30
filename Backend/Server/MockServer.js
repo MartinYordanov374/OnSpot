@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const mssql_configuration = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
-const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent } = require('./Services/EventsService/EventsService.js')
+const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents } = require('./Services/EventsService/EventsService.js')
 const  { registerUser, UserExists } = require('./Services/UserService/UserService.js')
 const port = process.env.REACT_APP_SERVER_PORT
 
@@ -126,6 +126,11 @@ app.post('/attendEvent/:eventId', async (req,res) => {
 
     let result = await AttendEvent(userID, eventID)
     res.status(result.status).send(result.msg)
+})
+
+app.get('/GetAllEvents', async (req,res) => {
+    let result = await GetAllEvents()
+    res.status(result.status).send(result.payload)
 })
 
 app.listen(port, () => {

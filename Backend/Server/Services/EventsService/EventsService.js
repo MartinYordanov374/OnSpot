@@ -85,9 +85,22 @@ async function CheckIfUserAlreadyAttendsEvent(UserID, EventID)
     return userAttendsAlready
 }
 
+async function GetAllEvents()
+{
+    try{
+        let result = await sql.query`SELECT * FROM dbo.Events`
+        return {status: 200, msg: 'Events successfully fetched from the database.', payload: result.recordset}
+    }
+    catch(err)
+    {
+        return {status: 500, msg: 'Internal server error.'}
+    }
+}
+
 module.exports = {
     HostEvent,
     CheckIfUserAlreadyCreatedEvent,
     DeleteEvent,
-    AttendEvent
+    AttendEvent,
+    GetAllEvents
 }
