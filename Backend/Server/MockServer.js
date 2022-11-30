@@ -5,6 +5,7 @@ const mssql_configuration = require('./MSSQL Configuration/MSSQL-Configuration.j
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents } = require('./Services/EventsService/EventsService.js')
 const  { registerUser, UserExists, LoginUser } = require('./Services/UserService/UserService.js')
+const { session } = require('express-session')
 const port = process.env.REACT_APP_SERVER_PORT
 
 app = express()
