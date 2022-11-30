@@ -84,6 +84,44 @@ app.post('/register', async (req,res) => {
     }
 })
 
+app.post('/hostEvent', async (req,res) => {
+    let eventName = req.body.name;
+    let eventDescription = req.body.description;
+    let eventLocation = req.body.location;
+    let eventType = req.body.type;
+    let eventCategory = req.body.category;
+    let eventDate = req.body.date;
+
+    console.log(`Name: ${eventName} Desc: ${eventDescription} Loc: ${eventLocation} Type: ${eventType} Category: ${eventCategory} Date: ${eventDate}`)
+})
+/* TODO:
+    -- create(host) event endpoint
+    -- delete event endpoint
+    -- attend event endpoint (un-attend if already attending)
+    -- edit event, if user is owner of event
+    -- follow user endpoint (unfollow if already followed)
+    -- get events endpoint
+    -- search events by keyword endpoint (will probably use cosine similarity)
+    -- recommend event by user interests using the already gathered data and the KNN implemented earlier
+    -- add profile picture endpoint
+    -- add background picture endpoint
+    -- add bio endpoint
+    -- edit bio endpoint
+    -- logout endpoint
+    -- delete profile endpoint
+    -- get hosted events endpoint
+    -- get attended events endpoint
+    -- get upcoming events endpoint
+    -- see followers endpoint
+    -- upload event images endpoint
+    -- add event comments endpoint
+
+    ------ CHAT SYSTEM ------
+    -- receive message endpoint
+    -- send message endpoint
+    -- refresh chat endpoint
+*/
+
 app.listen(port, () => {
     console.log(`Local server running on port: ${port}`)
 })
