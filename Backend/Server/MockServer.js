@@ -126,32 +126,10 @@ app.delete('/deleteEvent/:userID/:eventId', async(req,res) => {
     res.status(result.status).send(result.msg)
 
 })
-/* TODO:
-    -- delete event endpoint
-    -- attend event endpoint (un-attend if already attending)
-    -- edit event, if user is owner of event
-    -- follow user endpoint (unfollow if already followed)
-    -- get events endpoint
-    -- search events by keyword endpoint (will probably use cosine similarity)
-    -- recommend event by user interests using the already gathered data and the KNN implemented earlier
-    -- add profile picture endpoint
-    -- add background picture endpoint
-    -- add bio endpoint
-    -- edit bio endpoint
-    -- logout endpoint
-    -- delete profile endpoint
-    -- get hosted events endpoint
-    -- get attended events endpoint
-    -- get upcoming events endpoint
-    -- see followers endpoint
-    -- upload event images endpoint
-    -- add event comments endpoint
 
-    ------ CHAT SYSTEM ------
-    -- receive message endpoint
-    -- send message endpoint
-    -- refresh chat endpoint
-*/
+app.post('/attendEvent/:eventId', (req,res) => {
+    
+})
 
 app.listen(port, () => {
     console.log(`Local server running on port: ${port}`)

@@ -47,6 +47,17 @@ async function CheckIfUserEventExists(EventID, EventHosterID)
     return result.recordset.length
 }
 
+async function AttendEvent(EventID, UserID)
+{
+    // owner attends by default
+    // un-attend if you are already attending
+}
+
+async function CheckIfUserAlreadyAttendsEvent(EventID, UserID)
+{
+    let userAttends = await sql.query`SELECT * FROM dbo.AttendacesTable WHERE EventID = ${EventID} AND UserID = ${UserID}`
+
+}
 
 module.exports = {
     HostEvent,
