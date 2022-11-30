@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 
@@ -190,10 +190,23 @@ let start = async() =>
         res.status(result.status).send(result.msg)
 
     })
-    //get hosted events
     app.get('/GetUserEvents/:userID', async (req, res) => {
         let userID = Number(req.params.userID)
         let result = await GetUserEvents(userID)
+
+        if(result.status != 404)
+        {
+            res.status(result.status).send(result.userEvents)
+        }
+        else
+        {
+            res.status(result.status).send(result.msg)
+        }
+    })
+
+    app.get('/GetUserAttendedEvents/:userID', async(req,res) => {
+        let userID = Number(req.params.userID)
+        let result = await GetUserAttendedEvents(userID)
 
         if(result.status != 404)
         {

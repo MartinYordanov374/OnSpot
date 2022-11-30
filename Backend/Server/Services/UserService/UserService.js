@@ -133,10 +133,31 @@ async function DeleteProfile(userToken, ProfileID)
 async function GetUserEvents(userID)
 {
     let userExists = await UserExistsById(userID)
-    if(userExists == true)
+    if(userExists.recordset.length >= 1)
     {
         try{
             let result = await sql.query`SELECT * FROM dbo.Events where EventHosterID = ${userID}`
+            return {status: 200, userEvents: result.recordset}
+        }
+        catch(err)
+        {
+            console.log(err)
+            return {status: 500, msg: 'Internal server error.'}
+        }
+    }
+    else
+    {
+        return {status: 404, msg: 'This user does not exist.'}
+    }
+}
+
+async function GetUserAttendedEvents(userID)
+{
+    let userExists = await UserExistsById(userID)
+    if(userExists.recordset.length >= 1)
+    {
+        try{
+            let result = await sql.query`SELECT * FROM Events WHERE EventID = (SELECT EventID FROM AttendancesTable WHERE UserID = ${userID})`
             return {status: 200, userEvents: result.recordset}
         }
         catch(err)
@@ -179,5 +200,6 @@ module.exports = {
     validateToken,
     GetUserFollowers,
     DeleteProfile,
-    GetUserEvents
+    GetUserEvents,
+    GetUserAttendedEvents
 }
