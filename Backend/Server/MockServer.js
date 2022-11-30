@@ -144,11 +144,11 @@ async function UserExists(username)
     return result
 }
 
-async function HostEvent(EventHosterID, EventName, EventDescription, location, EventClass, EventType, EventDate)
+async function HostEvent(EventHosterID, EventName, EventDescription, EventLocation, EventClass, EventType, EventDate)
 {
     let result = await sql.query`
-    INSERT INTO dbo.Events(EventHosterID, EventName, EventDescription, EventClass, EventType, EventDate) 
-    VALUES(${EventHosterID}, ${EventName}, ${EventDescription}, ${EventClass}, ${EventType}, ${EventDate})`
+    INSERT INTO dbo.Events(EventHosterID, EventName, EventDescription, EventLocation, EventClass, EventType, EventDate) 
+    VALUES(${EventHosterID}, ${EventName}, ${EventDescription}, ${EventLocation}, ${EventClass}, ${EventType}, ${EventDate})`
 
     return result
 }
