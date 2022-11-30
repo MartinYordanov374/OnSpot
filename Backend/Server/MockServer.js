@@ -229,6 +229,18 @@ let start = async() =>
         let result = await AddUserBio(userToken, profileID, updatedBio)
         res.status(result.status).send(result.msg)
     })
+
+    app.post('/EditEvent/:eventID', async(req,res) => {
+        let updatedEventName = req.body.updatedEventName
+        let updatedEventDesc = req.body.updatedEventDesc;
+        let updatedEventDate = new Date(req.body.updatedEventDate).toISOString()
+        let updatedEventType = req.body.updatedEventType;
+        let updatedEventCategory = req.body.updatedEventCategory;
+
+        let targetEventID = Number(req.params.eventID)
+        let currentUserToken = req.params.userToken;
+
+    })
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)
     })
