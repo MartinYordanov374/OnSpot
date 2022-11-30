@@ -36,9 +36,34 @@ async function LoginUser(username, password)
     }
 }
 
-async function FollowUser(FollowerID, FollowedUserID)
+async function FollowUser(FollowerUserID, FollowedUserID)
 {
-    console.log(FollowerID, FollowedUserID)
+    console.log(FollowerUserID, FollowedUserID)
+    // check if user already follows that user
+    if(await CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID) == true)
+    {
+        console.log(`User ID: ${FollowerUserID} unfollowed ${FollowedUserID}`)
+        await sql.query`DELETE FROM dbo.FollowersTable WHERE FollowerUserID = ${FollowerUserID} and FollowedUserID = ${FollowedUserID}`
+    }
+    else
+    {
+        console.log(`User ID: ${FollowerUserID} started following ${FollowedUserID}`)
+        await sql.query`INSERT INTO dbo.FollowersTable(FollowerUserID, FollowedUserID) VALUES(${FollowerUserID}, ${FollowedUserID})`
+    }
+}
+
+async function CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID)
+{
+    let result = await sql.query`SELECT * FROM dbo.FollowersTable WHERE FollowerUserID = ${FollowerUserID} AND FollowedUserID = ${FollowedUserID}`
+    if(result.recordset.length >= 1)
+    {
+        return true
+    }
+    else
+    {
+        return false
+    }
+
 }
 
 function validateToken(token)
