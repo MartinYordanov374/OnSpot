@@ -6,6 +6,7 @@ const { validateUsername, validatePassword, validateEmail } = require('./Validat
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents } = require('./Services/EventsService/EventsService.js')
 const  { registerUser, UserExists, LoginUser } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
+const jwt = require('jsonwebtoken')
 
 const port = process.env.REACT_APP_SERVER_PORT
 
@@ -36,11 +37,18 @@ let start = async() =>
     app.post('/login', async (req, res) => {
         let username = req.body.username;
         let password = req.body.password;
-
-        let result = await LoginUser(username, password)
-        res.status(result.status).send(result.msg)
-        req.session.user = 'user'
-        console.log(req.session)
+        if( req.session.user == null)
+        {
+            // const token = jwt.sign(userData, process.env.REACT_APP_SECRET)
+            let result = await LoginUser(username, password)
+            const token = jwt.sign(result.targetUserID, process.env.REACT_APP_SECRET)
+            req.session.userToken = token  
+            res.status(result.status).send(result.msg)
+        }
+        else
+        {
+            res.status(409).send('You are already logged in')
+        }
         
     })
 
@@ -147,6 +155,24 @@ let start = async() =>
             delete req.session.user
         }
         res.status(200).send('Log out successfull.')
+    })
+
+    app.post('/validateToken', (req,res) =>
+    {
+        const userJWT = req.session.userToken
+        try{
+            const verified = jwt.verify(userJWT, process.env.REACT_APP_SECRET);
+            if(verified){
+                return res.send("Successfully Verified");
+            }else{
+                // Access Denied
+                return res.status(401).send(error);
+            }
+        }
+        catch(err)
+        {
+            return res.status(401).send(error);
+        }
     })
 
     app.listen(port, () => {

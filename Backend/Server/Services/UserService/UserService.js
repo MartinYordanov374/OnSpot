@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const sql = require('mssql')
+const jwt = require('jsonwebtoken')
 const saltRounds = Number(process.env.REACT_APP_SALT_ROUNDS)
 
 async function registerUser(username, password, email)
@@ -19,12 +20,11 @@ async function UserExists(username)
 async function LoginUser(username, password)
 {
     let targetUser = await (await UserExists(username)).recordset
-    // TODO GENERATE JWT TOKEN UPON LOGIN, SO THAT YOU CAN KEEP THE USER SESSION
     if(targetUser.length > 0)
     {
         if(await bcrypt.compare(password, targetUser[0].HashedPassword))
         {
-            return {status: 200, msg: 'User logged in successfully.'}
+            return {status: 200, msg: 'User logged in successfully.', targetUserID: targetUser[0].id}
         }
         else{
             return {status: 401, msg: 'Wrong password.'}
@@ -36,10 +36,6 @@ async function LoginUser(username, password)
     }
 }
 
-async function generateUserToken()
-{
-    
-}
 
 module.exports = {
     registerUser,
