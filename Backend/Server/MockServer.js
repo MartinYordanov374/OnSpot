@@ -219,7 +219,15 @@ let start = async() =>
     })
     
     app.post('/AddUserBio/:profileID', async(req,res) => {
-        
+        let profileID = Number(req.params.profileID)
+        let userToken = req.session.userToken
+        let updatedBio = req.body.bio;
+        if(updatedBio.length > 120)
+        {
+            updatedBio = updatedBio.slice(0, 120)
+        }
+        let result = await AddUserBio(userToken, profileID, updatedBio)
+        res.status(result.status).send(result.msg)
     })
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)

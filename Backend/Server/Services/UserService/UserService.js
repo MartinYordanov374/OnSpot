@@ -151,14 +151,15 @@ async function GetUserEvents(userID)
     }
 }
 
-async function AddUserBio(userToken, ProfileID)
+async function AddUserBio(userToken, ProfileID, UpdatedBio)
 {
     let tokenData = validateToken(userToken)
     if(tokenData.status == true)
     {
         if(tokenData.userID == ProfileID)
         {
-            console.log('You can add a bio!')
+            await sql.query`UPDATE dbo.Users SET bio = ${UpdatedBio} WHERE id = ${tokenData.userID}`
+            return {status: 200, msg: 'Bio successfully updated.'}
         }
         else
         {
