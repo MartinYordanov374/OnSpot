@@ -194,7 +194,15 @@ let start = async() =>
     app.get('/GetUserEvents/:userID', async (req, res) => {
         let userID = Number(req.params.userID)
         let result = await GetUserEvents(userID)
-        res.status(result.status).send(result.userEvents)
+
+        if(result.status != 404)
+        {
+            res.status(result.status).send(result.userEvents)
+        }
+        else
+        {
+            res.status(result.status).send(result.msg)
+        }
     })
     
     app.listen(port, () => {
