@@ -36,9 +36,34 @@ async function LoginUser(username, password)
     }
 }
 
+async function FollowUser(FollowerID, FollowedUserID)
+{
+    console.log(FollowerID, FollowedUserID)
+}
+
+function validateToken(token)
+{
+    try{
+        const verified = jwt.verify(token, process.env.REACT_APP_SECRET);
+        const userID = jwt.decode(token)
+        if(verified){
+            return {status: true, userID: userID}
+        }else{
+            // Access Denied
+            return false
+        }
+    }
+    catch(err)
+    {
+        console.log(err)
+        return {status: 500, message: 'Internal server error.' }
+    }
+}
 
 module.exports = {
     registerUser,
     UserExists, 
-    LoginUser
+    LoginUser,
+    FollowUser,
+    validateToken
 }

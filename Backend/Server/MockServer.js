@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, UserExists, LoginUser } = require('./Services/UserService/UserService.js')
+const  { registerUser, UserExists, LoginUser, FollowUser, validateToken } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 
@@ -37,9 +37,8 @@ let start = async() =>
     app.post('/login', async (req, res) => {
         let username = req.body.username;
         let password = req.body.password;
-        if( req.session.user == null)
+        if( req.session.user == null )
         {
-            // const token = jwt.sign(userData, process.env.REACT_APP_SECRET)
             let result = await LoginUser(username, password)
             const token = jwt.sign(result.targetUserID, process.env.REACT_APP_SECRET)
             req.session.userToken = token  
@@ -159,19 +158,15 @@ let start = async() =>
 
     app.post('/validateToken', (req,res) =>
     {
-        const userJWT = req.session.userToken
-        try{
-            const verified = jwt.verify(userJWT, process.env.REACT_APP_SECRET);
-            if(verified){
-                return res.send("Successfully Verified");
-            }else{
-                // Access Denied
-                return res.status(401).send(error);
-            }
-        }
-        catch(err)
+    })
+
+    app.post('/followUser/:userToBeFollowedId', async(req,res) => {
+        let userToBeFollowedId = Number(req.params.userToBeFollowedId)
+        let followerToken = req.session.userToken
+        let isTokenValid = validateToken(followerToken)
+        if( isTokenValid.status == true )
         {
-            return res.status(401).send(error);
+            await FollowUser( Number(isTokenValid.userID), userToBeFollowedId)
         }
     })
 
