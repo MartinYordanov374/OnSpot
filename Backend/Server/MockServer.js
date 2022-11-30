@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql_configuration = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, UserExists } = require('./Services/UserService/UserService.js')
+const  { registerUser, UserExists, LoginUser } = require('./Services/UserService/UserService.js')
 const port = process.env.REACT_APP_SERVER_PORT
 
 app = express()
@@ -21,62 +21,53 @@ app.get('/', (req,res) => {
 app.post('/login', async (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
-    // TODO GENERATE JWT TOKEN UPON LOGIN, SO THAT YOU CAN KEEP THE USER SESSION
 
-    let targetUser = await (await UserExists(username)).recordset
-    if(targetUser.length > 0)
-    {
-        if(await bcrypt.compare(password, targetUser[0].HashedPassword))
-        {
-            res.status(200).send('User logged in successfully') 
-        }
-        else{
-            res.status(401).send('Wrong password.')
-        }
-    }
-    else
-    {
-        res.status(404).send('This user does not exist.')
-    }
+    let result = await LoginUser(username, password)
+    res.status(result.status).send(result.msg)
     
 })
 
 app.post('/register', async (req,res) => {
 
+    try{
+        let username = req.body.username;
+        let password = req.body.password;
+        let email = req.body.email.toLowerCase();
 
-    let username = req.body.username;
-    let password = req.body.password;
-    let email = req.body.email.toLowerCase();
-
-    if(validateUsername(username).status && validatePassword(password).status && validateEmail(email).status)
-    {
-        let targetUser = await (await UserExists(username)).recordset
-        if(targetUser.length > 0)
+        if(validateUsername(username).status && validatePassword(password).status && validateEmail(email).status)
         {
-            res.status(409).send('This user already exists!') 
+            let targetUser = await (await UserExists(username)).recordset
+            if(targetUser.length > 0)
+            {
+                res.status(409).send('This user already exists!') 
+            }
+            else
+            {
+                await registerUser(username, password, email)
+                res.status(200).send('User successfully registered') 
+            }
         }
         else
         {
-            await registerUser(username, password, email)
-            res.status(200).send('User successfully registered') 
+            if(validateUsername(username).status == false)
+            {
+                res.status(401).send(validateUsername(username).msg)
+            }
+
+            if(validatePassword(password).status == false)
+            {
+                res.status(401).send(validatePassword(password).msg)
+            }
+
+            if(validateEmail(email).status == false)
+            {
+                res.status(401).send(validateEmail(email).msg)
+            }
         }
     }
-    else
+    catch(err)
     {
-        if(validateUsername(username).status == false)
-        {
-            res.status(401).send(validateUsername(username).msg)
-        }
-
-        if(validatePassword(password).status == false)
-        {
-            res.status(401).send(validatePassword(password).msg)
-        }
-
-        if(validateEmail(email).status == false)
-        {
-            res.status(401).send(validateEmail(email).msg)
-        }
+        res.status(500).send('Internal server error.')
     }
 })
 
