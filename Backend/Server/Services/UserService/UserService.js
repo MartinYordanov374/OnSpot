@@ -107,6 +107,29 @@ async function GetUserFollowers(userID)
     return {status: 200, msg:'followers successfully fetched', followers: followers}
 }
 
+async function DeleteProfile(userToken, ProfileID)
+{
+    let tokenData = validateToken(userToken)
+    if(tokenData.status == true)
+    {
+        if(tokenData.userID == ProfileID)
+        {
+            try{
+                await sql.query`DELETE FROM Users WHERE id = ${ProfileID}`
+                return {status: 200, msg: 'Profile successfully deleted.'}
+            }
+            catch(err)
+            {
+                return {status: 500, msg: 'Internal server error.'}
+            }
+        }
+        else
+        {
+            return {status: 409, msg: 'You can not do this action.'}
+        }
+    }
+}
+
 function validateToken(token)
 {
     try{
@@ -133,5 +156,6 @@ module.exports = {
     LoginUser,
     FollowUser,
     validateToken,
-    GetUserFollowers
+    GetUserFollowers,
+    DeleteProfile
 }

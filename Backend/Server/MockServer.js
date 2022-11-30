@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, UserExistsByUsername, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers } = require('./Services/UserService/UserService.js')
+const  { registerUser, UserExistsByUsername, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 
@@ -181,6 +181,14 @@ let start = async() =>
         {
             res.status(409).send('You cannot do this action!')
         }
+    })
+
+    app.delete('/deleteProfile/:id', async (req,res) => {
+        let profileID = Number(req.params.id)
+        let CurrentUserToken = req.session.userToken
+        let result = await DeleteProfile(CurrentUserToken, profileID)
+        res.status(result.status).send(result.msg)
+
     })
 
     app.listen(port, () => {
