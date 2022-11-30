@@ -151,6 +151,22 @@ async function GetUserEvents(userID)
     }
 }
 
+async function AddUserBio(userToken, ProfileID)
+{
+    let tokenData = validateToken(userToken)
+    if(tokenData.status == true)
+    {
+        if(tokenData.userID == ProfileID)
+        {
+            console.log('You can add a bio!')
+        }
+        else
+        {
+            return {status: 409, msg: 'You can not do this action.'}
+        }
+    }
+}
+
 async function GetUserAttendedEvents(userID)
 {
     let userExists = await UserExistsById(userID)
@@ -201,5 +217,6 @@ module.exports = {
     GetUserFollowers,
     DeleteProfile,
     GetUserEvents,
-    GetUserAttendedEvents
+    GetUserAttendedEvents,
+    AddUserBio
 }
