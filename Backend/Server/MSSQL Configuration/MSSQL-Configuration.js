@@ -1,6 +1,5 @@
 const sql = require('mssql')
 require('dotenv').config()
-// you should be able to get the following data from your connection string
 let connectionStringData = {
     server: process.env.REACT_APP_SERVER_ADDRESS,
     database: process.env.REACT_APP_SERVER_DATABASENAME,
@@ -10,12 +9,14 @@ let connectionStringData = {
 }
 async function connectWithMSSQLDatabase() {
     try{
-        sql.connect(connectionStringData)
+        let conn = await sql.connect(connectionStringData)
         console.log('successfully connected with the database')
+        return conn
     }
     catch(err)
     {
         console.log(err)
     }
 }
-connectWithMSSQLDatabase()
+
+module.exports = {connectWithMSSQLDatabase}

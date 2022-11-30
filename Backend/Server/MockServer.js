@@ -1,130 +1,148 @@
 const bcrypt = require('bcrypt')
 const express = require('express')
 const cors = require('cors')
-const mssql_configuration = require('./MSSQL Configuration/MSSQL-Configuration.js')
+const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents } = require('./Services/EventsService/EventsService.js')
 const  { registerUser, UserExists, LoginUser } = require('./Services/UserService/UserService.js')
-const { session } = require('express-session')
+const session = require('express-session')
+
 const port = process.env.REACT_APP_SERVER_PORT
 
 app = express()
 app.use(express.json())
 app.use(cors())
 
-
-
-app.get('/', (req,res) => {
+app.use(session({
+    secret: process.env.REACT_APP_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        sameSite: false,
+        secure: false,
+        expires: new Date(Date.now() + 3600000),
+        httpOnly: true,
+        path: '/'
+        },
+  }));
+let start = async() =>
+{
+    let connection = await mssql.connectWithMSSQLDatabase()
     
-    res.status(200).send('Home page reached successfully')
-})
 
-app.post('/login', async (req, res) => {
-    let username = req.body.username;
-    let password = req.body.password;
+    app.get('/', (req,res) => {
+        res.status(200).send('Home page reached successfully')
+    })
 
-    let result = await LoginUser(username, password)
-    res.status(result.status).send(result.msg)
-    
-})
-
-app.post('/register', async (req,res) => {
-
-    try{
+    app.post('/login', async (req, res) => {
         let username = req.body.username;
         let password = req.body.password;
-        let email = req.body.email.toLowerCase();
 
-        if(validateUsername(username).status && validatePassword(password).status && validateEmail(email).status)
-        {
-            let targetUser = await (await UserExists(username)).recordset
-            if(targetUser.length > 0)
+        let result = await LoginUser(username, password)
+        res.status(result.status).send(result.msg)
+        
+    })
+
+    app.post('/register', async (req,res) => {
+
+        try{
+            let username = req.body.username;
+            let password = req.body.password;
+            let email = req.body.email.toLowerCase();
+
+            if(validateUsername(username).status && validatePassword(password).status && validateEmail(email).status)
             {
-                res.status(409).send('This user already exists!') 
+                let targetUser = await (await UserExists(username)).recordset
+                if(targetUser.length > 0)
+                {
+                    res.status(409).send('This user already exists!') 
+                }
+                else
+                {
+                    await registerUser(username, password, email)
+                    res.status(200).send('User successfully registered') 
+                }
             }
             else
             {
-                await registerUser(username, password, email)
-                res.status(200).send('User successfully registered') 
+                if(validateUsername(username).status == false)
+                {
+                    res.status(401).send(validateUsername(username).msg)
+                }
+
+                if(validatePassword(password).status == false)
+                {
+                    res.status(401).send(validatePassword(password).msg)
+                }
+
+                if(validateEmail(email).status == false)
+                {
+                    res.status(401).send(validateEmail(email).msg)
+                }
             }
         }
-        else
+        catch(err)
         {
-            if(validateUsername(username).status == false)
-            {
-                res.status(401).send(validateUsername(username).msg)
-            }
-
-            if(validatePassword(password).status == false)
-            {
-                res.status(401).send(validatePassword(password).msg)
-            }
-
-            if(validateEmail(email).status == false)
-            {
-                res.status(401).send(validateEmail(email).msg)
-            }
+            res.status(500).send('Internal server error.')
         }
-    }
-    catch(err)
-    {
-        res.status(500).send('Internal server error.')
-    }
-})
+    })
 
-app.post('/hostEvent', async (req,res) => {
-    // TODO FIGURE LOCATION OUT + user ID
-    // TODO ADD CHECK IF USER ALREADY CREATED SUCH AN EVENT
-    let eventName = req.body.name;
-    let eventDescription = req.body.description;
-    let eventLocation = req.body.location;
-    let eventType = req.body.type == 'Public' ? 1 : 0 ;
-    let eventCategory = req.body.category;
-    let eventDate = new Date(req.body.date).toISOString();
-    let EventHosterID = 1;
-    let SameUserEventsAmount = await CheckIfUserAlreadyCreatedEvent(EventHosterID, eventName, eventDate)
-    
-    try
-    {
-        if(SameUserEventsAmount > 1)
+    app.post('/hostEvent', async (req,res) => {
+        // TODO FIGURE LOCATION OUT + user ID
+        // TODO ADD CHECK IF USER ALREADY CREATED SUCH AN EVENT
+        let eventName = req.body.name;
+        let eventDescription = req.body.description;
+        let eventLocation = req.body.location;
+        let eventType = req.body.type == 'Public' ? 1 : 0 ;
+        let eventCategory = req.body.category;
+        let eventDate = new Date(req.body.date).toISOString();
+        let EventHosterID = 1;
+        let SameUserEventsAmount = await CheckIfUserAlreadyCreatedEvent(EventHosterID, eventName, eventDate)
+        
+        try
         {
-            res.status(409).send('You have already created such an event.')
+            if(SameUserEventsAmount > 1)
+            {
+                res.status(409).send('You have already created such an event.')
+            }
+            else
+            {
+                await HostEvent(EventHosterID, eventName, eventDescription, eventLocation, eventCategory, eventType, eventDate)
+                res.status(200).send('Event successfully created.')
+            }
         }
-        else
+        catch(err)
         {
-            await HostEvent(EventHosterID, eventName, eventDescription, eventLocation, eventCategory, eventType, eventDate)
-            res.status(200).send('Event successfully created.')
+            res.status(500).send('Internal server error.')
         }
-    }
-    catch(err)
-    {
-        res.status(500).send('Internal server error.')
-    }
-    
-})
+        
+    })
 
-app.delete('/deleteEvent/:userID/:eventId', async(req,res) => {
-    let eventID = Number(JSON.parse(JSON.stringify(req.params)).eventId)
-    let EventHosterID = Number(JSON.parse(JSON.stringify(req.params)).userID)
+    app.delete('/deleteEvent/:userID/:eventId', async(req,res) => {
+        let eventID = Number(JSON.parse(JSON.stringify(req.params)).eventId)
+        let EventHosterID = Number(JSON.parse(JSON.stringify(req.params)).userID)
 
-    let result = await DeleteEvent(eventID, EventHosterID)
-    res.status(result.status).send(result.msg)
+        let result = await DeleteEvent(eventID, EventHosterID)
+        res.status(result.status).send(result.msg)
 
-})
+    })
 
-app.post('/attendEvent/:eventId', async (req,res) => {
-    let userID = req.body.userID;
-    let eventID = Number(JSON.parse(JSON.stringify(req.params)).eventId)
+    app.post('/attendEvent/:eventId', async (req,res) => {
+        let userID = req.body.userID;
+        let eventID = Number(JSON.parse(JSON.stringify(req.params)).eventId)
 
-    let result = await AttendEvent(userID, eventID)
-    res.status(result.status).send(result.msg)
-})
+        let result = await AttendEvent(userID, eventID)
+        res.status(result.status).send(result.msg)
+    })
 
-app.get('/GetAllEvents', async (req,res) => {
-    let result = await GetAllEvents()
-    res.status(result.status).send(result.payload)
-})
+    app.get('/GetAllEvents', async (req,res) => {
+        let result = await GetAllEvents()
+        res.status(result.status).send(result.payload)
+    })
 
-app.listen(port, () => {
-    console.log(`Local server running on port: ${port}`)
-})
+    app.listen(port, () => {
+        console.log(`Local server running on port: ${port}`)
+    })
+}
+
+start()
