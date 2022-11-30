@@ -94,7 +94,16 @@ app.post('/hostEvent', async (req,res) => {
     let eventCategory = req.body.category;
     let eventDate = new Date(req.body.date).toISOString();
     let EventHosterID = 1;
-    let result = await HostEvent(EventHosterID, eventName, eventDescription, eventLocation, eventCategory, eventType, eventDate)
+    try
+    {
+        await HostEvent(EventHosterID, eventName, eventDescription, eventLocation, eventCategory, eventType, eventDate)
+        res.status(200).send('Event successfully created.')
+    }
+    catch(err)
+    {
+        res.status(500).send('Internal server error.')
+    }
+    
 })
 /* TODO:
     -- create(host) event endpoint
