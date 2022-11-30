@@ -208,6 +208,11 @@ function validateToken(token)
     }
 }
 
+async function EditEvent()
+{
+    
+}
+
 module.exports = {
     registerUser,
     UserExistsByUsername,
@@ -219,5 +224,6 @@ module.exports = {
     DeleteProfile,
     GetUserEvents,
     GetUserAttendedEvents,
-    AddUserBio
+    AddUserBio,
+    EditEvent
 }
