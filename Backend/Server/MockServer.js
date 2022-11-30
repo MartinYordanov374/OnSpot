@@ -7,7 +7,7 @@ const mssql_configuration = require('./MSSQL Configuration/MSSQL-Configuration.j
 
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 
-const  { CheckIfUserAlreadyCreatedEvent, HostEvent } = require('./Services/EventsService/EventsService.js')
+const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent } = require('./Services/EventsService/EventsService.js')
 const  { registerUser, UserExists } = require('./Services/UserService/UserService.js')
 
 //#region Variables
@@ -116,6 +116,13 @@ app.post('/hostEvent', async (req,res) => {
         res.status(500).send('Internal server error.')
     }
     
+})
+
+app.delete('/deleteEvent/:eventId', async(req,res) => {
+    let eventID = Number(JSON.parse(JSON.stringify(req.params)).eventId)
+    let result = await DeleteEvent(eventID)
+    res.status(result.status).send(result.msg)
+
 })
 /* TODO:
     -- delete event endpoint
