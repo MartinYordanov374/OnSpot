@@ -1,18 +1,11 @@
 const bcrypt = require('bcrypt')
 const express = require('express')
 const cors = require('cors')
-
-const sql = require('mssql')
 const mssql_configuration = require('./MSSQL Configuration/MSSQL-Configuration.js')
-
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
-
-const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent } = require('./Services/EventsService/EventsService.js')
+const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent } = require('./Services/EventsService/EventsService.js')
 const  { registerUser, UserExists } = require('./Services/UserService/UserService.js')
-
-//#region Variables
 const port = process.env.REACT_APP_SERVER_PORT
-//#endregion
 
 app = express()
 app.use(express.json())
@@ -127,16 +120,14 @@ app.delete('/deleteEvent/:userID/:eventId', async(req,res) => {
 
 })
 
-app.post('/attendEvent/:eventId', (req,res) => {
-    
+app.post('/attendEvent/:eventId', async (req,res) => {
+    let userID = req.body.userID;
+    let eventID = Number(JSON.parse(JSON.stringify(req.params)).eventId)
+
+    let result = await AttendEvent(userID, eventID)
+    res.status(result.status).send(result.msg)
 })
 
 app.listen(port, () => {
     console.log(`Local server running on port: ${port}`)
 })
-
-
-//#region Functions
-
-
-//#endregion

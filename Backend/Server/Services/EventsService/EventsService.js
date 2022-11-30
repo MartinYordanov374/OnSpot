@@ -47,20 +47,47 @@ async function CheckIfUserEventExists(EventID, EventHosterID)
     return result.recordset.length
 }
 
-async function AttendEvent(EventID, UserID)
+async function AttendEvent(UserID, EventID)
 {
     // owner attends by default
     // un-attend if you are already attending
+    let userAttendsAlready = await CheckIfUserAlreadyAttendsEvent(UserID, EventID)
+    if(userAttendsAlready == true)
+    {
+        try{
+            await sql.query`DELETE FROM dbo.AttendancesTable WHERE EventID = ${EventID} AND UserID = ${UserID}`
+            return {status: 200, msg: 'You no longer attend this event!'}
+        }
+        catch(err)
+        {
+            return {status: 500, msg: 'Internal server error.'}
+        }
+    }
+    else
+    {
+        try{
+            await sql.query`INSERT INTO dbo.AttendancesTable(EventID, UserID) VALUES(${EventID}, ${UserID})`
+            return {status: 200, msg: 'You now attend this event!'}
+            
+        }
+        catch(err)
+        {
+            return {status: 500, msg: 'Internal server error.'}
+        }
+    }
 }
 
-async function CheckIfUserAlreadyAttendsEvent(EventID, UserID)
+async function CheckIfUserAlreadyAttendsEvent(UserID, EventID)
 {
-    let userAttends = await sql.query`SELECT * FROM dbo.AttendacesTable WHERE EventID = ${EventID} AND UserID = ${UserID}`
+    let result = await sql.query`SELECT * FROM dbo.AttendancesTable WHERE EventID = ${EventID} AND UserID = ${UserID}`
+    let userAttendsAlready = true ? result.recordset.length >= 1 : false
 
+    return userAttendsAlready
 }
 
 module.exports = {
     HostEvent,
     CheckIfUserAlreadyCreatedEvent,
-    DeleteEvent
+    DeleteEvent,
+    AttendEvent
 }
