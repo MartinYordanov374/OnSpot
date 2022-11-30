@@ -11,9 +11,15 @@ async function registerUser(username, password, email)
     
 }
 
-async function UserExists(username)
+async function UserExistsByUsername(username)
 {
     let result = await sql.query`SELECT * FROM dbo.users WHERE username = ${username}`
+    return result
+}
+
+async function UserExistsByEmail(email)
+{
+    let result = await sql.query`SELECT * FROM dbo.users WHERE Email = ${email}`
     return result
 }
 
@@ -25,7 +31,7 @@ async function UserExistsById(id)
 
 async function LoginUser(username, password)
 {
-    let targetUser = await (await UserExists(username)).recordset
+    let targetUser = await (await UserExistsByUsername(username)).recordset
     if(targetUser.length > 0)
     {
         if(await bcrypt.compare(password, targetUser[0].HashedPassword))
@@ -117,7 +123,8 @@ function validateToken(token)
 
 module.exports = {
     registerUser,
-    UserExists, 
+    UserExistsByUsername,
+    UserExistsByEmail, 
     LoginUser,
     FollowUser,
     validateToken

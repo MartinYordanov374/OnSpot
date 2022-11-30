@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, UserExists, LoginUser, FollowUser, validateToken } = require('./Services/UserService/UserService.js')
+const  { registerUser, UserExistsByUsername, UserExistsByEmail, LoginUser, FollowUser, validateToken } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 
@@ -60,7 +60,7 @@ let start = async() =>
 
             if(validateUsername(username).status && validatePassword(password).status && validateEmail(email).status)
             {
-                let targetUser = await (await UserExists(username)).recordset
+                let targetUser = await (await UserExistsByEmail(username)).recordset
                 if(targetUser.length > 0)
                 {
                     res.status(409).send('This user already exists!') 
