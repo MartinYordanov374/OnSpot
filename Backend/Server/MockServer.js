@@ -1,14 +1,17 @@
 const bcrypt = require('bcrypt')
-let express = require('express')
-let cors = require('cors')
+const express = require('express')
+const cors = require('cors')
 
-let sql = require('mssql')
-let mssql_configuration = require('./MSSQL Configuration/MSSQL-Configuration.js')
+const sql = require('mssql')
+const mssql_configuration = require('./MSSQL Configuration/MSSQL-Configuration.js')
 
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
+
+const  { CheckIfUserAlreadyCreatedEvent, HostEvent } = require('./Services/EventsService/EventsService.js')
+const  { registerUser, UserExists } = require('./Services/UserService/UserService.js')
+
 //#region Variables
-let port = process.env.REACT_APP_SERVER_PORT
-let saltRounds = Number(process.env.REACT_APP_SALT_ROUNDS)
+const port = process.env.REACT_APP_SERVER_PORT
 //#endregion
 
 app = express()
@@ -148,36 +151,5 @@ app.listen(port, () => {
 
 //#region Functions
 
-async function registerUser(username, password, email)
-{
-    let hashedPass = await bcrypt.hash(password, saltRounds)
-    await sql.query`INSERT INTO dbo.USERS(Username, Email, HashedPassword) VALUES(${username}, ${email}, ${hashedPass})`
-    
-}
 
-async function UserExists(username)
-{
-    let result = await sql.query`SELECT * FROM dbo.users WHERE username = ${username}`
-    return result
-}
-
-async function HostEvent(EventHosterID, EventName, EventDescription, EventLocation, EventClass, EventType, EventDate)
-{
-    let result = await sql.query`
-    INSERT INTO dbo.Events(EventHosterID, EventName, EventDescription, EventLocation, EventClass, EventType, EventDate) 
-    VALUES(${EventHosterID}, ${EventName}, ${EventDescription}, ${EventLocation}, ${EventClass}, ${EventType}, ${EventDate})`
-
-    return result
-}
-
-async function CheckIfUserAlreadyCreatedEvent(EventHosterID, EventName,EventDate)
-{
-    let result = await sql.query`
-    SELECT * FROM dbo.Events 
-    WHERE EventHosterID = ${EventHosterID} 
-    AND EventName = ${EventName} 
-    AND EventDate = ${EventDate}`
-
-    return result.recordset.length
-}
 //#endregion
