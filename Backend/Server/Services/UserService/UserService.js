@@ -17,6 +17,12 @@ async function UserExists(username)
     return result
 }
 
+async function UserExistsById(id)
+{
+    let result = await sql.query`SELECT * FROM dbo.users WHERE id = ${id}`
+    return result
+}
+
 async function LoginUser(username, password)
 {
     let targetUser = await (await UserExists(username)).recordset
@@ -67,15 +73,26 @@ async function FollowUser(FollowerUserID, FollowedUserID)
 
 async function CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID)
 {
-    let result = await sql.query`SELECT * FROM dbo.FollowersTable WHERE FollowerUserID = ${FollowerUserID} AND FollowedUserID = ${FollowedUserID}`
-    if(result.recordset.length >= 1)
+    let followerUserExists = await UserExistsById(FollowerUserID)
+    let followedUserExists = await UserExistsById(FollowedUserID)
+
+    if(followerUserExists == true && followedUserExists == true)
     {
-        return true
+        let result = await sql.query`SELECT * FROM dbo.FollowersTable WHERE FollowerUserID = ${FollowerUserID} AND FollowedUserID = ${FollowedUserID}`
+        if(result.recordset.length >= 1)
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
     }
     else
     {
-        return false
+        return {status: 409, msg: 'You cannot do this action with non-existing users.'}
     }
+
 
 }
 
