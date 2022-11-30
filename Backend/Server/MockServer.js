@@ -29,7 +29,6 @@ let start = async() =>
 {
     let connection = await mssql.connectWithMSSQLDatabase()
     
-
     app.get('/', (req,res) => {
         res.status(200).send('Home page reached successfully')
     })
@@ -40,6 +39,8 @@ let start = async() =>
 
         let result = await LoginUser(username, password)
         res.status(result.status).send(result.msg)
+        req.session.user = 'user'
+        console.log(req.session)
         
     })
 
@@ -138,6 +139,14 @@ let start = async() =>
     app.get('/GetAllEvents', async (req,res) => {
         let result = await GetAllEvents()
         res.status(result.status).send(result.payload)
+    })
+
+    app.get('/logout', (req,res) => {
+        if(req.session.user != null)
+        {
+            delete req.session.user
+        }
+        res.status(200).send('Log out successfull')
     })
 
     app.listen(port, () => {
