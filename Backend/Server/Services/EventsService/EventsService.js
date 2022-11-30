@@ -20,14 +20,14 @@ async function CheckIfUserAlreadyCreatedEvent(EventHosterID, EventName,EventDate
     return result.recordset.length
 }
 
-async function DeleteEvent(EventID)
+async function DeleteEvent(EventID, EventHosterID)
 {
-    let eventExists = true ? await CheckIfEventExists(EventID) >= 1 : false
+    let eventExistsAndUserIsOwner = true ? await CheckIfUserEventExists(EventID, EventHosterID) >= 1 : false
 
-    if (eventExists)
+    if (eventExistsAndUserIsOwner == true)
     {
         try{
-            let result = await sql.query`DELETE FROM dbo.Events WHERE EventID = ${EventID}`
+            await sql.query`DELETE FROM dbo.Events WHERE EventID = ${EventID}`
             return {status: 200, msg:'Event successfully deleted.'}
         }
         catch(err)
@@ -37,15 +37,16 @@ async function DeleteEvent(EventID)
     }
     else
     {
-        return {status: 404, msg:`Event with ID ${EventID} does not exist.`}
+        return {status: 409, msg:`Event with ID ${EventID} does not exist or you are not the owner of this event.`}
     }
 }
 
-async function CheckIfEventExists(EventID)
+async function CheckIfUserEventExists(EventID, EventHosterID)
 {
-    let result = await sql.query`SELECT * FROM dbo.Events WHERE EventID = ${EventID}`
+    let result = await sql.query`SELECT * FROM dbo.Events WHERE EventID = ${EventID} AND EventHosterID = ${EventHosterID}`
     return result.recordset.length
 }
+
 
 module.exports = {
     HostEvent,

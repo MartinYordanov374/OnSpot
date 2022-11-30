@@ -118,9 +118,11 @@ app.post('/hostEvent', async (req,res) => {
     
 })
 
-app.delete('/deleteEvent/:eventId', async(req,res) => {
+app.delete('/deleteEvent/:userID/:eventId', async(req,res) => {
     let eventID = Number(JSON.parse(JSON.stringify(req.params)).eventId)
-    let result = await DeleteEvent(eventID)
+    let EventHosterID = Number(JSON.parse(JSON.stringify(req.params)).userID)
+
+    let result = await DeleteEvent(eventID, EventHosterID)
     res.status(result.status).send(result.msg)
 
 })
