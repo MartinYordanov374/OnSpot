@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, UserExistsByUsername, UserExistsByEmail, LoginUser, FollowUser, validateToken } = require('./Services/UserService/UserService.js')
+const  { registerUser, UserExistsByUsername, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 
@@ -156,8 +156,16 @@ let start = async() =>
         res.status(200).send('Log out successfull.')
     })
 
-    app.post('/validateToken', (req,res) =>
-    {
+    app.get('/getUserFollowers/:id', async (req,res) => {
+        let targetUser = Number(req.params.id)
+        let result = await GetUserFollowers(targetUser) 
+        try{
+            res.status(result.status).send(result.followers.toString())
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
     })
 
     app.post('/followUser/:userToBeFollowedId', async(req,res) => {

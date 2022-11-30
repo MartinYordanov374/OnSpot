@@ -50,8 +50,6 @@ async function LoginUser(username, password)
 
 async function FollowUser(FollowerUserID, FollowedUserID)
 {
-    console.log(FollowerUserID, FollowedUserID)
-    // check if user already follows that user
     if(await CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID) == true)
     {
         try{
@@ -102,6 +100,13 @@ async function CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID)
 
 }
 
+async function GetUserFollowers(userID)
+{
+    let result = await sql.query`SELECT FollowerUserID FROM dbo.FollowersTable WHERE FollowedUserID = ${userID}`
+    let followers = result.recordset.length
+    return {status: 200, msg:'followers successfully fetched', followers: followers}
+}
+
 function validateToken(token)
 {
     try{
@@ -127,5 +132,6 @@ module.exports = {
     UserExistsByEmail, 
     LoginUser,
     FollowUser,
-    validateToken
+    validateToken,
+    GetUserFollowers
 }
