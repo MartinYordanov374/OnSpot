@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, UserExistsByUsername, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 
@@ -190,7 +190,13 @@ let start = async() =>
         res.status(result.status).send(result.msg)
 
     })
-
+    //get hosted events
+    app.get('/GetUserEvents/:userID', async (req, res) => {
+        let userID = Number(req.params.userID)
+        let result = await GetUserEvents(userID)
+        res.status(result.status).send(result.userEvents)
+    })
+    
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)
     })

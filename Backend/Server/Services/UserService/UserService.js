@@ -130,6 +130,19 @@ async function DeleteProfile(userToken, ProfileID)
     }
 }
 
+async function GetUserEvents(userID)
+{
+    try{
+        let result = await sql.query`SELECT * FROM dbo.Events where EventHosterID = ${userID}`
+        return {status: 200, userEvents: result.recordset}
+    }
+    catch(err)
+    {
+        console.log(err)
+        return {status: 500, msg: 'Internal server error.'}
+    }
+}
+
 function validateToken(token)
 {
     try{
@@ -157,5 +170,6 @@ module.exports = {
     FollowUser,
     validateToken,
     GetUserFollowers,
-    DeleteProfile
+    DeleteProfile,
+    GetUserEvents
 }
