@@ -94,10 +94,19 @@ app.post('/hostEvent', async (req,res) => {
     let eventCategory = req.body.category;
     let eventDate = new Date(req.body.date).toISOString();
     let EventHosterID = 1;
+    let SameUserEventsAmount = await CheckIfUserAlreadyCreatedEvent(EventHosterID, eventName, eventDate)
+    
     try
     {
-        await HostEvent(EventHosterID, eventName, eventDescription, eventLocation, eventCategory, eventType, eventDate)
-        res.status(200).send('Event successfully created.')
+        if(SameUserEventsAmount > 1)
+        {
+            res.status(409).send('You have already created such an event.')
+        }
+        else
+        {
+            await HostEvent(EventHosterID, eventName, eventDescription, eventLocation, eventCategory, eventType, eventDate)
+            res.status(200).send('Event successfully created.')
+        }
     }
     catch(err)
     {
@@ -106,7 +115,6 @@ app.post('/hostEvent', async (req,res) => {
     
 })
 /* TODO:
-    -- create(host) event endpoint
     -- delete event endpoint
     -- attend event endpoint (un-attend if already attending)
     -- edit event, if user is owner of event
@@ -160,5 +168,16 @@ async function HostEvent(EventHosterID, EventName, EventDescription, EventLocati
     VALUES(${EventHosterID}, ${EventName}, ${EventDescription}, ${EventLocation}, ${EventClass}, ${EventType}, ${EventDate})`
 
     return result
+}
+
+async function CheckIfUserAlreadyCreatedEvent(EventHosterID, EventName,EventDate)
+{
+    let result = await sql.query`
+    SELECT * FROM dbo.Events 
+    WHERE EventHosterID = ${EventHosterID} 
+    AND EventName = ${EventName} 
+    AND EventDate = ${EventDate}`
+
+    return result.recordset.length
 }
 //#endregion
