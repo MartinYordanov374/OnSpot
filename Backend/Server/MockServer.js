@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 
@@ -39,19 +39,11 @@ let start = async() =>
         let password = req.body.password;
         if( req.session.user == null )
         {
-            
             let result = await LoginUser(email, password)
-            if(result.targetUserID != undefined)
-            {
-                const token = jwt.sign(result.targetUserID, process.env.REACT_APP_SECRET)
-                req.session.userToken = token  
-                req.session.save(() => {})
-                res.status(result.status).send(result.msg)
-            }
-            else
-            {
-                res.status(result.status).send(result.msg)
-            }
+            const token = jwt.sign(result.targetUserID, process.env.REACT_APP_SECRET)
+            req.session.userToken = token  
+            req.session.save(() => {})
+            res.status(result.status).send(result.msg)
         }
         else
         {
@@ -158,12 +150,10 @@ let start = async() =>
     })
 
     app.get('/logout', (req,res) => {
-        console.log( req.session.userToken)
-        if(req.session)
+        if(req.session != undefined)
         {
-            req.session.destroy()
-            res.clearCookie('connect.sid', {path: '/'})
-            res.status(200).send({status: 200, msg: 'logging out'})
+            delete req.session.userToken
+            res.status(200).send('Log out successfull.')
         }
         
     })
@@ -269,6 +259,18 @@ let start = async() =>
 
     })
 
+    app.get('/getUserData', async(req,res) => {
+        try{
+            const userToken = req.session.userToken;
+            const ID = Number(jwt.decode(userToken))
+            let targetUser = await UserExistsById(ID)
+            res.status(200).send(targetUser.recordset)
+        }
+        catch(err)
+        {
+            res.status(500).send('Internal server error')
+        }
+    })
 
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)

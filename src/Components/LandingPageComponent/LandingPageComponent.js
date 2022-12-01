@@ -19,8 +19,10 @@ export default class LandingPageComponent extends Component {
   checkIfUserIsLoggedIn = async () => {
     await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
     .then((res)=>{
+      console.log(res.data)
       if(res.data == true)
       {
+        
           this.setState({'loginStatus': true})
       }
       else

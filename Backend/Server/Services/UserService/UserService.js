@@ -221,5 +221,6 @@ module.exports = {
     DeleteProfile,
     GetUserEvents,
     GetUserAttendedEvents,
-    AddUserBio
+    AddUserBio,
+    UserExistsById
 }

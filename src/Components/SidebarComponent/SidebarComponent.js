@@ -5,9 +5,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Axios from 'axios'
 
 export default class SidebarComponent extends Component {
+  constructor()
+  {
+    super()
+    this.state = {username: '', userFollowers: 0, userID: 0}
+  }
   async logOut(){
     let result = await Axios.get('http://localhost:3030/logout', {withCredentials: true})
     window.location.href = '/'
+  }
+  async componentDidMount()
+  {
+    let returnedUserData = await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
+    let targetUserData = returnedUserData.data[0]
+    this.setState({'username': targetUserData.Username, 'userFollowers': targetUserData.Followers, 'userID': targetUserData.id})
   }
   render() {
     return (
@@ -15,8 +26,8 @@ export default class SidebarComponent extends Component {
         <div className = 'ProfileDataWrapper'>
           <img className='userPFP' src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images'/>
           <br></br>
-          <h2 className='username'>Martin Yordanov</h2>
-          <h3 className='followers'> 0 Followers </h3>
+          <a href={`Profile/${this.state.userID}`}> <h2 className='username'>{this.state.username}</h2></a>
+          <h3 className='followers'> {this.state.userFollowers} Followers </h3>
         </div>
         <div className='safeMenu menu'>
           <h2 className='upcomingEvents menuItem'>Upcoming events</h2>
