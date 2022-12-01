@@ -8,8 +8,31 @@ import conversation from '../../Images/conversation.png'
 import './LandingPageStyles/LandingPage.css'
 import EventCardComponent from '../EventCardComponent/EventCardComponent';
 import SidebarComponent from '../SidebarComponent/SidebarComponent';
+import Axios from 'axios'
 
 export default class LandingPageComponent extends Component {
+  constructor()
+  {
+    super()
+    this.state = {loginStatus: false}
+  }
+  checkIfUserIsLoggedIn = async () => {
+    await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
+    .then((res)=>{
+      if(res.data == true)
+      {
+          this.setState({'loginStatus': true})
+      }
+      else
+      {
+        this.setState({'loginStatus': false})
+      }})
+  }
+
+  componentDidMount()
+  {
+    this.checkIfUserIsLoggedIn()
+  }
   render() {
     let events =[
         {EventHost: 'martin', 
@@ -24,10 +47,10 @@ export default class LandingPageComponent extends Component {
         EventType: 'public',
         EventClass: 'Tech'}
     ]
-    let isLoggedIn = false;
+
     return (
       <div>
-        {isLoggedIn == false ?
+        {this.state.loginStatus == false ?
         <div>
           <NavbarComponentNotRegisteredUser/>
           <Container>

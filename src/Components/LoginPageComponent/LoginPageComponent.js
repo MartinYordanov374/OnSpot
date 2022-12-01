@@ -27,10 +27,9 @@ export default class LoginPageComponent extends Component {
             let res = await Axios.post(`http://localhost:3030/login`, 
             {email: email, password: password}, {withCredentials: true})
             .then((res) => {
-                toast.success(res.data)
-                setTimeout(() => {
-                    window.location = '/login'
-                }, 3000)
+                toast.success(res.data.msg)
+                window.location.href = '/'
+                
             })
             .catch((err) => toast.warn(err.response.data) )
         }
