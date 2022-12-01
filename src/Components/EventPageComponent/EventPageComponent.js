@@ -3,28 +3,49 @@ import { Container, Button,Card, } from 'react-bootstrap'
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './EventPageStyles/EventPageStyling.css'
+import Axios from 'axios'
+
 export default class EventPageComponent extends Component {
-  render() {
+    constructor()
+    {
+        super()
+        this.state = {targetEventName: '', targetEventClass: '', targetEventType: '', 
+        targetEventDesc: '', targetEventLocation: '', targetEventDate: ''}
+    }
+    async GetTargetEventData()
+    {
+        let splittedUrl = window.location.href.split('/')
+        let targetID = splittedUrl[splittedUrl.length - 1]
+        
+        let result = await Axios.get(`http://localhost:3030/getEventById/${targetID}`)
+        this.setState({'targetEventName': result.data.EventName, 'targetEventClass': result.data.EventClass, 'targetEventType': result.data.EventType,
+                    'targetEventDesc': result.data.EventDescription, 'targetEventLocaction': result.data.EventLocation, 'targetEventDate': result.data.EventDate })
+    }
+    componentDidMount()
+    {
+        this.GetTargetEventData()
+    }
+    render() {
     return (
         <div>
-            <SidebarComponent/>
+        <SidebarComponent/>
         <Container>
           <NavbarComponentRegisteredUser/>
           <Card className='eventCard'>
                 <Card.Header className = 'eventCardHeader'>
-                    <h1>Artificial intelligence outlooks</h1>
+                    <h1>{this.state.targetEventName}</h1>
                 </Card.Header>
                 <div className='row eventCardDescWrapper'>
                     <Card.Subtitle className='eventCardDescription col'>
-                        Is AI that dangerous technology that people have been warning us about for decades or have we been fooled?
+                        {this.state.targetEventDesc}
                         <br></br>
                         <div className='attendButtonWrapper'>
                             <Button className='attendButton'>Attend</Button>
                         </div>
                     </Card.Subtitle>
                     <div className='col eventDetails'>
-                        <p className=''>Event Topic: Tech</p>
-                        <p className='' >Event type: Public</p>
+                        <p className=''>Event Topic: {this.state.targetEventClass}</p>
+                        <p className='' >Event type: {this.state.targetEventType == 0 ? "Public" : "False"}</p>
                     </div>
 
 

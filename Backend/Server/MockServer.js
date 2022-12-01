@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
-const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent } = require('./Services/EventsService/EventsService.js')
+const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById } = require('./Services/EventsService/EventsService.js')
 const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
@@ -144,10 +144,6 @@ let start = async() =>
         res.status(result.status).send(result.msg)
     })
 
-    app.get('/GetAllEvents', async (req,res) => {
-        let result = await GetAllEvents()
-        res.status(result.status).send(result.payload)
-    })
 
     app.get('/logout', (req,res) => {
         if(req.session != undefined)
@@ -287,6 +283,12 @@ let start = async() =>
         let result = await UserExistsById(req.body.id)
         res.status(200).send(result.recordset[0].Username)
         
+    })
+
+    app.get('/getEventById/:id', async(req,res) => {
+        // TODO: CHECKS !
+        let result = await getEventById(req.params.id)
+        res.status(200).send(result[0])
     })
 
     app.listen(port, () => {

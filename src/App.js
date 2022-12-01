@@ -18,7 +18,7 @@ function App() {
       <Route path = '/login' element={<LoginPageComponent/>}/>
       <Route path = '/HostEvent' element={<HostAnEventPageComponent/>}/>
       <Route path = '/ExploreEvents' element={<ExploreEventsComponent/>}/>
-      <Route path = '/Event/:/eventId' element={<EventPageComponent/>}/> 
+      <Route path = '/Event/:eventId' element={<EventPageComponent/>}/> 
       <Route path = '/Profile/:id' element={<ProfilePageComponent/>}/> 
 
       {/* TODO: ADD ID TO THE EVENT AND PROFILE ROUTES */}

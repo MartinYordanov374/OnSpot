@@ -100,6 +100,11 @@ async function GetAllEvents()
     }
 }
 
+async function getEventById(eventId)
+{
+    let result = await sql.query`SELECT * FROM dbo.Events WHERE EventID= ${eventId}`
+    return result.recordset
+}
 async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName, 
     updatedEventCategory, updatedEventDate, updatedEventDesc, updatedEventType )
     {
@@ -129,5 +134,6 @@ module.exports = {
     DeleteEvent,
     AttendEvent,
     GetAllEvents,
-    EditEvent
+    EditEvent,
+    getEventById
 }
