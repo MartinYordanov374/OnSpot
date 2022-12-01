@@ -24,7 +24,7 @@ export default class LandingPageComponent extends Component {
         EventType: 'public',
         EventClass: 'Tech'}
     ]
-    let isLoggedIn = true;
+    let isLoggedIn = false;
     return (
       <div>
         {isLoggedIn == false ?
