@@ -11,7 +11,7 @@ export default class EventPageComponent extends Component {
         super()
         this.state = {targetEventName: '', targetEventClass: '', targetEventType: '', 
         targetEventDesc: '', targetEventLocation: '', targetEventDate: '',
-        targetEventHostUsername: '', targetEventHostId: '', targetEventHostBio: ''}
+        targetEventHostUsername: '', targetEventHostId: '', targetEventHostBio: '', targetEventID: ''}
     }
     async GetTargetEventData()
     {
@@ -21,7 +21,8 @@ export default class EventPageComponent extends Component {
         let result = await Axios.get(`http://localhost:3030/getEventById/${targetID}`)
         this.setState({'targetEventName': result.data.EventName, 'targetEventClass': result.data.EventClass, 'targetEventType': result.data.EventType,
                     'targetEventDesc': result.data.EventDescription, 'targetEventLocaction': result.data.EventLocation, 'targetEventDate': result.data.EventDate,
-                    'targetEventHostUsername': result.data.Username, 'targetEventHostId': result.data.id, 'targetEventHostBio': result.data.Bio == null ? "This user has not added any bio to their profile." : result.data.Bio })
+                    'targetEventHostUsername': result.data.Username, 'targetEventHostId': result.data.id, 'targetEventHostBio': result.data.Bio == null ? "This user has not added any bio to their profile." : result.data.Bio,
+                    'targetEventID': targetID })
         }
     componentDidMount()
     {
@@ -42,7 +43,7 @@ export default class EventPageComponent extends Component {
                         {this.state.targetEventDesc}
                         <br></br>
                         <div className='attendButtonWrapper'>
-                            <Button className='attendButton'>Attend</Button>
+                            <Button className='attendButton' href={`AttendEvent/${this.state.targetEventID}`}>Attend</Button>
                         </div>
                     </Card.Subtitle>
                     <div className='col eventDetails'>
