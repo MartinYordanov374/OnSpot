@@ -39,11 +39,19 @@ let start = async() =>
         let password = req.body.password;
         if( req.session.user == null )
         {
+            
             let result = await LoginUser(email, password)
-            const token = jwt.sign(result.targetUserID, process.env.REACT_APP_SECRET)
-            req.session.userToken = token  
-            req.session.save(() => {})
-            res.status(result.status).send(result.msg)
+            if(result.targetUserID != undefined)
+            {
+                const token = jwt.sign(result.targetUserID, process.env.REACT_APP_SECRET)
+                req.session.userToken = token  
+                req.session.save(() => {})
+                res.status(result.status).send(result.msg)
+            }
+            else
+            {
+                res.status(result.status).send(result.msg)
+            }
         }
         else
         {
