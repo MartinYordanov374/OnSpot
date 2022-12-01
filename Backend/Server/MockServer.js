@@ -35,11 +35,11 @@ let start = async() =>
     })
 
     app.post('/login', async (req, res) => {
-        let username = req.body.username;
+        let email = req.body.email;
         let password = req.body.password;
         if( req.session.user == null )
         {
-            let result = await LoginUser(username, password)
+            let result = await LoginUser(email, password)
             const token = jwt.sign(result.targetUserID, process.env.REACT_APP_SECRET)
             req.session.userToken = token  
             res.status(result.status).send(result.msg)

@@ -31,7 +31,7 @@ async function UserExistsById(id)
 
 async function LoginUser(username, password)
 {
-    let targetUser = await (await UserExistsByUsername(username)).recordset
+    let targetUser = await (await UserExistsByEmail(username)).recordset
     if(targetUser.length > 0)
     {
         if(await bcrypt.compare(password, targetUser[0].HashedPassword))
