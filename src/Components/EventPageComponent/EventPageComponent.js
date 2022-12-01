@@ -10,7 +10,8 @@ export default class EventPageComponent extends Component {
     {
         super()
         this.state = {targetEventName: '', targetEventClass: '', targetEventType: '', 
-        targetEventDesc: '', targetEventLocation: '', targetEventDate: ''}
+        targetEventDesc: '', targetEventLocation: '', targetEventDate: '',
+        targetEventHostUsername: '', targetEventHostId: '', targetEventHostBio: ''}
     }
     async GetTargetEventData()
     {
@@ -19,8 +20,9 @@ export default class EventPageComponent extends Component {
         
         let result = await Axios.get(`http://localhost:3030/getEventById/${targetID}`)
         this.setState({'targetEventName': result.data.EventName, 'targetEventClass': result.data.EventClass, 'targetEventType': result.data.EventType,
-                    'targetEventDesc': result.data.EventDescription, 'targetEventLocaction': result.data.EventLocation, 'targetEventDate': result.data.EventDate })
-    }
+                    'targetEventDesc': result.data.EventDescription, 'targetEventLocaction': result.data.EventLocation, 'targetEventDate': result.data.EventDate,
+                    'targetEventHostUsername': result.data.Username, 'targetEventHostId': result.data.id, 'targetEventHostBio': result.data.Bio == null ? "This user has not added any bio to their profile." : result.data.Bio })
+        }
     componentDidMount()
     {
         this.GetTargetEventData()
@@ -56,10 +58,10 @@ export default class EventPageComponent extends Component {
                             <img 
                             src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images'
                             className='eventHostPfp'/>
-                            <h3 className='eventHostName'>Martin Yordanov</h3>
+                            <h3 className='eventHostName'>{this.state.targetEventHostUsername}</h3>
 
                         </div>
-                        <p className='eventHostBio'>Martin Yordanov is an AI enthusiast with a humble experience in AI.</p>
+                        <p className='eventHostBio'>{this.state.targetEventHostBio}</p>
 
                     </div>
                     <div className='mapWrapper col'>

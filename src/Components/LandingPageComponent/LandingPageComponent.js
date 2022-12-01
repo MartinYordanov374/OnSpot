@@ -39,7 +39,8 @@ export default class LandingPageComponent extends Component {
   }
   getEvents = async () => {
     let events = await Axios.get('http://localhost:3030/getAllEvents', {withCredentials: true})
-    this.setState({'events': events.data})
+    .then((res) => {this.setState({'events': res.data.payload})})
+    .catch((err) => {console.log(err)})
   }
   render() {
     
