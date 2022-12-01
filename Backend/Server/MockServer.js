@@ -42,6 +42,7 @@ let start = async() =>
             let result = await LoginUser(email, password)
             const token = jwt.sign(result.targetUserID, process.env.REACT_APP_SECRET)
             req.session.userToken = token  
+            req.session.save(() => {})
             res.status(result.status).send(result.msg)
         }
         else
@@ -149,11 +150,14 @@ let start = async() =>
     })
 
     app.get('/logout', (req,res) => {
-        if(req.session.user != null)
+        console.log( req.session.userToken)
+        if(req.session)
         {
-            delete req.session.user
+            req.session.destroy()
+            res.clearCookie('connect.sid', {path: '/'})
+            res.status(200).send({status: 200, msg: 'logging out'})
         }
-        res.status(200).send('Log out successfull.')
+        
     })
 
     app.get('/getUserFollowers/:id', async (req,res) => {

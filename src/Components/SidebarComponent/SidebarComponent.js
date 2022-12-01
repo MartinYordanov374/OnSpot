@@ -2,7 +2,13 @@ import React, { Component } from 'react'
 import './SidebarStyling/SidebarStyle.css'
 import { faCog, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Axios from 'axios'
+
 export default class SidebarComponent extends Component {
+  async logOut(){
+    let result = await Axios.get('http://localhost:3030/logout', {withCredentials: true})
+    window.location.href = '/'
+  }
   render() {
     return (
      <div className='sidebarWrapper'>
@@ -20,7 +26,7 @@ export default class SidebarComponent extends Component {
         </div>
         <div className='dangerousMenu menu fixed-bottom'>
             <h2 className='settings menuItem'> <FontAwesomeIcon icon={faCog}/> Settings</h2>
-            <h2 className='logout menuItem'> <FontAwesomeIcon icon={faSignOut}/> Log out</h2>
+            <h2 className='logout menuItem' onClick = {() => this.logOut()}> <FontAwesomeIcon icon={faSignOut}/> Log out</h2>
         </div>
      </div>
     )
