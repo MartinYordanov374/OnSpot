@@ -78,12 +78,12 @@ let start = async() =>
                     res.status(401).send(validateUsername(username).msg)
                 }
 
-                if(validatePassword(password).status == false)
+                else if(validatePassword(password).status == false)
                 {
                     res.status(401).send(validatePassword(password).msg)
                 }
 
-                if(validateEmail(email).status == false)
+                else if(validateEmail(email).status == false)
                 {
                     res.status(401).send(validateEmail(email).msg)
                 }

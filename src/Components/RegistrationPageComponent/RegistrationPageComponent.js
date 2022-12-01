@@ -2,21 +2,26 @@ import React, { Component } from 'react'
 import NavbarComponentNotRegisteredUser from '../NavbarComponent/NavbarComponentNotRegisteredUser'
 import { Container, InputGroup, Form, Button } from 'react-bootstrap'
 import '../RegistrationPageComponent/RegistrationPageStyles/RegistrationPageStyles.css'
+import Axios from 'axios'
 export default class RegistrationPageComponent extends Component {
 
     constructor()
     {
         super()
-        // facepalm moment
         this.state = {username: '', email: '',  password: '', confirmPassword: ''}
     }
     render() {
-    const getUserInputData = () =>
+    const RegisterUser = async () =>
     {
         let username = this.state.username
         let email = this.state.email
         let password = this.state.password
         let confirmPassword = this.state.confirmPassword
+
+        let res = await Axios.post(`http://localhost:3030/register`, 
+        {username: username, email: email, password: password}, {withCredentials: true})
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err.response.data) )
     }
     return (
         <Container>
@@ -34,7 +39,7 @@ export default class RegistrationPageComponent extends Component {
                     </InputGroup>
                 </div>
                 <div className='buttonWrapper text-center'>
-                    <Button className='mt-3 signUpButton' onClick={() => getUserInputData()}>Sign Up</Button>
+                    <Button className='mt-3 signUpButton' onClick={() => RegisterUser()}>Sign Up</Button>
 
                 </div>
             </div>
