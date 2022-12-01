@@ -30,6 +30,7 @@ export default class LandingPageComponent extends Component {
         this.setState({'loginStatus': false})
       }})
   }
+  
 
   componentDidMount()
   {

@@ -88,7 +88,10 @@ async function CheckIfUserAlreadyAttendsEvent(UserID, EventID)
 async function GetAllEvents()
 {
     try{
-        let result = await sql.query`SELECT * FROM dbo.Events`
+        // let result = await sql.query`SELECT * FROM dbo.Events`
+        let result = await sql.query`SELECT EventName, EventDescription, EventType, EventClass, EventID, EventLocation, Username, id as UserID FROM Events e 
+        INNER JOIN Users u
+        ON e.EventHosterID  = u.id`
         return {status: 200, msg: 'Events successfully fetched from the database.', payload: result.recordset}
     }
     catch(err)

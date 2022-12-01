@@ -282,6 +282,12 @@ let start = async() =>
             res.status(500).send('Internal server error')
         }
     })
+    
+    app.post('/getUserDataById', async(req,res) => {
+        let result = await UserExistsById(req.body.id)
+        res.status(200).send(result.recordset[0].Username)
+        
+    })
 
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)
