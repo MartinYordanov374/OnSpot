@@ -14,7 +14,7 @@ export default class LandingPageComponent extends Component {
   constructor()
   {
     super()
-    this.state = {loginStatus: false}
+    this.state = {loginStatus: false, events: []}
   }
   checkIfUserIsLoggedIn = async () => {
     await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
@@ -33,23 +33,15 @@ export default class LandingPageComponent extends Component {
 
   componentDidMount()
   {
+    this.getEvents()
     this.checkIfUserIsLoggedIn()
   }
+  getEvents = async () => {
+    let events = await Axios.get('http://localhost:3030/getAllEvents', {withCredentials: true})
+    this.setState({'events': events.data})
+  }
   render() {
-    let events =[
-        {EventHost: 'martin', 
-        EventTitle: 'Artificial intelligence outlooks', 
-        EventDescription: 'Is artificial intelligence really as dangerous as people make it seem?',
-        EventType: 'public',
-      EventClass: 'Tech'},
-
-        {EventHost: 'AIFellas', 
-        EventTitle: 'AI Discussion meeting', 
-        EventDescription: 'We will be discussing the future of AI',
-        EventType: 'public',
-        EventClass: 'Tech'}
-    ]
-
+    
     return (
       <div>
         {this.state.loginStatus == false ?
@@ -84,7 +76,7 @@ export default class LandingPageComponent extends Component {
           <SidebarComponent/>
           <Container>
             <NavbarComponentRegisteredUser/>
-            {events.map((event) => {
+            {this.state.events.map((event) => {
               return <EventCardComponent props={event}/>
 
             })}

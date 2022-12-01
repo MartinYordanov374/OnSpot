@@ -272,6 +272,17 @@ let start = async() =>
         }
     })
 
+    app.get('/getAllEvents', async(req,res) => {
+        try{
+            let result = await GetAllEvents()
+            res.status(200).send(result)
+        }
+        catch(err)
+        {
+            res.status(500).send('Internal server error')
+        }
+    })
+
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)
     })
