@@ -3,6 +3,9 @@ import NavbarComponentNotRegisteredUser from '../NavbarComponent/NavbarComponent
 import { Container, InputGroup, Form, Button } from 'react-bootstrap'
 import '../RegistrationPageComponent/RegistrationPageStyles/RegistrationPageStyles.css'
 import Axios from 'axios'
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default class RegistrationPageComponent extends Component {
 
     constructor()
@@ -17,15 +20,29 @@ export default class RegistrationPageComponent extends Component {
         let email = this.state.email
         let password = this.state.password
         let confirmPassword = this.state.confirmPassword
-
-        let res = await Axios.post(`http://localhost:3030/register`, 
-        {username: username, email: email, password: password}, {withCredentials: true})
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err.response.data) )
+        if(username.length <= 0 || email.length <= 0 || password.length <= 0 || confirmPassword.length <= 0)
+        {
+            toast.warn('You can not have any empty fields!')
+        }
+        else
+        {
+            if(password != confirmPassword)
+            {
+                toast.warn('Your passwords do not match !')
+            }
+            else
+            {
+                let res = await Axios.post(`http://localhost:3030/register`, 
+                {username: username, email: email, password: password}, {withCredentials: true})
+                .then((res) => toast.success(res.data))
+                .catch((err) => toast.warn(err.response.data) )
+            }
+        }
     }
     return (
         <Container>
             <NavbarComponentNotRegisteredUser/>
+            <ToastContainer/>
             <div className='SignUpComponentWrapper ' >
                 <h1 className='signUpText'>Sign Up</h1>
                 <div className='registrationFormWrapper'>
