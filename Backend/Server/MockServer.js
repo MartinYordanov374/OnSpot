@@ -244,6 +244,20 @@ let start = async() =>
         res.status(result.status).send(result.msg)
 
     })
+
+    app.get('/isUserLoggedIn', (req,res) => {
+        if(req.session.userToken)
+        {
+            res.send(true)
+        }
+        else
+        {
+            res.send(false)
+        }
+
+    })
+
+
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)
     })
