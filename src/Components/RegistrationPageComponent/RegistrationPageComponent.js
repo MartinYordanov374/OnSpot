@@ -34,7 +34,12 @@ export default class RegistrationPageComponent extends Component {
             {
                 let res = await Axios.post(`http://localhost:3030/register`, 
                 {username: username, email: email, password: password}, {withCredentials: true})
-                .then((res) => toast.success(res.data))
+                .then((res) => {
+                    toast.success(res.data)
+                    setTimeout(() => {
+                        window.location = '/login'
+                    }, 3000)
+                })
                 .catch((err) => toast.warn(err.response.data) )
             }
         }
