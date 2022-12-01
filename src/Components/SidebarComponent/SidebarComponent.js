@@ -11,7 +11,7 @@ export default class SidebarComponent extends Component {
     this.state = {username: '', userFollowers: 0, userID: 0}
   }
   async logOut(){
-    let result = await Axios.get('http://localhost:3030/logout', {withCredentials: true})
+    await Axios.get('http://localhost:3030/logout', {withCredentials: true})
     window.location.href = '/'
   }
   async componentDidMount()

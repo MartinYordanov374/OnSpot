@@ -102,7 +102,14 @@ async function GetAllEvents()
 
 async function getEventById(eventId)
 {
-    let result = await sql.query`SELECT * FROM dbo.Events WHERE EventID= ${eventId}`
+    // TODO: ADD CHECKS FOR VALID ID !
+    let result = await sql.query`
+    SELECT  EventName, EventDescription, EventType, EventClass, EventID, EventLocation, Username, id 
+    FROM dbo.Events e 
+    INNER JOIN Users u 
+    ON u.id = e.EventHosterID 
+    AND e.EventID = ${eventId}`
+    
     return result.recordset
 }
 async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName, 
