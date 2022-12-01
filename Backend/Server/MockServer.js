@@ -60,7 +60,7 @@ let start = async() =>
 
             if(validateUsername(username).status && validatePassword(password).status && validateEmail(email).status)
             {
-                let targetUser = await (await UserExistsByEmail(username)).recordset
+                let targetUser = await (await UserExistsByEmail(email)).recordset
                 if(targetUser.length > 0)
                 {
                     res.status(409).send('This user already exists!') 
