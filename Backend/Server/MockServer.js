@@ -10,9 +10,14 @@ const jwt = require('jsonwebtoken')
 
 const port = process.env.REACT_APP_SERVER_PORT
 
+const corsOptions = {
+    origin: 'http://localhost:3000', 
+    credentials: true,
+};
+
 app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.use(session({
     secret: process.env.REACT_APP_SECRET,
@@ -22,7 +27,7 @@ app.use(session({
         sameSite: false,
         secure: false,
         expires: new Date(Date.now() + 3600000),
-        httpOnly: true,
+        httpOnly: false,
         path: '/'
         },
   }));
@@ -30,9 +35,6 @@ let start = async() =>
 {
     let connection = await mssql.connectWithMSSQLDatabase()
     
-    app.get('/', (req,res) => {
-        res.status(200).send('Home page reached successfully')
-    })
 
     app.post('/login', async (req, res) => {
         let email = req.body.email;
@@ -137,12 +139,20 @@ let start = async() =>
     })
 
     app.post('/attendEvent/:eventId', async (req,res) => {
-        let userID = req.body.userID;
+        let userToken = req.session.userToken;
         let eventID = Number(JSON.parse(JSON.stringify(req.params)).eventId)
-
-        let result = await AttendEvent(userID, eventID)
-        res.status(result.status).send(result.msg)
+        let isTokenValid = validateToken(userToken)
+        console.log(req.session)
+        if(isTokenValid.status == true)
+        {
+            let result = await AttendEvent(isTokenValid.userID, eventID)
+            res.status(result.status).send(result.msg)
+        }
+        else{
+            res.status(409).send('You can not do that.')
+        }
     })
+
 
 
     app.get('/logout', (req,res) => {

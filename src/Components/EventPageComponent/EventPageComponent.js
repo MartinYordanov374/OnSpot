@@ -12,18 +12,28 @@ export default class EventPageComponent extends Component {
         this.state = {targetEventName: '', targetEventClass: '', targetEventType: '', 
         targetEventDesc: '', targetEventLocation: '', targetEventDate: '',
         targetEventHostUsername: '', targetEventHostId: '', targetEventHostBio: '', targetEventID: ''}
+        this.splittedUrl = window.location.href.split('/')
+        this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
     }
     async GetTargetEventData()
     {
-        let splittedUrl = window.location.href.split('/')
-        let targetID = splittedUrl[splittedUrl.length - 1]
         
-        let result = await Axios.get(`http://localhost:3030/getEventById/${targetID}`)
+        let result = await Axios.get(`http://localhost:3030/getEventById/${this.targetID}`, {withCredentials: true})
         this.setState({'targetEventName': result.data.EventName, 'targetEventClass': result.data.EventClass, 'targetEventType': result.data.EventType,
                     'targetEventDesc': result.data.EventDescription, 'targetEventLocaction': result.data.EventLocation, 'targetEventDate': result.data.EventDate,
                     'targetEventHostUsername': result.data.Username, 'targetEventHostId': result.data.id, 'targetEventHostBio': result.data.Bio == null ? "This user has not added any bio to their profile." : result.data.Bio,
-                    'targetEventID': targetID })
-        }
+                    'targetEventID': this.targetID })
+    }
+
+    async AttendEvent()
+    {
+        // TODO implement attend event API call here.
+        Axios.post(`http://localhost:3030/attendEvent/${this.targetID}`, {}, {
+          withCredentials: true})
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
+        
+    }
     componentDidMount()
     {
         this.GetTargetEventData()
@@ -43,7 +53,7 @@ export default class EventPageComponent extends Component {
                         {this.state.targetEventDesc}
                         <br></br>
                         <div className='attendButtonWrapper'>
-                            <Button className='attendButton' href={`AttendEvent/${this.state.targetEventID}`}>Attend</Button>
+                            <Button className='attendButton' onClick={() => this.AttendEvent()}>Attend</Button>
                         </div>
                     </Card.Subtitle>
                     <div className='col eventDetails'>
