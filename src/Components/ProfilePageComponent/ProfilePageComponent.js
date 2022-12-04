@@ -1,9 +1,19 @@
+import Axios from 'axios'
 import React, { Component } from 'react'
 import { Container, Button,Card, } from 'react-bootstrap'
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './ProfilePageStyles/ProfilePageStyle.css'
 export default class ProfilePageComponent extends Component {
+
+  componentDidMount()
+  {
+    this.splittedUrl = window.location.href.split('/')
+    this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
+    Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err))
+  }
   render() {
     return (
         <div>
