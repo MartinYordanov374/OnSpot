@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
-const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById } = require('./Services/EventsService/EventsService.js')
+const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent } = require('./Services/EventsService/EventsService.js')
 const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
@@ -153,6 +153,20 @@ let start = async() =>
         }
     })
 
+    app.post('/doesUserAttendEvent/:eventId', async (req,res) => {
+        let userToken = req.session.userToken;
+        let eventID = Number(JSON.parse(JSON.stringify(req.params)).eventId)
+        let isTokenValid = validateToken(userToken)
+        console.log(req.session)
+        if(isTokenValid.status == true)
+        {
+            let result = await DoesUserAttendEvent(isTokenValid.userID, eventID)
+            res.status(200).send(result)
+        }
+        else{
+            res.status(409).send('You can not do that.')
+        }
+    })
 
 
     app.get('/logout', (req,res) => {

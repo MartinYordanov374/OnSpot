@@ -77,6 +77,19 @@ async function AttendEvent(UserID, EventID)
     }
 }
 
+async function DoesUserAttendEvent(UserID, EventID)
+{
+    let result = await sql.query`SELECT * FROM dbo.AttendancesTable WHERE UserID = ${UserID} AND EventID = ${EventID}`
+    if(result.recordset.length >= 1)
+    {
+        return true
+    }
+    else
+    {
+        return false
+    }
+}
+
 async function CheckIfUserAlreadyAttendsEvent(UserID, EventID)
 {
     let result = await sql.query`SELECT * FROM dbo.AttendancesTable WHERE EventID = ${EventID} AND UserID = ${UserID}`
@@ -144,5 +157,6 @@ module.exports = {
     AttendEvent,
     GetAllEvents,
     EditEvent,
-    getEventById
+    getEventById,
+    DoesUserAttendEvent
 }

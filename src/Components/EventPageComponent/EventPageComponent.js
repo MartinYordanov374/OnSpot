@@ -11,7 +11,7 @@ export default class EventPageComponent extends Component {
         super()
         this.state = {targetEventName: '', targetEventClass: '', targetEventType: '', 
         targetEventDesc: '', targetEventLocation: '', targetEventDate: '',
-        targetEventHostUsername: '', targetEventHostId: '', targetEventHostBio: '', targetEventID: ''}
+        targetEventHostUsername: '', targetEventHostId: '', targetEventHostBio: '', targetEventID: '', doesUserAttend: false}
         this.splittedUrl = window.location.href.split('/')
         this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
     }
@@ -30,13 +30,39 @@ export default class EventPageComponent extends Component {
         // TODO implement attend event API call here.
         Axios.post(`http://localhost:3030/attendEvent/${this.targetID}`, {}, {
           withCredentials: true})
-        .then((res) => console.log(res))
+        .then((res) => {
+            if(res.data == 'You no longer attend this event!')
+            {
+                this.setState({'doesUserAttend': false})
+            }
+            else
+            {
+                this.setState({'doesUserAttend': true})
+            }
+        })
         .catch((err) => console.log(err))
         
     }
+    async doesUserAttendEvent()
+    {
+        await Axios.post(`http://localhost:3030/doesUserAttendEvent/${this.targetID}`, {}, {withCredentials: true})
+        .then((res) => {
+            if(res.data == true)
+            {
+                this.setState({'doesUserAttend': true})
+            }
+            else
+            {
+                this.setState({'doesUserAttend': false})
+            }
+        })
+        .catch((err) => {console.log(err)})
+    }
     componentDidMount()
     {
+
         this.GetTargetEventData()
+        this.doesUserAttendEvent()
     }
     render() {
     return (
@@ -53,7 +79,12 @@ export default class EventPageComponent extends Component {
                         {this.state.targetEventDesc}
                         <br></br>
                         <div className='attendButtonWrapper'>
+                        {this.state.doesUserAttend == true 
+                            ? 
                             <Button className='attendButton' onClick={() => this.AttendEvent()}>Attend</Button>
+                            :
+                            <Button className='attendButton' onClick={() => this.AttendEvent()}>Unattend</Button>
+                        }
                         </div>
                     </Card.Subtitle>
                     <div className='col eventDetails'>
