@@ -7,27 +7,43 @@ import 'react-calendar/dist/Calendar.css';
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 export default class HostAnEventPageComponent extends Component {
 
-handleSelect(value){
-    let dropdown = document.querySelector('.eventTypeField')
-    dropdown.placeholder = value
-  }  
-handleSelectCategory(value)
-{
-  let dropdown = document.querySelector('.eventCategoryField')
-  dropdown.placeholder = value
-}
-handleSelectLocation(value)
-{
-    let dropdown = document.querySelector('.eventLocationField')
-    dropdown.placeholder = value
-}
-handleSelectDate(value)
-{
-    let dropdown = document.querySelector('.eventDateField')
-    let formattedDate = value.toString().split(' ').splice(1,3).join(' ')
-    dropdown.placeholder = formattedDate
-
-}
+    constructor()
+    {
+        super()
+        this.state = {eventType: '', eventCategory: '', eventLocation: '', eventDate: ''}
+        this.handleSelect = this.handleSelect.bind(this)
+        this.handleSelectCategory = this.handleSelectCategory.bind(this)
+        this.handleSelectLocation = this.handleSelectLocation.bind(this)
+        this.handleSelectDate = this.handleSelectDate.bind(this)
+    }
+    handleSelect(value){
+        let dropdown = document.querySelector('.eventTypeField');
+        dropdown.placeholder = value;
+        this.setState({'eventType': value})
+    }  
+    handleSelectCategory(value)
+    {
+        let dropdown = document.querySelector('.eventCategoryField');
+        dropdown.placeholder = value;
+        this.setState({'eventCategory': value})
+    }
+    handleSelectLocation(value)
+    {
+        let dropdown = document.querySelector('.eventLocationField');
+        dropdown.placeholder = value;
+        this.setState({'eventLocation': value})
+    }
+    handleSelectDate(value)
+    {
+        let dropdown = document.querySelector('.eventDateField');
+        let formattedDate = value.toString().split(' ').splice(1,3).join(' ');
+        dropdown.placeholder = formattedDate;
+        this.setState({'eventDate': formattedDate})
+    }
+    HostEvent()
+    {
+        console.log(this.state)
+    }
   render() {
     return (
         <div>
@@ -91,7 +107,7 @@ handleSelectDate(value)
                         </div>
                         
                         <div className='buttonWrapper d-flex justify-content-center mt-3'>
-                            <Button className='hostEventButton'>Host event</Button>
+                            <Button className='hostEventButton' onClick={() => this.HostEvent()}>Host event</Button>
                         </div>
                     </Card.Body>
                 </Card>
