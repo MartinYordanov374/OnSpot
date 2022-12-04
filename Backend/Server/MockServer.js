@@ -307,7 +307,12 @@ let start = async() =>
     
     app.post('/getUserDataById/:id', async(req,res) => {
         let result = await UserExistsById(Number(req.params.id))
-        res.status(200).send(result.recordset[0].Username)
+        let userObject = {
+            Username: result.recordset[0].Username,
+            Followers: result.recordset[0].Followers,
+            Bio: result.recordset[0].bio
+        }
+        res.status(200).send(userObject)
         
     })
 

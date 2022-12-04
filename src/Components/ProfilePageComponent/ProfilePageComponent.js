@@ -6,12 +6,19 @@ import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './ProfilePageStyles/ProfilePageStyle.css'
 export default class ProfilePageComponent extends Component {
 
-  componentDidMount()
+  constructor()
   {
+    super()
     this.splittedUrl = window.location.href.split('/')
     this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
+    this.state = {userData: []}
+  }
+  componentDidMount()
+  {
     Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
-    .then((res) => console.log(res))
+    .then((res) => {
+        this.setState({userData: res.data})
+    })
     .catch((err) => console.log(err))
   }
   render() {
@@ -30,9 +37,11 @@ export default class ProfilePageComponent extends Component {
                 </div>
                 <div className='profilePageUserDetails d-flex'>
                     <div className='row'>
-                        <span className='username col'>Username </span>
-                        <span className='followers'>0 followers</span>
+                        <span className='username col'>{this.state.userData.Username} </span>
+                        <span className='followers'>{this.state.userData.Followers} followers</span>
+                        {/* <span className='username col'>{this.state.userData.Bio} </span> */}
                     </div>
+                    
                     <div className='row userInteractionBtns'>
                         <span className='messageUser col'>Message</span>
                         <span className='followUser col'>Follow</span>
