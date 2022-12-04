@@ -79,7 +79,7 @@ export default class EventPageComponent extends Component {
                         {this.state.targetEventDesc}
                         <br></br>
                         <div className='attendButtonWrapper'>
-                        {this.state.doesUserAttend == true 
+                        {this.state.doesUserAttend == false 
                             ? 
                             <Button className='attendButton' onClick={() => this.AttendEvent()}>Attend</Button>
                             :
