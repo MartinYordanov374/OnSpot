@@ -5,18 +5,19 @@ import './HostAnEventPageStyles/HostAnEventComponentStyles.css'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
+import Axios from 'axios'
 export default class HostAnEventPageComponent extends Component {
-
+    // TODO: FIGURE LOCATION OUT
     constructor()
     {
         super()
-        this.state = {eventType: '', eventCategory: '', eventLocation: '', eventDate: ''}
-        this.handleSelect = this.handleSelect.bind(this)
+        this.state = {eventName: '', eventDescription: '', eventType: '', eventCategory: '', eventLocation: '', eventDate: ''}
+        this.handleSelectType = this.handleSelectType.bind(this)
         this.handleSelectCategory = this.handleSelectCategory.bind(this)
         this.handleSelectLocation = this.handleSelectLocation.bind(this)
         this.handleSelectDate = this.handleSelectDate.bind(this)
     }
-    handleSelect(value){
+    handleSelectType(value){
         let dropdown = document.querySelector('.eventTypeField');
         dropdown.placeholder = value;
         this.setState({'eventType': value})
@@ -40,8 +41,27 @@ export default class HostAnEventPageComponent extends Component {
         dropdown.placeholder = formattedDate;
         this.setState({'eventDate': formattedDate})
     }
-    HostEvent()
+
+    handleEnterEventName(value)
     {
+        this.setState({'eventName': value})
+    }
+    handleEnterEventDescription(value)
+    {
+       
+        this.setState({'eventDescription': value})
+    }
+    HostEvent()
+    {   
+        let result = Axios.post('http://localhost:3030/hostEvent', {
+            name: this.state.eventName, 
+            description: this.state.eventDescription,
+            location: this.state.eventLocation,
+            type: this.state.eventType,
+            category: this.state.eventCategory,
+            date: this.state.eventDate    
+        }, 
+        {withCredentials: true})
         console.log(this.state)
     }
   render() {
@@ -56,13 +76,13 @@ export default class HostAnEventPageComponent extends Component {
                         <div className='row'>
                             <div className='eventNameWrapper col-sm mt-5'>
                                 <h2 className='fieldLabel'>Event name</h2>
-                                <FormControl className='inputField' placeholder='Enter your event Name'/>
+                                <FormControl className='inputField' placeholder='Enter your event Name' onChange = {(e) => this.handleEnterEventName(e.target.value)}/>
                             </div>
                             <div className='eventTypeWrapper col-sm mt-5'>
                                 <h2 className='fieldLabel'>Event type</h2>
                                 <InputGroup>
                                 <FormControl className='inputField eventTypeField' placeholder='Public' aria-describedby='dropdownAddon' disabled='true'/>
-                                    <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelect}>
+                                    <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectType}>
                                         <Dropdown.Item eventKey = {'Public'}>Public</Dropdown.Item>
                                         <Dropdown.Item eventKey = {'Private'} >Private</Dropdown.Item>
                                     </DropdownButton>
@@ -73,7 +93,7 @@ export default class HostAnEventPageComponent extends Component {
                         <div className='row'>
                             <div className='eventDescriptionWrapper col-sm mt-5'>
                                 <h2 className='fieldLabel'>Event description</h2>
-                                <FormControl className='inputField' placeholder='Event description'/>
+                                <FormControl className='inputField' placeholder='Event description' onChange = {(e) => this.handleEnterEventDescription(e.target.value)}/>
                             </div>
                             <div className='eventCategoryWrapper col-sm mt-5'>
                                 <h2 className='fieldLabel'>Event category</h2>

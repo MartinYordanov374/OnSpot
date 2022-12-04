@@ -103,7 +103,8 @@ let start = async() =>
         // TODO ADD CHECK IF USER ALREADY CREATED SUCH AN EVENT
         let eventName = req.body.name;
         let eventDescription = req.body.description;
-        let eventLocation = req.body.location;
+        // let eventLocation = req.body.location;
+        let eventLocation = 'SampleLocation';
         let eventType = req.body.type == 'Public' ? 1 : 0 ;
         let eventCategory = req.body.category;
         let eventDate = new Date(req.body.date).toISOString();
