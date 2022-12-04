@@ -108,8 +108,8 @@ let start = async() =>
         let eventType = req.body.type == 'Public' ? 1 : 0 ;
         let eventCategory = req.body.category;
         let eventDate = new Date(req.body.date).toISOString();
-        let EventHosterID = 1;
-        let SameUserEventsAmount = await CheckIfUserAlreadyCreatedEvent(EventHosterID, eventName, eventDate)
+        let EventHoster = validateToken(req.session.userToken);
+        let SameUserEventsAmount = await CheckIfUserAlreadyCreatedEvent(EventHoster.userID, eventName, eventDate)
         
         try
         {
@@ -119,12 +119,13 @@ let start = async() =>
             }
             else
             {
-                await HostEvent(EventHosterID, eventName, eventDescription, eventLocation, eventCategory, eventType, eventDate)
+                await HostEvent(EventHoster.userID, eventName, eventDescription, eventLocation, eventCategory, eventType, eventDate)
                 res.status(200).send('Event successfully created.')
             }
         }
         catch(err)
         {
+            console.log(err)
             res.status(500).send('Internal server error.')
         }
         
