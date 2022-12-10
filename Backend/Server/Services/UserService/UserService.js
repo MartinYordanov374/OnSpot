@@ -209,7 +209,7 @@ async function ChangeProfilePicture(userID, profilePicture)
     }
     else
     {
-        // doesn't exist
+        return {status: 409, msg: 'You can not do that.'}
     }
 }
 
