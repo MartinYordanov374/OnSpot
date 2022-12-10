@@ -10,12 +10,13 @@ export default class ProfilePageComponent extends Component {
   constructor()
   {
     super()
-    this.splittedUrl = window.location.href.split('/')
-    this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
+
     this.state = {userData: [], isLoading: true}
   }
   componentDidMount = () =>
   {
+    this.splittedUrl = window.location.href.split('/')
+    this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
     Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
     .then((res) => {
         this.setState({userData: res.data})
@@ -47,7 +48,7 @@ export default class ProfilePageComponent extends Component {
 
 
   render() {
-    
+    console.log(this.state.userData)
     return (
         <div>
         <SidebarComponent/>
@@ -55,49 +56,49 @@ export default class ProfilePageComponent extends Component {
         <Container>
             <NavbarComponentRegisteredUser/>
             {this.state.isLoading == false? 
-            <div className='profilePageWrapper'>
-                <div className='profilePageBackgroundImage' onClick={() => this.handleSelectProfilePicture()}>
-                    {this.state.userData.ProfilePicture.data != undefined ?
-                    <img 
-                        src={
-                          `data: image/png;base64,
-                          ${Buffer.from(this.state.userData.ProfilePicture.data).toString('base64')}`
-                          }
-                        className='userPFP'
-                    />
-                  :
-                    <img 
-                      src={`${this.state.userData.ProfilePicture}`}
-                        
-                      className='userPFP'
-                    />
-                  }
-                  <input type="file" className="profileImageUpload" hidden onChange={() => this.changeProfilePicture()}/>
-                </div>
-                <div className='profilePageUserDetails d-flex'>
-                    <div className='row'>
-                        <span className='username col'>{this.state.userData.Username} </span>
-                        <span className='followers'>{this.state.userData.Followers} followers</span>
-                        {/* <span className='username col'>{this.state.userData.Bio} </span> */}
-                    </div>
-                    
-                    <div className='row userInteractionBtns'>
-                        <span className='messageUser col'>Message</span>
-                        <span className='followUser col'>Follow</span>
-                    </div>
-                </div>
-                <div className='userEvents'>
-                    {/* I should probably include what the user attended as well?? */}
-                    <h1 className='userActivityHeader'>Latest Activity</h1>
-                    <div className='EventsActivity'>
-                        
-                    </div>
-                </div>
-            </div>
-            :
-            <div>
-              <p>Loading</p>
-            </div>
+              <div className='profilePageWrapper'>
+                  <div className='profilePageBackgroundImage' onClick={() => this.handleSelectProfilePicture()}>
+                      {this.state.userData.ProfilePicture.data 
+                      ?
+                        <img 
+                            src={
+                              `data: image/png;base64,
+                              ${Buffer.from(this.state.userData.ProfilePicture.data).toString('base64')}`
+                              }
+                            className='userPFP'
+                        />
+                      :
+                        <img 
+                          src={`${this.state.userData.ProfilePicture}`}
+                          className='userPFP'
+                        />
+                    }
+                    <input type="file" className="profileImageUpload" hidden onChange={() => this.changeProfilePicture()}/>
+                  </div>
+                  <div className='profilePageUserDetails d-flex'>
+                      <div className='row'>
+                          <span className='username col'>{this.state.userData.Username} </span>
+                          <span className='followers'>{this.state.userData.Followers} followers</span>
+                          {/* <span className='username col'>{this.state.userData.Bio} </span> */}
+                      </div>
+                      
+                      <div className='row userInteractionBtns'>
+                          <span className='messageUser col'>Message</span>
+                          <span className='followUser col'>Follow</span>
+                      </div>
+                  </div>
+                  <div className='userEvents'>
+                      {/* I should probably include what the user attended as well?? */}
+                      <h1 className='userActivityHeader'>Latest Activity</h1>
+                      <div className='EventsActivity'>
+                          
+                      </div>
+                  </div>
+              </div>
+              :
+              <div>
+                <p>Loading</p>
+              </div>
             }
         </Container>
         </div>

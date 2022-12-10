@@ -316,7 +316,7 @@ let start = async() =>
         let result = await UserExistsById(Number(req.params.id))
         let targetUserProfilePictureResponse = await GetUserProfilePicture(req.params.id)
         // TODO ADD CHECK IF PROFILE PICTURE FOR GIVEN USER EXISTS OR NOT
-        if(targetUserProfilePictureResponse.data.recordset[0].length >= 1)
+        if(targetUserProfilePictureResponse.data.recordset[0] != undefined)
         {
             let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
             let userObject = {
