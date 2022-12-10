@@ -1,6 +1,7 @@
 import Axios from 'axios'
 import React, { Component } from 'react'
 import { Container, Button,Card, } from 'react-bootstrap'
+import { Buffer } from 'buffer';
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './ProfilePageStyles/ProfilePageStyle.css'
@@ -11,15 +12,18 @@ export default class ProfilePageComponent extends Component {
     super()
     this.splittedUrl = window.location.href.split('/')
     this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
-    this.state = {userData: []}
+    this.state = {userData: [], isLoading: true}
   }
-  componentDidMount()
+  componentDidMount = () =>
   {
     Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
     .then((res) => {
         this.setState({userData: res.data})
+        this.setState({'isLoading': false})
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {
+      console.log(err)
+    })
   }
 
   handleSelectProfilePicture = () => {
@@ -43,20 +47,32 @@ export default class ProfilePageComponent extends Component {
 
 
   render() {
+    
     return (
         <div>
         <SidebarComponent/>
         
         <Container>
             <NavbarComponentRegisteredUser/>
+            {this.state.isLoading == false? 
             <div className='profilePageWrapper'>
                 <div className='profilePageBackgroundImage' onClick={() => this.handleSelectProfilePicture()}>
+                    {this.state.userData.ProfilePicture.data != undefined ?
                     <img 
-                        src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images' 
+                        src={
+                          `data: image/png;base64,
+                          ${Buffer.from(this.state.userData.ProfilePicture.data).toString('base64')}`
+                          }
                         className='userPFP'
-                        
                     />
-                    <input type="file" className="profileImageUpload" hidden onChange={() => this.changeProfilePicture()}/>
+                  :
+                    <img 
+                      src={`${this.state.userData.ProfilePicture}`}
+                        
+                      className='userPFP'
+                    />
+                  }
+                  <input type="file" className="profileImageUpload" hidden onChange={() => this.changeProfilePicture()}/>
                 </div>
                 <div className='profilePageUserDetails d-flex'>
                     <div className='row'>
@@ -78,6 +94,11 @@ export default class ProfilePageComponent extends Component {
                     </div>
                 </div>
             </div>
+            :
+            <div>
+              <p>Loading</p>
+            </div>
+            }
         </Container>
         </div>
     )

@@ -315,14 +315,28 @@ let start = async() =>
     app.post('/getUserDataById/:id', async(req,res) => {
         let result = await UserExistsById(Number(req.params.id))
         let targetUserProfilePictureResponse = await GetUserProfilePicture(req.params.id)
-        let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
-        let userObject = {
-            Username: result.recordset[0].Username,
-            Followers: result.recordset[0].Followers,
-            Bio: result.recordset[0].bio,
-            ProfilePicture: targetUserPfp
+        // TODO ADD CHECK IF PROFILE PICTURE FOR GIVEN USER EXISTS OR NOT
+        if(targetUserProfilePictureResponse.data.recordset[0].length >= 1)
+        {
+            let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
+            let userObject = {
+                Username: result.recordset[0].Username,
+                Followers: result.recordset[0].Followers,
+                Bio: result.recordset[0].bio,
+                ProfilePicture: targetUserPfp
+            }
+            res.status(200).send(userObject)
         }
-        res.status(200).send(userObject)
+        else
+        {
+            let userObject = {
+                Username: result.recordset[0].Username,
+                Followers: result.recordset[0].Followers,
+                Bio: result.recordset[0].bio,
+                ProfilePicture: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images`
+            }
+            res.status(200).send(userObject)
+        }
         
     })
 
