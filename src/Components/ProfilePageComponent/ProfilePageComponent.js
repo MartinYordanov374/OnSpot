@@ -23,9 +23,14 @@ export default class ProfilePageComponent extends Component {
   }
 
   handleSelectProfilePicture = () => {
-    let coverInputField = document.querySelector('.coverUpload')
-    coverInputField.click()
-    console.log(coverInputField.files[0])
+    let profileImageInputField = document.querySelector('.profileImageUpload')
+    profileImageInputField.click()
+  }
+
+  changeProfilePicture = () => {
+    let profileImageInputField = document.querySelector('.profileImageUpload')
+    let profileImage = profileImageInputField.files[0]
+    console.log(profileImage)
   }
 
 
@@ -43,7 +48,7 @@ export default class ProfilePageComponent extends Component {
                         className='userPFP'
                         
                     />
-                    <input type="file" className="coverUpload" hidden onChange={(e) => this.setState({'userProfilePicture': e.target.value})}/>
+                    <input type="file" className="profileImageUpload" hidden onChange={() => this.changeProfilePicture()}/>
                 </div>
                 <div className='profilePageUserDetails d-flex'>
                     <div className='row'>
