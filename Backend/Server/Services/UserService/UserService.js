@@ -191,7 +191,23 @@ async function GetUserAttendedEvents(userID)
 
 async function ChangeProfilePicture(userID, profilePicture)
 {
-
+    let userExists = await UserExistsById(userID)
+    
+    if(userExists.recordset.length >= 1)
+    {
+        // exists
+        try{
+            await sql.query`INSERT INTO dbo.ProfilePictures(UserID, ProfilePicture) VALUES(${userID}, ${profilePicture.data})`
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
+    }
+    else
+    {
+        // doesn't exist
+    }
 }
 
 function validateToken(token)

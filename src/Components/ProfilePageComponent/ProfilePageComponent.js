@@ -32,7 +32,7 @@ export default class ProfilePageComponent extends Component {
     let profileImage = profileImageInputField.files[0]
     let formData = new FormData()
     formData.append('pfp', profileImage)
-    Axios.post('http://localhost:3030/changePfp', formData)
+    Axios.post('http://localhost:3030/changePfp', formData, {withCredentials: true})
     .then((res) => {
         console.log(res)
     })
