@@ -334,7 +334,6 @@ let start = async() =>
             let userData = validateToken(req.session.userToken);
             let pfp = {
                 data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-                contentType: 'image/jpg'
             }
             let result = await ChangeProfilePicture(userData.userID, pfp)
         }
