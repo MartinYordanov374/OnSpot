@@ -3,6 +3,8 @@ const sql = require('mssql')
 const jwt = require('jsonwebtoken')
 const saltRounds = Number(process.env.REACT_APP_SALT_ROUNDS)
 
+
+
 async function registerUser(username, password, email)
 {
     
@@ -198,10 +200,11 @@ async function ChangeProfilePicture(userID, profilePicture)
         // exists
         try{
             await sql.query`INSERT INTO dbo.ProfilePictures(UserID, ProfilePicture) VALUES(${userID}, ${profilePicture.data})`
+            return {status: 200, msg: 'Profile picture successfully uploaded.'}
         }
         catch(err)
         {
-            console.log(err)
+            return {status: 500, msg: 'Profile picture successfully uploaded.'}
         }
     }
     else

@@ -35,6 +35,8 @@ app.use(session({
         path: '/'
         },
   }));
+
+
 let start = async() =>
 {
     let connection = await mssql.connectWithMSSQLDatabase()
@@ -336,6 +338,7 @@ let start = async() =>
                 data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             }
             let result = await ChangeProfilePicture(userData.userID, pfp)
+            res.status(result.status).send(result.msg)
         }
         catch(err){
             console.log(err)
