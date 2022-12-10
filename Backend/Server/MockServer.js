@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
@@ -314,10 +314,13 @@ let start = async() =>
     
     app.post('/getUserDataById/:id', async(req,res) => {
         let result = await UserExistsById(Number(req.params.id))
+        let targetUserProfilePictureResponse = await GetUserProfilePicture(req.params.id)
+        let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
         let userObject = {
             Username: result.recordset[0].Username,
             Followers: result.recordset[0].Followers,
-            Bio: result.recordset[0].bio
+            Bio: result.recordset[0].bio,
+            ProfilePicture: targetUserPfp
         }
         res.status(200).send(userObject)
         

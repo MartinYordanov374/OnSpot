@@ -216,13 +216,12 @@ async function ChangeProfilePicture(userID, profilePicture)
 async function GetUserProfilePicture(userID)
 {
     let userExists = await UserExistsById(userID)
-    
     if(userExists.recordset.length >= 1)
     {
         // exists
         try{
-            await sql.query`SELECT * FROM dbo.ProfilePictures WHERE UserID = ${userID}`
-            return {status: 200, msg: 'Profile picture successfully retrieved.'}
+            let result = await sql.query`SELECT * FROM dbo.ProfilePictures WHERE UserID = ${userID}`
+            return {status: 200, msg: 'Profile picture successfully retrieved.', data: result}
         }
         catch(err)
         {
