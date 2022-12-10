@@ -214,8 +214,9 @@ let start = async() =>
         res.status(result.status).send(result.msg)
 
     })
-    app.get('/GetUserEvents/:userID', async (req, res) => {
-        let userID = Number(req.params.userID)
+    app.get('/GetUserEvents', async (req, res) => {
+        const userToken = req.session.userToken;
+        const userID = Number(jwt.decode(userToken))
         let result = await GetUserEvents(userID)
 
         if(result.status != 404)

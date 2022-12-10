@@ -4,7 +4,7 @@ import { Container,Card,Button } from 'react-bootstrap'
 import '../EventCardComponent/EventCardStyles/EventCard.css'
 
 export default class EventCardComponent extends Component {
-   
+
   render() {
     let eventData = this.props;
     return (
@@ -27,7 +27,7 @@ export default class EventCardComponent extends Component {
                 </Card.Body>
                 <Card.Footer className = 'eventCardFooter'>
                         <Button className='learnMore btn-light' href={`Event/${eventData.props.EventID}`}>Learn more</Button>
-                        <Button className='Attend btn btn-light'>Attend</Button>
+                        
                 </Card.Footer>
             </Card>
         </Container>

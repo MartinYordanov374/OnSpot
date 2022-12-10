@@ -1,6 +1,6 @@
 class KeywordSimilarity{
 
-    constructor()
+    constructor(userInput, keywords)
     {
         this.alphabet = {
             'a': 0.03076180324539124,
@@ -33,32 +33,53 @@ class KeywordSimilarity{
         this.englishStopWords = ['with', 'who', 'has', 'wasn', 'being', 'i', 'for', "she's", 'once', 'does', 'up', 'o', 'shouldn', 'through', 'don', "should've", 'm', "needn't", 'why', 'as', 'by', 'those', 'himself', 'in', 'ourselves', 'ain', 'then', 'you', "it's", 'theirs', "you're", 'herself', 'to', 'won', 'off', 'is', 'doesn', 'my', 'no', 'but', 'are', 'was', 'will', "wouldn't", 'when', "wasn't", 'whom', 'now', 'be', 'of', 'me', 'didn', 'nor', 'they', 'isn', 'other', 'themselves', 'been', 'itself', 'your', 'having', "aren't", "hasn't", 'couldn', 'until', 't', 'its', 'some', 'all', 'before', 'during', "you'll", "won't", 'did', "you've", 're', 'against', 'such', 'aren', 'only', 'yours', 'after', 'than', 'both', 'haven', 'which', 'again', 'about', 'ma', 'or', 'too', 's', 'a', 'mustn', "isn't", 'him', 'their', 'am', 'few', 'at', 'our', 'below', 'any', 'most', "shan't", 'out', 'mightn', 'hadn', 'y', 'an', 'same', "mightn't", "shouldn't", "couldn't", 'so', 'down', 'd', 'over', "don't", 'more', "that'll", 'yourselves', 'have', 'just', 'each', 'were', 'because', 'can', "didn't", 'these', 'between', 'he', 'how', 'should', 'that', 'further', 'her', 'here', 'she', 'shan', 'where', 'this', 'own', 'ours', "hadn't", 'it', 'his', 'if', 'doing', "mustn't", 'had', 'them', "haven't", 'what', 'myself', 'into', 'from', 'hers', 'wouldn', 'yourself', 'the', 'under', "doesn't", 'not', 'do', 've', 'hasn', 'we', 'and', 'on', 'while', 'there', 'very', 'll', "weren't", "you'd", 'weren', 'above', 'needn']
         this.targetVectorizedWord = [];
         this.vectorizedKeyword = []
+        this.userInput = userInput
+        this.keywords = keywords
     }
 
-    turnWordsToFeatureVectors(targetWord, keyword)
+    turnWordsToFeatureVectors(userInput)
     {
-        let splittedTargetWord = targetWord.split('')
-        let splittedKeyword = keyword.split('')
-        for(let item of splittedTargetWord)
+        let splittedTargetWord = userInput.trim().toLowerCase().split(' ')
+        let splittedKeywords = this.keywords.map((x) => x.toLowerCase().split(''))
+        let vectorizedKeywords = []
+        for(let word of splittedTargetWord)
         {
-            this.targetVectorizedWord.push(this.alphabet[item])
+            let vectorizedWord = []
+            for(let character of word)
+            {
+                vectorizedWord.push(this.alphabet[character])
+            }
+            this.targetVectorizedWord.push(vectorizedWord)
         }
 
-        for(let item of splittedKeyword)
+        for(let splittedKeyword of splittedKeywords)
         {
-            this.vectorizedKeyword.push(this.alphabet[item])
+            let vectorizedKeyword = []
+            for(let character of splittedKeyword)
+            {
+                vectorizedKeyword.push(this.alphabet[character])
+            }
+            vectorizedKeywords.push(vectorizedKeyword)
         }
-        return [this.targetVectorizedWord, this.vectorizedKeyword]
+        return [this.targetVectorizedWord, vectorizedKeywords]
     }
 
-    dot(vectorOne, vectorTwo)
+    dot(vectorizedInputOne, vectorizedInputTwo)
     {
-        let dotProduct = 0
-        for(let i = 0; i < vectorOne.length; i++)
+        let dotProducts = []
+        for(let [vectorOne, vectorTwo] of [vectorizedInputOne, vectorizedInputTwo])
         {
-            dotProduct += vectorOne[i] * vectorTwo[i]
+            if(vectorOne.length == vectorTwo.length)
+            {
+                let dotProduct = 0
+                for(let i = 0; i < vectorOne.length; i++)
+                {
+                    dotProduct += vectorOne[i] * vectorTwo[i]
+                    dotProducts.push(dotProduct)
+                }
+            }
         }
-        return dotProduct
+        return dotProducts
     }
 
     removeStopWordsFromInputData(targetWord)
@@ -76,31 +97,39 @@ class KeywordSimilarity{
         return CleanInput.join(" ")
     }
 
-    l2norm(vectorOne)
+    l2norm(vectorizedInput)
     {
-        let l2normProduct = 0
-        for(let i = 0; i < vectorOne.length; i++)
+        let l2norms = []
+        for(let vector of vectorizedInput)
         {
-            l2normProduct += Math.pow(vectorOne[i],2)
+            let l2normProduct = 0
+            for(let i = 0; i < vector.length; i++)
+            {
+                l2normProduct += Math.pow(vector[i],2)
+                l2norms.push(l2normProduct)
+            }
+
         }
-        return l2normProduct
+        return l2norms
     }
 
-    getCosineSimilarity(wordVectorOne, wordVectorTwo)
+    getCosineSimilarity()
     {
-        let dotProduct = this.dot(wordVectorOne, wordVectorTwo)
-        let l2norm_vectorOne = this.l2norm(wordVectorOne)
-        let l2norm_vectorTwo = this.l2norm(wordVectorTwo)
-
+        // remove stop words from input
+        let cleanedUserInput = this.removeStopWordsFromInputData(this.userInput)
+        // vectorize cleaned input
+        let [vectorozedUserInput, vectorizedKeywords] = this.turnWordsToFeatureVectors(cleanedUserInput)
+        let dotProduct = this.dot(vectorozedUserInput, vectorizedKeywords)
+        let l2norm_vectorOne = this.l2norm(vectorozedUserInput)
+        let l2norm_vectorTwo = this.l2norm(vectorizedKeywords)
+        // console.log(l2norm_vectorTwo)
+        // console.log(l2norm_vectorTwo)
         let cosineSimilarity = dotProduct / (Math.sqrt(l2norm_vectorOne) / Math.sqrt(l2norm_vectorTwo))
         return cosineSimilarity
     }
 }
 
-model = new KeywordSimilarity()
-let VectorizedWords = model.turnWordsToFeatureVectors('test', 'cats')
+let similarityModel = new KeywordSimilarity('Cats who play around', ['Cats', 'Dogs', 'Artificial intelligence'])
+console.log(similarityModel.getCosineSimilarity())
 
-let similarity = model.getCosineSimilarity(VectorizedWords[0], VectorizedWords[1])
-
-console.log(similarity)
 
