@@ -30,7 +30,8 @@ export default class ProfilePageComponent extends Component {
   changeProfilePicture = () => {
     let profileImageInputField = document.querySelector('.profileImageUpload')
     let profileImage = profileImageInputField.files[0]
-    console.log(profileImage)
+    let formData = new FormData()
+    formData.append('pfp', profileImage)
   }
 
 
