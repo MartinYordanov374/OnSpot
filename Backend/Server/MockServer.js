@@ -336,6 +336,9 @@ let start = async() =>
         res.status(200).send(result[0])
     })
 
+    app.post('/changePfp', upload.file('pfp'), async(req,res) => {
+        
+    })
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)
     })
