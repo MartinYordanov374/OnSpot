@@ -189,6 +189,10 @@ async function GetUserAttendedEvents(userID)
     }
 }
 
+async function ChangeProfilePicture(userID, profilePicture)
+{
+
+}
 
 function validateToken(token)
 {
@@ -222,5 +226,6 @@ module.exports = {
     GetUserEvents,
     GetUserAttendedEvents,
     AddUserBio,
-    UserExistsById
+    UserExistsById,
+    ChangeProfilePicture
 }

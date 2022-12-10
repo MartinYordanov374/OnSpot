@@ -9,6 +9,8 @@ const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
 const port = process.env.REACT_APP_SERVER_PORT
+const fs = require('fs')
+const path = require('path')
 
 const corsOptions = {
     origin: 'http://localhost:3000', 
@@ -326,6 +328,19 @@ let start = async() =>
     })
 
     app.post('/changePfp', upload.single('pfp'), async(req,res) => {
+        // TODO: CHANGE PFP OPTION WILL BE AVAILABLE TO PROFILE OWNERS ONLY
+        try{
+
+            let userID = validateToken(req.session.userToken);
+            let pfp = {
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+                contentType: 'image/jpg'
+            }
+            let result = await ChangeProfilePicture(userID, pfp)
+        }
+        catch(err){
+            console.log(err)
+        }
     })
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)
