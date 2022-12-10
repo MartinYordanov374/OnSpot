@@ -7,13 +7,26 @@ const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, Ge
 const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
-
+const multer = require('multer')
 const port = process.env.REACT_APP_SERVER_PORT
 
 const corsOptions = {
     origin: 'http://localhost:3000', 
     credentials: true,
 };
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb)
+    {
+        cb(null,'./uploads')
+    },
+    filename: function(req,file,cb)
+    {
+        cb(null, file.fieldname)
+    }
+})
+
+let upload = multer({storage: storage});
 
 app = express()
 app.use(express.json())
