@@ -11,7 +11,7 @@ export default class ProfilePageComponent extends Component {
     super()
     this.splittedUrl = window.location.href.split('/')
     this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
-    this.state = {userData: []}
+    this.state = {userData: [], userProfilePicture: ''}
   }
   componentDidMount()
   {
@@ -22,11 +22,13 @@ export default class ProfilePageComponent extends Component {
     .catch((err) => console.log(err))
   }
 
-  handleImageChange = () => {
+  handleSelectProfilePicture = () => {
     let coverInputField = document.querySelector('.coverUpload')
     coverInputField.click()
-
+    console.log(this.state)
   }
+
+
   render() {
     return (
         <div>
@@ -35,13 +37,13 @@ export default class ProfilePageComponent extends Component {
         <Container>
             <NavbarComponentRegisteredUser/>
             <div className='profilePageWrapper'>
-                <div className='profilePageBackgroundImage' onClick={() => this.handleImageChange()}>
+                <div className='profilePageBackgroundImage' onClick={() => this.handleSelectProfilePicture()}>
                     <img 
                         src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images' 
                         className='userPFP'
                         
                     />
-                    <input type="file" className="coverUpload" hidden />
+                    <input type="file" className="coverUpload" hidden onChange={(e) => this.setState({'userProfilePicture': e.target.value})}/>
                 </div>
                 <div className='profilePageUserDetails d-flex'>
                     <div className='row'>
