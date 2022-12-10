@@ -15,18 +15,7 @@ const corsOptions = {
     credentials: true,
 };
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb)
-    {
-        cb(null,'./uploads')
-    },
-    filename: function(req,file,cb)
-    {
-        cb(null, file.fieldname)
-    }
-})
-
-let upload = multer({storage: storage});
+const upload = multer({ dest: 'uploads/' })
 
 app = express()
 app.use(express.json())
@@ -336,8 +325,7 @@ let start = async() =>
         res.status(200).send(result[0])
     })
 
-    app.post('/changePfp', upload.file('pfp'), async(req,res) => {
-        
+    app.post('/changePfp', upload.single('pfp'), async(req,res) => {
     })
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)
