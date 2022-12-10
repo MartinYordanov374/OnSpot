@@ -197,10 +197,19 @@ async function ChangeProfilePicture(userID, profilePicture)
     
     if(userExists.recordset.length >= 1)
     {
-        // exists
+        // check if user has already uploaded profile picture, if so change it otherwise insert it
         try{
-            await sql.query`INSERT INTO dbo.ProfilePictures(UserID, ProfilePicture) VALUES(${userID}, ${profilePicture.data})`
-            return {status: 200, msg: 'Profile picture successfully uploaded.'}
+            let hasUserUploadedProfilePicture = await GetUserProfilePicture(userID)
+            if(hasUserUploadedProfilePicture.status == 200)
+            {
+                await sql.query`UPDATE dbo.ProfilePictures SET ProfilePicture = ${profilePicture.data} WHERE UserID = ${userID}`
+                return {status: 200, msg: 'Profile picture successfully uploaded.'}
+            }
+            else if (hasUserUploadedProfilePicture.status != 400 && hasUserUploadedProfilePicture.status != 500)
+            {
+                await sql.query`INSERT INTO dbo.ProfilePictures(UserID, ProfilePicture) VALUES(${userID}, ${profilePicture.data})`
+                return {status: 200, msg: 'Profile picture successfully uploaded.'}
+            }
         }
         catch(err)
         {
@@ -217,8 +226,7 @@ async function GetUserProfilePicture(userID)
 {
     let userExists = await UserExistsById(userID)
     if(userExists.recordset.length >= 1)
-    {
-        // exists
+    {        
         try{
             let result = await sql.query`SELECT * FROM dbo.ProfilePictures WHERE UserID = ${userID}`
             return {status: 200, msg: 'Profile picture successfully retrieved.', data: result}
