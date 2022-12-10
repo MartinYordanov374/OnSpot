@@ -213,6 +213,28 @@ async function ChangeProfilePicture(userID, profilePicture)
     }
 }
 
+async function GetUserProfilePicture(userID)
+{
+    let userExists = await UserExistsById(userID)
+    
+    if(userExists.recordset.length >= 1)
+    {
+        // exists
+        try{
+            await sql.query`SELECT * FROM dbo.ProfilePictures WHERE UserID = ${userID}`
+            return {status: 200, msg: 'Profile picture successfully retrieved.'}
+        }
+        catch(err)
+        {
+            return {status: 500, msg: 'Profile picture retrieval failed.'}
+        }
+    }
+    else
+    {
+        return {status: 409, msg: 'This user does not exist.'}
+    }
+}
+
 function validateToken(token)
 {
     try{
@@ -246,5 +268,6 @@ module.exports = {
     GetUserAttendedEvents,
     AddUserBio,
     UserExistsById,
-    ChangeProfilePicture
+    ChangeProfilePicture,
+    GetUserProfilePicture
 }
