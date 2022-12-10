@@ -341,7 +341,7 @@ let start = async() =>
             res.status(result.status).send(result.msg)
         }
         catch(err){
-            console.log(err)
+            res.status(500).send('Internal server error.')
         }
     })
     app.listen(port, () => {
