@@ -5,6 +5,7 @@
 
 .profilePageWrapper .userPFP {
   width: 15rem;
+  height: 100%;
   border-radius: 50%;
   margin-top: 5rem;
   margin-left: 2rem;
