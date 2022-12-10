@@ -11,7 +11,7 @@ export default class ProfilePageComponent extends Component {
     super()
     this.splittedUrl = window.location.href.split('/')
     this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
-    this.state = {userData: [], userProfilePicture: ''}
+    this.state = {userData: []}
   }
   componentDidMount()
   {
@@ -25,7 +25,7 @@ export default class ProfilePageComponent extends Component {
   handleSelectProfilePicture = () => {
     let coverInputField = document.querySelector('.coverUpload')
     coverInputField.click()
-    console.log(this.state)
+    console.log(coverInputField.files[0])
   }
 
 
