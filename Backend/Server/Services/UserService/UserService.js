@@ -27,9 +27,12 @@ async function UserExistsByEmail(email)
 
 async function UserExistsById(id)
 {
-    let result = await sql.query`SELECT * FROM dbo.USERS u
-    RIGHT JOIN  dbo.ProfilePictures pp 
-    on u.id = ${id} `
+    let result = await sql.query`   	
+    SELECT id, Email, Username, Followers, bio, ProfilePicture
+    FROM dbo.USERS u
+    LEFT JOIN ProfilePictures pp 
+    ON U.id = pp.UserID
+    WHERE id = ${id}`
     return result
 }
 
@@ -205,11 +208,11 @@ async function ChangeProfilePicture(userID, profilePicture)
             if(hasUserUploadedProfilePicture.status == 200)
             {
                 await sql.query`UPDATE dbo.ProfilePictures SET ProfilePicture = ${profilePicture.data} WHERE UserID = ${userID}`
-                return {status: 200, msg: 'Profile picture successfully uploaded.'}
+                return {status: 200, msg: 'Profile picture successfully updated.'}
             }
             else if (hasUserUploadedProfilePicture.status != 400 && hasUserUploadedProfilePicture.status != 500)
             {
-                await sql.query`INSERT INTO dbo.ProfilePictures(UserID, ProfilePicture) VALUES(${userID}, ${profilePicture.data})`
+                await sql.query`IF NOT EXISTS (SELECT * FROM dbo.ProfilePictures WHERE UserID = ${userID}) INSERT INTO dbo.ProfilePictures(UserID, ProfilePicture) VALUES(${userID}, ${profilePicture.data})`
                 return {status: 200, msg: 'Profile picture successfully uploaded.'}
             }
         }
