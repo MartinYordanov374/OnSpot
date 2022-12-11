@@ -293,6 +293,7 @@ let start = async() =>
             const userToken = req.session.userToken;
             const ID = Number(jwt.decode(userToken))
             let targetUser = await UserExistsById(ID)
+            console.log(targetUser)
             res.status(200).send(targetUser.recordset)
         }
         catch(err)
