@@ -79,10 +79,10 @@ export default class HostAnEventPageComponent extends Component {
           }})
       }
 
-      componentDidMount()
-      {
-        this.checkIfUserIsLoggedIn()
-      }
+    componentDidMount()
+    {
+      this.checkIfUserIsLoggedIn()
+    }
   render() {
     return (
         <div>
