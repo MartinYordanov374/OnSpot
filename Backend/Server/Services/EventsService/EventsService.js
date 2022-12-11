@@ -171,7 +171,7 @@ async function GetAllEventsHostedByUser(userID)
     try{
         let result = await sql.query`SELECT * FROM Events e
         WHERE EventHosterID = ${userID}`
-        return {status: 200, msg: 'Event successfully edited.'}
+        return {status: 200, msg: 'Events successfully fetched.', data: result}
     }
     catch(err)
     {
