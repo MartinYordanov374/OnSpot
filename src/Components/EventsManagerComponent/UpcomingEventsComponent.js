@@ -14,22 +14,24 @@ export default class UpcomingEventsComponent extends Component {
       this.setState({'userID': result.data[0].id})
       this.GetAllUpcomingUserEvents()
     }
-    GetAllUpcomingUserEvents = async() =>
+    GetAllUserHostedEvents = async() =>
     {
       let result = await Axios.get(`http://localhost:3030/GetAllEventsHostedByUser/${this.state.userID}`, {withCredentials: true})
 
       this.setState({'HostedEvents':result.data})
       
     }
-    GetAllUserHostedEvents = async() =>
+    GetAllUpcomingUserEvents = async() =>
     {
       let result = await Axios.get(`http://localhost:3030/GetAllUpcomingUserEvents/${this.state.userID}`, {withCredentials: true})
-
       this.setState({'UpcomingEvents':result.data})
-      
+    }
+    GetAllAttendedUserEvents = async() =>
+    {
+      let result = await Axios.get(`http://localhost:3030/GetAllAttendedUserEvents/${this.state.userID}`, {withCredentials: true})
+      this.setState({'AttendedEvents':result.data})
     }
   render() {
-    console.log(this.state)
     return (
       <div>
             <div className='EventsWrapper row'>
