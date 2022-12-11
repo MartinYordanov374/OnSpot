@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandingPage'
 import Axios from 'axios'
-import UpcomingEventsCalendar from './UpcomingEventsCalendar'
-import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
 
-export default class UpcomingEvents extends Component {
+import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
+import UpcomingEventsComponent from './UpcomingEventsComponent'
+
+export default class EventsManagerComponent extends Component {
     constructor()
     {
       super()
@@ -34,7 +35,7 @@ export default class UpcomingEvents extends Component {
          {this.state.loginStatus == true ?
         <div>
             <NavbarComponentRegisteredUser/>
-            <UpcomingEventsCalendar/>
+            <UpcomingEventsComponent/>
         </div>
         :
         <div>
