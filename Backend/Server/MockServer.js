@@ -394,6 +394,17 @@ let start = async() =>
             res.status(500).send('Internal server error.')
         }
     })
+
+    app.get('/GetAllUpcomingUserEvents/:id', async(req,res) => {
+        try{
+            let result = await GetAllUpcomingEvents(Number(req.params.id))
+            res.status(200).send(result.data.recordset)
+        }
+        catch(err)
+        {
+            res.status(500).send('Internal server error.')
+        }
+    })
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)
     })
