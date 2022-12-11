@@ -34,8 +34,9 @@ export default class ProfilePageComponent extends Component {
     this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
     Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
     .then((res) => {
-        this.setState({userData: res.data})
-        this.setState({'isLoading': false})
+      console.log(res.data)
+      this.setState({userData: res.data})
+      this.setState({'isLoading': false})
     })
     .catch((err) => {
       console.log(err)

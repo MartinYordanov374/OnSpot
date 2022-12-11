@@ -29,7 +29,7 @@ async function UserExistsById(id)
 {
     let result = await sql.query`SELECT * FROM dbo.USERS u
     RIGHT JOIN  dbo.ProfilePictures pp 
-    on u.id = pp.UserID `
+    on u.id = ${id} `
     return result
 }
 
