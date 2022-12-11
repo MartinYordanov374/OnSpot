@@ -189,7 +189,7 @@ async function GetAllAttendedUserEvents(userID)
             ON u.id = ${userID}
         JOIN Events e 
             ON e.EventID = at2.EventID 
-        WHERE e.EventDate > GETDATE() `
+        WHERE e.EventDate < GETDATE() `
         return {status: 200, msg: 'Events successfully retrieved.', data: result}
     }
     catch(err)
