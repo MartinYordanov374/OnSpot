@@ -103,10 +103,12 @@ async function GetAllEvents()
     try{
         // let result = await sql.query`SELECT * FROM dbo.Events`
         let result = await sql.query`
-        SELECT EventName, EventDescription, EventType, EventClass, EventID, EventLocation, Username, id 
-        as UserID FROM Events e 
-        INNER JOIN Users u
-        ON e.EventHosterID  = u.id`
+        SELECT EventName, EventDescription, EventType, EventClass, EventID, EventLocation, Username, id as UserID, ProfilePicture
+        FROM Events e
+        JOIN Users u
+        ON e.EventHosterID  = u.id 
+        JOIN ProfilePictures pp 
+        ON u.id = pp.UserID`
         return {status: 200, msg: 'Events successfully fetched from the database.', payload: result.recordset}
     }
     catch(err)
