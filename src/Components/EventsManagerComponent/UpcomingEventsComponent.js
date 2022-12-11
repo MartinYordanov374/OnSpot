@@ -48,7 +48,6 @@ export default class UpcomingEventsComponent extends Component {
                     return(
                         <EventCardComponent props = {hostedEvent} />
                     )
-
                   })}
 
                 </div>

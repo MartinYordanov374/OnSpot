@@ -184,7 +184,6 @@ async function GetAllUpcomingUserEvents(userID)
 
 async function GetAllEventsHostedByUser(userID)
 {
-    console.log(userID)
     try{
         let result = await sql.query`SELECT EventName, EventDescription, EventType, EventClass, EventID, EventLocation, Username, id as UserID, ProfilePicture
         FROM Events e
