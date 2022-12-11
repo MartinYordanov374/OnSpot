@@ -13,13 +13,13 @@ export default class UpcomingEventsComponent extends Component {
       let result = await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
       this.setState({'userID': result.data[0].id})
       this.GetAllUpcomingUserEvents()
+      this.GetAllAttendedUserEvents()
+      this.GetAllUserHostedEvents()
     }
     GetAllUserHostedEvents = async() =>
     {
       let result = await Axios.get(`http://localhost:3030/GetAllEventsHostedByUser/${this.state.userID}`, {withCredentials: true})
-
       this.setState({'HostedEvents':result.data})
-      
     }
     GetAllUpcomingUserEvents = async() =>
     {
@@ -32,6 +32,7 @@ export default class UpcomingEventsComponent extends Component {
       this.setState({'AttendedEvents':result.data})
     }
   render() {
+    // TODO: ADD LOADING SCREEN
     return (
       <div>
             <div className='EventsWrapper row'>
