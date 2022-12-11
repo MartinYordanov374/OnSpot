@@ -16,7 +16,7 @@ export default class EventCardComponent extends Component {
             <Card className='eventCard'>
                 <Card.Header className = 'eventCardHeader'>
                     <div className = 'eventCardHeaderDetails row'>
-                    {eventData.props.ProfilePicture.data 
+                    {eventData.props.ProfilePicture.data
                       ?
                       <Card.Img 
                             src={

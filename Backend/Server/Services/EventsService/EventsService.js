@@ -184,9 +184,15 @@ async function GetAllUpcomingUserEvents(userID)
 
 async function GetAllEventsHostedByUser(userID)
 {
+    console.log(userID)
     try{
-        let result = await sql.query`SELECT * FROM Events e
-        WHERE EventHosterID = ${userID}`
+        let result = await sql.query`SELECT EventName, EventDescription, EventType, EventClass, EventID, EventLocation, Username, id as UserID, ProfilePicture
+        FROM Events e
+        JOIN Users u
+        ON e.EventHosterID  = u.id 
+        JOIN ProfilePictures pp 
+        ON u.id = pp.UserID
+        WHERE e.EventHosterID = ${userID}`
         return {status: 200, msg: 'Events successfully fetched.', data: result}
     }
     catch(err)
