@@ -32,7 +32,7 @@ export default class EventCardComponent extends Component {
                         />
                     }
                         <p className='eventCardHeaderDetail eventHost col'>{eventData.props.Username}</p>
-                        <p className='eventCardHeaderDetail eventType col'>{eventData.props.EventType == 0 ? "Public" : "Private"}</p>
+                        <p className='eventCardHeaderDetail eventType col'>{eventData.props.EventType == 1 ? "Public" : "Private"}</p>
                         <p className='eventCardHeaderDetail eventClass col'>{eventData.props.EventClass}</p>
                     </div>
                 </Card.Header>
