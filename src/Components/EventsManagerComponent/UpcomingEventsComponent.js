@@ -1,3 +1,4 @@
+import Axios from 'axios'
 import React, { Component } from 'react'
 import EventCardComponent from '../EventCardComponent/EventCardComponent'
 import './Styles/UpcomingEventsStyles.css'
@@ -6,6 +7,9 @@ export default class UpcomingEventsComponent extends Component {
     {
         super()
         this.state = {currentDate: '', UpcomingEvents: [], AttendedEvents: [], HostedEvents: []}
+    }
+    getCurrentEvents = async () => {
+      let result = await Axios
     }
   render() {
     return (
