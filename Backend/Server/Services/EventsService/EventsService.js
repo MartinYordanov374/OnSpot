@@ -152,6 +152,21 @@ async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName,
             }
         }
     }
+
+async function GetAllUpcomingEvents()
+{
+    try{
+        let result = await sql.query`SELECT * FROM Events e
+        WHERE EventDate > GETDATE()`
+        return {status: 200, msg: 'Event successfully edited.'}
+    }
+    catch(err)
+    {
+        let result = await sql.query`SELECT * FROM Events e
+        WHERE EventDate > GETDATE()`
+        return {status: 500, msg: 'Internal Server Error'}
+    }
+}
 module.exports = {
     HostEvent,
     CheckIfUserAlreadyCreatedEvent,
@@ -160,5 +175,6 @@ module.exports = {
     GetAllEvents,
     EditEvent,
     getEventById,
-    DoesUserAttendEvent
+    DoesUserAttendEvent,
+    GetAllUpcomingEvents
 }
