@@ -16,12 +16,20 @@ export default class UpcomingEventsComponent extends Component {
     }
     GetAllUpcomingUserEvents = async() =>
     {
+      let result = await Axios.get(`http://localhost:3030/GetAllEventsHostedByUser/${this.state.userID}`, {withCredentials: true})
+
+      this.setState({'HostedEvents':result.data})
+      
+    }
+    GetAllUserHostedEvents = async() =>
+    {
       let result = await Axios.get(`http://localhost:3030/GetAllUpcomingUserEvents/${this.state.userID}`, {withCredentials: true})
 
       this.setState({'UpcomingEvents':result.data})
       
     }
   render() {
+    console.log(this.state)
     return (
       <div>
             <div className='EventsWrapper row'>
