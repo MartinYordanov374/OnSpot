@@ -186,11 +186,11 @@ async function GetAllAttendedUserEvents(userID)
         SELECT UserID, Username, EventName, EventDescription, EventHosterID, EventType, EventClass, EventDate, EventLocation 
         FROM AttendancesTable at2
         JOIN Users u 
-            ON at2.UserID = ${userID}
+            ON u.id = ${userID}
         JOIN Events e 
             ON e.EventID = at2.EventID 
-        WHERE e.EventDate < GETDATE() `
-        return {status: 200, msg: 'Event successfully edited.'}
+        WHERE e.EventDate > GETDATE() `
+        return {status: 200, msg: 'Events successfully retrieved.', data: result}
     }
     catch(err)
     {

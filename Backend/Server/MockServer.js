@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
-const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser } = require('./Services/EventsService/EventsService.js')
+const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents } = require('./Services/EventsService/EventsService.js')
 const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
@@ -376,6 +376,17 @@ let start = async() =>
     app.get('/GetAllEventsHostedByUser/:id', async(req,res) => {
         try{
             let result = await GetAllEventsHostedByUser(Number(req.params.id))
+            res.status(200).send(result.data.recordset)
+        }
+        catch(err)
+        {
+            res.status(500).send('Internal server error.')
+        }
+    })
+
+    app.get('/GetAllAttendedUserEvents/:id', async(req,res) => {
+        try{
+            let result = await GetAllAttendedUserEvents(Number(req.params.id))
             res.status(200).send(result.data.recordset)
         }
         catch(err)
