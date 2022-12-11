@@ -162,8 +162,19 @@ async function GetAllUpcomingEvents()
     }
     catch(err)
     {
+        return {status: 500, msg: 'Internal Server Error'}
+    }
+}
+
+async function GetAllEventsHostedByUser(userID)
+{
+    try{
         let result = await sql.query`SELECT * FROM Events e
-        WHERE EventDate > GETDATE()`
+        WHERE EventHosterID = ${userID}`
+        return {status: 200, msg: 'Event successfully edited.'}
+    }
+    catch(err)
+    {
         return {status: 500, msg: 'Internal Server Error'}
     }
 }
@@ -177,4 +188,5 @@ module.exports = {
     getEventById,
     DoesUserAttendEvent,
     GetAllUpcomingEvents
+    GetAllEventsHostedByUser
 }
