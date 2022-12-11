@@ -48,7 +48,6 @@ export default class ProfilePageComponent extends Component {
 
 
   render() {
-    console.log(this.state.userData)
     return (
         <div>
         <SidebarComponent/>

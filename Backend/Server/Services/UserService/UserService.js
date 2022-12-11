@@ -27,7 +27,9 @@ async function UserExistsByEmail(email)
 
 async function UserExistsById(id)
 {
-    let result = await sql.query`SELECT * FROM dbo.users WHERE id = ${id}`
+    let result = await sql.query`SELECT * FROM dbo.USERS u
+    RIGHT JOIN  dbo.ProfilePictures pp 
+    on u.id = pp.UserID `
     return result
 }
 
