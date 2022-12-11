@@ -178,6 +178,25 @@ async function GetAllEventsHostedByUser(userID)
         return {status: 500, msg: 'Internal Server Error'}
     }
 }
+
+async function GetAllAttendedUserEvents(userID)
+{
+    try{
+        let result = await sql.query`
+        SELECT UserID, Username, EventName, EventDescription, EventHosterID, EventType, EventClass, EventDate, EventLocation 
+        FROM AttendancesTable at2
+        JOIN Users u 
+            ON at2.UserID = ${userID}
+        JOIN Events e 
+            ON e.EventID = at2.EventID 
+        WHERE e.EventDate < GETDATE() `
+        return {status: 200, msg: 'Event successfully edited.'}
+    }
+    catch(err)
+    {
+        return {status: 500, msg: 'Internal Server Error'}
+    }
+}
 module.exports = {
     HostEvent,
     CheckIfUserAlreadyCreatedEvent,
@@ -187,6 +206,7 @@ module.exports = {
     EditEvent,
     getEventById,
     DoesUserAttendEvent,
-    GetAllUpcomingEvents
-    GetAllEventsHostedByUser
+    GetAllUpcomingEvents,
+    GetAllEventsHostedByUser,
+    GetAllAttendedUserEvents
 }
