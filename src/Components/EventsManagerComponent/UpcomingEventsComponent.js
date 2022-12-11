@@ -12,7 +12,7 @@ export default class UpcomingEventsComponent extends Component {
       <div>
             <div className='EventsWrapper row'>
                 <div className='HostedEventsCard eventsCard col'>
-                  <EventCardComponent props = {{username: 'test', EventType: 1, EventClass: 'class', EventName: 'UpcomingEvent', EventDescription: 'UpcomingEvent', EventID: 1, ProfilePicture: ''}} />
+                  <EventCardComponent props = {{username: 'test', EventType: 1, EventClass: 'class', EventName: 'HostedEvent', EventDescription: 'HostedEvent', EventID: 1, ProfilePicture: ''}} />
 
                 </div>
                 <div className='AttendedEventsCard eventsCard col'>

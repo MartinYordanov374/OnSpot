@@ -158,7 +158,7 @@ async function GetAllUpcomingEvents()
     try{
         let result = await sql.query`SELECT * FROM Events e
         WHERE EventDate > GETDATE()`
-        return {status: 200, msg: 'Event successfully edited.'}
+        return {status: 200, msg: 'Events successfully fetched', data: result}
     }
     catch(err)
     {
