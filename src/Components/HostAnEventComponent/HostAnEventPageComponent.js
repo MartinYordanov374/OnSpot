@@ -133,7 +133,6 @@ export default class HostAnEventPageComponent extends Component {
                                 <div className='eventCategoryWrapper col-sm mt-5'>
                                         <h2 className='fieldLabel'>Event Location</h2>
                                         <FormControl className='inputField eventLocationField' placeholder='e.g. Menlo Park'/>
-
                                     </div>
                                     <div className='eventCategoryWrapper col-sm mt-5'>
                                         <h2 className='fieldLabel'>Event Date</h2>
@@ -160,3 +159,5 @@ export default class HostAnEventPageComponent extends Component {
         </div>)
   }
 }
+
+
