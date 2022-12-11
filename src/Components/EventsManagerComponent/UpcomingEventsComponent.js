@@ -6,10 +6,20 @@ export default class UpcomingEventsComponent extends Component {
     constructor()
     {
         super()
-        this.state = {currentDate: '', UpcomingEvents: [], AttendedEvents: [], HostedEvents: []}
+        this.state = {currentDate: '', UpcomingEvents: [], AttendedEvents: [], HostedEvents: [], userID: ''}
     }
-    getCurrentEvents = async () => {
-      let result = await Axios
+    componentDidMount = async() =>
+    {
+      let result = await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
+      this.setState({'userID': result.data[0].id})
+      this.GetAllUpcomingUserEvents()
+    }
+    GetAllUpcomingUserEvents = async() =>
+    {
+      let result = await Axios.get(`http://localhost:3030/GetAllUpcomingUserEvents/${this.state.userID}`, {withCredentials: true})
+
+      this.setState({'UpcomingEvents':result.data})
+      
     }
   render() {
     return (
