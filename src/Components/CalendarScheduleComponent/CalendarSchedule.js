@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import DayComponent from './DayComponent'
+import MonthComponent from './MonthComponent'
 import WeekComponent from './WeekComponent'
 
 export default class CalendarSchedule extends Component {
@@ -7,7 +8,7 @@ export default class CalendarSchedule extends Component {
     return (
       <div className='CalendarWrapper'>
         <div className='CalendarContainer mx-auto'>
-            <WeekComponent/>
+            <MonthComponent/>
         </div>
       </div>
     )
