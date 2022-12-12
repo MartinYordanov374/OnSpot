@@ -10,6 +10,7 @@ import ExploreEventsComponent from './Components/ExploreEventsComponent/ExploreE
 import EventPageComponent from './Components/EventPageComponent/EventPageComponent';
 import ProfilePageComponent from './Components/ProfilePageComponent/ProfilePageComponent';
 import EventsManagerComponent from './Components/EventsManagerComponent/EventsManagerComponent';
+import CalendarSchedule from './Components/CalendarScheduleComponent/CalendarSchedule';
 function App() {
   return (
    <Router>
@@ -22,6 +23,7 @@ function App() {
       <Route path = '/Event/:eventId' element={<EventPageComponent/>}/> 
       <Route path = '/Profile/:id' element={<ProfilePageComponent/>}/> 
       <Route path = '/EventsManager' element={<EventsManagerComponent/>}/> 
+      <Route path = '/EventsManager/CalendarSchedule' element={<CalendarSchedule/>}/> 
 
       {/* TODO: ADD ID TO THE EVENT AND PROFILE ROUTES */}
 
