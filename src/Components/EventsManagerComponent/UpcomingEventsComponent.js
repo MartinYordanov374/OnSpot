@@ -75,6 +75,7 @@ export default class UpcomingEventsComponent extends Component {
                 <div className='UpcomingEventsCard eventsCard col'>
                 {this.state.UpcomingEvents.length >= 1 ?
                   this.state.UpcomingEvents.map((upcomingEvent) => {
+                    console.log(upcomingEvent)
                     return(
                       <EventCardComponent props = {upcomingEvent}/>
                     )
