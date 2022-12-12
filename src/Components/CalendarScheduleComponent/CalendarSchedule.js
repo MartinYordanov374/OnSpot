@@ -7,7 +7,7 @@ export default class CalendarSchedule extends Component {
     return (
       <div className='CalendarWrapper'>
         <div className='CalendarContainer mx-auto'>
-            <MonthSelector/>
+            <MonthSelector monthData = {{currentMonth: new Date().getMonth()}}/>
             <MonthComponent/>
         </div>
       </div>

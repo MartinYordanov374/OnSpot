@@ -45,4 +45,10 @@
 .MonthSelectorWrapper .caret:active {
   color: #ededed;
 }
+
+.MonthSelectorWrapper .MonthSelector {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+}
 /*# sourceMappingURL=CalendarScheduleStyle.css.map */
