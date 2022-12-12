@@ -14,7 +14,6 @@ export default class MonthSelector extends Component {
     }
     goMonthBack = () => {
         let previousMonth = this.state.currentMonth - 1
-        console.log(previousMonth)
         if(previousMonth < 0)
         {
             previousMonth = 11
