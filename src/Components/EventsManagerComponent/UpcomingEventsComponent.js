@@ -37,8 +37,8 @@ export default class UpcomingEventsComponent extends Component {
         this.setState({'isLoading': false})
       })
     }
-  render() {
-    // TODO: ADD LOADING SCREEN
+    render() {
+      // TODO: ADD LOADING SCREEN
     return (
       <div>
         {this.state.isLoading == false ? 
@@ -53,12 +53,18 @@ export default class UpcomingEventsComponent extends Component {
                 </div>
                 <div className='AttendedEventsCard eventsCard col'>
                 {this.state.AttendedEvents.map((attendedEvent) => {
-                  <EventCardComponent props = {attendedEvent}/>
+                  return(
+                    <EventCardComponent props = {attendedEvent}/>
+                  )
                 })}
 
                 </div>
                 <div className='UpcomingEventsCard eventsCard col'>
-                    <EventCardComponent props = {{username: 'test', EventType: 1, EventClass: 'class', EventName: 'UpcomingEvent', EventDescription: 'UpcomingEvent', EventID: 1, ProfilePicture: ''}} />
+                {this.state.UpcomingEvents.map((upcomingEvent) => {
+                  return(
+                    <EventCardComponent props = {upcomingEvent}/>
+                  )
+                })}
                 </div>
             </div>
         : <span>Loading</span>
