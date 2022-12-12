@@ -11,7 +11,7 @@ export default class MonthComponent extends Component {
           <WeekComponent weekData = {{'daysAmount': 7, 'startingDay': 1}}/>
         </div>
         <div className='MonthComponentContainerFirstWeek week row'>
-          <WeekComponent weekData = {{'daysAmount': 7, 'startingDay': 7}}/>
+          <WeekComponent weekData = {{'daysAmount': 7, 'startingDay': 8}}/>
         </div>
         <div className='MonthComponentContainerFirstWeek week row'>
           <WeekComponent weekData = {{'daysAmount': 7, 'startingDay': 14}}/>
