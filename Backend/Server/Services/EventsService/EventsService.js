@@ -170,9 +170,11 @@ async function GetAllUpcomingUserEvents(userID)
 {
     try{
         let result = await sql.query`    
-        SELECT * FROM Events e
-        JOIN dbo.AttendancesTable at3
-        ON at3.UserID = ${userID}
+        SELECT at2.UserID, pp.ProfilePicture, at2.EventID, e.EventName, e.EventDescription, e.EventHosterID, e.EventType, e.EventType, e.EventClass, e.EventDate, e.EventID, e.EventLocation FROM AttendancesTable at2 
+        JOIN dbo.ProfilePictures pp 
+        ON pp.UserID  = at2.UserID 
+        JOIN dbo.Events e
+        ON e.EventID = at2.EventID
         WHERE e.EventDate > GETDATE()`
         return {status: 200, msg: 'Events successfully fetched', data: result}
     }

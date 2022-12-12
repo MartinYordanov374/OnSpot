@@ -52,7 +52,9 @@ export default class UpcomingEventsComponent extends Component {
 
                 </div>
                 <div className='AttendedEventsCard eventsCard col'>
-                  <EventCardComponent props = {{username: 'test', EventType: 1, EventClass: 'class', EventName: 'AttendedEvent', EventDescription: 'AttendedEvent', EventID: 1, ProfilePicture: ''}} />
+                {this.state.AttendedEvents.map((attendedEvent) => {
+                  <EventCardComponent props = {attendedEvent}/>
+                })}
 
                 </div>
                 <div className='UpcomingEventsCard eventsCard col'>
