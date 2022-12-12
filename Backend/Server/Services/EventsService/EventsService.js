@@ -204,13 +204,12 @@ async function GetAllAttendedUserEvents(userID)
 {
     try{
         let result = await sql.query`
-        SELECT UserID, Username, EventName, EventDescription, EventHosterID, EventType, EventClass, EventDate, EventLocation 
-        FROM AttendancesTable at2
-        JOIN Users u 
-            ON u.id = ${userID}
-        JOIN Events e 
-            ON e.EventID = at2.EventID 
-        WHERE e.EventDate < GETDATE() `
+        SELECT at2.UserID, pp.ProfilePicture, at2.EventID, e.EventName, e.EventDescription, e.EventHosterID, e.EventType, e.EventType, e.EventClass, e.EventDate, e.EventID, e.EventLocation FROM AttendancesTable at2 
+        JOIN dbo.ProfilePictures pp 
+        ON pp.UserID  = at2.UserID 
+        JOIN dbo.Events e
+        ON e.EventID = at2.EventID
+        WHERE e.EventDate < GETDATE()`
         return {status: 200, msg: 'Events successfully retrieved.', data: result}
     }
     catch(err)
