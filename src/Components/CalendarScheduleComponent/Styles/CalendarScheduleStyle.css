@@ -11,7 +11,13 @@
 }
 
 .DayContainer .DayNumber {
-  font-size: 150px;
+  font-size: 5rem;
   font-weight: bold;
+}
+
+.DayContainer .DayName {
+  font-size: 3rem;
+  opacity: 50%;
+  margin-top: -3rem;
 }
 /*# sourceMappingURL=CalendarScheduleStyle.css.map */

@@ -5,7 +5,7 @@ export default class CalendarSchedule extends Component {
   render() {
     return (
       <div>
-        <DayComponent dayData = {{'dayNumber': 7}}/>
+        <DayComponent dayData = {{'dayNumber': 7, 'dayName': 'Sun'}}/>
       </div>
     )
   }

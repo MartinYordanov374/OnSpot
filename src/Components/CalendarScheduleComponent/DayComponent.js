@@ -6,7 +6,8 @@ export default class DayComponent extends Component {
     return (
       <div className='DayComponentWrapper'>
         <div className='DayContainer'>
-              <span className='DayNumber'>{this.props.dayData.dayNumber}</span>
+              <p className='DayNumber DayText'>{this.props.dayData.dayNumber}</p>
+              <p className='DayName DayText'>{this.props.dayData.dayName}</p>
         </div>
       </div>
     )

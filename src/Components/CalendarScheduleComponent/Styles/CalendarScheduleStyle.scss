@@ -6,8 +6,16 @@
     border-radius: 5%;
     box-shadow: black 0px 0px 15px;
     text-align: center;
+    // border-top-style: solid;
+    // border-color: rgb(255, 225, 0);
+    // border-top-width: 1rem;
     .DayNumber{
-        font-size: 150px;
+        font-size: 5rem;
         font-weight: bold;
+    }
+    .DayName{
+        font-size: 3rem;
+        opacity: 50%;
+        margin-top:-3rem;
     }
 }
