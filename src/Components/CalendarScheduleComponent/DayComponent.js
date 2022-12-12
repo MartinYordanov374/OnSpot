@@ -4,12 +4,10 @@ export default class DayComponent extends Component {
   
   render() {
     return (
-      <div className='DayComponentWrapper'>
-        <div className='DayContainer'>
+        <div className='DayContainer col'>
               <p className='DayNumber DayText'>{this.props.dayData.dayNumber}</p>
               <p className='DayName DayText'>{this.props.dayData.dayName}</p>
         </div>
-      </div>
     )
   }
 }

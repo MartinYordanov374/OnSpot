@@ -4,10 +4,14 @@
   height: 25vh;
   background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#d2d1d1));
   background-image: linear-gradient(to bottom, white, #d2d1d1);
-  border-radius: 5%;
-  -webkit-box-shadow: black 0px 0px 15px;
-          box-shadow: black 0px 0px 15px;
   text-align: center;
+  border-radius: 5%;
+  border-top-left-radius: 0%;
+  border-top-right-radius: 0%;
+  border-style: solid;
+  border-bottom: none;
+  border-width: 0.1rem;
+  border-color: rgba(0, 0, 0, 0.4);
 }
 
 .DayContainer .DayNumber {
@@ -19,5 +23,9 @@
   font-size: 3rem;
   opacity: 50%;
   margin-top: -3rem;
+}
+
+.CalendarWrapper .CalendarContainer {
+  width: 50%;
 }
 /*# sourceMappingURL=CalendarScheduleStyle.css.map */
