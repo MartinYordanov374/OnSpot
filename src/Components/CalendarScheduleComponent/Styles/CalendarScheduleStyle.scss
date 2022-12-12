@@ -1,0 +1,13 @@
+.DayContainer{
+    background-color: white;
+    width: 10%;
+    height: 25vh;
+    background-image: linear-gradient(to bottom, white, rgb(210, 209, 209));
+    border-radius: 5%;
+    box-shadow: black 0px 0px 15px;
+    text-align: center;
+    .DayNumber{
+        font-size: 150px;
+        font-weight: bold;
+    }
+}
