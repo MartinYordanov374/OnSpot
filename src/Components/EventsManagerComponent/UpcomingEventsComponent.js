@@ -16,6 +16,8 @@ export default class UpcomingEventsComponent extends Component {
         this.GetAllUserHostedEvents()
         this.GetAllUpcomingUserEvents()
         this.GetAllAttendedUserEvents()
+        this.setState({'isLoading': false})
+
       })
     }
     GetAllUserHostedEvents = async() =>
@@ -34,7 +36,6 @@ export default class UpcomingEventsComponent extends Component {
       let result = await Axios.get(`http://localhost:3030/GetAllAttendedUserEvents/${this.state.userID}`, {withCredentials: true})
       .then((res) => {
         this.setState({'AttendedEvents':res.data})
-        this.setState({'isLoading': false})
       })
     }
     render() {
@@ -44,27 +45,43 @@ export default class UpcomingEventsComponent extends Component {
         {this.state.isLoading == false ? 
             <div className='EventsWrapper row'>
                 <div className='HostedEventsCard eventsCard col'>
-                  {this.state.HostedEvents.map((hostedEvent) => {
-                    return(
-                        <EventCardComponent props = {hostedEvent} />
-                    )
-                  })}
+                  {
+                    this.state.HostedEvents.length >= 1 ?
+                    this.state.HostedEvents.map((hostedEvent) => {
+                      return(
+                          <EventCardComponent props = {hostedEvent} />
+                      )
+                    })
+                    :
+                    "You have not hosted any events."
+
+                  }
 
                 </div>
                 <div className='AttendedEventsCard eventsCard col'>
-                {this.state.AttendedEvents.map((attendedEvent) => {
-                  return(
-                    <EventCardComponent props = {attendedEvent}/>
-                  )
-                })}
+                  {
+                    this.state.AttendedEvents.length >= 1 ?
+                  
+                    this.state.AttendedEvents.map((attendedEvent) => {
+                      return(
+                        <EventCardComponent props = {attendedEvent}/>
+                      )
+                    })
+                    :
+                    "You have not attended any events."
+              }
 
                 </div>
                 <div className='UpcomingEventsCard eventsCard col'>
-                {this.state.UpcomingEvents.map((upcomingEvent) => {
-                  return(
-                    <EventCardComponent props = {upcomingEvent}/>
-                  )
-                })}
+                {this.state.UpcomingEvents.length >= 1 ?
+                  this.state.UpcomingEvents.map((upcomingEvent) => {
+                    return(
+                      <EventCardComponent props = {upcomingEvent}/>
+                    )
+                  })
+                  :
+                  "You do not have any upcoming events."
+                }
                 </div>
             </div>
         : <span>Loading</span>
