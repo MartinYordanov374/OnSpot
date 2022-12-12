@@ -19,13 +19,13 @@
   font-weight: bold;
 }
 
-.DayContainer .DayName {
-  font-size: 3rem;
-  opacity: 50%;
-  margin-top: -3rem;
-}
-
 .CalendarWrapper .CalendarContainer {
   width: 50%;
+}
+
+.weekdaysContainer .weekdayContainer {
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
 }
 /*# sourceMappingURL=CalendarScheduleStyle.css.map */
