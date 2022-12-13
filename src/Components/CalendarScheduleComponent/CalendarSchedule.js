@@ -16,7 +16,7 @@ export default class CalendarSchedule extends Component {
         end: moment()
           .add(1, "days")
           .toDate(),
-        title: "Some title"
+        title: "Покланяне на слънцето"
       }]
       }
   
