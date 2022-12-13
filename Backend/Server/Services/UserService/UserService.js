@@ -199,18 +199,18 @@ async function GetUserAttendedEvents(userID)
 async function ChangeProfilePicture(userID, profilePicture)
 {
     let userExists = await UserExistsById(userID)
-    
     if(userExists.recordset.length >= 1)
     {
         // check if user has already uploaded profile picture, if so change it otherwise insert it
         try{
             let hasUserUploadedProfilePicture = await GetUserProfilePicture(userID)
+            console.log(hasUserUploadedProfilePicture)
             if(hasUserUploadedProfilePicture.status == 200)
             {
                 await sql.query`UPDATE dbo.ProfilePictures SET ProfilePicture = ${profilePicture.data} WHERE UserID = ${userID}`
                 return {status: 200, msg: 'Profile picture successfully updated.'}
             }
-            else if (hasUserUploadedProfilePicture.status != 400 && hasUserUploadedProfilePicture.status != 500)
+            else
             {
                 await sql.query`IF NOT EXISTS (SELECT * FROM dbo.ProfilePictures WHERE UserID = ${userID}) INSERT INTO dbo.ProfilePictures(UserID, ProfilePicture) VALUES(${userID}, ${profilePicture.data})`
                 return {status: 200, msg: 'Profile picture successfully uploaded.'}
@@ -234,7 +234,14 @@ async function GetUserProfilePicture(userID)
     {        
         try{
             let result = await sql.query`SELECT * FROM dbo.ProfilePictures WHERE UserID = ${userID}`
-            return {status: 200, msg: 'Profile picture successfully retrieved.', data: result}
+            if(result.recordset.length >= 1)
+            {
+                return {status: 200, msg: 'Profile picture successfully retrieved.', data: result}
+            }
+            else
+            {
+                return {status: 404, msg: 'Profile picture not found.'}
+            }
         }
         catch(err)
         {

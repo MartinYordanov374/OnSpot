@@ -40,7 +40,6 @@ app.use(session({
 let start = async() =>
 {
     let connection = await mssql.connectWithMSSQLDatabase()
-    
 
     app.post('/login', async (req, res) => {
         let email = req.body.email;
@@ -316,7 +315,8 @@ let start = async() =>
         let result = await UserExistsById(Number(req.params.id))
         let targetUserProfilePictureResponse = await GetUserProfilePicture(req.params.id)
         // TODO ADD CHECK IF PROFILE PICTURE FOR GIVEN USER EXISTS OR NOT
-        if(targetUserProfilePictureResponse.data.recordset[0] != undefined)
+        console.log(targetUserProfilePictureResponse)
+        if(targetUserProfilePictureResponse.data != undefined)
         {
             let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
             let userObject = {
@@ -349,13 +349,14 @@ let start = async() =>
     app.post('/changePfp', upload.single('pfp'), async(req,res) => {
         // TODO: CHANGE PFP OPTION WILL BE AVAILABLE TO PROFILE OWNERS ONLY
         try{
-
+            
             let userData = validateToken(req.session.userToken);
             let pfp = {
                 data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             }
             let result = await ChangeProfilePicture(userData.userID, pfp)
             res.status(result.status).send(result.msg)
+            console.log(result)
         }
         catch(err){
             res.status(500).send('Internal server error.')
