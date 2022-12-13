@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import { getFirstDayOfMonth } from './utils'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from "moment";
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 export default class CalendarSchedule extends Component {
   constructor()
   {
-    super()
-    this.firstDayOfMonth = getFirstDayOfMonth( new Date().getUTCFullYear(), new Date().getMonth()).toString().split(' ')[0]    
-    
+    super()    
     this.localizer = momentLocalizer(moment)
     this.state = 
       { events: [{
@@ -17,7 +14,8 @@ export default class CalendarSchedule extends Component {
           .add(1, "days")
           .toDate(),
         title: "Покланяне на слънцето"
-      }]
+      },
+    ]
       }
   
   
@@ -25,12 +23,17 @@ export default class CalendarSchedule extends Component {
   render() {
     return (
       <div className='CalendarWrapper'>
-        <Calendar
+        <Calendar className='c1'
           localizer={this.localizer}
+          defaultView = 'month'
+          views={['month', 'week', 'day']}
           events={this.state.events}
           startAccessor="start"
           endAccessor="end"
-          style={{ height: 500 }}
+          style={{ height: 500, backgroundColor: 'white' }}
+          eventPropGetter={() => ({
+            style: { backgroundColor: "#72B2E4", fontWeight: 'bold' }
+          })}
         />
       </div>
     )

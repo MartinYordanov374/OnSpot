@@ -21,6 +21,10 @@
   width: 50%;
 }
 
+.c1 .rbc-event, .rbc-day-slot .rbc-background-event {
+  background-color: red !important;
+}
+
 .weekdaysContainer .weekdayContainer {
   font-weight: bold;
   font-size: 2rem;
