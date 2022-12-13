@@ -3,6 +3,10 @@ import WeekComponent from './WeekComponent'
 import WeekdaysComponent from './WeekdaysComponent'
 
 export default class MonthComponent extends Component {
+  constructor()
+  {
+    super()
+  }
   render() {
     return (
       <div className='MonthComponentWrapper'>
@@ -20,7 +24,12 @@ export default class MonthComponent extends Component {
           <WeekComponent weekData = {{'daysAmount': 7,'startingDay': 21}}/>
         </div>
         <div className='MonthComponentContainerFirstWeek week row'>
-          <WeekComponent weekData = {{'daysAmount': 7, 'startingDay': 28}}/>
+
+          <WeekComponent weekData = {{
+          'daysAmount': 7, 
+          'startingDay': 28}}
+          />
+
         </div>
       </div>
     )

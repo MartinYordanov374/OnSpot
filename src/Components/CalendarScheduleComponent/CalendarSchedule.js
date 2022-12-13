@@ -1,24 +1,37 @@
 import React, { Component } from 'react'
-import MonthComponent from './MonthComponent'
-import MonthSelector from './MonthSelector'
 import { getFirstDayOfMonth } from './utils'
-import YearSelector from './YearSelector'
-
+import { Calendar, momentLocalizer } from 'react-big-calendar'
+import moment from "moment";
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 export default class CalendarSchedule extends Component {
   constructor()
   {
     super()
     this.firstDayOfMonth = getFirstDayOfMonth( new Date().getUTCFullYear(), new Date().getMonth()).toString().split(' ')[0]    
+    
+    this.localizer = momentLocalizer(moment)
+    this.state = 
+      { events: [{
+        start: moment().toDate(),
+        end: moment()
+          .add(1, "days")
+          .toDate(),
+        title: "Some title"
+      }]
+      }
+  
+  
   }
   render() {
     return (
       <div className='CalendarWrapper'>
-        <div className='CalendarContainer mx-auto'>
-            {console.log(new Date().getDay())}
-            <YearSelector yearData = {{currentYear: new Date().getUTCFullYear()}}/>
-            <MonthSelector monthData = {{currentMonth: new Date().getMonth(), firstDayOfMonth: this.firstDayOfMonth}}/>
-            <MonthComponent/>
-        </div>
+        <Calendar
+          localizer={this.localizer}
+          events={this.state.events}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ height: 500 }}
+        />
       </div>
     )
   }

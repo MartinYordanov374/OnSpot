@@ -8,7 +8,9 @@ export default class WeekComponent extends Component {
       <div className='weekWrapper'>
         <div className='weekContainer row'>
           {
+            
             [...Array(this.props.weekData.daysAmount)].slice(0,Array(this.props.weekData.daysAmount).length).map((day, index) => {
+
               return(
                 <DayComponent  dayData = {{'dayNumber': (index) + this.props.weekData.startingDay}}/>
               )
