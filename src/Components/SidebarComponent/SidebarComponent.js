@@ -20,7 +20,6 @@ export default class SidebarComponent extends Component {
   {
     let returnedUserData = await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
     let targetUserData = returnedUserData.data[0]
-    console.log(targetUserData)
     if(targetUserData.ProfilePicture != null)
     {
       this.setState({

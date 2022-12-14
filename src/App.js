@@ -10,7 +10,10 @@ import ExploreEventsComponent from './Components/ExploreEventsComponent/ExploreE
 import EventPageComponent from './Components/EventPageComponent/EventPageComponent';
 import ProfilePageComponent from './Components/ProfilePageComponent/ProfilePageComponent';
 import EventsManagerComponent from './Components/EventsManagerComponent/EventsManagerComponent';
-import CalendarSchedule from './Components/CalendarScheduleComponent/CalendarSchedule';
+import CalendarScheduleAttendedEvents from './Components/CalendarScheduleComponent/CalendarScheduleAttendedEvents';
+import CalendarScheduleHostedEvents from './Components/CalendarScheduleComponent/CalendarScheduleUpcomingEvents';
+import CalendarScheduleUpcomingEvents from './Components/CalendarScheduleComponent/CalendarScheduleHostedEvent';
+
 function App() {
   return (
    <Router>
@@ -23,7 +26,10 @@ function App() {
       <Route path = '/Event/:eventId' element={<EventPageComponent/>}/> 
       <Route path = '/Profile/:id' element={<ProfilePageComponent/>}/> 
       <Route path = '/EventsManager' element={<EventsManagerComponent/>}/> 
-      <Route path = '/EventsManager/CalendarSchedule' element={<CalendarSchedule/>}/> 
+      <Route path = '/EventsManager/CalendarSchedule/AttendedEvents' element={<CalendarScheduleAttendedEvents/>}/> 
+      <Route path = '/EventsManager/CalendarSchedule/HostedEvents' element={<CalendarScheduleHostedEvents/>}/> 
+      <Route path = '/EventsManager/CalendarSchedule/UpcomingEvents' element={<CalendarScheduleUpcomingEvents/>}/> 
+
 
       {/* TODO: ADD ID TO THE EVENT AND PROFILE ROUTES */}
 
