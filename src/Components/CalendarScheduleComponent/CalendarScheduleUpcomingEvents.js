@@ -24,7 +24,7 @@ export default class CalendarScheduleUpcomingEvents extends Component {
   }
   componentDidMount = async() => {
     try{
-      
+      this.checkIfUserIsLoggedIn()
       await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
       .then(async (res) => {
         this.setState({'currentUserData': res.data[0]})
