@@ -86,8 +86,6 @@ async function CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID)
 {
     let followerUserExists = await UserExistsById(FollowerUserID)
     let followedUserExists = await UserExistsById(FollowedUserID)
-    console.log(followerUserExists)
-    console.log(followedUserExists)
 
     if(followerUserExists && followedUserExists )
     {
@@ -111,9 +109,9 @@ async function CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID)
 
 async function GetUserFollowers(userID)
 {
-    let result = await sql.query`SELECT COUNT(FollowerUserID) as Followers FROM dbo.FollowersTable WHERE FollowedUserID = ${userID}`
+    let result = await sql.query`SELECT FollowerUserID FROM dbo.FollowersTable WHERE FollowedUserID = ${userID}`
     let userFollowersResponse = result.recordset
-    return {status: 200, msg:'followers successfully fetched', followers: userFollowersResponse[0].Followers}
+    return {status: 200, msg:'followers successfully fetched', followers: userFollowersResponse}
 }
 
 async function DeleteProfile(userToken, ProfileID)

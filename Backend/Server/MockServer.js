@@ -315,6 +315,7 @@ let start = async() =>
     app.post('/getUserDataById/:id', async(req,res) => {
         let result = await UserExistsById(Number(req.params.id))
         let userFollowers = await GetUserFollowers(Number(req.params.id))
+        console.log(userFollowers)
         let targetUserProfilePictureResponse = await GetUserProfilePicture(req.params.id)
         // TODO ADD CHECK IF PROFILE PICTURE FOR GIVEN USER EXISTS OR NOT
         if(targetUserProfilePictureResponse.data != undefined)

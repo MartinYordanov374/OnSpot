@@ -11,16 +11,16 @@ export default class ProfilePageComponent extends Component {
   constructor()
   {
     super()
-    this.state = {userData: [], isLoading: true, loginStatus: false}
+    this.state = {userData: [], isLoading: true, loginStatus: false, userFollowsProfile: false}
   }
-
+  // TODO: FIX THE FOLLOW BUTTON DISPLAY
   checkIfUserIsLoggedIn = async () => {
     await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
     .then((res)=>{
       if(res.data == true)
       {
-        
           this.setState({'loginStatus': true})
+          this.checkIfUserFollowsProfile()
       }
       else
       {
@@ -64,7 +64,28 @@ export default class ProfilePageComponent extends Component {
 
   followUser = async()=>{
     let followedUserID = this.targetID
-    let result = await Axios.post(`http://localhost:3030/followUser/${followedUserID}`, {}, {withCredentials: true})
+    let result = Axios.post(`http://localhost:3030/followUser/${followedUserID}`, {}, {withCredentials: true})
+    .then((res) => {
+       this.checkIfUserFollowsProfile()
+    })
+  }
+
+  checkIfUserFollowsProfile = async() => {
+    await Axios.get(`http://localhost:3030/getUserData`, {withCredentials: true})
+    .then((res) => {
+      let currentUserID = res.data[0].id
+      this.state.userData.Followers.some((follower) => {
+        if(follower.FollowerUserID == currentUserID) 
+        {
+          this.setState({'userFollowsProfile': true})
+        }
+        else
+        {
+          this.setState({'userFollowsProfile': false})
+        }
+      })
+
+    })
   }
 
   render() {
@@ -101,13 +122,22 @@ export default class ProfilePageComponent extends Component {
                     <div className='profilePageUserDetails d-flex'>
                         <div className='row'>
                             <span className='username col'>{this.state.userData.Username} </span>
-                            <span className='followers'>{this.state.userData.Followers} followers</span>
+                            <span className='followers'>{this.state.userData.Followers.length} followers</span>
                             {/* <span className='username col'>{this.state.userData.Bio} </span> */}
                         </div>
                         
                         <div className='row userInteractionBtns'>
-                            <span className='messageUser col'>Message</span>
-                            <span className='followUser col' onClick={() => this.followUser()}>Follow</span>
+                              <span className='messageUser col'>Message</span>
+                              {
+                                this.state.userFollowsProfile == true ? 
+                                <span className='followUser col' onClick={() => this.followUser()}>
+                                  Following
+                                </span>
+                                : 
+                                <span className='followUser col' onClick={() => this.followUser()}>
+                                  Follow
+                                </span>
+                              }
                         </div>
                     </div>
                     <div className='userEvents'>
