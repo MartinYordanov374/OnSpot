@@ -23,43 +23,48 @@ export default class CalendarSchedule extends Component {
     }
   }
   componentDidMount = async() => {
-    await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
-    .then(async (res) => {
-      this.setState({'currentUserData': res.data[0]})
-      this.getUpcomingEvents()
-      this.getAttendedEvents()
-      this.getHostedEvents()
-      this.setState({'isLoading': false})
-    })
+    try{
+      
+      await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
+      .then(async (res) => {
+        this.setState({'currentUserData': res.data[0]})
+        
+        await Axios.get(`http://localhost:3030/GetAllUpcomingUserEvents/${this.state.currentUserData.id}`, {withCredentials: true})
+        .then((res) => {
+          this.setState({'upcomingEvents': res.data})
+        })
+
+        await Axios.get(`http://localhost:3030/GetAllAttendedUserEvents/${this.state.currentUserData.id}`, {withCredentials: true})
+        .then((res) => {
+          this.setState({'attendedEvents': res.data})
+        })
+
+        await Axios.get(`http://localhost:3030/GetAllEventsHostedByUser/${this.state.currentUserData.id}`, {withCredentials: true})
+        .then((res) => {
+          this.setState({'hostedEvents': res.data})
+        })
+        
+        this.setState({'isLoading': false})
+      })
+    }
+    catch(err)
+    {
+      console.log(err)
+    }
   }
 
   getCurrentUserData = async() => {
-    let res = await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
-
-    await this.getUpcomingEvents()
-
-  }
-  getUpcomingEvents = async() => {
-    let res = await Axios.get(`http://localhost:3030/GetAllUpcomingUserEvents/${this.state.currentUserData.id}`, {withCredentials: true})
-    this.setState({'upcomingEvents': res.data})
-    await this.getAttendedEvents()
-  }
-  getAttendedEvents = async() => {
-    await Axios.get(`http://localhost:3030/GetAllAttendedUserEvents/${this.state.currentUserData.id}`, {withCredentials: true})
-    .then(async (res) => {
-      this.setState({'attendedEvents': res.data})
-      await this.getHostedEvents()
-
-    })
-  }
-  getHostedEvents = async() => {
-    await Axios.get(`http://localhost:3030/GetAllEventsHostedByUser/${this.state.currentUserData.id}`, {withCredentials: true})
-    .then(async (res) => {
-      this.setState({'hostedEvents': res.data})
-    })
+    try{
+      let res = await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
+    }
+    catch(err)
+    {
+      console.log(err)
+    }
 
   }
   render() {
+    console.log(this.state)
     return (
       <div className='CalendarWrapper justify-content-center align-items-center'>
         <SidebarComponent/> 

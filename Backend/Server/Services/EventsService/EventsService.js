@@ -159,7 +159,7 @@ async function GetAllUpcomingEvents()
 {
     try{
         let result = await sql.query`SELECT * FROM Events e
-        WHERE EventDate > GETDATE()`
+        WHERE EventStartDate > GETDATE()`
         return {status: 200, msg: 'Events successfully fetched', data: result}
     }
     catch(err)
@@ -172,16 +172,17 @@ async function GetAllUpcomingUserEvents(userID)
 {
     try{
         let result = await sql.query`    
-        SELECT at2.UserID, pp.ProfilePicture, e.EventName, e.EventDescription, e.EventHosterID, e.EventType, e.EventType, e.EventClass, e.EventDate, e.EventID, e.EventLocation FROM AttendancesTable at2 
+        SELECT at2.UserID, pp.ProfilePicture, e.EventName, e.EventDescription, e.EventHosterID, e.EventType, e.EventType, e.EventClass, e.EventStartDate, e.EventID, e.EventLocation FROM AttendancesTable at2 
         JOIN dbo.ProfilePictures pp 
         ON pp.UserID  = at2.UserID 
         JOIN dbo.Events e
         ON e.EventID = at2.EventID
-        WHERE e.EventDate > GETDATE()`
+        WHERE e.EventStartDate > GETDATE()`
         return {status: 200, msg: 'Events successfully fetched', data: result}
     }
     catch(err)
     {
+        console.log(err)
         return {status: 500, msg: 'Internal Server Error'}
     }
 }
@@ -189,7 +190,7 @@ async function GetAllUpcomingUserEvents(userID)
 async function GetAllEventsHostedByUser(userID)
 {
     try{
-        let result = await sql.query`SELECT EventName, EventDescription, EventType, EventClass, EventID, EventLocation, Username, id as UserID, ProfilePicture
+        let result = await sql.query`SELECT EventName, EventDescription, EventType, EventClass, EventID, EventLocation, EventStartDate, EventEndDate, Username, id as UserID, ProfilePicture
         FROM Events e
         JOIN Users u
         ON e.EventHosterID  = u.id 
@@ -208,12 +209,12 @@ async function GetAllAttendedUserEvents(userID)
 {
     try{
         let result = await sql.query`
-        SELECT at2.UserID, pp.ProfilePicture, at2.EventID, e.EventName, e.EventDescription, e.EventHosterID, e.EventType, e.EventType, e.EventClass, e.EventDate, e.EventID, e.EventLocation FROM AttendancesTable at2 
+        SELECT at2.UserID, pp.ProfilePicture, at2.EventID, e.EventName, e.EventDescription, e.EventHosterID, e.EventType, e.EventType, e.EventClass, e.EventStartDate, e.EventID, e.EventLocation FROM AttendancesTable at2 
         JOIN dbo.ProfilePictures pp 
         ON pp.UserID  = at2.UserID 
         JOIN dbo.Events e
         ON e.EventID = at2.EventID
-        WHERE e.EventDate < GETDATE()`
+        WHERE e.EventStartDate < GETDATE()`
         return {status: 200, msg: 'Events successfully retrieved.', data: result}
     }
     catch(err)
