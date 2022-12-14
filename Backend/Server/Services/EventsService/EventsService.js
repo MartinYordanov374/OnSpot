@@ -209,7 +209,7 @@ async function GetAllAttendedUserEvents(userID)
 {
     try{
         let result = await sql.query`
-        SELECT at2.UserID, pp.ProfilePicture, at2.EventID, e.EventName, e.EventDescription, e.EventHosterID, e.EventType, e.EventType, e.EventClass, e.EventStartDate, e.EventID, e.EventLocation FROM AttendancesTable at2 
+        SELECT at2.UserID, pp.ProfilePicture, at2.EventID, e.EventName, e.EventDescription, e.EventHosterID, e.EventType, e.EventType, e.EventClass, e.EventStartDate, e.EventEndDate, e.EventID, e.EventLocation FROM AttendancesTable at2 
         JOIN dbo.ProfilePictures pp 
         ON pp.UserID  = at2.UserID 
         JOIN dbo.Events e

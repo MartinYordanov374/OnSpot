@@ -31,7 +31,12 @@ export default class CalendarScheduleAttendedEvents extends Component {
 
         await Axios.get(`http://localhost:3030/GetAllAttendedUserEvents/${this.state.currentUserData.id}`, {withCredentials: true})
         .then((res) => {
-          this.setState({'attendedEvents': res.data})
+          let eventsList = []
+          res.data.map((event) => {
+            console.log(event)
+            eventsList.push({'title': event.EventName, 'start': new Date(event.EventStartDate), 'end': new Date (event.EventEndDate)})
+          })
+          this.setState({'attendedEvents': eventsList})
         })
 
         
