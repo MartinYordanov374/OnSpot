@@ -11,8 +11,8 @@ import EventPageComponent from './Components/EventPageComponent/EventPageCompone
 import ProfilePageComponent from './Components/ProfilePageComponent/ProfilePageComponent';
 import EventsManagerComponent from './Components/EventsManagerComponent/EventsManagerComponent';
 import CalendarScheduleAttendedEvents from './Components/CalendarScheduleComponent/CalendarScheduleAttendedEvents';
-import CalendarScheduleHostedEvents from './Components/CalendarScheduleComponent/CalendarScheduleUpcomingEvents';
-import CalendarScheduleUpcomingEvents from './Components/CalendarScheduleComponent/CalendarScheduleHostedEvent';
+import CalendarScheduleHostedEvents from './Components/CalendarScheduleComponent/CalendarScheduleHostedEvent';
+import CalendarScheduleUpcomingEvents from './Components/CalendarScheduleComponent/CalendarScheduleUpcomingEvents';
 
 function App() {
   return (
