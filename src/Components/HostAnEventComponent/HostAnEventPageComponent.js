@@ -37,10 +37,12 @@ export default class HostAnEventPageComponent extends Component {
     }
     handleSelectDate(value)
     {
+        let [startDate, endDate] = value
         let dropdown = document.querySelector('.eventStartDateField');
-        let formattedDate = value.toString().split(' ').splice(1,3).join(' ');
-        dropdown.placeholder = formattedDate;
-        this.setState({'eventStartDate': formattedDate})
+        let formattedStartDate = startDate.toString().split(' ').splice(1,3).join(' ');
+        let formattedEndDate = endDate.toString().split(' ').splice(1,3).join(' ');
+        dropdown.placeholder = formattedStartDate + " - " + formattedEndDate;
+        this.setState({'eventStartDate': formattedStartDate, 'eventEndDate': formattedEndDate})
     }
 
     handleEnterEventName(value)
@@ -140,7 +142,7 @@ export default class HostAnEventPageComponent extends Component {
                                         <InputGroup>
                                             <FormControl className='inputField eventStartDateField' placeholder='e.g. 28/01/2022' disabled='true'/>
                                             <DropdownButton className='inputFieldDropdown' id='dropdownAddon' drop='start'>
-                                                <Calendar onChange={this.handleSelectDate}/>
+                                                <Calendar onChange={this.handleSelectDate} selectRange={true}/>
                                             </DropdownButton>
                                         </InputGroup>
                                     </div>
