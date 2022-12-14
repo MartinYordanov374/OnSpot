@@ -21,6 +21,10 @@
         color: white;
         .menuItem{
             margin-top: 5rem;
+            a{
+                text-decoration: none;
+                color: white;
+            }
         }
     }
     .dangerousMenu{
