@@ -9,13 +9,15 @@ async function HostEvent(EventHosterID, EventName, EventDescription, EventLocati
     return result
 }
 
-async function CheckIfUserAlreadyCreatedEvent(EventHosterID, EventName,EventDate)
+async function CheckIfUserAlreadyCreatedEvent(EventHosterID, EventName,EventStartDate, EventEndDate)
 {
+    // TODO: ADD EVENT END DATE AS WELL
     let result = await sql.query`
     SELECT * FROM dbo.Events 
     WHERE EventHosterID = ${EventHosterID} 
     AND EventName = ${EventName} 
-    AND EventDate = ${EventDate}`
+    AND EventStartDate = ${EventStartDate}
+    OR EventEndDate = ${EventEndDate}`
 
     return result.recordset.length
 }

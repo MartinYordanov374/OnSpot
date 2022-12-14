@@ -138,7 +138,7 @@ export default class HostAnEventPageComponent extends Component {
                                     <div className='eventCategoryWrapper col-sm mt-5'>
                                         <h2 className='fieldLabel'>Event Date</h2>
                                         <InputGroup>
-                                            <FormControl className='inputField eventDateField' placeholder='e.g. 28/01/2022' disabled='true'/>
+                                            <FormControl className='inputField eventStartDateField' placeholder='e.g. 28/01/2022' disabled='true'/>
                                             <DropdownButton className='inputFieldDropdown' id='dropdownAddon' drop='start'>
                                                 <Calendar onChange={this.handleSelectDate}/>
                                             </DropdownButton>

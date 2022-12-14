@@ -115,7 +115,7 @@ let start = async() =>
         let eventStartDate = new Date(req.body.startDate).toISOString();
         let eventEndDate =  new Date(req.body.endDate).toISOString();
         let EventHoster = validateToken(req.session.userToken);
-        let SameUserEventsAmount = await CheckIfUserAlreadyCreatedEvent(EventHoster.userID, eventName, eventStartDate)
+        let SameUserEventsAmount = await CheckIfUserAlreadyCreatedEvent(EventHoster.userID, eventName, eventStartDate, eventEndDate)
         
         try
         {
