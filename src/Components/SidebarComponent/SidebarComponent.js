@@ -60,9 +60,9 @@ export default class SidebarComponent extends Component {
           <h3 className='followers'> {this.state.userFollowers} Followers </h3>
         </div>
         <div className='safeMenu menu'>
-          <h2 className='upcomingEvents menuItem'>Upcoming events</h2>
-          <h2 className='attendedEvents menuItem'>Attended events</h2>
-          <h2 className='hostedEvents menuItem'>Hosted events</h2>
+          <h2 className='upcomingEvents menuItem'> <a href='/EventsManager/CalendarSchedule/UpcomingEvents'>Upcoming events</a></h2>
+          <h2 className='attendedEvents menuItem'><a href='/EventsManager/CalendarSchedule/AttendedEvents'>Attended events</a></h2>
+          <h2 className='hostedEvents menuItem'><a href='/EventsManager/CalendarSchedule/HostedEvents'>Hosted events</a></h2>
 
         </div>
         <div className='dangerousMenu menu fixed-bottom'>
