@@ -67,9 +67,6 @@ export default class ProfilePageComponent extends Component {
     let result = await Axios.post(`http://localhost:3030/followUser/${followedUserID}`, {}, {withCredentials: true})
   }
 
-
-  
-
   render() {
     {console.log(this.state.userData)}
     return (

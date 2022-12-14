@@ -3,8 +3,6 @@ const sql = require('mssql')
 const jwt = require('jsonwebtoken')
 const saltRounds = Number(process.env.REACT_APP_SALT_ROUNDS)
 
-
-
 async function registerUser(username, password, email)
 {
     
@@ -56,8 +54,10 @@ async function LoginUser(username, password)
 }
 
 async function FollowUser(FollowerUserID, FollowedUserID)
-{
-    if(await CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID) == true)
+{   
+    let userAlreadyFollowsGivenUser = await CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID);
+    console.log(userAlreadyFollowsGivenUser)
+    if(userAlreadyFollowsGivenUser == true)
     {
         try{
             await sql.query`DELETE FROM dbo.FollowersTable WHERE FollowerUserID = ${FollowerUserID} and FollowedUserID = ${FollowedUserID}`
@@ -86,8 +86,10 @@ async function CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID)
 {
     let followerUserExists = await UserExistsById(FollowerUserID)
     let followedUserExists = await UserExistsById(FollowedUserID)
+    console.log(followerUserExists)
+    console.log(followedUserExists)
 
-    if(followerUserExists == true && followedUserExists == true)
+    if(followerUserExists && followedUserExists )
     {
         let result = await sql.query`SELECT * FROM dbo.FollowersTable WHERE FollowerUserID = ${FollowerUserID} AND FollowedUserID = ${FollowedUserID}`
         if(result.recordset.length >= 1)
