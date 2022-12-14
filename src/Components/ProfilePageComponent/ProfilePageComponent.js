@@ -34,16 +34,13 @@ export default class ProfilePageComponent extends Component {
     this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
     Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
     .then((res) => {
-      console.log(res.data)
       this.setState({userData: res.data})
       this.setState({'isLoading': false})
     })
     .catch((err) => {
       console.log(err)
     })
-
     this.checkIfUserIsLoggedIn()
-
   }
 
   handleSelectProfilePicture = () => {
@@ -65,9 +62,16 @@ export default class ProfilePageComponent extends Component {
     })
   }
 
+  followUser = async()=>{
+    let followedUserID = this.targetID
+    let result = await Axios.post(`http://localhost:3030/followUser/${followedUserID}`, {}, {withCredentials: true})
+  }
+
+
   
 
   render() {
+    {console.log(this.state.userData)}
     return (
         <div>
         {
@@ -106,7 +110,7 @@ export default class ProfilePageComponent extends Component {
                         
                         <div className='row userInteractionBtns'>
                             <span className='messageUser col'>Message</span>
-                            <span className='followUser col'>Follow</span>
+                            <span className='followUser col' onClick={() => this.followUser()}>Follow</span>
                         </div>
                     </div>
                     <div className='userEvents'>
