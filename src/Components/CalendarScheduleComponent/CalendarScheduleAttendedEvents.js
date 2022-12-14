@@ -8,6 +8,7 @@ import Axios from 'axios'
 
 import './Styles/CalendarScheduleStyle.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
+import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandingPage';
 
 export default class CalendarScheduleAttendedEvents extends Component {
   constructor()
@@ -18,13 +19,14 @@ export default class CalendarScheduleAttendedEvents extends Component {
       { 
         attendedEvents: [],
         currentUserData: [],
-        isLoading: true
+        isLoading: true,
+        loginStatus: false
     }
   }
 
   componentDidMount = async() => {
     try{
-      
+      this.checkIfUserIsLoggedIn()
       await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
       .then(async (res) => {
         this.setState({'currentUserData': res.data[0]})
@@ -49,40 +51,50 @@ export default class CalendarScheduleAttendedEvents extends Component {
     }
   }
 
-  getCurrentUserData = async() => {
-    try{
-      let res = await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
-    }
-    catch(err)
-    {
-      console.log(err)
-    }
-
+  checkIfUserIsLoggedIn = async () => {
+    await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
+    .then((res)=>{
+      if(res.data == true)
+      {
+        
+          this.setState({'loginStatus': true})
+      }
+      else
+      {
+        this.setState({'loginStatus': false})
+      }})
   }
+  
   render() {
     return (
-      <div className='CalendarWrapper justify-content-center align-items-center'>
-        <SidebarComponent/> 
-        {this.state.isLoading == true ? 
-            "Loading"
-         : 
-         <Container className='CalendarContainer'>
-         <NavbarComponentRegisteredUser/>
-           <Calendar
-             localizer={this.localizer}
-             defaultView = 'month'
-             views={['month', 'week', 'day']}
-             events={this.state.attendedEvents}
-             startAccessor="start"
-             endAccessor="end"
-             style={{ height: 800, backgroundColor: 'white' }}
-             eventPropGetter={() => ({
-               style: { backgroundColor: "#72B2E4", fontWeight: 'bold' }
-             })}/>
+      <div>
+        {this.state.loginStatus == true ?
+        <div className='CalendarWrapper justify-content-center align-items-center'>
+          <SidebarComponent/> 
+          {this.state.isLoading == true ? 
+              "Loading"
+          : 
+          <Container className='CalendarContainer'>
+          <NavbarComponentRegisteredUser/>
+            <Calendar
+              localizer={this.localizer}
+              defaultView = 'month'
+              views={['month', 'week', 'day']}
+              events={this.state.attendedEvents}
+              startAccessor="start"
+              endAccessor="end"
+              style={{ height: 800, backgroundColor: 'white' }}
+              eventPropGetter={() => ({
+                style: { backgroundColor: "#72B2E4", fontWeight: 'bold' }
+              })}/>
 
-       </Container>}
+        </Container>}
 
+        </div>
+        :
+        <NonRegisteredLandingPage/>}
       </div>
+      
     )
   }
 }
