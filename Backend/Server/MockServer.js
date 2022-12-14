@@ -104,17 +104,17 @@ let start = async() =>
     })
 
     app.post('/hostEvent', async (req,res) => {
-        // TODO FIGURE LOCATION OUT + user ID
-        // TODO ADD CHECK IF USER ALREADY CREATED SUCH AN EVENT
+        // TODO FIGURE LOCATION OUT
         let eventName = req.body.name;
         let eventDescription = req.body.description;
         // let eventLocation = req.body.location;
         let eventLocation = 'SampleLocation';
         let eventType = req.body.type == 'Public' ? 1 : 0 ;
         let eventCategory = req.body.category;
-        let eventDate = new Date(req.body.date).toISOString();
+        let eventStartDate = new Date(req.body.startDate).toISOString();
+        let eventEndDate =  new Date(req.body.endDate).toISOString();
         let EventHoster = validateToken(req.session.userToken);
-        let SameUserEventsAmount = await CheckIfUserAlreadyCreatedEvent(EventHoster.userID, eventName, eventDate)
+        let SameUserEventsAmount = await CheckIfUserAlreadyCreatedEvent(EventHoster.userID, eventName, eventStartDate)
         
         try
         {
@@ -124,7 +124,7 @@ let start = async() =>
             }
             else
             {
-                await HostEvent(EventHoster.userID, eventName, eventDescription, eventLocation, eventCategory, eventType, eventDate)
+                await HostEvent(EventHoster.userID, eventName, eventDescription, eventLocation, eventCategory, eventType, eventStartDate, eventEndDate)
                 res.status(200).send('Event successfully created.')
             }
         }

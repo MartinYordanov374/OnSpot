@@ -1,10 +1,10 @@
 const sql = require('mssql')
 
-async function HostEvent(EventHosterID, EventName, EventDescription, EventLocation, EventClass, EventType, EventDate)
+async function HostEvent(EventHosterID, EventName, EventDescription, EventLocation, EventClass, EventType, EventStartDate, EventEndDate)
 {
     let result = await sql.query`
-    INSERT INTO dbo.Events(EventHosterID, EventName, EventDescription, EventLocation, EventClass, EventType, EventDate) 
-    VALUES(${EventHosterID}, ${EventName}, ${EventDescription}, ${EventLocation}, ${EventClass}, ${EventType}, ${EventDate})`
+    INSERT INTO dbo.Events(EventHosterID, EventName, EventDescription, EventLocation, EventClass, EventType, EventStartDate, EventEndDate) 
+    VALUES(${EventHosterID}, ${EventName}, ${EventDescription}, ${EventLocation}, ${EventClass}, ${EventType}, ${EventStartDate}, ${EventEndDate})`
 
     return result
 }
