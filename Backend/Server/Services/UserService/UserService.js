@@ -109,8 +109,8 @@ async function CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID)
 
 async function GetUserFollowers(userID)
 {
-    let result = await sql.query`SELECT FollowerUserID FROM dbo.FollowersTable WHERE FollowedUserID = ${userID}`
-    let followers = result.recordset.length
+    let result = await sql.query`SELECT COUNT(FollowerUserID) as Followers FROM dbo.FollowersTable WHERE FollowedUserID = ${userID}`
+    let followers = result.recordset
     return {status: 200, msg:'followers successfully fetched', followers: followers}
 }
 
