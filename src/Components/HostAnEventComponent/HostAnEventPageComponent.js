@@ -12,7 +12,7 @@ export default class HostAnEventPageComponent extends Component {
     constructor()
     {
         super()
-        this.state = {eventName: '', eventDescription: '', eventType: '', eventCategory: '', eventLocation: '', eventDate: '', loginStatus: false}
+        this.state = {eventName: '', eventDescription: '', eventType: '', eventCategory: '', eventLocation: '', eventStartDate: '', eventEndDate: new Date(), loginStatus: false}
         this.handleSelectType = this.handleSelectType.bind(this)
         this.handleSelectCategory = this.handleSelectCategory.bind(this)
         this.handleSelectLocation = this.handleSelectLocation.bind(this)
@@ -37,10 +37,10 @@ export default class HostAnEventPageComponent extends Component {
     }
     handleSelectDate(value)
     {
-        let dropdown = document.querySelector('.eventDateField');
+        let dropdown = document.querySelector('.eventStartDateField');
         let formattedDate = value.toString().split(' ').splice(1,3).join(' ');
         dropdown.placeholder = formattedDate;
-        this.setState({'eventDate': formattedDate})
+        this.setState({'eventStartDate': formattedDate})
     }
 
     handleEnterEventName(value)
@@ -60,7 +60,8 @@ export default class HostAnEventPageComponent extends Component {
             location: this.state.eventLocation,
             type: this.state.eventType,
             category: this.state.eventCategory,
-            date: this.state.eventDate    
+            startDate: this.state.eventStartDate,
+            endDate: this.state.eventEndDate    
         }, 
         {withCredentials: true})
     }
