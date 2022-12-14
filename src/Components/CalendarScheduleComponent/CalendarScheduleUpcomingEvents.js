@@ -29,7 +29,13 @@ export default class CalendarScheduleUpcomingEvents extends Component {
         
         await Axios.get(`http://localhost:3030/GetAllUpcomingUserEvents/${this.state.currentUserData.id}`, {withCredentials: true})
         .then((res) => {
-          this.setState({'upcomingEvents': res.data})
+          let eventsList = []
+          res.data.map((event) => {
+            console.log(event)
+            eventsList.push({'title': event.EventName, 'start': new Date(event.EventStartDate), 'end': new Date (event.EventEndDate)})
+          })
+          console.log(eventsList)
+          this.setState({'upcomingEvents': eventsList})
         })
         
         this.setState({'isLoading': false})

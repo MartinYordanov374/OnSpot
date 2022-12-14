@@ -401,6 +401,7 @@ let start = async() =>
     app.get('/GetAllUpcomingUserEvents/:id', async(req,res) => {
         try{
             let result = await GetAllUpcomingUserEvents(Number(req.params.id))
+            console.log(result)
             res.status(200).send(result.data.recordset)
         }
         catch(err)
