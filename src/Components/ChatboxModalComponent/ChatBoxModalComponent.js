@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Modal, Button, FormControl, InputGroup } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+
 import './Styles/ChatboxModal.css'
 export default class ChatBoxModalComponent extends Component {
 
@@ -38,7 +41,9 @@ export default class ChatBoxModalComponent extends Component {
         <Modal.Footer>
             <InputGroup>
                 <FormControl className='sendMessageInputField'/>
-                <Button variant="primary" className='sendMessageBtn'>Send</Button>
+                <Button variant="primary" className='sendMessageBtn'>
+                    <FontAwesomeIcon icon={faPaperPlane}/>
+                </Button>
             </InputGroup>
         </Modal.Footer>
       </Modal.Dialog>
