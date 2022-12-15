@@ -21,6 +21,9 @@ async function connectWithMSSQLDatabase() {
         await sql.query(queries.CREATE_FOLLOWERS_TABLE_QUERY)
         await sql.query(queries.CREATE_PROFILE_PICTURES_TABLE_QUERY)
         await sql.query(queries.CREATE_USERS_TABLE_QUERY)
+        await sql.query(queries.CREATE_CONVERSATIONS_TABLE_QUERY)
+        await sql.query(queries.CREATE_MESSAGES_TABLE_QUERY)
+
         return conn
     }
     catch(err)
