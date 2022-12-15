@@ -259,16 +259,22 @@ async function CheckIfConversationExists(SenderID, ReceiverID)
 
 }
 
-async function SendMessage(SenderID, ReceiverID, Message)
+async function SendMessage(ConvoID, Message, SenderID)
 {
-
+    try{
+        let result = await sql.query`INSERT INTO Messages(ConvoID, Message, SenderUserID) VALUES(${ConvoID}, ${Message}, ${SenderID})`
+    }
+    catch(err)
+    {
+        return {status: 500, msg: 'Internal server error.', error: err}
+    }
 }
 
 async function CreateConversation(SenderID, ReceiverID)
 {
     try{
         let result = await sql.query`INSERT INTO Conversations(UserOneID, UserTwoID) VALUES(${SenderID}, ${ReceiverID})`
-        return {status:200, msg: 'Successfully created conversation'}
+        return {status:200, msg: 'Successfully created conversation.'}
     }
     catch(err)
     {
