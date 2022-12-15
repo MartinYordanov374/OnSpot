@@ -256,7 +256,29 @@ async function GetUserProfilePicture(userID)
 
 async function CheckIfConversationExists(SenderID, ReceiverID)
 {
+    // TODO: if we do the query for users with ID 1 and 2 in this order, we'll get a result. 
+    // Figure out a way to get the same result when you switch the numbers, otherwise both users messaging each other would be chatting in different chats.
 
+    try{
+        let result = await sql.query`
+        SELECT ConvoID 
+        FROM Conversations 
+        WHERE UserOneID = ${SenderID} AND UserTwoID = ${ReceiverID}`
+
+        if(result.recordset.length >= 1)
+        {
+            return {status: 200, msg: 'Conversation Exists!', convoExists: true, data: result.recordset}
+        }
+        else
+        {
+            return {status: 404, msg: 'Conversation does not exist!', convoExists: false}
+
+        }
+    }
+    catch(err)
+    {
+        return {status: 500, msg: 'Internal server error.', error: err}
+    }
 }
 
 async function SendMessage(ConvoID, Message, SenderID)
