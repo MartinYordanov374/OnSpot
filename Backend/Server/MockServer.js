@@ -410,6 +410,14 @@ let start = async() =>
             res.status(500).send('Internal server error.')
         }
     })
+
+    app.post('/sendMessage/:senderID/:receiverID', async(req,res) => {
+        // 1. Check if the conversation exists, based on sender and receiver ID
+        // 2. if the conversations exists, save the message to the said table
+        // 3. if the conversation does not exist, 
+        //  create the conversation and add the message to the messages table for the said conversation
+
+    })
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)
     })
