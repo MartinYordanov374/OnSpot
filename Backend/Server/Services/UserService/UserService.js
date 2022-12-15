@@ -263,7 +263,8 @@ async function CheckIfConversationExists(SenderID, ReceiverID)
         let result = await sql.query`
         SELECT ConvoID 
         FROM Conversations 
-        WHERE UserOneID = ${SenderID} AND UserTwoID = ${ReceiverID}`
+        WHERE (UserOneID = ${SenderID} AND UserTwoID = ${ReceiverID}) 
+        OR (UserTwoID = ${ReceiverID} AND UserTwoID = ${SenderID})`
 
         if(result.recordset.length >= 1)
         {
