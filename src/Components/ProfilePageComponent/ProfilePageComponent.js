@@ -11,9 +11,11 @@ export default class ProfilePageComponent extends Component {
   constructor()
   {
     super()
-    this.state = {userData: [], isLoading: true, loginStatus: false, userFollowsProfile: false}
+    this.state = {userData: [], currentUserData: [], isCurrentUserOwner: false, isLoading: true, loginStatus: false, userFollowsProfile: false}
   }
-  // TODO: FIX THE FOLLOW BUTTON DISPLAY\
+  // TODO: FIX THE FOLLOW BUTTON DISPLAY
+  // REMOVE FOLLOW AND MESSAGE OPTION IF USER IS OWNER OF THE PROFILE
+  // REMOVE CHANGE PFPF IF USER IS NOT OWNER OF THE PROFILE
   checkIfUserIsLoggedIn = async () => {
     await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
     .then((res)=>{
@@ -21,6 +23,7 @@ export default class ProfilePageComponent extends Component {
       {
           this.setState({'loginStatus': true})
           this.checkIfUserFollowsProfile()
+          this.checkIfUserIsOwner()
       }
       else
       {
@@ -35,12 +38,12 @@ export default class ProfilePageComponent extends Component {
     Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
     .then((res) => {
       this.setState({userData: res.data})
+      this.checkIfUserIsLoggedIn()
       this.setState({'isLoading': false})
     })
     .catch((err) => {
       console.log(err)
     })
-    this.checkIfUserIsLoggedIn()
   }
 
   handleSelectProfilePicture = () => {
@@ -88,8 +91,25 @@ export default class ProfilePageComponent extends Component {
     })
   }
 
+  checkIfUserIsOwner = async() => {
+
+    await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
+    .then((res)=>{
+      this.setState({'currentUserData':res.data[0]})  
+    })
+    this.splittedUrl = window.location.href.split('/')
+    this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
+    if(this.state.currentUserData.id == this.targetID)
+    {
+      this.setState({'isCurrentUserOwner':true})
+    }
+    else
+    {
+      this.setState({'isCurrentUserOwner':false})
+    }
+  }
+
   render() {
-    {console.log(this.state.userData)}
     return (
         <div>
         {
@@ -117,8 +137,11 @@ export default class ProfilePageComponent extends Component {
                             className='userPFP'
                           />
                       }
-                      <input type="file" className="profileImageUpload" hidden onChange={() => this.changeProfilePicture()}/>
-                    </div>
+                      {this.state.isCurrentUserOwner == true ? 
+                        <input type="file" className="profileImageUpload " hidden onChange={() => this.changeProfilePicture()}/>
+                        : ""
+                      }
+                      </div>
                     <div className='profilePageUserDetails d-flex'>
                         <div className='row'>
                             <span className='username col'>{this.state.userData.Username} </span>
