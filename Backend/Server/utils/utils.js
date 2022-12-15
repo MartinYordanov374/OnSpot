@@ -10,7 +10,17 @@
             KeywordID int NOT NULL
         );`
     
-    
+    const CREATE_MESSAGES_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.Messages (
+        ConvoID int NOT NULL,
+        Message nvarchar(1000) NULL,
+        SenderUserID int NOT NULL
+    );`
+
+    const CREATE_CONVERSATIONS_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.Conversations (
+        ConvoID int IDENTITY(0,1) NOT NULL,
+        UserOneID int NOT NULL,
+        UserTwoID int NOT NULL
+    );`
     
     const CREATE_EVENT_TABLE_QUERY_QUERY = `CREATE TABLE OnSpot.dbo.Events (
             EventName nvarchar(250) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
@@ -59,5 +69,7 @@ module.exports = {
     CREATE_KEYWORDS_TABLE_QUERY,
     CREATE_PROFILE_PICTURES_TABLE_QUERY,
     CREATE_USERS_TABLE_QUERY,
-    CREATE_DATABASE
+    CREATE_DATABASE,
+    CREATE_CONVERSATIONS_TABLE_QUERY,
+    CREATE_MESSAGES_TABLE_QUERY
 }
