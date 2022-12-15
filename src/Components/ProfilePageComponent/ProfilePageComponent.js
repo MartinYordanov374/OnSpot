@@ -13,7 +13,7 @@ export default class ProfilePageComponent extends Component {
     super()
     this.state = {userData: [], isLoading: true, loginStatus: false, userFollowsProfile: false}
   }
-  // TODO: FIX THE FOLLOW BUTTON DISPLAY
+  // TODO: FIX THE FOLLOW BUTTON DISPLAY\
   checkIfUserIsLoggedIn = async () => {
     await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
     .then((res)=>{
@@ -122,7 +122,12 @@ export default class ProfilePageComponent extends Component {
                     <div className='profilePageUserDetails d-flex'>
                         <div className='row'>
                             <span className='username col'>{this.state.userData.Username} </span>
+                            {this.state.userData.Followers ? 
                             <span className='followers'>{this.state.userData.Followers.length} followers</span>
+                            :
+                            <span className='followers'>0 followers</span>
+
+                            }
                             {/* <span className='username col'>{this.state.userData.Bio} </span> */}
                         </div>
                         
