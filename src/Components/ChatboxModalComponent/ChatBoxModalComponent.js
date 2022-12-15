@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Button, FormControl } from 'react-bootstrap'
+import { Modal, Button, FormControl, InputGroup } from 'react-bootstrap'
 import './Styles/ChatboxModal.css'
 export default class ChatBoxModalComponent extends Component {
 
@@ -36,9 +36,10 @@ export default class ChatBoxModalComponent extends Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <FormControl className='sendMessageInputField'>
-            </FormControl>
-          <Button variant="primary">Send</Button>
+            <InputGroup>
+                <FormControl className='sendMessageInputField'/>
+                <Button variant="primary" className='sendMessageBtn'>Send</Button>
+            </InputGroup>
         </Modal.Footer>
       </Modal.Dialog>
       </div>

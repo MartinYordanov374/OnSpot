@@ -40,6 +40,13 @@
   margin-top: 5%;
 }
 
+.modal-visible .sendMessageBtn {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin-top: 5%;
+}
+
 .modal-hidden {
   display: none;
 }
