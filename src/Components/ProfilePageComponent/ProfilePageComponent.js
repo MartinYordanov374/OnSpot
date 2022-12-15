@@ -154,6 +154,7 @@ export default class ProfilePageComponent extends Component {
                             {/* <span className='username col'>{this.state.userData.Bio} </span> */}
                         </div>
                         
+                        {this.state.isCurrentUserOwner == false ?
                         <div className='row userInteractionBtns'>
                               <span className='messageUser col'>Message</span>
                               {
@@ -167,6 +168,8 @@ export default class ProfilePageComponent extends Component {
                                 </span>
                               }
                         </div>
+                       : 
+                       "" }     
                     </div>
                     <div className='userEvents'>
                         {/* I should probably include what the user attended as well?? */}
