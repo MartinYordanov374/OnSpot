@@ -286,6 +286,7 @@ async function SendMessage(ConvoID, Message, SenderID)
 {
     try{
         let result = await sql.query`INSERT INTO Messages(ConvoID, Message, SenderUserID) VALUES(${ConvoID}, ${Message}, ${SenderID})`
+        return {status: 200, msg: 'Message sent successfully!'}
     }
     catch(err)
     {
@@ -340,5 +341,8 @@ module.exports = {
     AddUserBio,
     UserExistsById,
     ChangeProfilePicture,
-    GetUserProfilePicture
+    GetUserProfilePicture,
+    CheckIfConversationExists,
+    SendMessage,
+    CreateConversation
 }

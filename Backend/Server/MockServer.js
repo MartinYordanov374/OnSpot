@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
@@ -412,10 +412,28 @@ let start = async() =>
     })
 
     app.post('/sendMessage/:senderID/:receiverID', async(req,res) => {
-        // 1. Check if the conversation exists, based on sender and receiver ID
-        // 2. if the conversations exists, save the message to the said table
-        // 3. if the conversation does not exist, 
-        //  create the conversation and add the message to the messages table for the said conversation
+        // TODO: Use the server session to get the sender ID... please...
+        let senderID = Number(req.params.senderID)
+        let receiverID = Number(req.params.receiverID)
+        let message = req.body.message
+        try{
+            let conversationsExists = await CheckIfConversationExists(senderID, receiverID)
+            if(conversationsExists.convoExists == true)
+            {
+                // save message to this convo
+                let newMessage = await SendMessage(conversationsExists.data[0].id,message,senderID)
+                res.status(200).send(newMessage.msg)
+            }
+            else
+            {
+                let newConvo = await CreateConversation(senderID, receiverID)
+                res.status(200).send(newConvo.msg)
+            }
+        }
+        catch(err)
+        {
+            return {status: 500, msg: 'Internal server error', error: err}
+        }
 
     })
     app.listen(port, () => {
