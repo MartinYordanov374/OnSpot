@@ -4,6 +4,40 @@
   top: 20%;
 }
 
+.modal-visible .userPFP {
+  width: 64px;
+  margin-top: 0;
+  margin-left: 0rem;
+  margin-right: 1rem;
+}
+
+.modal-visible .chatWrapper {
+  overflow-y: scroll;
+}
+
+.modal-visible .chatWrapper .receiverMessage {
+  word-break: break-all;
+  margin-right: 60%;
+  background-color: #a8c9e3;
+  color: white;
+}
+
+.modal-visible .chatWrapper .senderMessage {
+  margin-left: 60%;
+  word-break: break-all;
+  background-color: #72B2E4;
+  color: white;
+}
+
+.modal-visible .chatWrapper .message {
+  padding: 20px;
+  border-radius: 4%;
+}
+
+.modal-visible .sendMessageInputField {
+  margin-top: 5%;
+}
+
 .modal-hidden {
   display: none;
 }

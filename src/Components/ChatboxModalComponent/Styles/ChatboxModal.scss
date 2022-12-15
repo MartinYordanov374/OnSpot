@@ -3,9 +3,40 @@
     display: block;
     position: absolute;
     top: 20%; 
+    .userPFP{
+        width: 64px;
+        margin-top: 0;
+        margin-left: 0rem;
+        margin-right: 1rem;
+    }
+    .chatWrapper{
+        // border-style: solid;
+        .receiverMessage{
+            word-break: break-all;
+            margin-right: 60%;
+            background-color: #a8c9e3;
+            color: white;
+        }
+        .senderMessage{
+            margin-left: 60%;
+            word-break: break-all;
+            background-color: #72B2E4;
+            color: white;
+        }
+        .message{
+            padding:20px;
+            border-radius: 4%;
+        }
+        overflow-y: scroll;
+    }
+
+    .sendMessageInputField{
+        margin-top: 5%;
+    }
 }
 
 .modal-hidden
 {
     display: none;
 }
+
