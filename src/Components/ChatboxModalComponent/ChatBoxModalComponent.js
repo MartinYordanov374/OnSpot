@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 import { Modal, Button, FormControl } from 'react-bootstrap'
 import './Styles/ChatboxModal.css'
 export default class ChatBoxModalComponent extends Component {
-    
+
+  componentDidMount()
+  {
+      let chatboxWrapper = document.querySelector(".chatWrapper");
+      chatboxWrapper.scrollTop = chatboxWrapper.scrollHeight;
+  }
   render() {
     console.log(this.props.props)
     return (

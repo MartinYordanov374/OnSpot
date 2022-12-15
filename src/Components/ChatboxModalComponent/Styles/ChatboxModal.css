@@ -12,6 +12,8 @@
 }
 
 .modal-visible .chatWrapper {
+  height: 20rem;
+  overflow-y: scroll;
   overflow-y: scroll;
 }
 
