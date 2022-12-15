@@ -6,12 +6,21 @@ import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentReg
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './ProfilePageStyles/ProfilePageStyle.css'
 import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandingPage';
+import ChatBoxModalComponent from '../ChatboxModalComponent/ChatBoxModalComponent';
 export default class ProfilePageComponent extends Component {
 
   constructor()
   {
     super()
-    this.state = {userData: [], currentUserData: [], isCurrentUserOwner: false, isLoading: true, loginStatus: false, userFollowsProfile: false}
+    this.state = {
+      userData: [], 
+      currentUserData: [], 
+      isCurrentUserOwner: false, 
+      isLoading: true, 
+      loginStatus: false, 
+      userFollowsProfile: false,
+      isChatModalShown: false
+    }
   }
   // TODO: FIX THE FOLLOW BUTTON DISPLAY
   // REMOVE FOLLOW AND MESSAGE OPTION IF USER IS OWNER OF THE PROFILE
@@ -109,6 +118,16 @@ export default class ProfilePageComponent extends Component {
     }
   }
 
+  handleChatBoxModal = async() => {
+    if(this.state.isChatModalShown == true)
+    {
+      this.setState({'isChatModalShown': false})
+    }
+    else
+    {
+      this.setState({'isChatModalShown': true})
+    }
+  }
   render() {
     return (
         <div>
@@ -156,7 +175,7 @@ export default class ProfilePageComponent extends Component {
                         
                         {this.state.isCurrentUserOwner == false ?
                         <div className='row userInteractionBtns'>
-                              <span className='messageUser col'>Message</span>
+                              <span className='messageUser col' onClick = {() => this.handleChatBoxModal()}>Message</span>
                               {
                                 this.state.userFollowsProfile == true ? 
                                 <span className='followUser col' onClick={() => this.followUser()}>
@@ -178,6 +197,12 @@ export default class ProfilePageComponent extends Component {
                             
                         </div>
                     </div>
+                    {
+                      this.state.isChatModalShown == true ?
+                      <ChatBoxModalComponent props = {{'isModalShown': true, 'modalHandler':this.handleChatBoxModal}}/>
+                      :
+                      <ChatBoxModalComponent props = {{'isModalShown': false, 'modalHandler':this.handleChatBoxModal}}/>
+                    }
                 </div>
                 :
                 <div>

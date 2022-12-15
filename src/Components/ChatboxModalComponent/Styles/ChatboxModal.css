@@ -1,0 +1,10 @@
+.modal-visible {
+  display: block;
+  position: absolute;
+  top: 20%;
+}
+
+.modal-hidden {
+  display: none;
+}
+/*# sourceMappingURL=ChatboxModal.css.map */
