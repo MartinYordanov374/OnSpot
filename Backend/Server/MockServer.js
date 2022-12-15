@@ -411,9 +411,9 @@ let start = async() =>
         }
     })
 
-    app.post('/sendMessage/:senderID/:receiverID', async(req,res) => {
-        // TODO: Use the server session to get the sender ID... please...
-        let senderID = Number(req.params.senderID)
+    app.post('/sendMessage/:receiverID', async(req,res) => {
+        let senderToken = req.session.userToken
+        let senderID = validateToken(Number(senderToken)).userID
         let receiverID = Number(req.params.receiverID)
         let message = req.body.message
         try{
