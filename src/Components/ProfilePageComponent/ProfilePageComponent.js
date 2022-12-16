@@ -199,9 +199,9 @@ export default class ProfilePageComponent extends Component {
                     </div>
                     {
                       this.state.isChatModalShown == true ?
-                      <ChatBoxModalComponent props = {{'isModalShown': true, 'modalHandler':this.handleChatBoxModal}}/>
+                      <ChatBoxModalComponent props = {{'isModalShown': true, 'modalHandler':this.handleChatBoxModal, 'senderData': this.state.currentUserData, 'receiverData': this.state.userData}}/>
                       :
-                      <ChatBoxModalComponent props = {{'isModalShown': false, 'modalHandler':this.handleChatBoxModal}}/>
+                      <ChatBoxModalComponent props = {{'isModalShown': false, 'modalHandler':this.handleChatBoxModal, 'senderData': this.state.currentUserData, 'receiverData': this.state.userData}}/>
                     }
                 </div>
                 :

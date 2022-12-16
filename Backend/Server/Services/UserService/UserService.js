@@ -268,6 +268,7 @@ async function CheckIfConversationExists(SenderID, ReceiverID)
 
         if(result.recordset.length >= 1)
         {
+            // TODO: get the convo chats  
             return {status: 200, msg: 'Conversation Exists!', convoExists: true, data: result.recordset}
         }
         else

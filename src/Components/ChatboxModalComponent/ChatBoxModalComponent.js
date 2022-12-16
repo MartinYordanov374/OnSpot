@@ -2,17 +2,37 @@ import React, { Component } from 'react'
 import { Modal, Button, FormControl, InputGroup } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import Axios from 'axios'
 
 import './Styles/ChatboxModal.css'
 export default class ChatBoxModalComponent extends Component {
 
+  constructor()
+  {
+    super()
+    this.state = {message: ''}
+  }
   componentDidMount()
   {
       let chatboxWrapper = document.querySelector(".chatWrapper");
       chatboxWrapper.scrollTop = chatboxWrapper.scrollHeight;
   }
+  sendMessage = async() => 
+  {
+    try{
+      let receiverID = window.location.href.split('/')[4]
+      let message = this.state.message
+      let result = await Axios.post(`http://localhost:3030/sendMessage/${receiverID}`, 
+      {message: message}, 
+      {withCredentials: true})
+    }
+    catch(err)
+    {
+      console.log(err)
+    }
+
+  }
   render() {
-    console.log(this.props.props)
     return (
       <div  className={this.props.props.isModalShown == true ? " modal modal-visible" : " modal modal-hidden"}>
         
@@ -41,8 +61,8 @@ export default class ChatBoxModalComponent extends Component {
 
             <Modal.Footer>
                 <InputGroup>
-                    <FormControl className='sendMessageInputField'/>
-                    <Button variant="primary" className='sendMessageBtn'>
+                    <FormControl className='sendMessageInputField' onChange={(e) => this.setState({'message': e.target.value})}/>
+                    <Button variant="primary" className='sendMessageBtn' onClick={() => this.sendMessage()}>
                         <FontAwesomeIcon icon={faPaperPlane}/>
                     </Button>
                 </InputGroup>

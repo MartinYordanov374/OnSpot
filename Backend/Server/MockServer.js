@@ -413,7 +413,7 @@ let start = async() =>
 
     app.post('/sendMessage/:receiverID', async(req,res) => {
         let senderToken = req.session.userToken
-        let senderID = validateToken(Number(senderToken)).userID
+        let senderID = validateToken(senderToken).userID
         let receiverID = Number(req.params.receiverID)
         let message = req.body.message
         try{
@@ -421,12 +421,14 @@ let start = async() =>
             if(conversationsExists.convoExists == true)
             {
                 // save message to this convo
-                let newMessage = await SendMessage(conversationsExists.data[0].id,message,senderID)
+                let newMessage = await SendMessage(conversationsExists.data[0].ConvoID,message,senderID)
+                console.log(newMessage)
                 res.status(200).send(newMessage.msg)
             }
             else
             {
                 let newConvo = await CreateConversation(senderID, receiverID)
+                // save message to convo after creating convo
                 res.status(200).send(newConvo.msg)
             }
         }
