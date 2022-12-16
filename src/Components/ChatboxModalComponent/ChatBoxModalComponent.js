@@ -27,7 +27,6 @@ export default class ChatBoxModalComponent extends Component {
         }
       }, 200)
   }
-  component
   getConversationMessages = async() => {
     try{
       let result = await Axios.get(`http://localhost:3030/getConversationMessages/${this.state.receiverID}`, 
@@ -76,12 +75,19 @@ export default class ChatBoxModalComponent extends Component {
 
             <Modal.Body>
             <div className='chatWrapper'>
-              {this.state.conversationMessages.map((message) => {
-                message.SenderUserID == this.state.receiverID ?
-                <div className='senderMessage message'>{message.Message}</div>
+              {this.state.conversationMessages.length >= 1 
+                ? 
+                  this.state.conversationMessages.map((message) => {
+                    return(
+                    message.SenderUserID == this.state.receiverID 
+                      ? 
+                        <div className='senderMessage message'>{message.Message}</div> 
+                      :
+                        <div className='receiverMessage message'>{message.Message}</div>
+                  )})
                 :
-                <div className='receiverMessage message'>{message.Message}</div>
-              })}
+                ""
+            }
             </div>
             </Modal.Body>
 

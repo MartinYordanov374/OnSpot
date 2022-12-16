@@ -264,7 +264,7 @@ async function CheckIfConversationExists(SenderID, ReceiverID)
         SELECT ConvoID 
         FROM Conversations 
         WHERE (UserOneID = ${SenderID} AND UserTwoID = ${ReceiverID}) 
-        OR (UserTwoID = ${ReceiverID} AND UserTwoID = ${SenderID})`
+        OR (UserOneID = ${ReceiverID} AND UserTwoID = ${SenderID})`
 
         if(result.recordset.length >= 1)
         {

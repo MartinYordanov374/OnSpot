@@ -456,7 +456,8 @@ let start = async() =>
             }
             else
             {
-                console.log('Fuck')
+                //TODO: Please add an adequate response...
+                console.log('An error occured.')
             }
         }
         catch(err)
