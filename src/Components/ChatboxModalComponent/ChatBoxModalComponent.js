@@ -10,12 +10,30 @@ export default class ChatBoxModalComponent extends Component {
   constructor()
   {
     super()
-    this.state = {message: ''}
+    this.state = {message: '', conversationMessages: []}
   }
   componentDidMount()
   {
       let chatboxWrapper = document.querySelector(".chatWrapper");
       chatboxWrapper.scrollTop = chatboxWrapper.scrollHeight;
+      this.getConversationMessages()
+  }
+
+  getConversationMessages = async() => {
+    try{
+      let receiverID = window.location.href.split('/')[4]
+      let result = await Axios.get(`http://localhost:3030/getConversationMessages/${receiverID}`, 
+      {withCredentials: true})
+
+      //TODO: RENAME DATA TO SOMETHING MORE MEANINGFUL
+      let conversationMessages = result.data.data.data
+      this.setState({'conversationMessages': conversationMessages})
+
+    }
+    catch(err)
+    {
+      console.log(err)
+    }
   }
   sendMessage = async() => 
   {
