@@ -440,8 +440,12 @@ let start = async() =>
 
     })
 
-    app.get('/getConversationMessages/:ConversationID', async(req,res) => {
-        let convoID = Number(req.params.ConversationID)
+    app.get('/getConversationMessages/:receiverID', async(req,res) => {
+        let senderToken = req.session.userToken
+        let senderID = validateToken(senderToken).userID
+        let receiverID = Number(req.params.receiverID)
+        let targetConvo = await CheckIfConversationExists(senderID, receiverID)
+        let convoID = targetConvo.data.data[0].ConvoID
         try{
             let conversationMessages = await GetConversationMessages(convoID)
             res.status(200).send({data: conversationMessages})
