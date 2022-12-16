@@ -422,13 +422,14 @@ let start = async() =>
             {
                 // save message to this convo
                 let newMessage = await SendMessage(conversationsExists.data[0].ConvoID,message,senderID)
-                console.log(newMessage)
                 res.status(200).send(newMessage.msg)
             }
             else
             {
                 let newConvo = await CreateConversation(senderID, receiverID)
                 // save message to convo after creating convo
+                let convoID = newConvo.data.data[0].ConvoID
+                let newMessage = await SendMessage(convoID,message,senderID)
                 res.status(200).send(newConvo.msg)
             }
         }

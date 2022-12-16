@@ -299,7 +299,8 @@ async function CreateConversation(SenderID, ReceiverID)
 {
     try{
         let result = await sql.query`INSERT INTO Conversations(UserOneID, UserTwoID) VALUES(${SenderID}, ${ReceiverID})`
-        return {status:200, msg: 'Successfully created conversation.'}
+        let newlyCreatedConvo = await CheckIfConversationExists(SenderID, ReceiverID)
+        return {status:200, msg: 'Successfully created conversation.', data: newlyCreatedConvo}
     }
     catch(err)
     {
