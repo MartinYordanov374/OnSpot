@@ -308,7 +308,7 @@ async function CreateConversation(SenderID, ReceiverID)
     }
 }
 
-async function GetConversationMessages()
+async function GetConversationMessages(ConvoID)
 {
     try{
         let result = await sql.query`SELECT * 

@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
@@ -438,6 +438,19 @@ let start = async() =>
             return {status: 500, msg: 'Internal server error', error: err}
         }
 
+    })
+
+    app.get('/getConversationMessages/:ConversationID', async(req,res) => {
+        let convoID = Number(req.params.ConversationID)
+        try{
+            let conversationMessages = await GetConversationMessages(convoID)
+            res.status(200).send({data: conversationMessages})
+        }
+        catch(err)
+        {
+            res.status(500).send({error: err})
+        }
+        
     })
     app.listen(port, () => {
         console.log(`Local server running on port: ${port}`)
