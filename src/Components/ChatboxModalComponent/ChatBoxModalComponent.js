@@ -13,16 +13,21 @@ export default class ChatBoxModalComponent extends Component {
     this.state = {message: '', conversationMessages: [], receiverID: -1}
     
   }
-  componentDidMount()
+  componentDidMount = () =>
   {
       // Figure out how to store the receiver ID in the state
-      let receiverID = window.location.href.split('/')[4]
-      this.setState({'receiverID': receiverID})
       let chatboxWrapper = document.querySelector(".chatWrapper");
       chatboxWrapper.scrollTop = chatboxWrapper.scrollHeight;
-      this.getConversationMessages()
+      let receiverID = window.location.href.split('/')[4]
+      setTimeout(() => {
+        this.setState({'receiverID': Number(receiverID)})
+        if(this.state.receiverID != -1)
+        {
+          this.getConversationMessages()
+        }
+      }, 200)
   }
-
+  component
   getConversationMessages = async() => {
     try{
       let result = await Axios.get(`http://localhost:3030/getConversationMessages/${this.state.receiverID}`, 
