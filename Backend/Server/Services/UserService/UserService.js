@@ -305,6 +305,20 @@ async function CreateConversation(SenderID, ReceiverID)
         return {status:500, msg: 'Internal server error.', error: err}
     }
 }
+
+async function GetConversationMessages()
+{
+    try{
+        let result = await sql.query`SELECT * 
+        FROM Messages 
+        WHERE ConvoID = ${ConvoID}`
+        return {status: 200, msg: 'Chat messages successfully fetched', data: result.recordset}
+    }
+    catch(err)
+    {
+        return{status: 500, msg: 'Internal server error.', error: err}
+    }
+}
 function validateToken(token)
 {
     try{
@@ -344,5 +358,6 @@ module.exports = {
     GetUserProfilePicture,
     CheckIfConversationExists,
     SendMessage,
-    CreateConversation
+    CreateConversation,
+    GetConversationMessages
 }
