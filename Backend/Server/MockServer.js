@@ -445,7 +445,7 @@ let start = async() =>
         let senderID = validateToken(senderToken).userID
         let receiverID = Number(req.params.receiverID)
         let targetConvo = await CheckIfConversationExists(senderID, receiverID)
-        
+        // Check this line, it sometimes causes the server to crash
         let convoID = targetConvo.data[0].ConvoID
         try{
             let conversationMessages = await GetConversationMessages(convoID)

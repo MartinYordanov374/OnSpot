@@ -10,10 +10,14 @@ export default class ChatBoxModalComponent extends Component {
   constructor()
   {
     super()
-    this.state = {message: '', conversationMessages: []}
+    this.state = {message: '', conversationMessages: [], receiverID: -1}
+    
   }
   componentDidMount()
   {
+      // Figure out how to store the receiver ID in the state
+      let receiverID = window.location.href.split('/')[4]
+      this.setState({'receiverID': receiverID})
       let chatboxWrapper = document.querySelector(".chatWrapper");
       chatboxWrapper.scrollTop = chatboxWrapper.scrollHeight;
       this.getConversationMessages()
@@ -21,8 +25,7 @@ export default class ChatBoxModalComponent extends Component {
 
   getConversationMessages = async() => {
     try{
-      let receiverID = window.location.href.split('/')[4]
-      let result = await Axios.get(`http://localhost:3030/getConversationMessages/${receiverID}`, 
+      let result = await Axios.get(`http://localhost:3030/getConversationMessages/${this.state.receiverID}`, 
       {withCredentials: true})
 
       //TODO: RENAME DATA TO SOMETHING MORE MEANINGFUL
@@ -38,9 +41,8 @@ export default class ChatBoxModalComponent extends Component {
   sendMessage = async() => 
   {
     try{
-      let receiverID = window.location.href.split('/')[4]
       let message = this.state.message
-      let result = await Axios.post(`http://localhost:3030/sendMessage/${receiverID}`, 
+      let result = await Axios.post(`http://localhost:3030/sendMessage/${this.state.receiverID}`, 
       {message: message}, 
       {withCredentials: true})
     }
@@ -69,11 +71,12 @@ export default class ChatBoxModalComponent extends Component {
 
             <Modal.Body>
             <div className='chatWrapper'>
-                <div className='receiverMessage message'>Hello?</div>
-                <div className='senderMessage message'>Hello, is this Seeker?</div>
-                <div className='receiverMessage message'>Yes, it is me!</div>
-                <div className='senderMessage message'>GOSH! THE EVENT LAST WEEK WAS ABSOLUTELY AMAZING!!!</div>
-                <div className='receiverMessage message'>I know right! I'm about to host another one soon! Stay tuned !</div>
+              {this.state.conversationMessages.map((message) => {
+                message.SenderUserID == this.state.receiverID ?
+                <div className='senderMessage message'>{message.Message}</div>
+                :
+                <div className='receiverMessage message'>{message.Message}</div>
+              })}
             </div>
             </Modal.Body>
 
