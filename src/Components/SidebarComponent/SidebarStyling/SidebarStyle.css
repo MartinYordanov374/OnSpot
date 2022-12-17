@@ -42,7 +42,11 @@
 
 .sidebarWrapper .safeMenu .menuItem a {
   text-decoration: none;
-  color: white;
+  color: #F9F4FF;
+}
+
+.sidebarWrapper .safeMenu .menuItem a:hover {
+  color: #ededed;
 }
 
 .sidebarWrapper .dangerousMenu .settings {

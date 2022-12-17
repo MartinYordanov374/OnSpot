@@ -22,5 +22,20 @@
 .navbar-brand {
   font-weight: bold;
   font-size: 3.5rem;
+  margin-left: 1.5%;
+  color: white;
+}
+
+.navbar-brand:hover {
+  color: white;
+}
+
+.navbarWrapper {
+  width: 100%;
+  background-color: #72B2E4;
+}
+
+.navbarWrapper .navbar-links {
+  margin-left: 75%;
 }
 /*# sourceMappingURL=NavbarStyles.css.map */

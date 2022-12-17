@@ -25,12 +25,10 @@ export default class RegisteredLandingPage extends Component {
     return (
         <div>
             <SidebarComponent/>
-            <Container>
                 <NavbarComponentRegisteredUser/>
                 {this.state.events.map((event) => {
                     return <EventCardComponent props={event}/>
                 })}
-            </Container>
         </div>
     )
   }
