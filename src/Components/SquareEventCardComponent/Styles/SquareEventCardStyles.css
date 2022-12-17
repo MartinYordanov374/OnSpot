@@ -1,0 +1,47 @@
+.EventCard {
+  padding-left: 0%;
+  padding-right: 0%;
+  margin-left: 5rem;
+  margin-top: 1rem;
+}
+
+.EventCard .EventCardImage {
+  width: 100%;
+  padding-right: 0% !important;
+  border-bottom-left-radius: 0%;
+  border-bottom-right-radius: 0%;
+}
+
+.EventCard .EventCardBody {
+  padding: 0px !important;
+}
+
+.EventCard .EventCardSubtitle {
+  margin-top: 1rem;
+}
+
+.EventCard .eventHostPFP {
+  width: 36px;
+  border-radius: 5%;
+}
+
+.EventCard .EventHosterDataContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.EventCard .EventInteractionButtons .LearnMoreButton {
+  margin-left: 71%;
+}
+
+.EventCard .EventDetailsContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.EventCard .EventInteractionButtons {
+  margin-left: auto;
+}
+/*# sourceMappingURL=SquareEventCardStyles.css.map */

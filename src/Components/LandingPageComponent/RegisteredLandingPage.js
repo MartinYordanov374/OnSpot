@@ -4,6 +4,7 @@ import SidebarComponent from '../SidebarComponent/SidebarComponent';
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
 import { Container } from 'react-bootstrap'
 import Axios from 'axios'
+import SquareEventCardComponent from '../SquareEventCardComponent/SquareEventCardComponent';
 
 export default class RegisteredLandingPage extends Component {
     constructor()
@@ -24,11 +25,16 @@ export default class RegisteredLandingPage extends Component {
   render() {
     return (
         <div>
-            <SidebarComponent/>
+
+              <SidebarComponent/>
                 <NavbarComponentRegisteredUser/>
-                {this.state.events.map((event) => {
-                    return <EventCardComponent props={event}/>
-                })}
+                <Container>
+                  <div className='EventCardsWrapper row' style={{'margin-left': '2%'}}>
+                    {this.state.events.map((event) => {
+                      return <SquareEventCardComponent props={event}/>
+                      })}
+                  </div>
+                </Container>
         </div>
     )
   }
