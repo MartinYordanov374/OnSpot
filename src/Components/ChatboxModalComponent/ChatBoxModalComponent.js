@@ -75,6 +75,8 @@ export default class ChatBoxModalComponent extends Component {
           this.setState({'conversationMessages': res.data})
 
         })
+        let messageInputField = document.querySelector('.sendMessageInputField')
+        messageInputField.value = ''
     }
     catch(err)
     {
