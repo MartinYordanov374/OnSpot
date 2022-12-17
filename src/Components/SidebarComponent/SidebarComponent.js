@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './SidebarStyling/SidebarStyle.css'
-import { faCog, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faSignOut, faCalendarCheck, faCalendar, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Buffer } from 'buffer';
 import Axios from 'axios'
@@ -59,9 +59,21 @@ export default class SidebarComponent extends Component {
           {/* <h3 className='followers'> {this.state.userFollowers} Followers </h3> */}
         </div>
         <div className='safeMenu menu'>
-          <h2 className='upcomingEvents menuItem'> <a href='/EventsManager/CalendarSchedule/UpcomingEvents'>Upcoming events</a></h2>
-          <h2 className='attendedEvents menuItem'><a href='/EventsManager/CalendarSchedule/AttendedEvents'>Attended events</a></h2>
-          <h2 className='hostedEvents menuItem'><a href='/EventsManager/CalendarSchedule/HostedEvents'>Hosted events</a></h2>
+          <h2 className='upcomingEvents menuItem'> 
+            <a href='/EventsManager/CalendarSchedule/UpcomingEvents'>
+              <FontAwesomeIcon icon={faCalendarDays}/> Upcoming events
+            </a>
+          </h2>
+          <h2 className='attendedEvents menuItem'>
+            <a href='/EventsManager/CalendarSchedule/AttendedEvents'>
+            <FontAwesomeIcon icon={faCalendarCheck}/> Attended events
+            </a>
+          </h2>
+          <h2 className='hostedEvents menuItem'>
+            <a href='/EventsManager/CalendarSchedule/HostedEvents'>
+              <FontAwesomeIcon icon={faCalendar}/> Hosted events
+            </a>
+          </h2>
 
         </div>
         <div className='dangerousMenu menu fixed-bottom'>
