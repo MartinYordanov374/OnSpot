@@ -3,6 +3,7 @@ import { Modal, Button, FormControl, InputGroup } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import Axios from 'axios'
+import * as io from 'socket.io-client'
 
 import './Styles/ChatboxModal.css'
 export default class ChatBoxModalComponent extends Component {
@@ -10,7 +11,7 @@ export default class ChatBoxModalComponent extends Component {
   constructor()
   {
     super()
-    this.state = {message: '', conversationMessages: [], receiverID: -1}
+    this.state = {message: '', conversationMessages: [], receiverID: -1, socket: io.connect('http://localhost:3030/')}
     
   }
   componentDidMount = () =>
@@ -26,6 +27,9 @@ export default class ChatBoxModalComponent extends Component {
           this.getConversationMessages()
         }
       }, 200)
+      this.state.socket.on('connect', () => {
+        this.state.socket.emit('getConvo')
+      })
   }
   getConversationMessages = async() => {
     try{

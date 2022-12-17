@@ -12,6 +12,7 @@ const port = process.env.REACT_APP_SERVER_PORT
 const fs = require('fs')
 const path = require('path')
 
+
 const corsOptions = {
     origin: 'http://localhost:3000', 
     credentials: true,
@@ -20,6 +21,9 @@ const corsOptions = {
 const upload = multer({ dest: 'uploads/' })
 
 app = express()
+const server = require('http').createServer(app)
+const io = require('socket.io')(server, {cors: {origin: '*'}});
+
 app.use(express.json())
 app.use(cors(corsOptions))
 
@@ -105,7 +109,6 @@ let start = async() =>
 
     app.post('/hostEvent', async (req,res) => {
         // TODO FIGURE LOCATION OUT
-        console.log(req.body)
         let eventName = req.body.name;
         let eventDescription = req.body.description;
         // let eventLocation = req.body.location;
@@ -131,7 +134,6 @@ let start = async() =>
         }
         catch(err)
         {
-            console.log(err)
             res.status(500).send('Internal server error.')
         }
         
@@ -150,7 +152,6 @@ let start = async() =>
         let userToken = req.session.userToken;
         let eventID = Number(JSON.parse(JSON.stringify(req.params)).eventId)
         let isTokenValid = validateToken(userToken)
-        console.log(req.session)
         if(isTokenValid.status == true)
         {
             let result = await AttendEvent(isTokenValid.userID, eventID)
@@ -165,7 +166,6 @@ let start = async() =>
         let userToken = req.session.userToken;
         let eventID = Number(JSON.parse(JSON.stringify(req.params)).eventId)
         let isTokenValid = validateToken(userToken)
-        console.log(req.session)
         if(isTokenValid.status == true)
         {
             let result = await DoesUserAttendEvent(isTokenValid.userID, eventID)
@@ -315,7 +315,6 @@ let start = async() =>
     app.post('/getUserDataById/:id', async(req,res) => {
         let result = await UserExistsById(Number(req.params.id))
         let userFollowers = await GetUserFollowers(Number(req.params.id))
-        console.log(userFollowers)
         let targetUserProfilePictureResponse = await GetUserProfilePicture(req.params.id)
         // TODO ADD CHECK IF PROFILE PICTURE FOR GIVEN USER EXISTS OR NOT
         if(targetUserProfilePictureResponse.data != undefined)
@@ -358,7 +357,6 @@ let start = async() =>
             }
             let result = await ChangeProfilePicture(userData.userID, pfp)
             res.status(result.status).send(result.msg)
-            console.log(result)
         }
         catch(err){
             res.status(500).send('Internal server error.')
@@ -383,7 +381,6 @@ let start = async() =>
         }
         catch(err)
         {
-            console.log(err)
             res.status(500).send('Internal server error.')
         }
     })
@@ -402,7 +399,6 @@ let start = async() =>
     app.get('/GetAllUpcomingUserEvents/:id', async(req,res) => {
         try{
             let result = await GetAllUpcomingUserEvents(Number(req.params.id))
-            console.log(result)
             res.status(200).send(result.data.recordset)
         }
         catch(err)
@@ -444,7 +440,9 @@ let start = async() =>
         let senderToken = req.session.userToken
         let senderID = validateToken(senderToken).userID
         let receiverID = Number(req.params.receiverID)
-        console.log(senderID, receiverID)
+        io.emit('getConvo', () => {
+
+        })
 
         try{
             let targetConvo = await CheckIfConversationExists(senderID, receiverID)
@@ -466,7 +464,20 @@ let start = async() =>
         }
         
     })
-    app.listen(port, () => {
+
+    io.on('connection', (socket) => {
+
+        console.log('User connected.');
+    
+        socket.on('getConvo', () => {
+            console.log('Getting convo.')
+        })
+        socket.on('disconnect', function() {
+            console.log('User disconnected.');
+        });
+    });
+
+    server.listen(port, () => {
         console.log(`Local server running on port: ${port}`)
     })
 }

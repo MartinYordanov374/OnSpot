@@ -340,9 +340,6 @@ function validateToken(token)
     }
 }
 
-
-
-
 module.exports = {
     registerUser,
     UserExistsByUsername,

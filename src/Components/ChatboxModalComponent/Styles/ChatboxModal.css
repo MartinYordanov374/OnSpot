@@ -18,7 +18,6 @@
 }
 
 .modal-visible .chatWrapper .receiverMessage {
-  word-break: break-all;
   margin-right: 60%;
   background-color: #a8c9e3;
   color: white;
