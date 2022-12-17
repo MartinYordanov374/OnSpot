@@ -11,7 +11,7 @@ const multer = require('multer')
 const port = process.env.REACT_APP_SERVER_PORT
 const fs = require('fs')
 const path = require('path')
-
+const Axios = require('axios')
 
 const corsOptions = {
     origin: 'http://localhost:3000', 
@@ -469,9 +469,22 @@ let start = async() =>
 
         console.log('User connected.');
     
-        socket.on('getConvo', () => {
-            console.log('Getting convo.')
+        socket.on('requestConvo', async (requestData) => {
+            let senderID = requestData.senderID
+            let receiverID = requestData.receiverID
+            // TODO: Call the get convo, in general, only if the user is visiting ANY OTHER PROFILE PAGE THAN ITS OWN
+            try{
+                let targetConvo = await CheckIfConversationExists(senderID, receiverID)
+                let targetConvoID = targetConvo.data[0].ConvoID
+                let convoMessages = await GetConversationMessages(targetConvoID)
+                socket.emit('getConvo', convoMessages)
+            }
+            catch(err)
+            {
+                console.log(err)
+            }
         })
+
         socket.on('disconnect', function() {
             console.log('User disconnected.');
         });

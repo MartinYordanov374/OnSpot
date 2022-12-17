@@ -14,7 +14,7 @@ export default class ChatBoxModalComponent extends Component {
     this.state = {message: '', conversationMessages: [], receiverID: -1, socket: io.connect('http://localhost:3030/')}
     
   }
-  componentDidMount = () =>
+  componentDidMount = async() =>
   {
       // Figure out how to store the receiver ID in the state
       let chatboxWrapper = document.querySelector(".chatWrapper");
@@ -22,21 +22,27 @@ export default class ChatBoxModalComponent extends Component {
       let receiverID = window.location.href.split('/')[4]
       setTimeout(() => {
         this.setState({'receiverID': Number(receiverID)})
-        if(this.state.receiverID != -1)
-        {
-          this.getConversationMessages()
-        }
+        
+
       }, 200)
+      let currentUserData = await this.getCurrentUserData()
+      let currentUserID = currentUserData.id
       this.state.socket.on('connect', () => {
-        this.state.socket.emit('getConvo')
+        this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
+        this.state.socket.on('getConvo', (res) => {
+          this.setState({'conversationMessages': res.data})
+
+        })
       })
   }
-  getConversationMessages = async() => {
+  
+  getConversationMessages = async(receiverID) => {
     try{
-      let result = await Axios.get(`http://localhost:3030/getConversationMessages/${this.state.receiverID}`, 
+      let result = await Axios.get(`http://localhost:3030/getConversationMessages/${receiverID}`, 
       {withCredentials: true})
 
       //TODO: RENAME DATA TO SOMETHING MORE MEANINGFUL
+      
       let conversationMessages = result.data.data.data
       this.setState({'conversationMessages': conversationMessages})
 
@@ -46,6 +52,13 @@ export default class ChatBoxModalComponent extends Component {
       console.log(err)
     }
   }
+
+  getCurrentUserData = async() => {
+    let currentUserData = await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
+    let currentUserObject = currentUserData.data[0]
+    return currentUserObject
+  }
+
   sendMessage = async() => 
   {
     try{
@@ -53,6 +66,15 @@ export default class ChatBoxModalComponent extends Component {
       let result = await Axios.post(`http://localhost:3030/sendMessage/${this.state.receiverID}`, 
       {message: message}, 
       {withCredentials: true})
+      let receiverID = window.location.href.split('/')[4]
+
+      let currentUserData = await this.getCurrentUserData()
+      let currentUserID = currentUserData.id
+      this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
+        this.state.socket.on('getConvo', (res) => {
+          this.setState({'conversationMessages': res.data})
+
+        })
     }
     catch(err)
     {
@@ -61,6 +83,7 @@ export default class ChatBoxModalComponent extends Component {
 
   }
   render() {
+    
     return (
       <div  className={this.props.props.isModalShown == true ? " modal modal-visible" : " modal modal-hidden"}>
         
