@@ -286,7 +286,7 @@ async function CheckIfConversationExists(SenderID, ReceiverID)
 async function SendMessage(ConvoID, Message, SenderID)
 {
     try{
-        let result = await sql.query`INSERT INTO Messages(ConvoID, Message, SenderUserID) VALUES(${ConvoID}, ${Message}, ${SenderID})`
+        let result = await sql.query`INSERT INTO Messages(ConvoID, Message, SenderUserID, DateSent) VALUES(${ConvoID}, ${Message}, ${SenderID}, ${new Date()})`
         return {status: 200, msg: 'Message sent successfully!'}
     }
     catch(err)
