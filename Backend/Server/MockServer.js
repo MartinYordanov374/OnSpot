@@ -477,7 +477,6 @@ let start = async() =>
                 let targetConvo = await CheckIfConversationExists(senderID, receiverID)
                 let targetConvoID = targetConvo.data[0].ConvoID
                 let convoMessages = await GetConversationMessages(targetConvoID)
-                console.log(convoMessages)
                 socket.emit('getConvo', convoMessages)
             }
             catch(err)

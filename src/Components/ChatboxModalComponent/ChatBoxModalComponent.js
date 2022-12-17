@@ -11,7 +11,7 @@ export default class ChatBoxModalComponent extends Component {
   constructor()
   {
     super()
-    this.state = {message: '', conversationMessages: [], receiverID: -1, socket: io.connect('http://localhost:3030/')}
+    this.state = {message: '', conversationMessages: [], receiverID: -1, senderID: -1, socket: io.connect('http://localhost:3030/')}
     
   }
   componentDidMount = async() =>
@@ -20,13 +20,13 @@ export default class ChatBoxModalComponent extends Component {
       let chatboxWrapper = document.querySelector(".chatWrapper");
       chatboxWrapper.scrollTop = chatboxWrapper.scrollHeight;
       let receiverID = window.location.href.split('/')[4]
-      setTimeout(() => {
-        this.setState({'receiverID': Number(receiverID)})
-        
-
-      }, 200)
       let currentUserData = await this.getCurrentUserData()
       let currentUserID = currentUserData.id
+
+      setTimeout(() => {
+        this.setState({'receiverID': Number(receiverID)})
+        this.setState({'senderID': Number(currentUserID)})
+      }, 200)
       this.state.socket.on('connect', () => {
         this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
         this.state.socket.on('getConvo', (res) => {
@@ -85,11 +85,7 @@ export default class ChatBoxModalComponent extends Component {
 
   componentDidUpdate = async() =>
   {
-    let receiverID = window.location.href.split('/')[4]
-
-    let currentUserData = await this.getCurrentUserData()
-    let currentUserID = currentUserData.id
-    this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
+    this.state.socket.emit('requestConvo', {'receiverID': Number(this.state.receiverID), 'senderID':Number(this.state.senderID)})
       this.state.socket.on('getConvo', (res) => {
         this.setState({'conversationMessages': res.data})
 

@@ -24,15 +24,18 @@
 }
 
 .modal-visible .chatWrapper .senderMessage {
-  margin-left: 60%;
-  word-break: break-all;
+  margin-left: 72%;
   background-color: #72B2E4;
   color: white;
 }
 
 .modal-visible .chatWrapper .message {
   padding: 20px;
+  margin-top: 2%;
   border-radius: 4%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .modal-visible .sendMessageInputField {

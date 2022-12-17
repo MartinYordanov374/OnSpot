@@ -19,14 +19,15 @@
             color: white;
         }
         .senderMessage{
-            margin-left: 60%;
-            word-break: break-all;
+            margin-left: 72%;
             background-color: #72B2E4;
             color: white;
         }
         .message{
             padding:20px;
+            margin-top: 2%;
             border-radius: 4%;
+            width:fit-content;
         }
         overflow-y: scroll;
     }
