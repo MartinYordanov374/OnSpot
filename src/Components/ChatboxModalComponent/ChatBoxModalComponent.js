@@ -82,6 +82,19 @@ export default class ChatBoxModalComponent extends Component {
     }
 
   }
+
+  componentDidUpdate = async() =>
+  {
+    let receiverID = window.location.href.split('/')[4]
+
+    let currentUserData = await this.getCurrentUserData()
+    let currentUserID = currentUserData.id
+    this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
+      this.state.socket.on('getConvo', (res) => {
+        this.setState({'conversationMessages': res.data})
+
+      })
+  }
   render() {
     
     return (
@@ -104,9 +117,11 @@ export default class ChatBoxModalComponent extends Component {
             <div className='chatWrapper'>
               {this.state.conversationMessages.length >= 1 
                 ? 
-                  this.state.conversationMessages.map((message) => {
+                this.state.conversationMessages.sort((messageOne, messageTwo) => 
+                      messageOne.DateSent.localeCompare(messageTwo.DateSent))
+                .map((message) => {
                     return(
-                    message.SenderUserID == this.state.receiverID 
+                    message.SenderUserID != this.state.receiverID 
                       ? 
                         <div className='senderMessage message'>{message.Message}</div> 
                       :
