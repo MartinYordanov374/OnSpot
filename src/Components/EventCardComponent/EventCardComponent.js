@@ -1,6 +1,8 @@
 import Axios from 'axios';
 import React, { Component } from 'react'
 import { Container,Card,Button } from 'react-bootstrap'
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Buffer } from 'buffer';
 
 import '../EventCardComponent/EventCardStyles/EventCard.css'
@@ -41,7 +43,9 @@ export default class EventCardComponent extends Component {
                     <Card.Subtitle className='eventCardDescription'>{eventData.props.EventDescription}</Card.Subtitle>
                 </Card.Body>
                 <Card.Footer className = 'eventCardFooter'>
-                        <Button className='learnMore btn-light' href={`Event/${eventData.props.EventID}`}>Learn more</Button>
+                        <Button className='learnMore btn-light' href={`Event/${eventData.props.EventID}`}> 
+                          Find More
+                        </Button>
                 </Card.Footer>
             </Card>
         </Container>
