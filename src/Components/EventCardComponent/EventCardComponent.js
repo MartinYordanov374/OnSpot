@@ -42,7 +42,6 @@ export default class EventCardComponent extends Component {
                 </Card.Body>
                 <Card.Footer className = 'eventCardFooter'>
                         <Button className='learnMore btn-light' href={`Event/${eventData.props.EventID}`}>Learn more</Button>
-                        
                 </Card.Footer>
             </Card>
         </Container>

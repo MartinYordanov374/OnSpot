@@ -38,7 +38,7 @@ export default class SidebarComponent extends Component {
   }
   render() {
     return (
-     <div className='sidebarWrapper'>
+     <div className='sidebarWrapper  position-fixed'>
         <div className = 'ProfileDataWrapper'>
         {this.state.ProfilePicture.data
                       ?
@@ -55,9 +55,8 @@ export default class SidebarComponent extends Component {
                           className='userPFP'
                         />
           }
-          <br></br>
           <a href={`Profile/${this.state.userID}`}> <h2 className='username'>{this.state.username}</h2></a>
-          <h3 className='followers'> {this.state.userFollowers} Followers </h3>
+          {/* <h3 className='followers'> {this.state.userFollowers} Followers </h3> */}
         </div>
         <div className='safeMenu menu'>
           <h2 className='upcomingEvents menuItem'> <a href='/EventsManager/CalendarSchedule/UpcomingEvents'>Upcoming events</a></h2>

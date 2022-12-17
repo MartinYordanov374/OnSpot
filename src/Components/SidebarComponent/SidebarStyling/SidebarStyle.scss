@@ -1,20 +1,26 @@
 .sidebarWrapper{
     margin-left: auto;
-    width:18%;
+    margin-top: 7%;
     float:left;
-    height:100vh;
-    background-color: #7E1AFF;
     .ProfileDataWrapper{
         text-align: center;
+        display: flex;
+        margin-left: 2rem;
         .userPFP{
             border-radius: 50%;
-            width: 100px;
+            width: 36px;
+            height: 36px;
         }
         .username{
+            margin-left: .5rem;
+            font-size: 2rem;
             color: white;
         }
         .followers{
             color: #BDA9A9
+        }
+        a{
+            text-decoration: none;
         }
     }
     .safeMenu{
