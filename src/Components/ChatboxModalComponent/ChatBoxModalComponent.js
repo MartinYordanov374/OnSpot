@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import Axios from 'axios'
 import * as io from 'socket.io-client'
+import { Buffer } from 'buffer';
 
 import './Styles/ChatboxModal.css'
 export default class ChatBoxModalComponent extends Component {
@@ -51,6 +52,7 @@ export default class ChatBoxModalComponent extends Component {
     {
       console.log(err)
     }
+
   }
 
   getCurrentUserData = async() => {
@@ -100,15 +102,20 @@ export default class ChatBoxModalComponent extends Component {
         
         <Modal.Dialog>
             <Modal.Header closeButton onClick={() => this.props.props.modalHandler()}>
+            {this.props.props.receiverData.ProfilePicture.data ?
             <img 
-                    // src={
-                    //   `data: image/png;base64,
-                    //   ${Buffer.from(this.state.userData.ProfilePicture.data).toString('base64')}`
-                    //   }
-                    src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images'
+                      src={
+                       `data: image/png;base64,
+                       ${Buffer.from(this.props.props.receiverData.ProfilePicture.data).toString('base64')}`}
                     className='userPFP'
             />
-            <Modal.Title>Username</Modal.Title>
+            :
+            <img 
+              className='userPFP'
+              src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images'
+            />
+                      }
+            <Modal.Title>{this.props.props.receiverData.Username}</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
