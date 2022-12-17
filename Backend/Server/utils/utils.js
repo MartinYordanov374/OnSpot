@@ -11,9 +11,10 @@
         );`
     
     const CREATE_MESSAGES_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.Messages (
-        ConvoID int NOT NULL,
-        Message nvarchar(1000) NULL,
-        SenderUserID int NOT NULL
+        ConvoID int IDENTITY(0,1) NOT NULL,
+        Message nvarchar(MAX) NOT NULL,
+        SenderUserID int NOT NULL,
+        DateSent datetime NOT NULL
     );`
 
     const CREATE_CONVERSATIONS_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.Conversations (
