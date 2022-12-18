@@ -5,6 +5,14 @@
   margin-left: 5rem;
   margin-top: 1rem;
   font-family: 'Open Sans', sans-serif;
+  -webkit-box-shadow: #5ea2d6 1px 1px 0px 2px;
+          box-shadow: #5ea2d6 1px 1px 0px 2px;
+}
+
+.EventCard:hover {
+  cursor: pointer;
+  -webkit-box-shadow: #4194d4 1px 1px 0px 1px;
+          box-shadow: #4194d4 1px 1px 0px 1px;
 }
 
 .EventCard .EventCardImage {
@@ -44,7 +52,7 @@
   display: -ms-flexbox;
   display: flex;
   margin-top: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.25rem;
 }
 
 .EventCard .EventDetailsContainer .EventType {
@@ -60,9 +68,18 @@
 }
 
 .EventCard .EventInteractionButtons .LearnMoreButton {
-  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 4px 0px;
-          box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 4px 0px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 1px 1px;
+          box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 1px 1px;
   margin-bottom: 1rem;
+  color: rgba(0, 0, 0, 0.8);
+  background-color: white;
+  border-color: white;
+}
+
+.EventCard .EventInteractionButtons .LearnMoreButton:hover {
+  -webkit-box-shadow: #5ea2d6 1px 1px 4px 1px;
+          box-shadow: #5ea2d6 1px 1px 4px 1px;
+  color: #5ea2d6;
 }
 
 .EventCard .EventCardTitle {
