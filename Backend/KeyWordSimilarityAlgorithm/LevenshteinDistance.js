@@ -1,10 +1,10 @@
 function findDistance(userWord, keyword)
 {
     const matrix = []
-    for(let i = 0; i < userWord.length + 1; i++)
+    for(let i = 0; i <= userWord.length; i++)
     {
         const row = []
-        for(let j = 0; j < keyword.length + 1; j++)
+        for(let j = 0; j <= keyword.length; j++)
         {
             row.push(j)
         }
@@ -12,9 +12,9 @@ function findDistance(userWord, keyword)
         matrix.push(row)
     }
 
-    for(let i = 1; i < userWord.length + 1; i++)
+    for(let i = 1; i <= userWord.length; i++)
     {
-        for(let j = 1; j < keyword.length + 1; j++)
+        for(let j = 1; j <= keyword.length; j++)
         {
             if(userWord[i - 1] == keyword[j - 1])
             {
