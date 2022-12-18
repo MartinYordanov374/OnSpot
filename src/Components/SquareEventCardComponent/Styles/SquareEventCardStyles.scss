@@ -1,8 +1,11 @@
+$left-margin-details: 0.5rem;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@500&display=swap');
 .EventCard{
     padding-left: 0%;
     padding-right: 0%;
     margin-left: 5rem;
     margin-top: 1rem;
+    font-family: 'Open Sans', sans-serif;
     .EventCardImage{
         width:100%;
         padding-right: 0% !important;
@@ -12,15 +15,19 @@
     .EventCardBody{
         padding:0px !important;
     }
-    .EventCardSubtitle{
-        margin-top: 1rem;
-    }
-    .eventHostPFP{
-        width:36px;
-        border-radius: 5%;
-    }
     .EventHosterDataContainer{
         display: flex;
+        margin-left: $left-margin-details;
+
+        .EventHosterUsername{
+            font-size: 2rem;
+            margin-left: 1rem;
+        }
+        .eventHostPFP{
+            width:50px;
+            border-radius: 5%;
+        }
+        
     }
     .EventInteractionButtons{
         .LearnMoreButton{
@@ -29,8 +36,38 @@
     }
     .EventDetailsContainer{
         display: flex;
+        // border-style: solid;
+        margin-top: 0.5rem;
+        font-size: 1rem;
+        .EventType{
+            margin-left: auto;
+        }
+        .EventClass{
+            margin-left: auto;
+        }
     }
     .EventInteractionButtons{
         margin-left: auto;
+        .LearnMoreButton{
+
+            box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 4px 0px;
+            margin-bottom: 1rem;
+            
+        }
+    }
+    .EventCardTitle{
+        font-size: 2rem;
+        margin-bottom: 0rem !important;
+        margin-left: $left-margin-details;
+
+    }
+    .EventCardDescription{
+        // margin-top: 0.5rem;
+        margin-left: $left-margin-details;
+    }
+    .EventCardDate{
+        margin-top: 0.25rem;
+        margin-left: $left-margin-details;
+        font-size: 1.25rem;
     }
 }

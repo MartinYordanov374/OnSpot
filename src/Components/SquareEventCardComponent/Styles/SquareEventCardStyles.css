@@ -1,8 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@500&display=swap");
 .EventCard {
   padding-left: 0%;
   padding-right: 0%;
   margin-left: 5rem;
   margin-top: 1rem;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .EventCard .EventCardImage {
@@ -16,19 +18,21 @@
   padding: 0px !important;
 }
 
-.EventCard .EventCardSubtitle {
-  margin-top: 1rem;
-}
-
-.EventCard .eventHostPFP {
-  width: 36px;
-  border-radius: 5%;
-}
-
 .EventCard .EventHosterDataContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin-left: 0.5rem;
+}
+
+.EventCard .EventHosterDataContainer .EventHosterUsername {
+  font-size: 2rem;
+  margin-left: 1rem;
+}
+
+.EventCard .EventHosterDataContainer .eventHostPFP {
+  width: 50px;
+  border-radius: 5%;
 }
 
 .EventCard .EventInteractionButtons .LearnMoreButton {
@@ -39,9 +43,41 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+.EventCard .EventDetailsContainer .EventType {
+  margin-left: auto;
+}
+
+.EventCard .EventDetailsContainer .EventClass {
+  margin-left: auto;
 }
 
 .EventCard .EventInteractionButtons {
   margin-left: auto;
+}
+
+.EventCard .EventInteractionButtons .LearnMoreButton {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 4px 0px;
+          box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 4px 0px;
+  margin-bottom: 1rem;
+}
+
+.EventCard .EventCardTitle {
+  font-size: 2rem;
+  margin-bottom: 0rem !important;
+  margin-left: 0.5rem;
+}
+
+.EventCard .EventCardDescription {
+  margin-left: 0.5rem;
+}
+
+.EventCard .EventCardDate {
+  margin-top: 0.25rem;
+  margin-left: 0.5rem;
+  font-size: 1.25rem;
 }
 /*# sourceMappingURL=SquareEventCardStyles.css.map */

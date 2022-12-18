@@ -21,17 +21,10 @@ export default class SquareEventCardComponent extends Component {
                 <Card.Title className='EventCardTitle'>
                     {eventData.props.EventName}
                 </Card.Title>
-                <Card.Subtitle className='EventCardSubtitle'>
+                <Card.Subtitle className='EventCardDate'>
                     Jan 22 2023 - Jan 23 2023
                 </Card.Subtitle>
-                <Card.Text>
-                    {eventData.props.EventDescription.length > 17 ? eventData.props.EventDescription.slice(0, 17) + '...' : eventData.props.EventDescription}
-                </Card.Text>
                 <div className='EventDetailsContainer row'>
-                    <Card.Text className='EventType col-lg-5'>
-                        {eventData.props.EventType == 1 ? <FontAwesomeIcon icon={faLock}/> : <FontAwesomeIcon icon={faLockOpen}/>}
-                        {eventData.props.EventType == 1 ? 'Private' : 'Public'}
-                    </Card.Text>
                     <Card.Text className='EventClass col-lg-4'>
                         {eventData.props.EventClass == 'Business' ? <FontAwesomeIcon icon={faChartLine}/> : ""}
                         {eventData.props.EventClass == 'Tech' ? <FontAwesomeIcon icon={faMicrochip}/> : ""}
@@ -40,8 +33,14 @@ export default class SquareEventCardComponent extends Component {
 
                         {eventData.props.EventClass}
                     </Card.Text>
-
+                    <Card.Text className='EventType col-lg-5'>
+                        {eventData.props.EventType == 1 ? <FontAwesomeIcon icon={faLock}/> : <FontAwesomeIcon icon={faLockOpen}/>}
+                        {eventData.props.EventType == 1 ? 'Private' : 'Public'}
+                    </Card.Text>
                 </div>
+                {/* <Card.Text  className='EventCardDescription'>
+                    {eventData.props.EventDescription.length > 17 ? eventData.props.EventDescription.slice(0, 17) + '...' : eventData.props.EventDescription}
+                </Card.Text> */}
                 <div className='EventHosterDataContainer'>
                     {eventData.props.ProfilePicture.data
                       ?
