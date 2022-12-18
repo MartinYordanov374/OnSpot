@@ -10,7 +10,6 @@ export default class SquareEventCardComponent extends Component {
   render() {
     let eventData = this.props;
     return (
-        // ADD LINK TO EVENTS
         <Card className='EventCard col-lg-5 col-md-8 col-sm-8' >
 
             <Card.Body className='EventCardBody'>
@@ -25,7 +24,13 @@ export default class SquareEventCardComponent extends Component {
                     <Card.Subtitle className='EventCardDate'>
                         Jan 22 2023 - Jan 23 2023
                     </Card.Subtitle>
+
                     <div className='EventDetailsContainer row'>
+
+                        <Card.Text className='EventType col-lg-5'>
+                            {eventData.props.EventType == 1 ? <FontAwesomeIcon icon={faLock}/> : <FontAwesomeIcon icon={faLockOpen}/>}
+                            {eventData.props.EventType == 1 ? 'Private' : 'Public'}
+                        </Card.Text>
                         <Card.Text className='EventClass col-lg-4'>
                             {eventData.props.EventClass == 'Business' ? <FontAwesomeIcon icon={faChartLine}/> : ""}
                             {eventData.props.EventClass == 'Tech' ? <FontAwesomeIcon icon={faMicrochip}/> : ""}
@@ -33,10 +38,6 @@ export default class SquareEventCardComponent extends Component {
                             {eventData.props.EventClass == 'Other' ? <FontAwesomeIcon icon={faBullhorn}/> : ""}
 
                             {eventData.props.EventClass}
-                        </Card.Text>
-                        <Card.Text className='EventType col-lg-5'>
-                            {eventData.props.EventType == 1 ? <FontAwesomeIcon icon={faLock}/> : <FontAwesomeIcon icon={faLockOpen}/>}
-                            {eventData.props.EventType == 1 ? 'Private' : 'Public'}
                         </Card.Text>
                     </div>
                 </Card.Link>
@@ -52,7 +53,6 @@ export default class SquareEventCardComponent extends Component {
 
             </Card.Body>
         </Card>
-    //   </div>
     )
   }
 }

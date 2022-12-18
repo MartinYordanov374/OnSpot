@@ -27,4 +27,8 @@
 .EventCardsWrapper {
   padding: 20px;
 }
+
+.EventCardsContainer {
+  margin-left: 18% !important;
+}
 /*# sourceMappingURL=LandingPage.css.map */

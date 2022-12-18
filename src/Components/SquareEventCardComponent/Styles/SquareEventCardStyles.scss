@@ -1,83 +1,90 @@
 $left-margin-details: 0.5rem;
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@500&display=swap');
-.EventCard{
-    padding-left: 0%;
-    padding-right: 0%;
-    margin-left: 5rem;
-    margin-top: 1rem;
-    font-family: 'Open Sans', sans-serif;
-    box-shadow: #5ea2d6 1px 1px 0px 2px;
-    &:hover{
-        cursor: pointer;
-        box-shadow: #4194d4 1px 1px 0px 1px;
-    }
-    .EventCardImage{
-        width:100%;
-        padding-right: 0% !important;
-        border-bottom-left-radius: 0%;
-        border-bottom-right-radius: 0%;
-    }
-    .EventCardBody{
-        padding:0px !important;
-    }
-    .EventDetailsContainer{
-        display: flex;
-        // border-style: solid;
-        margin-top: 0.5rem;
-        font-size: 1rem;
-
-        .EventType{
-            margin-left: auto;
+    .EventCard{
+        padding-left: 0%;
+        padding-right: 0%;
+        margin-left: 5rem;
+        margin-top: 1rem;
+        font-family: 'Open Sans', sans-serif;
+        box-shadow: #5ea2d6 1px 1px 0px 2px;
+        &:hover{
+            cursor: pointer;
+            box-shadow: #4194d4 1px 1px 0px 1px;
         }
-        .EventClass{
-            margin-left: auto;
-        }
-    }
-    .EventInteractionButtons{
-        display: flex;
-        .Button{
-            // width:100%;
-            width: 100%;
-            color:rgba(0, 0, 0, 0.8);
-            background-color: white;
-            border-style: none;
-            border-top-left-radius: 0%;
+        .EventCardImage{
+            width:100%;
+            padding-right: 0% !important;
             border-bottom-left-radius: 0%;
-            border-top-right-radius: 0%;
             border-bottom-right-radius: 0%;
-            font-weight: bold;
-            font-size: 1.2rem;
-            &:hover{
-                box-shadow: #5ea2d6 1px 1px 4px 1px;
-                color: #5ea2d6;
+        }
+        .EventCardBody{
+            padding:0px !important;
+        }
+        .EventDetailsContainer{
+            display: flex;
+            // border-style: solid;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+
+            .EventType{
+                margin-left: auto;
+            }
+            .EventClass{
+                margin-left: auto;
             }
         }
-        .InterestedButton{
-            color: #00000056;
-            &:hover{
-                box-shadow: none;
-                color: black;
+        .EventInteractionButtons{
+            display: flex;
+            .Button{
+                // width:100%;
+                width: 100%;
+                color:rgba(0, 0, 0, 0.8);
+                background-color: white;
+                border-style: none;
+                border-top-left-radius: 0%;
+                border-bottom-left-radius: 0%;
+                border-top-right-radius: 0%;
+                border-bottom-right-radius: 0%;
+                font-weight: bold;
+                font-size: 1.2rem;
+                &:hover{
+                    box-shadow: #5ea2d6 1px 1px 4px 1px;
+                    color: #5ea2d6;
+                }
             }
+            .InterestedButton{
+                color: #00000056;
+                &:hover{
+                    box-shadow: none;
+                    color: black;
+                }
+            }
+
         }
+        .EventCardTitle{
+            font-size: 2rem;
+            margin-bottom: 0rem !important;
+            margin-left: $left-margin-details;
 
-    }
-    .EventCardTitle{
-        font-size: 2rem;
-        margin-bottom: 0rem !important;
-        margin-left: $left-margin-details;
-
-    }
-    .EventCardDescription{
-        // margin-top: 0.5rem;
-        margin-left: $left-margin-details;
-    }
-    .EventCardDate{
-        margin-top: 0.25rem;
-        margin-left: $left-margin-details;
-        font-size: 1.25rem;
-    }
-    .card-link{
-        text-decoration: none;
-        color: black;
-    }
+        }
+        .EventCardDescription{
+            // margin-top: 0.5rem;
+            margin-left: $left-margin-details;
+        }
+        .EventCardDate{
+            margin-top: 0.25rem;
+            margin-left: $left-margin-details;
+            font-size: 1.25rem;
+        }
+        .EventCardLocation{
+            margin-top: 0.25rem;
+            margin-left: $left-margin-details;
+            font-size: 1rem;
+            color: rgba(0, 0, 0, 0.726);
+        }
+        .card-link{
+            text-decoration: none;
+            color: black;
+        }
+    
 }
