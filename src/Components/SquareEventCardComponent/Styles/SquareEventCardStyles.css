@@ -26,33 +26,12 @@
   padding: 0px !important;
 }
 
-.EventCard .EventHosterDataContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-left: 0.5rem;
-}
-
-.EventCard .EventHosterDataContainer .EventHosterUsername {
-  font-size: 2rem;
-  margin-left: 1rem;
-}
-
-.EventCard .EventHosterDataContainer .eventHostPFP {
-  width: 50px;
-  border-radius: 5%;
-}
-
-.EventCard .EventInteractionButtons .LearnMoreButton {
-  margin-left: 71%;
-}
-
 .EventCard .EventDetailsContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin-top: 0.5rem;
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .EventCard .EventDetailsContainer .EventType {
@@ -64,22 +43,38 @@
 }
 
 .EventCard .EventInteractionButtons {
-  margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-.EventCard .EventInteractionButtons .LearnMoreButton {
-  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 1px 1px;
-          box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 1px 1px;
-  margin-bottom: 1rem;
+.EventCard .EventInteractionButtons .Button {
+  width: 100%;
   color: rgba(0, 0, 0, 0.8);
   background-color: white;
-  border-color: white;
+  border-style: none;
+  border-top-left-radius: 0%;
+  border-bottom-left-radius: 0%;
+  border-top-right-radius: 0%;
+  border-bottom-right-radius: 0%;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
-.EventCard .EventInteractionButtons .LearnMoreButton:hover {
+.EventCard .EventInteractionButtons .Button:hover {
   -webkit-box-shadow: #5ea2d6 1px 1px 4px 1px;
           box-shadow: #5ea2d6 1px 1px 4px 1px;
   color: #5ea2d6;
+}
+
+.EventCard .EventInteractionButtons .InterestedButton {
+  color: #00000056;
+}
+
+.EventCard .EventInteractionButtons .InterestedButton:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: black;
 }
 
 .EventCard .EventCardTitle {

@@ -20,29 +20,11 @@ $left-margin-details: 0.5rem;
     .EventCardBody{
         padding:0px !important;
     }
-    .EventHosterDataContainer{
-        display: flex;
-        margin-left: $left-margin-details;
-        .EventHosterUsername{
-            font-size: 2rem;
-            margin-left: 1rem;
-        }
-        .eventHostPFP{
-            width:50px;
-            border-radius: 5%;
-        }
-        
-    }
-    .EventInteractionButtons{
-        .LearnMoreButton{
-            margin-left: 71%;
-        }
-    }
     .EventDetailsContainer{
         display: flex;
         // border-style: solid;
         margin-top: 0.5rem;
-        font-size: 1.25rem;
+        font-size: 1rem;
 
         .EventType{
             margin-left: auto;
@@ -52,20 +34,32 @@ $left-margin-details: 0.5rem;
         }
     }
     .EventInteractionButtons{
-        margin-left: auto;
-        .LearnMoreButton{
+        display: flex;
+        .Button{
             // width:100%;
-            box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 1px 1px;
-            margin-bottom: 1rem;
+            width: 100%;
             color:rgba(0, 0, 0, 0.8);
             background-color: white;
-            border-color: white;
+            border-style: none;
+            border-top-left-radius: 0%;
+            border-bottom-left-radius: 0%;
+            border-top-right-radius: 0%;
+            border-bottom-right-radius: 0%;
+            font-weight: bold;
+            font-size: 1.2rem;
             &:hover{
                 box-shadow: #5ea2d6 1px 1px 4px 1px;
                 color: #5ea2d6;
             }
-            
         }
+        .InterestedButton{
+            color: #00000056;
+            &:hover{
+                box-shadow: none;
+                color: black;
+            }
+        }
+
     }
     .EventCardTitle{
         font-size: 2rem;

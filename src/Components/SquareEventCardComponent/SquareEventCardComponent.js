@@ -3,7 +3,7 @@ import { Container, Card, Button } from 'react-bootstrap'
 import Axios from 'axios'
 import './Styles/SquareEventCardStyles.css'
 import { Buffer } from 'buffer';
-import { faLock, faLockOpen, faChartLine, faMicrochip, faComment, faBullhorn } from "@fortawesome/free-solid-svg-icons";
+import { faLock, faLockOpen, faChartLine, faMicrochip, faComment, faBullhorn, faStar, faPersonWalkingArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default class SquareEventCardComponent extends Component {
@@ -11,7 +11,7 @@ export default class SquareEventCardComponent extends Component {
     let eventData = this.props;
     return (
     //   <div className='EventCardWrapper'>
-        <Card className='EventCard col-lg-5 col-md-9 col-sm-9' >
+        <Card className='EventCard col-lg-5 col-md-8 col-sm-8'>
 
             <Card.Body className='EventCardBody'>
                 <Card.Img
@@ -38,11 +38,14 @@ export default class SquareEventCardComponent extends Component {
                         {eventData.props.EventType == 1 ? 'Private' : 'Public'}
                     </Card.Text>
                 </div>
-                {/* <Card.Text  className='EventCardDescription'>
-                    {eventData.props.EventDescription.length > 17 ? eventData.props.EventDescription.slice(0, 17) + '...' : eventData.props.EventDescription}
-                </Card.Text> */}
                 <div className='EventInteractionButtons'>
-                    <Button className='LearnMoreButton'>Learn More</Button>
+                    <Button className='InterestedButton Button'> 
+                        <FontAwesomeIcon icon={faStar}/> Interested
+                    </Button>
+                    <Button className='GoingButton Button'> 
+                        <FontAwesomeIcon icon={faPersonWalkingArrowRight}/> Going
+                    </Button>
+
                 </div>
 
             </Card.Body>
