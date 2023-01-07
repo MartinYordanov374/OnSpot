@@ -135,7 +135,7 @@ export default class HostAnEventPageComponent extends Component {
                                 <div className='row'>
                                 <div className='eventCategoryWrapper col-sm mt-5'>
                                         <h2 className='fieldLabel'>Event Location</h2>
-                                        <FormControl className='inputField eventLocationField' placeholder='e.g. Menlo Park'/>
+                                        <FormControl className='inputField eventLocationField' placeholder='e.g. Menlo Park' onChange = {(e) => this.setState({'eventLocation': e.target.value})}/>
                                     </div>
                                     <div className='eventCategoryWrapper col-sm mt-5'>
                                         <h2 className='fieldLabel'>Event Date</h2>

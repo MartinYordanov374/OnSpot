@@ -20,7 +20,8 @@ export default class MapComponent extends Component {
     this.state = {latitude: '', longitude: '', isLoading: true, locationName: ''}
   }
   componentDidMount = async() => {
-    await this.getLocationCoordinates(this.state.locationName)
+    this.setState({'locationName': this.props})
+    await this.getLocationCoordinates(this.props.props)
   }
   getLocationCoordinates = async (locationName) => {
     

@@ -124,8 +124,7 @@ let start = async() =>
         // TODO FIGURE LOCATION OUT
         let eventName = req.body.name;
         let eventDescription = req.body.description;
-        // let eventLocation = req.body.location;
-        let eventLocation = 'SampleLocation';
+        let eventLocation = req.body.location;
         let eventType = req.body.type == 'Public' ? 1 : 0 ;
         let eventCategory = req.body.category;
         let eventStartDate = new Date(req.body.startDate).toISOString();

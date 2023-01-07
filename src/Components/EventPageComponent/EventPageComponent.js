@@ -45,7 +45,6 @@ export default class EventPageComponent extends Component {
                     'targetEventStartDate': result.data.EventStartDate.split('T')[0].split('-').join('/'), 'targetEventEndDate': result.data.EventEndDate.split('T')[0].split('-').join('/'),
                     'targetEventHostUsername': result.data.Username, 'targetEventHostId': result.data.id, 'targetEventHostBio': result.data.Bio == null ? "This user has not added any bio to their profile." : result.data.Bio,
                     'targetEventID': this.targetID })
-        console.log(result)
     }
 
     async AttendEvent()
@@ -152,12 +151,6 @@ export default class EventPageComponent extends Component {
                                     
                                 </div>
                             }
-                            {/* <div className='col eventDetails'>
-                                <p className=''>Event Topic: {this.state.targetEventClass}</p>
-                                <p className='' >Event type: {this.state.targetEventType == 0 ? "Public" : "False"}</p>
-                            </div> */}
-
-
                         </div>
                         <hr/>
                         <div className='row'>
@@ -174,7 +167,7 @@ export default class EventPageComponent extends Component {
                             </div>
                             <div className='mapWrapper col'>
                                 <p>Location:</p>
-                                <MapComponent/>
+                                <MapComponent props = {this.state.targetEventLocaction}/>
                             </div>
 
                         </div>
