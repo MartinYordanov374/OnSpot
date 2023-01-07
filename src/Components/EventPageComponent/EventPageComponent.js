@@ -137,6 +137,7 @@ export default class EventPageComponent extends Component {
                                 <p>{this.state.targetEventDesc}</p>
                                 <br></br>
                             </Card.Subtitle>
+                            {new Date(this.state.EventEndDate) >= new Date() ?
                                 <div className='attendButtonWrapper col'>
                                     {this.state.doesUserAttend == false 
                                         ? 
@@ -145,6 +146,12 @@ export default class EventPageComponent extends Component {
                                         <Button className='attendButton' onClick={() => this.AttendEvent()}>Unattend</Button>
                                     }
                                 </div>
+                                :
+                                <div className='attendButtonWrapper col'>
+                                    <Button className='attendButton' disabled = {true}>This event has ended.</Button>
+                                    
+                                </div>
+                            }
                             {/* <div className='col eventDetails'>
                                 <p className=''>Event Topic: {this.state.targetEventClass}</p>
                                 <p className='' >Event type: {this.state.targetEventType == 0 ? "Public" : "False"}</p>
