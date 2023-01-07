@@ -127,7 +127,7 @@ async function getEventById(eventId)
     FROM dbo.Events e 
     INNER JOIN Users u 
     ON u.id = e.EventHosterID 
-    AND e.EventID = ${eventID}`
+    AND e.EventID = ${eventId}`
     
     return result.recordset
 }
