@@ -43,6 +43,11 @@
   font-weight: bold;
 }
 
+.card .eventHostData .eventDetailComponentLink {
+  text-decoration: none;
+  color: black;
+}
+
 .card .eventDetailsMenu {
   padding-top: 2%;
 }

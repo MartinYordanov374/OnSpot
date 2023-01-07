@@ -170,15 +170,18 @@ export default class EventPageComponent extends Component {
                             <div className='row'>
                                 <div className='col eventHostData'>
                                     <div className='d-flex eventHostDataContainer'>
-                                        <img 
-                                            src={
-                                                `data: image/png;base64,
-                                                ${Buffer.from(this.state.targetEventHostProfilePicture.data).toString('base64')}`
-                                                }
-                                            className='eventHostPfp'
-                                        />
+                                        <a href={`/Profile/${this.state.targetEventHostId}`} className='eventDetailComponentLink'>
+                                            <img 
+                                                src={
+                                                    `data: image/png;base64,
+                                                    ${Buffer.from(this.state.targetEventHostProfilePicture.data).toString('base64')}`
+                                                    }
+                                                className='eventHostPfp'
+                                            />
+                                        </a>
+                                       <a href={`/Profile/${this.state.targetEventHostId}`} className='eventDetailComponentLink'>
                                         <h3 className='eventHostName'>{this.state.targetEventHostUsername}</h3>
-
+                                       </a> 
                                     </div>
                                     <p className='eventHostBio'>{this.state.targetEventHostBio}</p>
 

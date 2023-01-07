@@ -36,6 +36,10 @@ $shortTextFontSize: 30px;
             font-size: $shortTextFontSize;
             font-weight: bold;
         }
+        .eventDetailComponentLink{
+            text-decoration: none;
+            color: black;
+        }
     }
     .eventDetailsMenu{
         padding-top: 2%;
