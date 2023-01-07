@@ -13,6 +13,7 @@ import EventsManagerComponent from './Components/EventsManagerComponent/EventsMa
 import CalendarScheduleAttendedEvents from './Components/CalendarScheduleComponent/CalendarScheduleAttendedEvents';
 import CalendarScheduleHostedEvents from './Components/CalendarScheduleComponent/CalendarScheduleHostedEvent';
 import CalendarScheduleUpcomingEvents from './Components/CalendarScheduleComponent/CalendarScheduleUpcomingEvents';
+import MapComponent from './Components/MapComponent/MapComponent';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
       <Route path = '/register' element={<RegistrationPageComponent/>}/>
       <Route path = '/login' element={<LoginPageComponent/>}/>
       <Route path = '/HostEvent' element={<HostAnEventPageComponent/>}/>
+      <Route path = '/MapTest' element={<MapComponent/>}/>
+
       <Route path = '/ExploreEvents' element={<ExploreEventsComponent/>}/>
       <Route path = '/Event/:eventId' element={<EventPageComponent/>}/> 
       <Route path = '/Profile/:id' element={<ProfilePageComponent/>}/> 
