@@ -4,39 +4,13 @@
 }
 
 .card .eventCardDescWrapper {
-  margin-top: 1rem;
+  padding-top: 5%;
 }
 
 .card .eventCardDescription {
   font-size: 30px;
   font-weight: bold;
   margin-left: 5rem;
-}
-
-.card .eventCardDescription .attendButtonWrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.card .eventCardDescription .attendButtonWrapper .attendButton {
-  background-color: #FF7A00;
-  border-color: #FF7A00;
-  color: white;
-  font-weight: bold;
-  font-size: large;
-  width: 40%;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
-          box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
-}
-
-.card .eventCardDescription .attendButtonWrapper .attendButton:active {
-  background-color: #cf6400;
-  border-color: #cf6400;
-  color: rgba(255, 255, 255, 0.862);
 }
 
 .card .eventDetails {
@@ -67,5 +41,46 @@
 .card .eventHostData .eventHostBio {
   font-size: 30px;
   font-weight: bold;
+}
+
+.card .eventDetailsMenu {
+  padding-top: 2%;
+}
+
+.card .eventDetailsMenu .eventDetail {
+  padding-left: 10%;
+}
+
+.card .eventDetailsMenu .eventDetail:nth-child(2) {
+  padding-left: 14%;
+}
+
+.card .attendButtonWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-bottom: 5%;
+  padding-right: 7%;
+  padding-left: 24%;
+}
+
+.card .attendButtonWrapper .attendButton {
+  background-color: #FF7A00;
+  border-color: #FF7A00;
+  color: white;
+  font-weight: bold;
+  font-size: large;
+  width: 100%;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+          box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+}
+
+.card .attendButtonWrapper .attendButton:active {
+  background-color: #cf6400;
+  border-color: #cf6400;
+  color: rgba(255, 255, 255, 0.862);
 }
 /*# sourceMappingURL=EventPageStyling.css.map */

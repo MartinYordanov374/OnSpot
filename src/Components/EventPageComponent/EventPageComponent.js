@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Button,Card, } from 'react-bootstrap'
+import { Container, Button,Card, Carousel, CarouselItem } from 'react-bootstrap'
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './EventPageStyles/EventPageStyling.css'
@@ -11,10 +11,27 @@ export default class EventPageComponent extends Component {
     constructor()
     {
         super()
-        this.state = {targetEventName: '', targetEventClass: '', targetEventType: '', 
-        targetEventDesc: '', targetEventLocation: '', targetEventDate: '',
-        targetEventHostUsername: '', targetEventHostId: '', targetEventHostBio: '', 
-        targetEventID: '', doesUserAttend: false, loginStatus: false}
+        this.state = {
+            targetEventName: '', 
+            targetEventClass: '', 
+            targetEventType: '', 
+            targetEventDesc: '', 
+            targetEventLocation: '', 
+            targetEventStartDate: '', 
+            targetEventEndDate: '',
+            targetEventHostUsername: '', 
+            targetEventHostId: '', 
+            targetEventHostBio: '', 
+            targetEventID: '', 
+            targetEventImages: 
+            [
+
+                'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F229814.jpg&f=1&nofb=1&ipt=6ef7e87366a7594e6aa872f1e77969fde626b06c216c750207295af4a77b0aff&ipo=images',
+                'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fhdqwalls.com%2Fdownload%2Fmarshmello-live-event-image-2560x1080.jpg&f=1&nofb=1&ipt=fe18caabc6022d88e04d82e1300e836a0363f5d0311c78f022f4344754db947f&ipo=images'
+            ], 
+            doesUserAttend: false, 
+            loginStatus: false
+        }
         this.splittedUrl = window.location.href.split('/')
         this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
     }
@@ -22,10 +39,13 @@ export default class EventPageComponent extends Component {
     {
         
         let result = await Axios.get(`http://localhost:3030/getEventById/${this.targetID}`, {withCredentials: true})
-        this.setState({'targetEventName': result.data.EventName, 'targetEventClass': result.data.EventClass, 'targetEventType': result.data.EventType,
-                    'targetEventDesc': result.data.EventDescription, 'targetEventLocaction': result.data.EventLocation, 'targetEventDate': result.data.EventDate,
+        this.setState({
+                    'targetEventName': result.data.EventName, 'targetEventClass': result.data.EventClass, 'targetEventType': result.data.EventType,
+                    'targetEventDesc': result.data.EventDescription, 'targetEventLocaction': result.data.EventLocation,
+                    'targetEventStartDate': result.data.EventStartDate.split('T')[0].split('-').join('/'), 'targetEventEndDate': result.data.EventEndDate.split('T')[0].split('-').join('/'),
                     'targetEventHostUsername': result.data.Username, 'targetEventHostId': result.data.id, 'targetEventHostBio': result.data.Bio == null ? "This user has not added any bio to their profile." : result.data.Bio,
                     'targetEventID': this.targetID })
+        console.log(result)
     }
 
     async AttendEvent()
@@ -94,26 +114,45 @@ export default class EventPageComponent extends Component {
                         <Card.Header className = 'eventCardHeader'>
                             <h1>{this.state.targetEventName}</h1>
                         </Card.Header>
+                        <div className='eventImagesCarousel'>
+                            {/* TODO: CHECK IF IMAGES EXIST FOR THE GIVEN EVENT, IF THEY DO NOT THEN DISPLAY PLACEHOLDER IMAGES */}
+                            <Carousel>
+                                {this.state.targetEventImages.map((eventImage) => {
+                                    return(
+                                    <Carousel.Item>
+                                        <img src= {eventImage} width='100%' height='426px'/>
+                                    </Carousel.Item>)
+                                })}
+                            </Carousel>
+                        </div>
+                        <div className='eventDetailsMenu d-flex row'>
+                            <p className='eventDetail col-lg-4'>{this.state.targetEventStartDate} - {this.state.targetEventEndDate}</p>
+                            <p className='eventDetail col-lg-4'>{this.state.targetEventType == 0 ? "Public" : "Private"}</p>
+                            <p className='eventDetail col-lg-4'>{this.state.targetEventClass}</p>
+                            
+                        </div>
+                        <hr/>
                         <div className='row eventCardDescWrapper'>
                             <Card.Subtitle className='eventCardDescription col'>
-                                {this.state.targetEventDesc}
+                                <p>{this.state.targetEventDesc}</p>
                                 <br></br>
-                                <div className='attendButtonWrapper'>
-                                {this.state.doesUserAttend == false 
-                                    ? 
-                                    <Button className='attendButton' onClick={() => this.AttendEvent()}>Attend</Button>
-                                    :
-                                    <Button className='attendButton' onClick={() => this.AttendEvent()}>Unattend</Button>
-                                }
-                                </div>
                             </Card.Subtitle>
-                            <div className='col eventDetails'>
+                                <div className='attendButtonWrapper col'>
+                                    {this.state.doesUserAttend == false 
+                                        ? 
+                                        <Button className='attendButton' onClick={() => this.AttendEvent()}>Attend</Button>
+                                        :
+                                        <Button className='attendButton' onClick={() => this.AttendEvent()}>Unattend</Button>
+                                    }
+                                </div>
+                            {/* <div className='col eventDetails'>
                                 <p className=''>Event Topic: {this.state.targetEventClass}</p>
                                 <p className='' >Event type: {this.state.targetEventType == 0 ? "Public" : "False"}</p>
-                            </div>
+                            </div> */}
 
 
                         </div>
+                        <hr/>
                         <div className='row'>
                             <div className='col eventHostData'>
                                 <div className='d-flex eventHostDataContainer'>
@@ -127,6 +166,7 @@ export default class EventPageComponent extends Component {
 
                             </div>
                             <div className='mapWrapper col'>
+                                <p>Location:</p>
                                 <MapComponent/>
                             </div>
 

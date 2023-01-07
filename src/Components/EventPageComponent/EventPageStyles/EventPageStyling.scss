@@ -6,31 +6,12 @@ $shortTextFontSize: 30px;
         // text-align: center;
     }
     .eventCardDescWrapper{
-        margin-top: 1rem;
+        padding-top: 5%
     }
     .eventCardDescription{
         font-size: $shortTextFontSize;
         font-weight: bold;
         margin-left: 5rem;
-        .attendButtonWrapper{
-            display: flex;
-            justify-content: center;
-            .attendButton{
-                background-color: #FF7A00;
-                border-color: #FF7A00;
-                color: white;
-                font-weight: bold;
-                font-size: large;
-                width: 40%;
-                box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
-    
-                &:active{
-                    background-color: #cf6400;
-                    border-color: #cf6400;
-                    color: rgba(255, 255, 255, 0.862);
-                }
-            }
-        }
     }
     .eventDetails{
         font-size: $shortTextFontSize;
@@ -54,6 +35,38 @@ $shortTextFontSize: 30px;
         .eventHostBio{
             font-size: $shortTextFontSize;
             font-weight: bold;
+        }
+    }
+    .eventDetailsMenu{
+        padding-top: 2%;
+        .eventDetail{
+            padding-left: 10%;
+        }
+        .eventDetail:nth-child(2)
+        {
+            padding-left: 14%;
+        }
+    }
+    .attendButtonWrapper{
+        display: flex;
+        justify-content: center;
+        padding-bottom: 5%;
+        padding-right: 7%;
+        padding-left: 24%;
+        .attendButton{
+            background-color: #FF7A00;
+            border-color: #FF7A00;
+            color: white;
+            font-weight: bold;
+            font-size: large;
+            width: 100%;
+            box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+
+            &:active{
+                background-color: #cf6400;
+                border-color: #cf6400;
+                color: rgba(255, 255, 255, 0.862);
+            }
         }
     }
 }
