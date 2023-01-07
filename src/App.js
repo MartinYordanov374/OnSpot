@@ -14,6 +14,7 @@ import CalendarScheduleAttendedEvents from './Components/CalendarScheduleCompone
 import CalendarScheduleHostedEvents from './Components/CalendarScheduleComponent/CalendarScheduleHostedEvent';
 import CalendarScheduleUpcomingEvents from './Components/CalendarScheduleComponent/CalendarScheduleUpcomingEvents';
 import MapComponent from './Components/MapComponent/MapComponent';
+import HostAnEventPageComponentPaginated from './Components/HostAnEventComponent/HostAnEventPageComponentPaginated';
 
 function App() {
   return (

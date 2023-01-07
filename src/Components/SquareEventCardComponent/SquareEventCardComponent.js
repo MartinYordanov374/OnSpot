@@ -41,12 +41,12 @@ export default class SquareEventCardComponent extends Component {
                         </Card.Text>
                     </div>
                 </Card.Link>
-                    <div className='EventInteractionButtons'>
+                    {/* <div className='EventInteractionButtons'>
                         <Button className='GoingButton Button'> 
                             <FontAwesomeIcon icon={faPersonWalkingArrowRight}/> Going
                         </Button>
 
-                    </div>
+                    </div> */}
 
             </Card.Body>
         </Card>

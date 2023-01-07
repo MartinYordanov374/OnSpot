@@ -7,8 +7,10 @@ import 'react-calendar/dist/Calendar.css';
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import Axios from 'axios'
 import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandingPage'
+import HostAnEventPageComponentPaginated from './HostAnEventPageComponentPaginated'
+import {toast, ToastContainer} from 'react-toastify'
+
 export default class HostAnEventPageComponent extends Component {
-    // TODO: FIGURE LOCATION OUT
     constructor()
     {
         super()
@@ -94,6 +96,10 @@ export default class HostAnEventPageComponent extends Component {
                     <SidebarComponent/>
                     <Container>
                         <NavbarComponentRegisteredUser/>
+                        <HostAnEventPageComponentPaginated/>
+                    </Container>
+                    {/* <Container>
+                        <NavbarComponentRegisteredUser/>
                         <Card className='HostEventCard'>
                             <Card.Body>
                                 <div className='row'>
@@ -153,7 +159,7 @@ export default class HostAnEventPageComponent extends Component {
                                 </div>
                             </Card.Body>
                         </Card>
-                    </Container>
+                    </Container> */}
                 </div>
             : 
                 <NonRegisteredLandingPage/>
