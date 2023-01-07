@@ -42,9 +42,6 @@ export default class SquareEventCardComponent extends Component {
                     </div>
                 </Card.Link>
                     <div className='EventInteractionButtons'>
-                        <Button className='InterestedButton Button'> 
-                            <FontAwesomeIcon icon={faStar}/> Interested
-                        </Button>
                         <Button className='GoingButton Button'> 
                             <FontAwesomeIcon icon={faPersonWalkingArrowRight}/> Going
                         </Button>
