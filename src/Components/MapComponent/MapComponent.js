@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
-import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
-import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import {Container} from 'react-bootstrap'
-import {MapContainer, TileLayer} from 'react-leaflet'
+import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
 import './MapComponentStyles/MapComponent.css'
 import 'leaflet/dist/leaflet.css';
 import Axios from 'axios'
 import { toast,ToastContainer } from 'react-toastify'
-
-
+import L from 'leaflet'
+import locationDotIcon from '../../Images/location-pin-solid.svg'
+const markerIcon = new L.Icon({
+    'iconUrl': locationDotIcon,
+    iconSize: [24, 40],
+    className: 'locationDotMarker'
+})
 export default class MapComponent extends Component {
 
   constructor()
@@ -52,6 +55,9 @@ export default class MapComponent extends Component {
                     url='https://tile.openstreetmap.org/{z}/{x}/{y}.png'
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
+                <Marker position={[this.state.latitude, this.state.longitude]} icon = {markerIcon} >
+
+                </Marker>
             </MapContainer>
         </Container>
   }
