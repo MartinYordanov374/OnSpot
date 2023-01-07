@@ -122,12 +122,13 @@ async function getEventById(eventId)
 {
     // TODO: ADD CHECKS FOR VALID ID !
     let result = await sql.query`
-
-    SELECT  EventName, EventDescription, EventType, EventClass, EventID, Bio, EventLocation,EventStartDate, EventEndDate, Username, id 
+    SELECT  EventName, EventDescription, EventType, EventClass, EventID, Bio, EventLocation,EventStartDate, EventEndDate, Username, id, ProfilePicture
     FROM dbo.Events e 
     INNER JOIN Users u 
     ON u.id = e.EventHosterID 
-    AND e.EventID = ${eventId}`
+    AND e.EventID = ${eventId}
+    INNER JOIN ProfilePictures pp 
+    ON pp.UserID = id`
     
     return result.recordset
 }

@@ -6,8 +6,10 @@ import './EventPageStyles/EventPageStyling.css'
 import Axios from 'axios'
 import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandingPage'
 import MapComponent from '../MapComponent/MapComponent'
+import { Buffer } from 'buffer';
 
 export default class EventPageComponent extends Component {
+    // TODO: ADD A LOADING SCREEN UNTIL ALL THE STATE DATA IS LOADED
     constructor()
     {
         super()
@@ -21,6 +23,7 @@ export default class EventPageComponent extends Component {
             targetEventStartDate: '', 
             targetEventEndDate: '',
             targetEventHostUsername: '', 
+            targetEventHostProfilePicture: '',
             targetEventHostId: '', 
             targetEventHostBio: '', 
             targetEventID: '', 
@@ -32,7 +35,8 @@ export default class EventPageComponent extends Component {
             ], 
             doesUserAttend: false, 
             loginStatus: false,
-            currentDate: this.date
+            currentDate: this.date,
+            isLoading: true
         }
         this.splittedUrl = window.location.href.split('/')
         this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
@@ -40,13 +44,19 @@ export default class EventPageComponent extends Component {
     async GetTargetEventData()
     {
         
-        let result = await Axios.get(`http://localhost:3030/getEventById/${this.targetID}`, {withCredentials: true})
-        this.setState({
-                    'targetEventName': result.data.EventName, 'targetEventClass': result.data.EventClass, 'targetEventType': result.data.EventType,
-                    'targetEventDesc': result.data.EventDescription, 'targetEventLocaction': result.data.EventLocation,
-                    'targetEventStartDate': result.data.EventStartDate.split('T')[0].split('-').join('/'), 'targetEventEndDate': result.data.EventEndDate.split('T')[0].split('-').join('/'),
-                    'targetEventHostUsername': result.data.Username, 'targetEventHostId': result.data.id, 'targetEventHostBio': result.data.Bio == null ? "This user has not added any bio to their profile." : result.data.Bio,
-                    'targetEventID': this.targetID })
+        await Axios.get(`http://localhost:3030/getEventById/${this.targetID}`, {withCredentials: true})
+        .then((res) => {
+            this.setState({
+                'targetEventName': res.data.EventName, 'targetEventClass': res.data.EventClass, 'targetEventType': res.data.EventType,
+                'targetEventDesc': res.data.EventDescription, 'targetEventLocaction': res.data.EventLocation,
+                'targetEventStartDate': res.data.EventStartDate.split('T')[0].split('-').join('/'), 'targetEventEndDate': res.data.EventEndDate.split('T')[0].split('-').join('/'),
+                'targetEventHostUsername': res.data.Username, 'targetEventHostId': res.data.id, 'targetEventHostBio': res.data.Bio == null ? "This user has not added any bio to their profile." : res.data.Bio,
+                'targetEventID': this.targetID, 'targetEventHostProfilePicture': res.data.ProfilePicture 
+            })
+            this.setState({'isLoading': false})
+
+
+        })
     }
 
     async AttendEvent()
@@ -106,80 +116,89 @@ export default class EventPageComponent extends Component {
     render() {
     return (
         <div>
-            {this.state.loginStatus == true ? 
+            {this.state.isLoading == false ? 
             <div>
-                <SidebarComponent/>
-                <Container>
-                <NavbarComponentRegisteredUser/>
-                <Card className='eventCard'>
-                        <Card.Header className = 'eventCardHeader'>
-                            <h1>{this.state.targetEventName}</h1>
-                        </Card.Header>
-                        <div className='eventImagesCarousel'>
-                            {/* TODO: CHECK IF IMAGES EXIST FOR THE GIVEN EVENT, IF THEY DO NOT THEN DISPLAY PLACEHOLDER IMAGES */}
-                            <Carousel>
-                                {this.state.targetEventImages.map((eventImage) => {
-                                    return(
-                                    <Carousel.Item>
-                                        <img src= {eventImage} width='100%' height='426px'/>
-                                    </Carousel.Item>)
-                                })}
-                            </Carousel>
-                        </div>
-                        <div className='eventDetailsMenu d-flex row'>
-                            <p className='eventDetail col-lg-4'>{this.state.targetEventStartDate} - {this.state.targetEventEndDate}</p>
-                            <p className='eventDetail col-lg-4'>{this.state.targetEventType == 0 ? "Public" : "Private"}</p>
-                            <p className='eventDetail col-lg-4'>{this.state.targetEventClass}</p>
-                            
-                        </div>
-                        <hr/>
-                        <div className='row eventCardDescWrapper'>
-                            <Card.Subtitle className='eventCardDescription col'>
-                                <p>{this.state.targetEventDesc}</p>
-                                <br></br>
-                            </Card.Subtitle>
-                            {new Date(new Date(this.state.targetEventEndDate).toDateString()) >= new Date(new Date().toDateString()) ?
-                                <div className='attendButtonWrapper col'>
-                                    {this.state.doesUserAttend == false 
-                                        ? 
-                                        <Button className='attendButton' onClick={() => this.AttendEvent()}>Attend</Button>
-                                        :
-                                        <Button className='attendButton' onClick={() => this.AttendEvent()}>Unattend</Button>
-                                    }
-                                </div>
-                                :
-                                <div className='attendButtonWrapper col'>
-                                    <Button className='attendButton' disabled = {true}>This event has ended.</Button>
-                                    
-                                </div>
-                            }
-                        </div>
-                        <hr/>
-                        <div className='row'>
-                            <div className='col eventHostData'>
-                                <div className='d-flex eventHostDataContainer'>
-                                    <img 
-                                    src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images'
-                                    className='eventHostPfp'/>
-                                    <h3 className='eventHostName'>{this.state.targetEventHostUsername}</h3>
+                {this.state.loginStatus == true ? 
+                <div>
+                    <SidebarComponent/>
+                    <Container>
+                    <NavbarComponentRegisteredUser/>
+                    <Card className='eventCard'>
+                            <Card.Header className = 'eventCardHeader'>
+                                <h1>{this.state.targetEventName}</h1>
+                            </Card.Header>
+                            <div className='eventImagesCarousel'>
+                                {/* TODO: CHECK IF IMAGES EXIST FOR THE GIVEN EVENT, IF THEY DO NOT THEN DISPLAY PLACEHOLDER IMAGES */}
+                                <Carousel>
+                                    {this.state.targetEventImages.map((eventImage) => {
+                                        return(
+                                        <Carousel.Item>
+                                            <img src= {eventImage} width='100%' height='426px'/>
+                                        </Carousel.Item>)
+                                    })}
+                                </Carousel>
+                            </div>
+                            <div className='eventDetailsMenu d-flex row'>
+                                <p className='eventDetail col-lg-4'>{this.state.targetEventStartDate} - {this.state.targetEventEndDate}</p>
+                                <p className='eventDetail col-lg-4'>{this.state.targetEventType == 0 ? "Public" : "Private"}</p>
+                                <p className='eventDetail col-lg-4'>{this.state.targetEventClass}</p>
+                                
+                            </div>
+                            <hr/>
+                            <div className='row eventCardDescWrapper'>
+                                <Card.Subtitle className='eventCardDescription col'>
+                                    <p>{this.state.targetEventDesc}</p>
+                                    <br></br>
+                                </Card.Subtitle>
+                                {new Date(new Date(this.state.targetEventEndDate).toDateString()) >= new Date(new Date().toDateString()) ?
+                                    <div className='attendButtonWrapper col'>
+                                        {this.state.doesUserAttend == false 
+                                            ? 
+                                            <Button className='attendButton' onClick={() => this.AttendEvent()}>Attend</Button>
+                                            :
+                                            <Button className='attendButton' onClick={() => this.AttendEvent()}>Unattend</Button>
+                                        }
+                                    </div>
+                                    :
+                                    <div className='attendButtonWrapper col'>
+                                        <Button className='attendButton' disabled = {true}>This event has ended.</Button>
+                                        
+                                    </div>
+                                }
+                            </div>
+                            <hr/>
+                            <div className='row'>
+                                <div className='col eventHostData'>
+                                    <div className='d-flex eventHostDataContainer'>
+                                        <img 
+                                            src={
+                                                `data: image/png;base64,
+                                                ${Buffer.from(this.state.targetEventHostProfilePicture.data).toString('base64')}`
+                                                }
+                                            className='eventHostPfp'
+                                        />
+                                        <h3 className='eventHostName'>{this.state.targetEventHostUsername}</h3>
+
+                                    </div>
+                                    <p className='eventHostBio'>{this.state.targetEventHostBio}</p>
 
                                 </div>
-                                <p className='eventHostBio'>{this.state.targetEventHostBio}</p>
+                                <div className='mapWrapper col'>
+                                    <p>Location:</p>
+                                    <MapComponent props = {this.state.targetEventLocaction}/>
+                                </div>
 
                             </div>
-                            <div className='mapWrapper col'>
-                                <p>Location:</p>
-                                <MapComponent props = {this.state.targetEventLocaction}/>
-                            </div>
+                    </Card>
 
-                        </div>
-                </Card>
-
-                </Container> 
+                    </Container> 
+                </div>
+                : 
+                <NonRegisteredLandingPage/>
+                }
             </div>
-            : 
-            <NonRegisteredLandingPage/>
-            }
+            :
+            ""}
         </div>
 
     )
