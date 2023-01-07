@@ -11,6 +11,7 @@ export default class EventPageComponent extends Component {
     constructor()
     {
         super()
+        this.date = new Date();
         this.state = {
             targetEventName: '', 
             targetEventClass: '', 
@@ -30,7 +31,8 @@ export default class EventPageComponent extends Component {
                 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fhdqwalls.com%2Fdownload%2Fmarshmello-live-event-image-2560x1080.jpg&f=1&nofb=1&ipt=fe18caabc6022d88e04d82e1300e836a0363f5d0311c78f022f4344754db947f&ipo=images'
             ], 
             doesUserAttend: false, 
-            loginStatus: false
+            loginStatus: false,
+            currentDate: this.date
         }
         this.splittedUrl = window.location.href.split('/')
         this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
@@ -136,7 +138,7 @@ export default class EventPageComponent extends Component {
                                 <p>{this.state.targetEventDesc}</p>
                                 <br></br>
                             </Card.Subtitle>
-                            {new Date(this.state.EventEndDate) >= new Date() ?
+                            {new Date(new Date(this.state.targetEventEndDate).toDateString()) >= new Date(new Date().toDateString()) ?
                                 <div className='attendButtonWrapper col'>
                                     {this.state.doesUserAttend == false 
                                         ? 
