@@ -38,14 +38,15 @@ export default class MapComponent extends Component {
   render() {
     return (
       <div>
-        <NavbarComponentRegisteredUser/>
+        {/* TODO: ADD LOADING DOTS OR SOMETHING HERE */}
         <ToastContainer/>
         {this.state.isLoading == true ? 
+        
         "Loading" : 
         <Container>
             <MapContainer
                 center={[this.state.latitude, this.state.longitude]}
-                zoom = {20}
+                zoom = {17}
                 >
                 <TileLayer
                     url='https://tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -54,7 +55,6 @@ export default class MapComponent extends Component {
             </MapContainer>
         </Container>
   }
-        <SidebarComponent/>
       </div>
     )
   }

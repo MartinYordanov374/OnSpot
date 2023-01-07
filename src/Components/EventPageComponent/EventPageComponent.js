@@ -5,6 +5,7 @@ import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './EventPageStyles/EventPageStyling.css'
 import Axios from 'axios'
 import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandingPage'
+import MapComponent from '../MapComponent/MapComponent'
 
 export default class EventPageComponent extends Component {
     constructor()
@@ -126,7 +127,7 @@ export default class EventPageComponent extends Component {
 
                             </div>
                             <div className='mapWrapper col'>
-                                <p>This is where the map will be</p>
+                                <MapComponent/>
                             </div>
 
                         </div>
