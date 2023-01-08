@@ -47,24 +47,27 @@ export default class SidebarComponent extends Component {
         </div>
 
         <div className = 'ProfileDataWrapper'>
-        {this.state.ProfilePicture.data
-                      ?
-                        <img 
-                            src={
-                              `data: image/png;base64,
-                              ${Buffer.from(this.state.ProfilePicture.data).toString('base64')}`
-                              }
-                            className='userPFP'
-                        />
-                      :
-                        <img 
-                          src={`${this.state.ProfilePicture}`}
-                          className='userPFP'
-                        />
-          }
-          <a href={`Profile/${this.state.userID}`}> 
-            <h2 className='username menuItemName'>{this.state.username}</h2>
-          </a>
+          <div className=' profileDataContainer d-flex'>
+            {this.state.ProfilePicture.data
+                          ?
+                            <img 
+                                src={
+                                  `data: image/png;base64,
+                                  ${Buffer.from(this.state.ProfilePicture.data).toString('base64')}`
+                                  }
+                                className='userPFP'
+                            />
+                          :
+                            <img 
+                              src={`${this.state.ProfilePicture}`}
+                              className='userPFP'
+                            />
+              }
+              <a href={`Profile/${this.state.userID}`}> 
+                <h2 className='username menuItemName'>{this.state.username}</h2>
+              </a>
+          </div>
+
           {/* <h3 className='followers'> {this.state.userFollowers} Followers </h3> */}
         </div>
         <div className='safeMenu menu'>
@@ -96,7 +99,7 @@ export default class SidebarComponent extends Component {
             </a>
           </h2>
           <h2 className='exploreEvents menuItem'>
-            <a href='/ExploreEvents'>
+            <a href='/HostEvent'>
               <FontAwesomeIcon icon={faPlusCircle}/> 
               <span className='menuItemName'> Host an event </span>
             </a>

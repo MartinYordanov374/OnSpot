@@ -14,6 +14,14 @@ $menu-item-font-weight: 300;
         display: flex;
         margin-left: 2rem;
         margin-top: 2rem;
+        border-radius: 5px;
+        .profileDataContainer {
+            padding:1rem;
+        }
+        &:hover{
+            background-color: rgba(238, 238, 238, 0.829);
+            cursor: pointer;
+        }
         .userPFP{
             border-radius: 50%;
             width: 36px;
@@ -21,6 +29,7 @@ $menu-item-font-weight: 300;
         }
         .username{
             margin-left: .5rem;
+            line-height: 2.1rem;
             font-size: $menu-item-font-size;
             font-weight: $menu-item-font-weight;
             color: black;
@@ -35,11 +44,12 @@ $menu-item-font-weight: 300;
     .safeMenu{
         color: white;
         .menuItem{
-            margin-top: 3rem;
+            margin-top: 2.8rem;
             font-size: $menu-item-font-size;
             font-weight: $menu-item-font-weight;
             width: 100%;
             padding:1rem;
+            padding-right: -1rem;
             border-radius: 5px;
             &:hover{
                 background-color: rgba(238, 238, 238, 0.829);
