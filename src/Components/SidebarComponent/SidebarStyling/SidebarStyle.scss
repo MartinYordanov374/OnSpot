@@ -35,33 +35,39 @@ $menu-item-font-weight: 300;
     .safeMenu{
         color: white;
         .menuItem{
-            margin-top: 5rem;
+            margin-top: 3rem;
             font-size: $menu-item-font-size;
             font-weight: $menu-item-font-weight;
-            padding-right: 1rem;
+            width: 100%;
+            padding:1rem;
+            border-radius: 5px;
+            &:hover{
+                background-color: rgba(238, 238, 238, 0.829);
+                cursor: pointer;
+            }
             a{
                 text-decoration: none;
                 // color: #F9F4FF;
                 color: black;
-                &:hover{
-                    color: rgb(237, 237, 237);
-                }
             }
         }
 
     }
     .dangerousMenu{
-        margin-top: 4rem;
+        padding:1rem;
         .settings{
+            margin-top: 3rem;
             color: black;
             font-size: $menu-item-font-size;
             font-weight: $menu-item-font-weight;
         }
         .logout{
+            margin-top: 0rem;
             color: black;
             font-size: $menu-item-font-size;
             font-weight: $menu-item-font-weight;
         }
+        
     }
     .menu{
         margin-left: 2rem;

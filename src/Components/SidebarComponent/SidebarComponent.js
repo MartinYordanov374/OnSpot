@@ -94,12 +94,12 @@ export default class SidebarComponent extends Component {
               <span className='menuItemName'> Explore events </span>
               
             </a>
+          </h2>
           <h2 className='exploreEvents menuItem'>
             <a href='/ExploreEvents'>
               <FontAwesomeIcon icon={faPlusCircle}/> 
               <span className='menuItemName'> Host an event </span>
             </a>
-          </h2>
           </h2>
           <h2 className='exploreEvents menuItem'>
             <a href='/ExploreEvents'>
@@ -107,9 +107,20 @@ export default class SidebarComponent extends Component {
               <span className='menuItemName'> Notifications </span>
             </a>
           </h2>
-
+          <h2 className='exploreEvents menuItem'>
+            <a href='/ExploreEvents'>
+              <FontAwesomeIcon icon={faCog}/> 
+              <span className='menuItemName'> Settings </span>
+            </a>
+          </h2>
+          <h2 className='exploreEvents menuItem'>
+            <a href='/ExploreEvents'>
+              <FontAwesomeIcon icon={faSignOut}/> 
+              <span className='menuItemName'> Log Out </span>
+            </a>
+          </h2>
         </div>
-        <div className='dangerousMenu menu '>
+        {/* <div className='dangerousMenu menu '>
             <h2 className='settings menuItem'> 
               <FontAwesomeIcon icon={faCog}/>
               <span className='menuItemName'> Settings  </span> 
@@ -120,7 +131,7 @@ export default class SidebarComponent extends Component {
               <span className='menuItemName'> Log out </span>
               
             </h2>
-        </div>
+        </div> */}
      </div>
     )
   }

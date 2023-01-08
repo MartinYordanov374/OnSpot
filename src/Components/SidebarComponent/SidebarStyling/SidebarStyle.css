@@ -43,10 +43,17 @@
 }
 
 .sidebarWrapper .safeMenu .menuItem {
-  margin-top: 5rem;
+  margin-top: 3rem;
   font-size: 20px;
   font-weight: 300;
-  padding-right: 1rem;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.sidebarWrapper .safeMenu .menuItem:hover {
+  background-color: rgba(238, 238, 238, 0.829);
+  cursor: pointer;
 }
 
 .sidebarWrapper .safeMenu .menuItem a {
@@ -54,21 +61,19 @@
   color: black;
 }
 
-.sidebarWrapper .safeMenu .menuItem a:hover {
-  color: #ededed;
-}
-
 .sidebarWrapper .dangerousMenu {
-  margin-top: 4rem;
+  padding: 1rem;
 }
 
 .sidebarWrapper .dangerousMenu .settings {
+  margin-top: 3rem;
   color: black;
   font-size: 20px;
   font-weight: 300;
 }
 
 .sidebarWrapper .dangerousMenu .logout {
+  margin-top: 0rem;
   color: black;
   font-size: 20px;
   font-weight: 300;
