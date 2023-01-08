@@ -1,7 +1,11 @@
+$menu-item-font-size:  23px;
 .sidebarWrapper{
     margin-left: auto;
     margin-top: 7%;
     float:left;
+    border-right-style: solid;
+    border-color: rgba(209, 209, 209, 0.541);
+
     .ProfileDataWrapper{
         text-align: center;
         display: flex;
@@ -13,7 +17,7 @@
         }
         .username{
             margin-left: .5rem;
-            font-size: 2rem;
+            font-size: $menu-item-font-size;
             color: white;
         }
         .followers{
@@ -27,6 +31,8 @@
         color: white;
         .menuItem{
             margin-top: 5rem;
+            font-size: $menu-item-font-size;
+            padding-right: 1rem;
             a{
                 text-decoration: none;
                 color: #F9F4FF;
@@ -37,6 +43,7 @@
         }
     }
     .dangerousMenu{
+        margin-top: 10rem;
         .settings{
             color: black;
         }
@@ -48,4 +55,30 @@
         margin-left: 2rem;
     }
 
+    @media screen and (max-width: 1240px) {
+        .menuItemName{
+            display: none;
+        }
+        .dangerousMenu{
+            height:100vh;
+        }    
+    }
+    @media screen and (max-width: 810px) {
+        .menuItemName{
+            display: none;
+        }
+        .dangerousMenu{
+            margin-top: 12rem;
+            height:100vh;
+        }    
+    }
+    @media screen and (max-width: 375px) {
+        .menuItemName{
+            display: none;
+        }
+        .dangerousMenu{
+            margin-top: 5rem;
+            height:100vh;
+        }    
+    }
 }

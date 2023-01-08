@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './SidebarStyling/SidebarStyle.css'
-import { faCog, faSignOut, faCalendarCheck, faCalendar, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faSignOut, faCalendarCheck, faCalendar, faCalendarDays, faSearch, faBell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Buffer } from 'buffer';
 import Axios from 'axios'
@@ -55,30 +55,59 @@ export default class SidebarComponent extends Component {
                           className='userPFP'
                         />
           }
-          <a href={`Profile/${this.state.userID}`}> <h2 className='username'>{this.state.username}</h2></a>
+          <a href={`Profile/${this.state.userID}`}> 
+            <h2 className='username menuItemName'>{this.state.username}</h2>
+          </a>
           {/* <h3 className='followers'> {this.state.userFollowers} Followers </h3> */}
         </div>
         <div className='safeMenu menu'>
           <h2 className='upcomingEvents menuItem'> 
             <a href='/EventsManager/CalendarSchedule/UpcomingEvents'>
-              <FontAwesomeIcon icon={faCalendarDays}/> Upcoming events
+              <FontAwesomeIcon icon={faCalendarDays}/> 
+              <span className='menuItemName'> Upcoming events </span>
             </a>
           </h2>
           <h2 className='attendedEvents menuItem'>
             <a href='/EventsManager/CalendarSchedule/AttendedEvents'>
-            <FontAwesomeIcon icon={faCalendarCheck}/> Attended events
+            <FontAwesomeIcon icon={faCalendarCheck}/> 
+            <span className='menuItemName'> Attended events </span>
+            
             </a>
           </h2>
           <h2 className='hostedEvents menuItem'>
             <a href='/EventsManager/CalendarSchedule/HostedEvents'>
-              <FontAwesomeIcon icon={faCalendar}/> Hosted events
+              <FontAwesomeIcon icon={faCalendar}/> 
+              <span className='menuItemName'> Hosted events </span>
+              
+            </a>
+          </h2>
+          <h2 className='exploreEvents menuItem'>
+            <a href='/ExploreEvents'>
+              <FontAwesomeIcon icon={faSearch}/> 
+              <span className='menuItemName'> Explore events </span>
+              
+            </a>
+          </h2>
+          <h2 className='exploreEvents menuItem'>
+            <a href='/ExploreEvents'>
+              <FontAwesomeIcon icon={faBell}/> 
+              <span className='menuItemName'> Notifications </span>
+              
             </a>
           </h2>
 
         </div>
-        <div className='dangerousMenu menu fixed-bottom'>
-            <h2 className='settings menuItem'> <FontAwesomeIcon icon={faCog}/> Settings</h2>
-            <h2 className='logout menuItem' onClick = {() => this.logOut()}> <FontAwesomeIcon icon={faSignOut}/> Log out</h2>
+        <div className='dangerousMenu menu '>
+            <h2 className='settings menuItem'> 
+              <FontAwesomeIcon icon={faCog}/>
+              <span className='menuItemName'> Settings  </span> 
+              
+            </h2>
+            <h2 className='logout menuItem' onClick = {() => this.logOut()}> 
+              <FontAwesomeIcon icon={faSignOut}/> 
+              <span className='menuItemName'> Log out </span>
+              
+            </h2>
         </div>
      </div>
     )

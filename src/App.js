@@ -24,7 +24,6 @@ function App() {
       <Route path = '/register' element={<RegistrationPageComponent/>}/>
       <Route path = '/login' element={<LoginPageComponent/>}/>
       <Route path = '/HostEvent' element={<HostAnEventPageComponent/>}/>
-      <Route path = '/MapTest' element={<MapComponent/>}/>
 
       <Route path = '/ExploreEvents' element={<ExploreEventsComponent/>}/>
       <Route path = '/Event/:eventId' element={<EventPageComponent/>}/> 
