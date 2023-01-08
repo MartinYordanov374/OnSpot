@@ -44,13 +44,15 @@
 .hostEventPage {
   width: 40%;
   position: absolute;
-  left: 43%;
+  left: 35%;
   right: 50%;
   top: 35%;
 }
 
 .hostEventPage .eventNameWrapper {
   width: 60%;
+  left: 15% !important;
+  position: absolute;
   margin-top: 0rem !important;
 }
 

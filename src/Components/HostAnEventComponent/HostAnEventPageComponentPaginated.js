@@ -69,16 +69,22 @@ export default class HostAnEventPageComponentPaginated extends Component {
     HostEvent()
     {
         
-        // let result = Axios.post('http://localhost:3030/hostEvent', {
-        //     name: this.state.eventName, 
-        //     description: this.state.eventDescription,
-        //     location: this.state.eventLocation,
-        //     type: this.state.eventType,
-        //     category: this.state.eventCategory,
-        //     startDate: this.state.eventStartDate,
-        //     endDate: this.state.eventEndDate    
-        // }, 
-        // {withCredentials: true})
+        let result = Axios.post('http://localhost:3030/hostEvent', {
+            name: this.state.eventName, 
+            description: this.state.eventDescription,
+            location: this.state.eventLocation,
+            type: this.state.eventType,
+            category: this.state.eventCategory,
+            startDate: this.state.eventStartDate,
+            endDate: this.state.eventEndDate    
+        }, 
+        {withCredentials: true})
+        .then((res) => {
+            toast.success(res.data)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
 
     checkIfUserIsLoggedIn = async () => {
