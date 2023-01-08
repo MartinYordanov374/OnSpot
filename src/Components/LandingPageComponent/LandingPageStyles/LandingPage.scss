@@ -1,10 +1,14 @@
 .welcomeText{
     font-size: 3rem;
-    color: white;
+    font-weight: 300;
+    color: black;
     .signUpButtonWrapper{
+        font-weight: bold;
         .signUpButtonLink{
             text-decoration: none;
-            color: white;
+            color: black;
+            font-weight: 400;
+
         }
         text-align: center !important;
     }

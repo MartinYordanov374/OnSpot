@@ -1,15 +1,18 @@
 .welcomeText {
   font-size: 3rem;
-  color: white;
+  font-weight: 300;
+  color: black;
 }
 
 .welcomeText .signUpButtonWrapper {
+  font-weight: bold;
   text-align: center !important;
 }
 
 .welcomeText .signUpButtonWrapper .signUpButtonLink {
   text-decoration: none;
-  color: white;
+  color: black;
+  font-weight: 400;
 }
 
 .mapIcon {

@@ -16,7 +16,7 @@ export default class NonRegisteredLandingPage extends Component {
                     <p>Join a meeting you’re excited to attend anywhere, at any time.</p>
                     <div className='signUpButtonWrapper'>
                         <a href='/register' className='signUpButtonLink'> 
-                        <p className = 'signUpButton'>Sign Up</p>
+                            <p className = 'signUpButton'>Sign Up</p>
                         </a>
                     </div>
                     </div>
