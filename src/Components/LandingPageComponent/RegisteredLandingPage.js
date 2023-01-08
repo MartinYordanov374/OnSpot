@@ -16,12 +16,28 @@ export default class RegisteredLandingPage extends Component {
     componentDidMount()
     {
       this.getEvents()
+      window.addEventListener('scroll', function() {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+           console.log("you're at the bottom of the page");
+           // Show loading spinner and make fetch request to api
+        }
+     });
+    }
+    componentWillUnmount()
+    {
+      window.removeEventListener('scroll', function() {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+           console.log("you're at the bottom of the page");
+           // Show loading spinner and make fetch request to api
+        }
+     })
     }
     getEvents = async () => {
       let events = await Axios.get('http://localhost:3030/getAllEvents', {withCredentials: true})
       .then((res) => {this.setState({'events': res.data.payload})})
       .catch((err) => {console.log(err)})
     }
+
   render() {
     return (
         <div>
