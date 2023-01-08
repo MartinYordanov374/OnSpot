@@ -36,6 +36,7 @@ export default class HostAnEventPageComponentPaginated extends Component {
     {
         let dropdown = document.querySelector('.eventCategoryField');
         dropdown.placeholder = value;
+        dropdown.value = value;
         this.setState({'eventCategory': value})
     }
     handleSelectLocation(value)
@@ -95,6 +96,12 @@ export default class HostAnEventPageComponentPaginated extends Component {
     nextPage = (element) => {
         let targetElementInputField = element.target.parentElement.children[1]
         let targetElementInputFieldValue = targetElementInputField.value
+        if(targetElementInputField.className == 'input-group')
+        {
+            targetElementInputField = targetElementInputField.children[0]
+            targetElementInputFieldValue = targetElementInputField.value
+        }
+
         if(targetElementInputFieldValue.length == 0)
         {
             targetElementInputField.focus()
@@ -138,8 +145,8 @@ export default class HostAnEventPageComponentPaginated extends Component {
                         <div className='eventTypeWrapper col-sm mt-5'>
                             <h2 className='fieldLabel'>Event type</h2>
                             <InputGroup>
-                            <FormControl className='inputField eventTypeField' placeholder='Public' aria-describedby='dropdownAddon' disabled='true'/>
-                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectType}>
+                                <FormControl className='inputField eventTypeField' placeholder='Public' aria-describedby='dropdownAddon' disabled='true'/>
+                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectType} defaultValue="Public">
                                     <Dropdown.Item eventKey = {'Public'}>Public</Dropdown.Item>
                                     <Dropdown.Item eventKey = {'Private'} >Private</Dropdown.Item>
                                 </DropdownButton>
@@ -160,7 +167,7 @@ export default class HostAnEventPageComponentPaginated extends Component {
                             <FormControl className='inputField' placeholder='Event description'/>
                             {/* onChange = {(e) => this.handleEnterEventDescription(e.target.value)} */}
                             <Button onClick={() => this.previousPage()}>Previous</Button>   
-                            <Button onClick={() => this.nextPage()}>Continue</Button>
+                            <Button onClick={(e) => this.nextPage(e)}>Continue</Button>
                         </div>
                     </Container>
                 </div>
@@ -173,7 +180,7 @@ export default class HostAnEventPageComponentPaginated extends Component {
                                     <h2 className='fieldLabel'>Event category</h2>
                                     <InputGroup>
                                         <FormControl className='inputField eventCategoryField' placeholder='e.g. Tech' disabled='true'/>
-                                        <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectCategory}>
+                                        <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectCategory} defaultValue="Hangout">
                                             <Dropdown.Item eventKey = {'Tech'}>Tech</Dropdown.Item>
                                             <Dropdown.Item eventKey = {'Business'} >Business</Dropdown.Item>
                                             <Dropdown.Item eventKey = {'Hangout'} >Hangout</Dropdown.Item>
@@ -181,7 +188,7 @@ export default class HostAnEventPageComponentPaginated extends Component {
                                         </DropdownButton>
                                     </InputGroup>
                                     <Button onClick={() => this.previousPage()}>Previous</Button>
-                                    <Button onClick={() => this.nextPage()}>Continue</Button>
+                                    <Button onClick={(e) => this.nextPage(e)}>Continue</Button>
                             </div>
                         </Container>
                     </div>
@@ -193,9 +200,9 @@ export default class HostAnEventPageComponentPaginated extends Component {
                             <div className='eventCategoryWrapper col-sm mt-5'>
                                 <h2 className='fieldLabel'>Event Location</h2>
                                 <FormControl className='inputField eventLocationField' placeholder='e.g. Menlo Park' onChange = {(e) => this.setState({'eventLocation': e.target.value})}/>
+                                <Button onClick={() => this.previousPage()}>Previous</Button>
+                                <Button onClick={(e) => this.nextPage(e)}>Continue</Button>
                             </div>
-                            <Button onClick={() => this.previousPage()}>Previous</Button>
-                            <Button onClick={() => this.nextPage()}>Continue</Button>
                     </Container>
                 </div>
             )
@@ -206,12 +213,6 @@ export default class HostAnEventPageComponentPaginated extends Component {
                     <Container>
                     <div className='eventCategoryWrapper col-sm mt-5'>
                             <h2 className='fieldLabel'>Event Date</h2>
-                            {/* <InputGroup>
-                                <FormControl className='inputField eventStartDateField' placeholder='e.g. 28/01/2022' disabled='true'/>
-                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon' drop='start'>
-                                    <Calendar onChange={this.handleSelectDate} selectRange={true}/>
-                                </DropdownButton>
-                            </InputGroup> */}
                             <Calendar onChange={this.handleSelectDate} selectRange={true}/>
 
                             <Button onClick={() => this.previousPage()}>Previous</Button>
