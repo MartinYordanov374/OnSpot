@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default class SquareEventCardComponent extends Component {
   render() {
     let eventData = this.props;
+    console.log(eventData)
     return (
         <Card className='EventCard col-lg-5 col-md-8 col-sm-8' >
 
@@ -22,7 +23,7 @@ export default class SquareEventCardComponent extends Component {
                         {eventData.props.EventName}
                     </Card.Title>
                     <Card.Subtitle className='EventCardDate'>
-                        Jan 22 2023 - Jan 23 2023
+                        <span>{eventData.props.EventStartDate.split('T')[0].split('-').join('/')} - {eventData.props.EventEndDate.split('T')[0].split('-').join('/')}</span>
                     </Card.Subtitle>
 
                     <div className='EventDetailsContainer row'>

@@ -106,7 +106,7 @@ async function GetAllEvents()
         // let result = await sql.query`SELECT * FROM dbo.Events`
         //TODO: FIX THE BUG WHICH CAUSES
         let result = await sql.query`
-        SELECT EventName, EventDescription, EventType, EventClass, EventID, EventLocation, Username, id as UserID
+        SELECT EventName, EventDescription, EventType, EventClass, EventID, EventLocation, EventStartDate, EventEndDate, Username, id as UserID
         FROM Events e
         JOIN Users u
         ON e.EventHosterID  = u.id `
