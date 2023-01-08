@@ -98,18 +98,13 @@ export default class HostAnEventPageComponentPaginated extends Component {
     nextPage = (element) => {
         let targetElementInputField = element.target.parentElement.children[1]
         let targetElementInputFieldValue = targetElementInputField.value
-        console.log(element.target.parentElement)
         if(element.target.parentElement.className=='buttonsWrapper')
         {
             targetElementInputField = element.target.parentElement.parentElement.children[1].children[0]
             targetElementInputFieldValue = targetElementInputField.value
-            console.log(targetElementInputField)
             if(targetElementInputFieldValue == undefined || targetElementInputFieldValue.length == 0 )
             {
                 toast.warn(`You can't have an empty field!`)
-                // targetElementInputField.focus()
-                // targetElementInputField.style.borderColor = 'red'
-                // targetElementInputField.style.boxShadow = '0 0 0 0.25rem rgba(255, 0, 0, 0.25)'
             }
             else
             {
@@ -127,9 +122,6 @@ export default class HostAnEventPageComponentPaginated extends Component {
             if(targetElementInputFieldValue.length == 0)
             {
                 toast.warn(`You can't have an empty field!`)
-                // targetElementInputField.focus()
-                // targetElementInputField.style.borderColor = 'red'
-                // targetElementInputField.style.boxShadow = '0 0 0 0.25rem rgba(255, 0, 0, 0.25)'
             }
             else
             {
@@ -198,12 +190,16 @@ export default class HostAnEventPageComponentPaginated extends Component {
                 <div className='hostEventPage'>
                     <ToastContainer/>
                     <Container>
-                        <div className='eventDescriptionWrapper col-sm mt-5'>
+                        <div className='eventDescriptionWrapper row'>
                             <h2 className='fieldLabel'>Event description</h2>
                             <FormControl className='inputField' placeholder='Event description'/>
                             {/* onChange = {(e) => this.handleEnterEventDescription(e.target.value)} */}
-                            <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>Previous</Button>   
-                            <Button className='continueBtn col-sm' onClick={(e) => this.nextPage(e)}>Continue</Button>
+                            <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>
+                                <FontAwesomeIcon icon = {faChevronLeft}/>
+                            </Button>   
+                            <Button className='continueBtn col-sm' onClick={(e) => this.nextPage(e)}>
+                                <FontAwesomeIcon icon = {faChevronRight}/>
+                            </Button>
                         </div>
                     </Container>
                 </div>
@@ -213,7 +209,7 @@ export default class HostAnEventPageComponentPaginated extends Component {
                     <div className='hostEventPage'>
                         <ToastContainer/>
                         <Container>
-                            <div className='eventCategoryWrapper col-sm mt-5'>
+                            <div className='eventCategoryWrapper row'>
                                     <h2 className='fieldLabel'>Event category</h2>
                                     <InputGroup>
                                         <FormControl className='inputField eventCategoryField' placeholder='e.g. Tech' disabled='true'/>
@@ -224,8 +220,12 @@ export default class HostAnEventPageComponentPaginated extends Component {
                                             <Dropdown.Item eventKey = {'Other'} >Other</Dropdown.Item>
                                         </DropdownButton>
                                     </InputGroup>
-                                    <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>Previous</Button>
-                                    <Button className='continueBtn col-sm' onClick={(e) => this.nextPage(e)}>Continue</Button>
+                                    <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>
+                                        <FontAwesomeIcon icon = {faChevronLeft}/>
+                                    </Button>
+                                    <Button className='continueBtn col-sm' onClick={(e) => this.nextPage(e)}>
+                                        <FontAwesomeIcon icon = {faChevronRight}/>
+                                    </Button>
                             </div>
                         </Container>
                     </div>
@@ -235,11 +235,15 @@ export default class HostAnEventPageComponentPaginated extends Component {
                 <div className='hostEventPage'>
                     <ToastContainer/>
                     <Container>
-                            <div className='eventCategoryWrapper col-sm mt-5'>
+                            <div className='eventCategoryWrapper row'>
                                 <h2 className='fieldLabel'>Event Location</h2>
                                 <FormControl className='inputField eventLocationField' placeholder='e.g. Menlo Park' onChange = {(e) => this.setState({'eventLocation': e.target.value})}/>
-                                <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>Previous</Button>
-                                <Button className='continueBtn' onClick={(e) => this.nextPage(e)}>Continue</Button>
+                                <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>
+                                    <FontAwesomeIcon icon = {faChevronLeft}/>
+                                </Button>
+                                <Button className='continueBtn col-sm' onClick={(e) => this.nextPage(e)}>
+                                    <FontAwesomeIcon icon = {faChevronRight}/>
+                                </Button>
                             </div>
                     </Container>
                 </div>
@@ -249,11 +253,13 @@ export default class HostAnEventPageComponentPaginated extends Component {
                 <div className='hostEventPage'>
                     <ToastContainer/>
                     <Container>
-                        <div className='eventCategoryWrapper col-sm mt-5'>
+                        <div className='eventCategoryWrapper row'>
                                 <h2 className='fieldLabel'>Event Date</h2>
                                 <Calendar className='calendar' onChange={this.handleSelectDate} selectRange={true}/>
-                                <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>Previous</Button>
-                                <Button className='continueBtn' onClick={() => this.HostEvent()}>Host Event</Button>
+                                <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>
+                                    <FontAwesomeIcon icon = {faChevronLeft}/>
+                                </Button>
+                                <Button className='continueBtn col-sm' onClick={() => this.HostEvent()}>Host Event</Button>
                         </div>
                     </Container>
                 </div>
