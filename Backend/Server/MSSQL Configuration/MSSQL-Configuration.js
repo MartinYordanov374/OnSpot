@@ -14,15 +14,15 @@ async function connectWithMSSQLDatabase() {
     try{
         let conn = await sql.connect(connectionStringData)
         console.log('successfully connected with the database')
-        await sql.query(queries.CREATE_ATTENDANCES_TABLE_QUERY)
-        await sql.query(queries.CREATE_EVENT_KEYWORDS_TABLE_QUERY)
-        await sql.query(queries.CREATE_EVENT_TABLE_QUERY_QUERY)
-        await sql.query(queries.CREATE_KEYWORDS_TABLE_QUERY)
-        await sql.query(queries.CREATE_FOLLOWERS_TABLE_QUERY)
-        await sql.query(queries.CREATE_PROFILE_PICTURES_TABLE_QUERY)
-        await sql.query(queries.CREATE_USERS_TABLE_QUERY)
-        await sql.query(queries.CREATE_CONVERSATIONS_TABLE_QUERY)
-        await sql.query(queries.CREATE_MESSAGES_TABLE_QUERY)
+        Object.values(queries).forEach( async (query, index) => {
+            try{
+                await sql.query(query)
+            }
+            catch(err)
+            {
+                console.log(err.message)
+            }
+        })
 
         return conn
     }

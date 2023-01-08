@@ -10,12 +10,12 @@ export default class RegisteredLandingPage extends Component {
     constructor()
     {
       super()
-      this.state = {events: []}
+      this.state = {events: [], initialEventElementID: 0}
     }
 
-    componentDidMount()
+    async componentDidMount()
     {
-      this.getEvents()
+      await this.getEvents()
       window.addEventListener('scroll', function() {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
            console.log("you're at the bottom of the page");
@@ -29,6 +29,7 @@ export default class RegisteredLandingPage extends Component {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
            console.log("you're at the bottom of the page");
            // Show loading spinner and make fetch request to api
+           
         }
      })
     }
@@ -37,6 +38,7 @@ export default class RegisteredLandingPage extends Component {
       .then((res) => {this.setState({'events': res.data.payload})})
       .catch((err) => {console.log(err)})
     }
+
 
   render() {
     return (

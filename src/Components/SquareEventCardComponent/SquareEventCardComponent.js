@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default class SquareEventCardComponent extends Component {
   render() {
     let eventData = this.props;
-    console.log(eventData)
     return (
         <Card className='EventCard col-lg-5 col-md-8 col-sm-8' >
 
