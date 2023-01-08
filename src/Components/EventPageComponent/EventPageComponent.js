@@ -122,7 +122,7 @@ export default class EventPageComponent extends Component {
                 <div>
                     <SidebarComponent/>
                     <Container>
-                    <NavbarComponentRegisteredUser/>
+                    {/* <NavbarComponentRegisteredUser/> */}
                     <Card className='eventCard'>
                             <Card.Header className = 'eventCardHeader'>
                                 <h1>{this.state.targetEventName}</h1>

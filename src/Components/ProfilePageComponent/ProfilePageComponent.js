@@ -137,7 +137,7 @@ export default class ProfilePageComponent extends Component {
           <SidebarComponent/>
           
           <Container>
-              <NavbarComponentRegisteredUser/>
+              {/* <NavbarComponentRegisteredUser/> */}
               {this.state.isLoading == false? 
                 <div className='profilePageWrapper'>
                     <div className='profilePageBackgroundImage' onClick={() => this.handleSelectProfilePicture()}>

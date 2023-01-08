@@ -75,7 +75,7 @@ export default class CalendarScheduleAttendedEvents extends Component {
               "Loading"
           : 
           <Container className='CalendarContainer'>
-          <NavbarComponentRegisteredUser/>
+          {/* <NavbarComponentRegisteredUser/> */}
             <Calendar
               localizer={this.localizer}
               defaultView = 'month'

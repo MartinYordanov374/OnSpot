@@ -5,14 +5,10 @@
   margin-left: 6rem;
   margin-top: 2rem;
   font-family: 'Open Sans', sans-serif;
-  -webkit-box-shadow: #5ea2d6 1px 1px 0px 2px;
-          box-shadow: #5ea2d6 1px 1px 0px 2px;
 }
 
 .EventCard:hover {
   cursor: pointer;
-  -webkit-box-shadow: #4194d4 1px 1px 0px 1px;
-          box-shadow: #4194d4 1px 1px 0px 1px;
 }
 
 .EventCard .EventCardImage {

@@ -37,7 +37,7 @@ export default class ExploreEventsComponent extends Component {
         <div>
           <SidebarComponent/>
           <Container>
-            <NavbarComponentRegisteredUser/>
+            {/* <NavbarComponentRegisteredUser/> */}
             <div className='searchPageWrapper'>
               <div className='searchBarWrapper d-flex justify-content-center'>
                 <FormControl className='searchBar d-flex' placeholder='Search events'/>

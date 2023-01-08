@@ -34,7 +34,7 @@ export default class EventsManagerComponent extends Component {
       <div>
          {this.state.loginStatus == true ?
         <div>
-            <NavbarComponentRegisteredUser/>
+            {/* <NavbarComponentRegisteredUser/> */}
             <UpcomingEventsComponent/>
         </div>
         :

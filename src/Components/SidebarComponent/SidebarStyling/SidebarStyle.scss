@@ -7,6 +7,7 @@ $menu-item-font-weight: 300;
     border-color: rgba(209, 209, 209, 0.541);
     background-color: #ffffff;
     height: 100vh;
+    width:20rem;
 
     .ProfileDataWrapper{
         text-align: center;
@@ -74,6 +75,9 @@ $menu-item-font-weight: 300;
         }
     }
     @media screen and (max-width: 1240px) {
+
+        width:max-content;
+        
         .menuItemName{
             display: none;
         }

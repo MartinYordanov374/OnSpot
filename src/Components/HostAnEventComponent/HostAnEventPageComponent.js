@@ -95,7 +95,7 @@ export default class HostAnEventPageComponent extends Component {
                 <div>
                     <SidebarComponent/>
                     <Container>
-                        <NavbarComponentRegisteredUser/>
+                        {/* <NavbarComponentRegisteredUser/> */}
                         <HostAnEventPageComponentPaginated/>
                     </Container>
                     {/* <Container>
