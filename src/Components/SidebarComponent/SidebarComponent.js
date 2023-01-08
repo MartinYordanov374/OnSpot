@@ -105,36 +105,24 @@ export default class SidebarComponent extends Component {
             </a>
           </h2>
           <h2 className='exploreEvents menuItem'>
-            <a href='/ExploreEvents'>
+            <a href='/Notifications'>
               <FontAwesomeIcon icon={faBell}/> 
               <span className='menuItemName'> Notifications </span>
             </a>
           </h2>
           <h2 className='exploreEvents menuItem'>
-            <a href='/ExploreEvents'>
+            <a href='/Settings'>
               <FontAwesomeIcon icon={faCog}/> 
               <span className='menuItemName'> Settings </span>
             </a>
           </h2>
-          <h2 className='exploreEvents menuItem'>
-            <a href='/ExploreEvents'>
+          <h2 className='exploreEvents menuItem' onClick = {() => this.logOut()  }>
+            <a >
               <FontAwesomeIcon icon={faSignOut}/> 
-              <span className='menuItemName'> Log Out </span>
+              <span className='menuItemName'> Log out </span>
             </a>
           </h2>
         </div>
-        {/* <div className='dangerousMenu menu '>
-            <h2 className='settings menuItem'> 
-              <FontAwesomeIcon icon={faCog}/>
-              <span className='menuItemName'> Settings  </span> 
-              
-            </h2>
-            <h2 className='logout menuItem' onClick = {() => this.logOut()}> 
-              <FontAwesomeIcon icon={faSignOut}/> 
-              <span className='menuItemName'> Log out </span>
-              
-            </h2>
-        </div> */}
      </div>
     )
   }
