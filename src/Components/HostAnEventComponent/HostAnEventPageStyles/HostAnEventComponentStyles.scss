@@ -28,6 +28,41 @@ $button-color-pressed: #e97100;
     }
 }
 
-.inputFieldDropdown{
-
+.hostEventPage{
+    width: 40%;
+    position: absolute;
+    left:43%;
+    right:50%;
+    top: 35%;
+    .eventNameWrapper{
+        width: 60%;
+        margin-top: 0rem !important;
+        .fieldLabel{
+        }
+    }
+    .inputFieldDropdown
+    {
+        width: 120%;
+    }
+    .continueBtn{
+        width: 100%;
+    }
+    .previousBtn{
+        width:100%;
+    }
+    .fieldLabel{
+        text-align: center;
+    }
+    .calendar{
+        width:max-content;
+    }
+    .buttonsWrapper{
+        display: flex;
+        .continueBtn{
+            width: 50%;
+        }
+        .previousBtn{
+            width: 50%;
+        }
+    }
 }

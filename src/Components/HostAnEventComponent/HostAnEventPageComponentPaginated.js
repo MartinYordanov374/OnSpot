@@ -5,6 +5,8 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import Axios from 'axios'
 import { toast, ToastContainer } from 'react-toastify';
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default class HostAnEventPageComponentPaginated extends Component {
     // TODO: FIGURE LOCATION OUT
     constructor()
@@ -96,21 +98,43 @@ export default class HostAnEventPageComponentPaginated extends Component {
     nextPage = (element) => {
         let targetElementInputField = element.target.parentElement.children[1]
         let targetElementInputFieldValue = targetElementInputField.value
-        if(targetElementInputField.className == 'input-group')
+        console.log(element.target.parentElement)
+        if(element.target.parentElement.className=='buttonsWrapper')
         {
-            targetElementInputField = targetElementInputField.children[0]
+            targetElementInputField = element.target.parentElement.parentElement.children[1].children[0]
             targetElementInputFieldValue = targetElementInputField.value
-        }
-
-        if(targetElementInputFieldValue.length == 0)
-        {
-            targetElementInputField.focus()
-            targetElementInputField.style.borderColor = 'red'
-            targetElementInputField.style.boxShadow = '0 0 0 0.25rem rgba(255, 0, 0, 0.25)'
+            console.log(targetElementInputField)
+            if(targetElementInputFieldValue == undefined || targetElementInputFieldValue.length == 0 )
+            {
+                toast.warn(`You can't have an empty field!`)
+                // targetElementInputField.focus()
+                // targetElementInputField.style.borderColor = 'red'
+                // targetElementInputField.style.boxShadow = '0 0 0 0.25rem rgba(255, 0, 0, 0.25)'
+            }
+            else
+            {
+                this.setState({'currentForm': this.state.currentForm + 1})
+            }
         }
         else
         {
-            this.setState({'currentForm': this.state.currentForm + 1})
+            if(targetElementInputField.className == 'input-group')
+            {
+                targetElementInputField = targetElementInputField.children[0]
+                targetElementInputFieldValue = targetElementInputField.value
+            }
+    
+            if(targetElementInputFieldValue.length == 0)
+            {
+                toast.warn(`You can't have an empty field!`)
+                // targetElementInputField.focus()
+                // targetElementInputField.style.borderColor = 'red'
+                // targetElementInputField.style.boxShadow = '0 0 0 0.25rem rgba(255, 0, 0, 0.25)'
+            }
+            else
+            {
+                this.setState({'currentForm': this.state.currentForm + 1})
+            }
         }
 
     }
@@ -127,12 +151,15 @@ export default class HostAnEventPageComponentPaginated extends Component {
     {
         case 0:
             return (
-                <div>
+                <div className='hostEventPage'>
+                    <ToastContainer/>
                     <Container>
                         <div className='eventNameWrapper col-sm mt-5'>
                             <h2 className='fieldLabel'>Event name</h2>
                             <FormControl className='inputField' placeholder='Enter your event Name' onChange = {(e) => this.handleEnterEventName(e.target.value)}/>
-                            <Button onClick={(e) => this.nextPage(e)}>Continue</Button>
+                            <Button className='continueBtn' onClick={(e) => this.nextPage(e)}>
+                                <FontAwesomeIcon icon = {faChevronRight}/>
+                            </Button>
                         </div>
 
                     </Container>
@@ -140,9 +167,10 @@ export default class HostAnEventPageComponentPaginated extends Component {
             )
         case 1:
             return (
-                <div>
+                <div className='hostEventPage'>
+                    <ToastContainer/>
                     <Container>
-                        <div className='eventTypeWrapper col-sm mt-5'>
+                        <div className='eventTypeWrapper row'>
                             <h2 className='fieldLabel'>Event type</h2>
                             <InputGroup>
                                 <FormControl className='inputField eventTypeField' placeholder='Public' aria-describedby='dropdownAddon' disabled='true'/>
@@ -152,29 +180,38 @@ export default class HostAnEventPageComponentPaginated extends Component {
                                 </DropdownButton>
 
                             </InputGroup>
-                            <Button onClick={() => this.previousPage()}>Previous</Button>   
-                            <Button onClick={(e) => this.nextPage(e)}>Continue</Button>
+                            <div className='buttonsWrapper'>
+                                <Button className='previousBtn col-sm-2' onClick={() => this.previousPage()}>
+                                    <FontAwesomeIcon icon = {faChevronLeft}/>
+                                </Button>   
+                                <Button className='continueBtn col-sm-2' onClick={(e) => this.nextPage(e)}>
+                                    <FontAwesomeIcon icon = {faChevronRight}/>
+                                </Button>
+
+                            </div>
                         </div>
                     </Container>
                 </div>
             )
         case 2:
             return (
-                <div>
+                <div className='hostEventPage'>
+                    <ToastContainer/>
                     <Container>
                         <div className='eventDescriptionWrapper col-sm mt-5'>
                             <h2 className='fieldLabel'>Event description</h2>
                             <FormControl className='inputField' placeholder='Event description'/>
                             {/* onChange = {(e) => this.handleEnterEventDescription(e.target.value)} */}
-                            <Button onClick={() => this.previousPage()}>Previous</Button>   
-                            <Button onClick={(e) => this.nextPage(e)}>Continue</Button>
+                            <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>Previous</Button>   
+                            <Button className='continueBtn col-sm' onClick={(e) => this.nextPage(e)}>Continue</Button>
                         </div>
                     </Container>
                 </div>
             )
         case 3:
                 return (
-                    <div>
+                    <div className='hostEventPage'>
+                        <ToastContainer/>
                         <Container>
                             <div className='eventCategoryWrapper col-sm mt-5'>
                                     <h2 className='fieldLabel'>Event category</h2>
@@ -187,37 +224,36 @@ export default class HostAnEventPageComponentPaginated extends Component {
                                             <Dropdown.Item eventKey = {'Other'} >Other</Dropdown.Item>
                                         </DropdownButton>
                                     </InputGroup>
-                                    <Button onClick={() => this.previousPage()}>Previous</Button>
-                                    <Button onClick={(e) => this.nextPage(e)}>Continue</Button>
+                                    <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>Previous</Button>
+                                    <Button className='continueBtn col-sm' onClick={(e) => this.nextPage(e)}>Continue</Button>
                             </div>
                         </Container>
                     </div>
             )
         case 4:
             return (
-                <div>
+                <div className='hostEventPage'>
+                    <ToastContainer/>
                     <Container>
                             <div className='eventCategoryWrapper col-sm mt-5'>
                                 <h2 className='fieldLabel'>Event Location</h2>
                                 <FormControl className='inputField eventLocationField' placeholder='e.g. Menlo Park' onChange = {(e) => this.setState({'eventLocation': e.target.value})}/>
-                                <Button onClick={() => this.previousPage()}>Previous</Button>
-                                <Button onClick={(e) => this.nextPage(e)}>Continue</Button>
+                                <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>Previous</Button>
+                                <Button className='continueBtn' onClick={(e) => this.nextPage(e)}>Continue</Button>
                             </div>
                     </Container>
                 </div>
             )
         case 5:
             return (
-                <div>
+                <div className='hostEventPage'>
                     <ToastContainer/>
                     <Container>
-                    <div className='eventCategoryWrapper col-sm mt-5'>
-                            <h2 className='fieldLabel'>Event Date</h2>
-                            <Calendar onChange={this.handleSelectDate} selectRange={true}/>
-
-                            <Button onClick={() => this.previousPage()}>Previous</Button>
-
-                            <Button onClick={() => this.HostEvent()}>Host Event</Button>
+                        <div className='eventCategoryWrapper col-sm mt-5'>
+                                <h2 className='fieldLabel'>Event Date</h2>
+                                <Calendar className='calendar' onChange={this.handleSelectDate} selectRange={true}/>
+                                <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>Previous</Button>
+                                <Button className='continueBtn' onClick={() => this.HostEvent()}>Host Event</Button>
                         </div>
                     </Container>
                 </div>

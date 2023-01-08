@@ -40,4 +40,53 @@
 .HostEventCard .inputField::placeholder {
   font-weight: bold;
 }
+
+.hostEventPage {
+  width: 40%;
+  position: absolute;
+  left: 43%;
+  right: 50%;
+  top: 35%;
+}
+
+.hostEventPage .eventNameWrapper {
+  width: 60%;
+  margin-top: 0rem !important;
+}
+
+.hostEventPage .inputFieldDropdown {
+  width: 120%;
+}
+
+.hostEventPage .continueBtn {
+  width: 100%;
+}
+
+.hostEventPage .previousBtn {
+  width: 100%;
+}
+
+.hostEventPage .fieldLabel {
+  text-align: center;
+}
+
+.hostEventPage .calendar {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.hostEventPage .buttonsWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.hostEventPage .buttonsWrapper .continueBtn {
+  width: 50%;
+}
+
+.hostEventPage .buttonsWrapper .previousBtn {
+  width: 50%;
+}
 /*# sourceMappingURL=HostAnEventComponentStyles.css.map */
