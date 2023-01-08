@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './SidebarStyling/SidebarStyle.css'
-import { faCog, faSignOut, faCalendarCheck, faCalendar, faCalendarDays, faSearch, faBell } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faSignOut, faCalendarCheck, faCalendar, faCalendarDays, faSearch, faBell, faPlusCircle, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Buffer } from 'buffer';
 import Axios from 'axios'
@@ -39,6 +39,13 @@ export default class SidebarComponent extends Component {
   render() {
     return (
      <div className='sidebarWrapper  position-fixed'>
+
+        <div className='HeaderWrapper menu'>
+          <a href={`/`} className='homeLink'> 
+            <h2 className='menuItemName'> <FontAwesomeIcon icon={faLocationDot}/> OnSpot </h2>
+          </a>
+        </div>
+
         <div className = 'ProfileDataWrapper'>
         {this.state.ProfilePicture.data
                       ?
@@ -87,12 +94,17 @@ export default class SidebarComponent extends Component {
               <span className='menuItemName'> Explore events </span>
               
             </a>
+          <h2 className='exploreEvents menuItem'>
+            <a href='/ExploreEvents'>
+              <FontAwesomeIcon icon={faPlusCircle}/> 
+              <span className='menuItemName'> Host an event </span>
+            </a>
+          </h2>
           </h2>
           <h2 className='exploreEvents menuItem'>
             <a href='/ExploreEvents'>
               <FontAwesomeIcon icon={faBell}/> 
               <span className='menuItemName'> Notifications </span>
-              
             </a>
           </h2>
 

@@ -4,7 +4,8 @@
 }
 
 html, body{
-  background-color: #72B2E4 !important;
+  /* background-color: #6dabdb !important; */
+  background-color: #fafafa !important;
   width: 100%;
   min-height: min-content;
   font-family: 'Roboto', sans-serif;

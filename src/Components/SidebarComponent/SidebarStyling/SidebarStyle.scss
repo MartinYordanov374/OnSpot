@@ -1,15 +1,18 @@
-$menu-item-font-size:  23px;
+$menu-item-font-size:  20px;
+$menu-item-font-weight: 300;
 .sidebarWrapper{
     margin-left: auto;
-    margin-top: 7%;
     float:left;
     border-right-style: solid;
     border-color: rgba(209, 209, 209, 0.541);
+    background-color: #ffffff;
+    height: 100vh;
 
     .ProfileDataWrapper{
         text-align: center;
         display: flex;
         margin-left: 2rem;
+        margin-top: 2rem;
         .userPFP{
             border-radius: 50%;
             width: 36px;
@@ -18,7 +21,8 @@ $menu-item-font-size:  23px;
         .username{
             margin-left: .5rem;
             font-size: $menu-item-font-size;
-            color: white;
+            font-weight: $menu-item-font-weight;
+            color: black;
         }
         .followers{
             color: #BDA9A9
@@ -32,29 +36,43 @@ $menu-item-font-size:  23px;
         .menuItem{
             margin-top: 5rem;
             font-size: $menu-item-font-size;
+            font-weight: $menu-item-font-weight;
             padding-right: 1rem;
             a{
                 text-decoration: none;
-                color: #F9F4FF;
+                // color: #F9F4FF;
+                color: black;
                 &:hover{
                     color: rgb(237, 237, 237);
                 }
             }
         }
+
     }
     .dangerousMenu{
-        margin-top: 10rem;
+        margin-top: 4rem;
         .settings{
             color: black;
+            font-size: $menu-item-font-size;
+            font-weight: $menu-item-font-weight;
         }
         .logout{
             color: black;
+            font-size: $menu-item-font-size;
+            font-weight: $menu-item-font-weight;
         }
     }
     .menu{
         margin-left: 2rem;
     }
-
+    .HeaderWrapper{
+        
+        .homeLink{
+            text-decoration: none;
+            color: black;
+            
+        }
+    }
     @media screen and (max-width: 1240px) {
         .menuItemName{
             display: none;
@@ -68,7 +86,7 @@ $menu-item-font-size:  23px;
             display: none;
         }
         .dangerousMenu{
-            margin-top: 12rem;
+            margin-top: 6rem;
             height:100vh;
         }    
     }
@@ -77,8 +95,9 @@ $menu-item-font-size:  23px;
             display: none;
         }
         .dangerousMenu{
-            margin-top: 5rem;
+            margin-top: 6rem;
             height:100vh;
         }    
     }
+    
 }

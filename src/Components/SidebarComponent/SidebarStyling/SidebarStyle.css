@@ -1,9 +1,10 @@
 .sidebarWrapper {
   margin-left: auto;
-  margin-top: 7%;
   float: left;
   border-right-style: solid;
   border-color: rgba(209, 209, 209, 0.541);
+  background-color: #ffffff;
+  height: 100vh;
 }
 
 .sidebarWrapper .ProfileDataWrapper {
@@ -12,6 +13,7 @@
   display: -ms-flexbox;
   display: flex;
   margin-left: 2rem;
+  margin-top: 2rem;
 }
 
 .sidebarWrapper .ProfileDataWrapper .userPFP {
@@ -22,8 +24,9 @@
 
 .sidebarWrapper .ProfileDataWrapper .username {
   margin-left: .5rem;
-  font-size: 23px;
-  color: white;
+  font-size: 20px;
+  font-weight: 300;
+  color: black;
 }
 
 .sidebarWrapper .ProfileDataWrapper .followers {
@@ -40,13 +43,14 @@
 
 .sidebarWrapper .safeMenu .menuItem {
   margin-top: 5rem;
-  font-size: 23px;
+  font-size: 20px;
+  font-weight: 300;
   padding-right: 1rem;
 }
 
 .sidebarWrapper .safeMenu .menuItem a {
   text-decoration: none;
-  color: #F9F4FF;
+  color: black;
 }
 
 .sidebarWrapper .safeMenu .menuItem a:hover {
@@ -54,19 +58,28 @@
 }
 
 .sidebarWrapper .dangerousMenu {
-  margin-top: 10rem;
+  margin-top: 4rem;
 }
 
 .sidebarWrapper .dangerousMenu .settings {
   color: black;
+  font-size: 20px;
+  font-weight: 300;
 }
 
 .sidebarWrapper .dangerousMenu .logout {
   color: black;
+  font-size: 20px;
+  font-weight: 300;
 }
 
 .sidebarWrapper .menu {
   margin-left: 2rem;
+}
+
+.sidebarWrapper .HeaderWrapper .homeLink {
+  text-decoration: none;
+  color: black;
 }
 
 @media screen and (max-width: 1240px) {
@@ -83,7 +96,7 @@
     display: none;
   }
   .sidebarWrapper .dangerousMenu {
-    margin-top: 12rem;
+    margin-top: 6rem;
     height: 100vh;
   }
 }
@@ -93,7 +106,7 @@
     display: none;
   }
   .sidebarWrapper .dangerousMenu {
-    margin-top: 5rem;
+    margin-top: 6rem;
     height: 100vh;
   }
 }
