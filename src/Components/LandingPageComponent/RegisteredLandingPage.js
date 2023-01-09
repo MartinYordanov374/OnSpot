@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import EventCardComponent from '../EventCardComponent/EventCardComponent';
 import SidebarComponent from '../SidebarComponent/SidebarComponent';
-import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
 import { Container } from 'react-bootstrap'
 import Axios from 'axios'
 import SquareEventCardComponent from '../SquareEventCardComponent/SquareEventCardComponent';
@@ -10,46 +8,85 @@ export default class RegisteredLandingPage extends Component {
     constructor()
     {
       super()
-      this.state = {events: [], initialEventElementID: 0}
+      this.state = {events: [], initialEventElementID: -2, isLoading: false, endReached: false}
     }
 
-    async componentDidMount()
+    componentDidMount()
     {
-      await this.getEvents()
-      window.addEventListener('scroll', this.checkIfUserScrolledToBottom());
+      // this.getFirstTwoEvents()
+      window.addEventListener('scroll', this.checkIfUserScrolledToBottom);
     }
     componentWillUnmount()
     {
-      window.removeEventListener('scroll', this.checkIfUserScrolledToBottom())
-    }
-    getEvents = async () => {
-      let events = await Axios.get('http://localhost:3030/getAllEvents', {withCredentials: true})
-      .then((res) => {this.setState({'events': res.data.payload})})
-      .catch((err) => {console.log(err)})
+      window.removeEventListener('scroll', this.checkIfUserScrolledToBottom)
     }
 
     checkIfUserScrolledToBottom = async () =>{
-
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-         console.log("you're at the bottom of the page");
-         // Show loading spinner and make fetch request to api
-        let result = await Axios.get('http://localhost:3030/getNextTwoEvents/2', {withCredentials: true})
-        console.log(result)
+         this.setState({'isLoading': true})
+
+         this.setState({'initialEventElementID': this.state.initialEventElementID + 2}, async () => {
+           await this.getNextTwoEvents()
+         })
+
+         
+        }
       }
+      getFirstTwoEvents = () => {
+        Axios.get(`http://localhost:3030/getNextTwoEvents/0`, {withCredentials: true})
+        .then((res) => {
+            this.setState((prevState) => ({
+              'events': [...prevState.events, res.data]
+            }))
+            this.setState({'isLoading': false})
+          
+        })
+        .catch((err) => {console.log(err)})
+      }
+      getNextTwoEvents = () => {
+        console.log('after scroll: ', this.state.initialEventElementID)
+        Axios.get(`http://localhost:3030/getNextTwoEvents/${this.state.initialEventElementID}`, {withCredentials: true})
+        .then((res) => {
+          if(res.data != [])
+          {
+            this.setState((prevState) => ({
+              'events': [...prevState.events, res.data]
+            }))
+            this.setState({'isLoading': false})
+          }
+        })
+        .catch((err) => {console.log(err)})
     }
 
-  render() {
+    
+    
+    render() {
     return (
         <div>
-
               <SidebarComponent/>
-                {/* <NavbarComponentRegisteredUser/> */}
                 <Container className='EventCardsContainer'>
-                  <div className='EventCardsWrapper row' style={{'margin-left': '2%'}}>
-                    {this.state.events.map((event) => {
-                      return <SquareEventCardComponent props={event}/>
-                      })}
-                  </div>
+                      <div className='EventCardsWrapper row' style={{'margin-left': '2%'}}>
+                        {this.state.events.map((eventsList) => {
+                          return(
+                              eventsList.map((event) => {
+                                return <SquareEventCardComponent props={event}/>
+
+                                }))
+                            })
+                          
+                          }
+                        
+                        {this.state.isLoading == true ?
+                        <div className='d-flex justify-content-center'>
+                          <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                        </div>
+                        :
+                          ""
+                        }
+                      </div>
+                        
                 </Container>
         </div>
     )

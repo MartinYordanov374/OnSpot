@@ -29,9 +29,15 @@
 
 .EventCardsWrapper {
   padding: 20px;
+  height: 100vh;
 }
 
 .EventCardsContainer {
   margin-left: 18% !important;
+}
+
+.spinner-border {
+  position: absolute;
+  left: 50%;
 }
 /*# sourceMappingURL=LandingPage.css.map */
