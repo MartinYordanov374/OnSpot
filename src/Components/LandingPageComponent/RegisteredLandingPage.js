@@ -8,12 +8,12 @@ export default class RegisteredLandingPage extends Component {
     constructor()
     {
       super()
-      this.state = {events: [], initialEventElementID: -2, isLoading: false, endReached: false}
+      this.state = {events: [], initialEventElementID: 0, isLoading: false, endReached: false}
     }
 
     componentDidMount()
     {
-      // this.getFirstTwoEvents()
+      this.getFirstTwoEvents()
       window.addEventListener('scroll', this.checkIfUserScrolledToBottom);
     }
     componentWillUnmount()

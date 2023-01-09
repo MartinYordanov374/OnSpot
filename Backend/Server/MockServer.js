@@ -122,6 +122,7 @@ let start = async() =>
 
     app.post('/hostEvent', async (req,res) => {
         // TODO FIGURE LOCATION OUT
+        console.log(req.body)
         let eventName = req.body.name;
         let eventDescription = req.body.description;
         let eventLocation = req.body.location;

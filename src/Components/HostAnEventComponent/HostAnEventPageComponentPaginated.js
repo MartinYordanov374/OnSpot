@@ -198,8 +198,7 @@ export default class HostAnEventPageComponentPaginated extends Component {
                     <Container>
                         <div className='eventDescriptionWrapper row'>
                             <h2 className='fieldLabel'>Event description</h2>
-                            <FormControl className='inputField' placeholder='Event description'/>
-                            {/* onChange = {(e) => this.handleEnterEventDescription(e.target.value)} */}
+                            <FormControl className='inputField' placeholder='Event description' onChange = {(e) => this.handleEnterEventDescription(e.target.value)}/>
                             <Button className='previousBtn col-sm' onClick={() => this.previousPage()}>
                                 <FontAwesomeIcon icon = {faChevronLeft}/>
                             </Button>   
