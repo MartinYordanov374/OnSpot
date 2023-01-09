@@ -132,6 +132,16 @@ async function getEventById(eventId)
     
     return result.recordset
 }
+
+async function getLastTwoEvents(lastEventId)
+{
+    let result = await sql.query(`
+    SELECT * 
+    FROM dbo.Events e
+    ORDER BY e.EventID
+    OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY`)
+    return result.recordset
+}
 async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName, 
     updatedEventCategory, updatedEventDate, updatedEventDesc, updatedEventType )
     {
@@ -256,5 +266,6 @@ module.exports = {
     GetAllUpcomingEvents,
     GetAllEventsHostedByUser,
     GetAllAttendedUserEvents,
-    GetAllUpcomingUserEvents
+    GetAllUpcomingUserEvents,
+    getLastTwoEvents
 }

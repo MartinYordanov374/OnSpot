@@ -16,22 +16,11 @@ export default class RegisteredLandingPage extends Component {
     async componentDidMount()
     {
       await this.getEvents()
-      window.addEventListener('scroll', function() {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-           console.log("you're at the bottom of the page");
-           // Show loading spinner and make fetch request to api
-        }
-     });
+      window.addEventListener('scroll', this.checkIfUserScrolledToBottom());
     }
     componentWillUnmount()
     {
-      window.removeEventListener('scroll', function() {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-           console.log("you're at the bottom of the page");
-           // Show loading spinner and make fetch request to api
-           
-        }
-     })
+      window.removeEventListener('scroll', this.checkIfUserScrolledToBottom())
     }
     getEvents = async () => {
       let events = await Axios.get('http://localhost:3030/getAllEvents', {withCredentials: true})
@@ -39,6 +28,15 @@ export default class RegisteredLandingPage extends Component {
       .catch((err) => {console.log(err)})
     }
 
+    checkIfUserScrolledToBottom = async () =>{
+
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+         console.log("you're at the bottom of the page");
+         // Show loading spinner and make fetch request to api
+        let result = await Axios.get('http://localhost:3030/getNextTwoEvents/2', {withCredentials: true})
+        console.log(result)
+      }
+    }
 
   render() {
     return (
