@@ -43,14 +43,13 @@ export default class MapComponent extends Component {
   render() {
     return (
       <div>
-        {/* TODO: ADD LOADING DOTS OR SOMETHING HERE */}
         <ToastContainer/>
         {this.state.isLoading == true ? 
         
         <div className='d-flex justify-content-center'>
-                          <div class="spinner-border text-primary loadingSpinnerWrapper" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                           </div>
+            <div class="spinner-border text-primary loadingSpinnerWrapper" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
         </div> : 
         <Container>
             <MapContainer

@@ -161,7 +161,7 @@ export default class EventPageComponent extends Component {
                                     : 
                                 ""}
                             </Card.Header>
-                            <div className='optionsDropdown row'>
+                            <div className='optionsDropdown row' >
                                     <a href={`/EditEvent/${this.targetID}`} className='option col'>
                                         <FontAwesomeIcon icon={faPen}/>
                                         Edit

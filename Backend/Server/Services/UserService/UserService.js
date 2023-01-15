@@ -291,6 +291,7 @@ async function SendMessage(ConvoID, Message, SenderID)
     }
     catch(err)
     {
+        console.log(err)
         return {status: 500, msg: 'Internal server error.', error: err}
     }
 }

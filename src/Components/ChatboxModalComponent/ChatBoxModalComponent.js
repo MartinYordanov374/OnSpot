@@ -74,6 +74,7 @@ export default class ChatBoxModalComponent extends Component {
       let currentUserID = currentUserData.id
       this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
         this.state.socket.on('getConvo', (res) => {
+          console.log(res)
           this.setState({'conversationMessages': res.data})
 
         })
@@ -87,14 +88,14 @@ export default class ChatBoxModalComponent extends Component {
 
   }
 
-  componentDidUpdate = async() =>
-  {
-    this.state.socket.emit('requestConvo', {'receiverID': Number(this.state.receiverID), 'senderID':Number(this.state.senderID)})
-      this.state.socket.on('getConvo', (res) => {
-        this.setState({'conversationMessages': res.data})
+  // componentDidUpdate = async() =>
+  // {
+  //   this.state.socket.emit('requestConvo', {'receiverID': Number(this.state.receiverID), 'senderID':Number(this.state.senderID)})
+  //     this.state.socket.on('getConvo', (res) => {
+  //       this.setState({'conversationMessages': res.data})
 
-      })
-  }
+  //     })
+  // }
   render() {
     
     return (

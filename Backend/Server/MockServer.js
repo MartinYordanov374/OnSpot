@@ -462,7 +462,7 @@ let start = async() =>
                 // save message to convo after creating convo
                 let convoID = newConvo.data.data[0].ConvoID
                 let newMessage = await SendMessage(convoID,message,senderID)
-                res.status(200).send(newConvo.msg)
+                res.status(200).send(newMessage.msg)
             }
         }
         catch(err)

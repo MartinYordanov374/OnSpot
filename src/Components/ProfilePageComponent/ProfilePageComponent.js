@@ -132,7 +132,6 @@ export default class ProfilePageComponent extends Component {
   render() {
     return (
         <div>
-          {console.log(this.state)}
         {
         this.state.loginStatus == true ? 
           <div>
