@@ -54,4 +54,10 @@
 .profilePageWrapper .userEvents .userActivityHeader {
   margin-top: 2rem;
   margin-left: 2rem;
+}
+@media screen and (max-width: 1440px) {
+  .profilePageWrapper {
+    margin-left: 19%;
+    width: 87%;
+  }
 }/*# sourceMappingURL=ProfilePageStyle.css.map */
