@@ -16,7 +16,7 @@ export default class EditEvent extends Component {
             targetEventClass: '', 
             targetEventType: '', 
             targetEventDesc: '', 
-            targetEventLocation: '', 
+            targetEventLocaction: '', 
             targetEventStartDate: '', 
             targetEventEndDate: '',
             targetEventHostId: '',  
@@ -88,6 +88,35 @@ export default class EditEvent extends Component {
         this.setState({'targetEventStartDate': formattedStartDate, 'targetEventEndDate': formattedEndDate})
       }
 
+      handleEnterEventName(value)
+      {
+          this.setState({'targetEventName': value})
+      }
+      handleEnterEventDescription(value)
+      {
+         
+          this.setState({'targetEventDesc': value})
+      }
+
+      handleSelectType(value)
+      {
+        let dropdown = document.querySelector('.eventTypeField');
+        dropdown.value = value;
+        this.setState({'targetEventType': value})
+    }  
+    handleSelectCategory(value)
+    {
+        let dropdown = document.querySelector('.eventCategoryField');
+        dropdown.value = value;
+        this.setState({'targetEventCategory': value})
+    }
+    handleSelectLocation(value)
+    {
+        let dropdown = document.querySelector('.eventCategoryField');
+        dropdown.value = value;
+        this.setState({'targetEventLocaction': value})
+    }
+
     componentDidMount()
     {
         this.GetTargetEventData()
@@ -113,17 +142,23 @@ export default class EditEvent extends Component {
                         placeholder='Event Name' 
                         value = {this.state.targetEventName} 
                         className='eventDataForm'
+                        onChange = {(e) => this.handleEnterEventName(e.target.value)}
+
                         />
 
                         <FormControl 
                         placeholder='Event Description' 
                         value={this.state.targetEventDesc} 
-                        className='eventDataForm'/>
+                        className='eventDataForm'
+                        onChange = {(e) => this.handleEnterEventDescription(e.target.value)}
+                        />
 
                         <FormControl 
                         placeholder='Event Location' 
                         value = {this.state.targetEventLocaction}
-                        className='eventDataForm'/>
+                        className='eventDataForm'
+                        onChange = {(e) => this.handleSelectLocation(e.target.value)}
+                        />
 
                         <FormControl 
                         placeholder='Event Start Date' 
@@ -134,7 +169,7 @@ export default class EditEvent extends Component {
                         placeholder='Event End Date' 
                         value = {this.state.targetEventEndDate}
                         className='eventDataForm'/>
-                        
+
                     </div>
                     <div className='calendarWrapper'>
                         <Calendar className='calendar' selectRange={true} onChange={(e) => this.handleSelectDate(e)}/>
@@ -142,8 +177,9 @@ export default class EditEvent extends Component {
 
                     <div className='inputGroupsWrapper row'>
                         <InputGroup className='eventDataForm'>
-                                <FormControl placeholder={this.state.targetEventClass} disabled='true' />
-                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectCategory} defaultValue="Hangout">
+                                <FormControl className='eventCategoryField' value={this.state.targetEventClass} disabled='true' />
+                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon' 
+                                onSelect={this.handleSelectCategory} defaultValue="Hangout">
                                     <Dropdown.Item eventKey = {'Tech'}>Tech</Dropdown.Item>
                                     <Dropdown.Item eventKey = {'Business'} >Business</Dropdown.Item>
                                     <Dropdown.Item eventKey = {'Hangout'} >Hangout</Dropdown.Item>
@@ -152,7 +188,7 @@ export default class EditEvent extends Component {
                         </InputGroup>
 
                         <InputGroup className='eventDataForm'>
-                            <FormControl placeholder={this.state.targetEventType == 0 ? "Public" : "Private"} aria-describedby='dropdownAddon' disabled='true' />
+                            <FormControl className='eventTypeField' value={this.state.targetEventType == 0 ? "Public" : "Private"} aria-describedby='dropdownAddon' disabled='true' />
                                 <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectType} defaultValue="Public">
                                     <Dropdown.Item eventKey = {'Public'}>Public</Dropdown.Item>
                                     <Dropdown.Item eventKey = {'Private'} >Private</Dropdown.Item>
