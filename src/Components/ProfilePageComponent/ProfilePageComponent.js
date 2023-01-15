@@ -57,6 +57,7 @@ export default class ProfilePageComponent extends Component {
 
   handleSelectProfilePicture = () => {
     let profileImageInputField = document.querySelector('.profileImageUpload')
+    console.log(profileImageInputField)
     profileImageInputField.click()
   }
 
@@ -105,17 +106,17 @@ export default class ProfilePageComponent extends Component {
     await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
     .then((res)=>{
       this.setState({'currentUserData':res.data[0]})  
+      this.splittedUrl = window.location.href.split('/')
+      this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
+      if(Number(res.data[0].id) == Number(this.targetID))
+      {
+        this.setState({'isCurrentUserOwner':true})
+      }
+      else
+      {
+        this.setState({'isCurrentUserOwner':false})
+      }
     })
-    this.splittedUrl = window.location.href.split('/')
-    this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
-    if(this.state.currentUserData.id == this.targetID)
-    {
-      this.setState({'isCurrentUserOwner':true})
-    }
-    else
-    {
-      this.setState({'isCurrentUserOwner':false})
-    }
   }
 
   handleChatBoxModal = async() => {
@@ -131,6 +132,7 @@ export default class ProfilePageComponent extends Component {
   render() {
     return (
         <div>
+          {console.log(this.state)}
         {
         this.state.loginStatus == true ? 
           <div>
