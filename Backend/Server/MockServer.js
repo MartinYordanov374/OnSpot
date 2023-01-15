@@ -379,7 +379,26 @@ let start = async() =>
             res.status(500).send('Internal server error.')
         }
     })
-
+    app.get('/isUserEventOwner/:eventID', async(req,res) => {
+        try{
+            let targetEventID = req.params.eventID
+            let targetEventData = await getEventById(targetEventID)
+            let targetUserData = validateToken(req.session.userToken);
+            let targetUserID = targetUserData.userID
+            if(Number(targetUserID) == targetEventData[0].id)
+            {
+                res.status(200).send({message: 'User is owner of the event.', isUserOwner: true})
+            }
+            else
+            {
+                res.status(409).send({message: 'User is not owner of the event.', isUserOwner: false})
+            }
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
+    })
     app.get('/GetAllUpcomingEvents', async(req,res) => {
         try{
             let result = await GetAllUpcomingEvents()

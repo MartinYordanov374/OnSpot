@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Container, Button,Card, Carousel, CarouselItem } from 'react-bootstrap'
-import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './EventPageStyles/EventPageStyling.css'
 import Axios from 'axios'
 import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandingPage'
 import MapComponent from '../MapComponent/MapComponent'
 import { Buffer } from 'buffer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 
 export default class EventPageComponent extends Component {
     // TODO: ADD A LOADING SCREEN UNTIL ALL THE STATE DATA IS LOADED
@@ -36,7 +37,8 @@ export default class EventPageComponent extends Component {
             doesUserAttend: false, 
             loginStatus: false,
             currentDate: this.date,
-            isLoading: true
+            isLoading: true,
+            isUserHoster: false
         }
         this.splittedUrl = window.location.href.split('/')
         this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
@@ -53,9 +55,26 @@ export default class EventPageComponent extends Component {
                 'targetEventHostUsername': res.data.Username, 'targetEventHostId': res.data.id, 'targetEventHostBio': res.data.Bio == null ? "This user has not added any bio to their profile." : res.data.Bio,
                 'targetEventID': this.targetID, 'targetEventHostProfilePicture': res.data.ProfilePicture 
             })
+            this.CheckIfUserIsOwner()
             this.setState({'isLoading': false})
+        })
+    }
 
-
+    async CheckIfUserIsOwner()
+    {
+        await Axios.get(`http://localhost:3030/isUserEventOwner/${this.targetID}`, {withCredentials: true})
+        .then((res) => {
+            if(res.data.isUserOwner == true)
+            {
+                this.setState({'isUserHoster': true})
+            }
+            else
+            {
+                this.setState({'isUserHoster': false})
+            }
+        })
+        .catch((err) => {
+            // console.log(err)
         })
     }
 
@@ -126,6 +145,10 @@ export default class EventPageComponent extends Component {
                     <Card className='eventCard'>
                             <Card.Header className = 'eventCardHeader'>
                                 <h1>{this.state.targetEventName}</h1>
+                                {this.state.isUserHoster == true ?
+                                    <FontAwesomeIcon icon={faEllipsisH} className = 'dotsMenu'/>
+                                : 
+                                ""}
                             </Card.Header>
                             <div className='eventImagesCarousel'>
                                 {/* TODO: CHECK IF IMAGES EXIST FOR THE GIVEN EVENT, IF THEY DO NOT THEN DISPLAY PLACEHOLDER IMAGES */}
