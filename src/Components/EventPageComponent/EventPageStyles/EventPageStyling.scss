@@ -3,7 +3,21 @@ $shortTextFontSize: 30px;
     font-weight: bold;
     font-size: large;
     .eventCardHeader{
-        // text-align: center;
+        .eventHeader{
+            width: fit-content;
+            padding: 1rem;
+        }
+        .dotsMenu{
+            float: right;
+            margin-left: auto;
+            padding-top: 2rem;
+            padding-right: 2rem;
+
+            font-size: xx-large;
+            &:hover{
+                cursor: pointer;
+            }
+        }
     }
     .eventCardDescWrapper{
         padding-top: 5%

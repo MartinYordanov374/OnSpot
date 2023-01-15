@@ -144,7 +144,7 @@ export default class EventPageComponent extends Component {
                     {/* <NavbarComponentRegisteredUser/> */}
                     <Card className='eventCard'>
                             <Card.Header className = 'eventCardHeader'>
-                                <h1>{this.state.targetEventName}</h1>
+                                <h1 className='eventHeader'>{this.state.targetEventName}</h1>
                                 {this.state.isUserHoster == true ?
                                     <FontAwesomeIcon icon={faEllipsisH} className = 'dotsMenu'/>
                                 : 

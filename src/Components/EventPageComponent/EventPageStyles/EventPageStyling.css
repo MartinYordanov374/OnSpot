@@ -3,6 +3,25 @@
   font-size: large;
 }
 
+.card .eventCardHeader .eventHeader {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 1rem;
+}
+
+.card .eventCardHeader .dotsMenu {
+  float: right;
+  margin-left: auto;
+  padding-top: 2rem;
+  padding-right: 2rem;
+  font-size: xx-large;
+}
+
+.card .eventCardHeader .dotsMenu:hover {
+  cursor: pointer;
+}
+
 .card .eventCardDescWrapper {
   padding-top: 5%;
 }
