@@ -117,6 +117,21 @@ export default class EditEvent extends Component {
         this.setState({'targetEventLocaction': value})
     }
 
+    async updateEvent()
+    {
+        let result = await Axios.post(`http://localhost:3030/EditEvent/${this.targetID}`, 
+        {
+            updatedEventName: this.state.targetEventName,
+            updatedEventDesc: this.state.targetEventDesc,
+            updatedEventStartDate: this.state.targetEventStartDate,
+            updatedEventEndDate: this.state.targetEventEndDate,
+            updatedEventType: this.state.targetEventType,
+            updatedEventCategory: this.state.targetEventClass,
+
+        },
+        {withCredentials: true})
+    }
+
     componentDidMount()
     {
         this.GetTargetEventData()
@@ -197,7 +212,7 @@ export default class EditEvent extends Component {
                         </InputGroup>
                     </div>
 
-                    <Button className='updateEventButton'>Update event</Button>
+                    <Button className='updateEventButton' onClick={() => this.updateEvent()}>Update event</Button>
 
                     
                 </div>

@@ -1,4 +1,5 @@
 const sql = require('mssql')
+const { validateToken } = require('../UserService/UserService')
 
 async function HostEvent(EventHosterID, EventName, EventDescription, EventLocation, EventClass, EventType, EventStartDate, EventEndDate)
 {
@@ -143,25 +144,34 @@ async function getLastTwoEvents(lastEventId)
     return result.recordset
 }
 async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName, 
-    updatedEventCategory, updatedEventDate, updatedEventDesc, updatedEventType )
+    updatedEventCategory, updatedEventStartDate, updatedEventEndDate, updatedEventDesc, updatedEventType )
     {
         let tokenData = validateToken(CurrentUserToken)
         if(tokenData.status == true)
         {
-            try{
-
-                await sql.query`UPDATE dbo.Events 
-                SET EventDescription = ${updatedEventDesc}, 
-                EventName = ${UdpatedEventName},
-                EventType = ${updatedEventType},
-                EventDate = ${updatedEventDate},
-                EventCategory = ${updatedEventCategory}
-                WHERE EventHosterID = ${tokenData.userID} AND EventID = ${TargetEventID} `
-                return {status: 200, msg: 'Event successfully edited.'}
+            let targetEvent = await getEventById(TargetEventID)
+            if(Number(targetEvent[0].id) == Number(tokenData.userID))
+            {            
+                try{
+                    await sql.query`UPDATE dbo.Events 
+                    SET EventDescription = ${updatedEventDesc}, 
+                    EventName = ${UdpatedEventName},
+                    EventType = ${updatedEventType},
+                    EventStartDate = ${updatedEventStartDate},
+                    EventEndDate = ${updatedEventEndDate},
+                    EventClass = ${updatedEventCategory}
+                    WHERE EventHosterID = ${tokenData.userID} AND EventID = ${TargetEventID} `
+                    return {status: 200, msg: 'Event successfully edited.'}
+                }
+                catch(err)
+                {
+                    console.log(err)
+                    return {status: 409, msg: 'You can not do this action.'}
+                }
             }
-            catch(err)
+            else
             {
-                return {status: 409, msg: 'You can not do this action.'}
+                return {status: 409, msg: 'You are not the owner of this event.'}
             }
         }
     }
@@ -254,6 +264,7 @@ async function GetAllAttendedUserEvents(userID)
         return {status: 500, msg: 'Internal Server Error'}
     }
 }
+
 module.exports = {
     HostEvent,
     CheckIfUserAlreadyCreatedEvent,

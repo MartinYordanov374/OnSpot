@@ -277,15 +277,23 @@ let start = async() =>
     app.post('/EditEvent/:eventID', async(req,res) => {
         let updatedEventName = req.body.updatedEventName
         let updatedEventDesc = req.body.updatedEventDesc;
-        let updatedEventDate = new Date(req.body.updatedEventDate).toISOString()
+        let updatedEventStartDate = new Date(req.body.updatedEventStartDate).toISOString()
+        let updatedEventEndDate = new Date(req.body.updatedEventEndDate).toISOString()
+
         let updatedEventType = req.body.updatedEventType;
         let updatedEventCategory = req.body.updatedEventCategory;
 
         let targetEventID = Number(req.params.eventID)
-        let currentUserToken = req.params.userToken;
+        let currentUserToken = req.session.userToken;
 
-        let result = await EditEvent(targetEventID, currentUserToken, updatedEventName, updatedEventCategory, updatedEventDate, updatedEventDesc, updatedEventType )
-        res.status(result.status).send(result.msg)
+        let result = await EditEvent(targetEventID, currentUserToken, updatedEventName, updatedEventCategory, updatedEventStartDate, updatedEventEndDate, updatedEventDesc, updatedEventType )
+        .then((res) => {
+            console.log(res)
+            res.status(res.status).send(res.msg)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 
     })
 
