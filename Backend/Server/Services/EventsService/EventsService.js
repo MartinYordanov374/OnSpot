@@ -127,7 +127,7 @@ async function getEventById(eventId)
     INNER JOIN Users u 
     ON u.id = e.EventHosterID 
     AND e.EventID = ${eventId}
-    INNER JOIN ProfilePictures pp 
+    LEFT JOIN ProfilePictures pp 
     ON pp.UserID = id`
     
     return result.recordset
