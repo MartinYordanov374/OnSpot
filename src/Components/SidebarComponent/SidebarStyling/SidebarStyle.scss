@@ -119,5 +119,16 @@ $menu-item-font-weight: 300;
             height:100vh;
         }    
     }
+
+    @media screen and (max-width: 1440px)
+    {
+        .safeMenu{
+            .menuItem{
+                padding: 0rem;
+            }
+
+        }
+
+    }
     
 }

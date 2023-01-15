@@ -7,7 +7,7 @@ let connectionStringData = {
     database: process.env.REACT_APP_SERVER_DATABASENAME,
     user: process.env.REACT_APP_SERVER_USER,
     password: process.env.REACT_APP_SERVER_PASSWORD,
-    options: {"trustServerCertificate": true}
+    options: {"trustServerCertificate": true, encrypt: true},
 }
 
 async function connectWithMSSQLDatabase() {

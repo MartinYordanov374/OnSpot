@@ -30,7 +30,7 @@
 }
 .EventCardsWrapper{
     padding: 20px;
-    height: 100vh;
+    // height: 100vh;
 }
 
 .EventCardsContainer{
@@ -40,4 +40,10 @@
 .spinner-border{
     position: absolute;
     left:50%;
+}
+
+@media screen and (max-height: 1440px) {
+    .EventCardsWrapper{
+        display: block !important;
+    }
 }

@@ -3,12 +3,10 @@
   font-weight: 300;
   color: black;
 }
-
 .welcomeText .signUpButtonWrapper {
   font-weight: bold;
   text-align: center !important;
 }
-
 .welcomeText .signUpButtonWrapper .signUpButtonLink {
   text-decoration: none;
   color: black;
@@ -22,14 +20,12 @@
 .secondRow {
   margin-top: 6rem;
 }
-
 .secondRow .welcomeImageWrapper .welcomeImage {
   width: 25rem;
 }
 
 .EventCardsWrapper {
   padding: 20px;
-  height: 100vh;
 }
 
 .EventCardsContainer {
@@ -40,4 +36,9 @@
   position: absolute;
   left: 50%;
 }
-/*# sourceMappingURL=LandingPage.css.map */
+
+@media screen and (max-height: 1440px) {
+  .EventCardsWrapper {
+    display: block !important;
+  }
+}/*# sourceMappingURL=LandingPage.css.map */

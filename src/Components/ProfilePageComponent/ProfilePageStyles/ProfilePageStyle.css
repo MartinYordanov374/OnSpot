@@ -2,18 +2,15 @@
   height: 200px;
   background-color: black;
 }
-
 .profilePageWrapper .userPFP {
   width: 15rem;
   border-radius: 50%;
   margin-top: 5rem;
   margin-left: 2rem;
 }
-
 .profilePageWrapper .profilePageUserDetails {
   background-color: white;
 }
-
 .profilePageWrapper .profilePageUserDetails .username {
   margin-top: 7rem;
   margin-left: 4rem;
@@ -21,49 +18,40 @@
   font-weight: bold;
   color: black;
 }
-
 .profilePageWrapper .profilePageUserDetails .followers {
   margin-left: 5.7rem;
   font-size: 25px;
   font-weight: bold;
   color: black;
 }
-
 .profilePageWrapper .profilePageUserDetails .userInteractionBtns {
   margin-top: 10rem;
   margin-left: auto;
   margin-right: 1rem;
   font-size: 25px;
 }
-
 .profilePageWrapper .profilePageUserDetails .userInteractionBtns .messageUser {
   font-size: larger;
   font-weight: bold;
   color: #008CDB;
 }
-
 .profilePageWrapper .profilePageUserDetails .userInteractionBtns .messageUser:hover {
   cursor: pointer;
 }
-
 .profilePageWrapper .profilePageUserDetails .userInteractionBtns .followUser {
   font-size: larger;
   font-weight: bold;
   color: #008CDB;
 }
-
 .profilePageWrapper .profilePageUserDetails .userInteractionBtns .followUser:hover {
   cursor: pointer;
 }
-
 .profilePageWrapper .userEvents {
   border-top-style: solid;
   height: 700px;
   background-color: white;
 }
-
 .profilePageWrapper .userEvents .userActivityHeader {
   margin-top: 2rem;
   margin-left: 2rem;
-}
-/*# sourceMappingURL=ProfilePageStyle.css.map */
+}/*# sourceMappingURL=ProfilePageStyle.css.map */

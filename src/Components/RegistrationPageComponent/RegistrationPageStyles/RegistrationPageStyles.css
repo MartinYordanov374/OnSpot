@@ -2,41 +2,31 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
-
 .SignUpComponentWrapper .buttonWrapper .signUpButton {
   font-weight: bold;
   width: 10rem;
   font-size: larger;
 }
-
 .SignUpComponentWrapper .signUpText {
   font-weight: bold;
   font-size: 3rem;
 }
-
 .SignUpComponentWrapper .emailUsernameForms .emailField {
   margin-right: 2%;
 }
-
 .SignUpComponentWrapper .passwordForms .passwordField {
   margin-right: 2%;
 }
-
 .SignUpComponentWrapper .field {
-  -webkit-box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
-          box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+  box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
 }
 
 .AlreadyRegisteredWrapper .alreadyRegistered {
   font-weight: bold;
 }
-
 .AlreadyRegisteredWrapper .alreadyRegistered .loginLink {
   text-decoration: none;
-  -webkit-transition: 0.5s linear;
   transition: 0.5s linear;
-}
-/*# sourceMappingURL=RegistrationPageStyles.css.map */
+}/*# sourceMappingURL=RegistrationPageStyles.css.map */
