@@ -47,4 +47,11 @@
   text-align: center;
   font-weight: bold;
   font-size: 2rem;
+}
+
+@media screen and (max-width: 1440px) {
+  .CalendarWrapper .CalendarContainer {
+    margin-left: 22%;
+    width: 78%;
+  }
 }/*# sourceMappingURL=CalendarScheduleStyle.css.map */
