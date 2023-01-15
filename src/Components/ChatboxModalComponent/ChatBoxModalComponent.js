@@ -23,7 +23,6 @@ export default class ChatBoxModalComponent extends Component {
       let receiverID = window.location.href.split('/')[4]
       let currentUserData = await this.getCurrentUserData()
       let currentUserID = currentUserData.id
-
       setTimeout(() => {
         this.setState({'receiverID': Number(receiverID)})
         this.setState({'senderID': Number(currentUserID)})
@@ -74,7 +73,6 @@ export default class ChatBoxModalComponent extends Component {
       let currentUserID = currentUserData.id
       this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
         this.state.socket.on('getConvo', (res) => {
-          console.log(res)
           this.setState({'conversationMessages': res.data})
 
         })

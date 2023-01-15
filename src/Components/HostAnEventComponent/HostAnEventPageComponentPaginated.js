@@ -176,7 +176,6 @@ export default class HostAnEventPageComponentPaginated extends Component {
                                     <Dropdown.Item eventKey = {'Public'}>Public</Dropdown.Item>
                                     <Dropdown.Item eventKey = {'Private'} >Private</Dropdown.Item>
                                 </DropdownButton>
-
                             </InputGroup>
                             <div className='buttonsWrapper'>
                                 <Button className='previousBtn col-sm-2' onClick={() => this.previousPage()}>

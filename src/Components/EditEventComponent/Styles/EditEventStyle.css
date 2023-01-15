@@ -1,0 +1,23 @@
+.editEventFormWrapper {
+  width: 50%;
+  margin-left: 35%;
+  padding-top: 5%;
+}
+.editEventFormWrapper .eventDataForm {
+  width: 100%;
+  margin-top: 5%;
+}
+.editEventFormWrapper .calendarWrapper {
+  float: right;
+}
+.editEventFormWrapper .fieldsWrapper {
+  width: 50%;
+  float: left;
+}
+.editEventFormWrapper .updateEventButton {
+  margin-left: 40%;
+  margin-top: 5%;
+}
+.editEventFormWrapper .updateEventHeader {
+  margin-bottom: 10%;
+}/*# sourceMappingURL=EditEventStyle.css.map */
