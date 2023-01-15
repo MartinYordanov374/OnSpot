@@ -41,4 +41,8 @@
   .EventCardsWrapper {
     display: block !important;
   }
+  .loadingSpinnerWrapper {
+    margin-left: 10%;
+    margin-top: 1%;
+  }
 }/*# sourceMappingURL=LandingPage.css.map */

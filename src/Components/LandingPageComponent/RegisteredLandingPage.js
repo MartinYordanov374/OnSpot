@@ -84,7 +84,7 @@ export default class RegisteredLandingPage extends Component {
                         
                         {this.state.isLoading == true ?
                         <div className='d-flex justify-content-center'>
-                          <div class="spinner-border text-primary" role="status">
+                          <div class="spinner-border text-primary loadingSpinnerWrapper" role="status">
                             <span class="visually-hidden">Loading...</span>
                           </div>
                         </div>
