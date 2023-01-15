@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Button,Card, Carousel, CarouselItem } from 'react-bootstrap'
+import { Container, Button,Card, Carousel } from 'react-bootstrap'
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './EventPageStyles/EventPageStyling.css'
 import Axios from 'axios'
@@ -7,7 +7,7 @@ import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandi
 import MapComponent from '../MapComponent/MapComponent'
 import { Buffer } from 'buffer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisH, faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 
 export default class EventPageComponent extends Component {
     // TODO: ADD A LOADING SCREEN UNTIL ALL THE STATE DATA IS LOADED
@@ -111,7 +111,17 @@ export default class EventPageComponent extends Component {
         })
         .catch((err) => {console.log(err)})
     }
-
+    showOwnerMenu = () => {
+        let optionsDropdown = document.querySelector('.optionsDropdown')
+        if(optionsDropdown.style.display == 'none')
+        {
+            optionsDropdown.style.display = 'block'
+        }
+        else
+        {
+            optionsDropdown.style.display = 'none'
+        }
+    }
     checkIfUserIsLoggedIn = async () => {
         await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
         .then((res)=>{
@@ -143,13 +153,23 @@ export default class EventPageComponent extends Component {
                     <Container>
                     {/* <NavbarComponentRegisteredUser/> */}
                     <Card className='eventCard'>
-                            <Card.Header className = 'eventCardHeader'>
-                                <h1 className='eventHeader'>{this.state.targetEventName}</h1>
+                            <Card.Header className = 'eventCardHeader row'>
+                                <h1 className='eventHeader col-sm-2'>{this.state.targetEventName}</h1>
                                 {this.state.isUserHoster == true ?
-                                    <FontAwesomeIcon icon={faEllipsisH} className = 'dotsMenu'/>
-                                : 
+                                    <FontAwesomeIcon icon={faEllipsisH} className = 'dotsMenu col-sm-2' onClick={() => this.showOwnerMenu()}/>
+                                    : 
                                 ""}
                             </Card.Header>
+                            <div className='optionsDropdown row'>
+                                    <a href={`/EditEvent/${this.targetID}`} className='option col'>
+                                        <FontAwesomeIcon icon={faPen}/>
+                                        Edit
+                                    </a>
+                                    <a href={`/DeleteEvent/${this.targetID}`} className='option col'> 
+                                        <FontAwesomeIcon icon={faTrash}/>
+                                        Delete
+                                    </a>
+                                </div>
                             <div className='eventImagesCarousel'>
                                 {/* TODO: CHECK IF IMAGES EXIST FOR THE GIVEN EVENT, IF THEY DO NOT THEN DISPLAY PLACEHOLDER IMAGES */}
                                 <Carousel>

@@ -11,10 +11,23 @@ $shortTextFontSize: 30px;
             float: right;
             margin-left: auto;
             padding-top: 2rem;
-            padding-right: 2rem;
-
             font-size: xx-large;
             &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+    .optionsDropdown{
+        display: none;
+        text-align: center;
+        .option:nth-child(2){
+            margin-left: 25%;
+        }
+        .option{
+            text-decoration: none;
+            color: black;
+            &:hover{
+                color: rgb(58, 58, 58);
                 cursor: pointer;
             }
         }

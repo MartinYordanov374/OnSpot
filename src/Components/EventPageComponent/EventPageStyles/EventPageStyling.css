@@ -14,11 +14,29 @@
   float: right;
   margin-left: auto;
   padding-top: 2rem;
-  padding-right: 2rem;
   font-size: xx-large;
 }
 
 .card .eventCardHeader .dotsMenu:hover {
+  cursor: pointer;
+}
+
+.card .optionsDropdown {
+  display: none;
+  text-align: center;
+}
+
+.card .optionsDropdown .option:nth-child(2) {
+  margin-left: 25%;
+}
+
+.card .optionsDropdown .option {
+  text-decoration: none;
+  color: black;
+}
+
+.card .optionsDropdown .option:hover {
+  color: #3a3a3a;
   cursor: pointer;
 }
 
