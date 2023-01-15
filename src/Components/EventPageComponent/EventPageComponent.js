@@ -238,6 +238,7 @@ export default class EventPageComponent extends Component {
                                 </div>
                                 <div className='mapWrapper col'>
                                     <p>Location:</p>
+                                    <p>{this.state.targetEventLocaction}</p>
                                     <MapComponent props = {this.state.targetEventLocaction}/>
                                 </div>
 
