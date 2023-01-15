@@ -38,7 +38,10 @@ export default class RegisteredLandingPage extends Component {
             this.setState((prevState) => ({
               'events': [...prevState.events, res.data]
             }))
-            this.setState({'isLoading': false})
+            setTimeout(() => {
+              this.setState({'isLoading': false})
+
+            }, 600)
           
         })
         .catch((err) => {console.log(err)})
@@ -52,7 +55,10 @@ export default class RegisteredLandingPage extends Component {
             this.setState((prevState) => ({
               'events': [...prevState.events, res.data]
             }))
-            this.setState({'isLoading': false})
+            setTimeout(() => {
+              this.setState({'isLoading': false})
+
+            }, 600)
           }
         })
         .catch((err) => {console.log(err)})
