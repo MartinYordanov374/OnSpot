@@ -161,7 +161,7 @@ async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName,
                     EventEndDate = ${updatedEventEndDate},
                     EventClass = ${updatedEventCategory}
                     WHERE EventHosterID = ${tokenData.userID} AND EventID = ${TargetEventID} `
-                    return {status: 200, msg: 'Event successfully edited.'}
+                    return {status: 200, msg: 'Event successfully updated.'}
                 }
                 catch(err)
                 {
