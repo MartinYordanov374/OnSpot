@@ -29,11 +29,12 @@ export default class MapComponent extends Component {
     .then((res) => {
         let latitude = res.data[0].lat
         let longitude = res.data[0].lon
-        this.setState({'latitude': Number(latitude), 'longitude': Number(longitude)})
-        if(this.state.latitude != '' && this.state.longitude != '')
-        {
-            this.setState({'isLoading' : false})
-        }
+        this.setState({'latitude': Number(latitude), 'longitude': Number(longitude)}, () => {
+          if(this.state.latitude != '' && this.state.longitude != '')
+          {
+              this.setState({'isLoading' : false})
+          }
+        })
     })
     .catch((err) => {
         toast.warn('Invalid Location !')
@@ -46,7 +47,11 @@ export default class MapComponent extends Component {
         <ToastContainer/>
         {this.state.isLoading == true ? 
         
-        "Loading" : 
+        <div className='d-flex justify-content-center'>
+                          <div class="spinner-border text-primary loadingSpinnerWrapper" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                           </div>
+        </div> : 
         <Container>
             <MapContainer
                 center={[this.state.latitude, this.state.longitude]}
