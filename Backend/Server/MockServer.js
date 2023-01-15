@@ -287,9 +287,8 @@ let start = async() =>
         let currentUserToken = req.session.userToken;
 
         let result = await EditEvent(targetEventID, currentUserToken, updatedEventName, updatedEventCategory, updatedEventStartDate, updatedEventEndDate, updatedEventDesc, updatedEventType )
-        .then((res) => {
-            console.log(res)
-            res.status(res.status).send(res.msg)
+        .then((result) => {
+            res.status(result.status).send(result.msg)
         })
         .catch((err) => {
             console.log(err)

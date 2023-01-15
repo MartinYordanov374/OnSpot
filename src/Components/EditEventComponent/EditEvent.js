@@ -6,6 +6,8 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import Axios from 'axios'
 import LandingPageComponent from '../LandingPageComponent/LandingPageComponent'
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class EditEvent extends Component {
     constructor()
@@ -130,6 +132,10 @@ export default class EditEvent extends Component {
 
         },
         {withCredentials: true})
+        .then((res) => {
+            toast.success(res.data)
+        })
+        //TODO: GO BACK TO EVENT PAGE AFTER A WHILE
     }
 
     componentDidMount()
@@ -151,6 +157,7 @@ export default class EditEvent extends Component {
                 </div>
                 :
                 <div className='editEventFormWrapper '>
+                    <ToastContainer/>
                     <h1 className='updateEventHeader'>Update event </h1>
                     <div className='fieldsWrapper'>
                         <FormControl 
