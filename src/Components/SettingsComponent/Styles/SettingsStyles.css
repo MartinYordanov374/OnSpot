@@ -32,7 +32,26 @@
 .settingsPageWrapper .settingsContainer .section .label {
   width: 100%;
 }
-.settingsPageWrapper .settingsContainer .section .saveBtn {
+.settingsPageWrapper .settingsContainer .section .button {
   margin-top: 2rem;
   width: 70%;
+}
+.settingsPageWrapper .settingsContainer .blockedUsersSectionContainer {
+  height: 35vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.settingsPageWrapper .settingsContainer .blockedUsersSectionContainer .blockedUserContainer {
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+  margin-top: 2rem;
+}
+.settingsPageWrapper .settingsContainer .blockedUsersSectionContainer .blockedUserContainer .unblockButton {
+  margin-right: 2rem;
+}
+.settingsPageWrapper .settingsContainer .blockedUsersSectionContainer .blockedUserContainer .unblockButton:hover {
+  cursor: pointer;
+}
+.settingsPageWrapper .settingsContainer .blockedUsersSectionContainer::-webkit-scrollbar {
+  display: none;
 }/*# sourceMappingURL=SettingsStyles.css.map */

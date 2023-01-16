@@ -34,11 +34,32 @@
             .label{
                 width: 100%;
             }
-            .saveBtn{
+            .button{
                 // margin-left: 5.5rem;
                 margin-top: 2rem;
                 width: 70%;
             }
+        }
+        .blockedUsersSectionContainer
+        {
+            height: 35vh;
+            overflow-y: scroll;
+            -ms-overflow-style: none; 
+            scrollbar-width: none;
+            .blockedUserContainer{
+                box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+                // box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
+                margin-top: 2rem;
+                .unblockButton{
+                    margin-right: 2rem;
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            } 
+        }
+        .blockedUsersSectionContainer::-webkit-scrollbar{
+            display: none;
         }
     }
 }

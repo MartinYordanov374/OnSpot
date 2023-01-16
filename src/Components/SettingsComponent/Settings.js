@@ -13,6 +13,15 @@ export default class Settings extends Component {
       isPasswordSelected: false,
       isBlockedUsersSelected: false,
       isDeleteProfileSelected: false,
+      blockedUsersList: [
+        {'username': 'testBlock1'}, 
+        {'username': 'testBlock2'},
+        {'username': 'testBlock3'}, 
+        {'username': 'testBlock4'}, 
+        {'username': 'testBlock5'}, 
+
+
+      ]
     }
   }
 
@@ -80,9 +89,8 @@ export default class Settings extends Component {
           <div className='settingsSideMenu'>
             <p className='sideMenuOption' onClick={() => this.selectProfile()}>Profile</p>
             <p className='sideMenuOption' onClick={() => this.selectPassword()}>Password</p>
-            <p className='sideMenuOption' onClick={() => this.selectDeleteProfile()}>Delete profile</p>
             <p className='sideMenuOption' onClick={() => this.selectBlockedUsers()}>Blocked users</p>
-            <p className='sideMenuOption' onClick={() => this.selectPassword()}>Password</p>
+            <p className='sideMenuOption' onClick={() => this.selectDeleteProfile()}>Delete profile</p>
           </div>
 
           {this.state.isProfileSelected == true ?
@@ -107,7 +115,7 @@ export default class Settings extends Component {
                 />
               </div>
 
-              <Button className='saveBtn'>Save</Button>
+              <Button className='saveBtn button'>Save</Button>
 
             </div>
             :
@@ -116,7 +124,19 @@ export default class Settings extends Component {
 
           {this.state.isPasswordSelected == true ?
             <div className='passwordSectionContainer section'>
-              Password
+              <div className='d-flex'>
+                <p className='label'>Current password</p>
+                <FormControl placeholder='Current password' className='changeEmail inputField'/>
+              </div>
+              <div className='d-flex'>
+                <p className='label'>New password</p>
+                <FormControl placeholder='New password' className='changeEmail inputField'/>
+              </div>
+              <div className='d-flex'>
+                <p className='label'>Repeat new password</p>
+                <FormControl placeholder='Repeat new password' className='changeEmail inputField'/>
+              </div>
+              <Button className='changePassBtn button'>Change password</Button>
             </div>
             :
             ""
@@ -124,7 +144,16 @@ export default class Settings extends Component {
 
           {this.state.isBlockedUsersSelected == true ?
             <div className='blockedUsersSectionContainer section'>
-              Blocked
+              {this.state.blockedUsersList.length <= 1 ?
+                this.state.blockedUsersList.map((blockedUser) => {
+                  return(
+                    <div className='blockedUserContainer d-flex'>
+                      <p>{blockedUser.username}</p>
+                      <p className='ms-auto unblockButton'>Unblock</p>
+                    </div>
+                  )
+                })
+              : "You haven't blocked anybody! Yay!"}
             </div>
             :
             ""
@@ -132,7 +161,11 @@ export default class Settings extends Component {
 
           {this.state.isDeleteProfileSelected == true ?
             <div className='deleteProfileSectionContainer section'>
-              Delete profile
+              <div className='d-block'>
+                <h2>This is an irreversible action!</h2>
+
+              </div>
+                <Button className='deleteProfile button btn-danger'>Delete my profile.</Button>
             </div>
             :
             ""
