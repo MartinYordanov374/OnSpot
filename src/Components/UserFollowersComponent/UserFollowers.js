@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Axios from 'axios'
 import './Styles/UserFollowers.css'
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
-import { Button } from 'react-bootstrap'
+import { Buffer } from 'buffer';
 
 export default class UserFollowers extends Component {
     constructor()

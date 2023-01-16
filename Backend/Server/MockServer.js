@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
@@ -337,15 +337,18 @@ let start = async() =>
         let result = await UserExistsById(Number(req.params.id))
         let userFollowers = await GetUserFollowers(Number(req.params.id))
         let targetUserProfilePictureResponse = await GetUserProfilePicture(req.params.id)
+        let targetUserBackgroundPictureResponse = await GetUserBackgroundPicture(req.params.id)
         // TODO ADD CHECK IF PROFILE PICTURE FOR GIVEN USER EXISTS OR NOT
         if(targetUserProfilePictureResponse.data != undefined)
         {
             let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
+            let targetUserBackgroundPicture = targetUserBackgroundPictureResponse.data.recordset[0].BackgroundPicture
             let userObject = {
                 Username: result.recordset[0].Username,
                 Followers: userFollowers.followers,
                 Bio: result.recordset[0].bio,
-                ProfilePicture: targetUserPfp
+                ProfilePicture: targetUserPfp,
+                BackgroundPicture: targetUserBackgroundPicture
             }
             res.status(200).send(userObject)
         }
@@ -373,7 +376,6 @@ let start = async() =>
         res.status(200).send(result)
     })
     app.post('/changePfp', upload.single('pfp'), async(req,res) => {
-        // TODO: CHANGE PFP OPTION WILL BE AVAILABLE TO PROFILE OWNERS ONLY
         try{
             
             let userData = validateToken(req.session.userToken);
@@ -387,6 +389,22 @@ let start = async() =>
             res.status(500).send('Internal server error.')
         }
     })
+
+    app.post('/changeBackgroundPicture', upload.single('pfp'), async(req,res) => {
+        try{
+            
+            let userData = validateToken(req.session.userToken);
+            let pfp = {
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            }
+            let result = await ChangeBackgroundPicture(userData.userID, pfp)
+            res.status(result.status).send(result.msg)
+        }
+        catch(err){
+            res.status(500).send('Internal server error.')
+        }
+    })
+
     app.get('/isUserEventOwner/:eventID', async(req,res) => {
         try{
             let targetEventID = req.params.eventID

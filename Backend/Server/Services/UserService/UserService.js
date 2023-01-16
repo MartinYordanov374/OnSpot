@@ -227,6 +227,61 @@ async function ChangeProfilePicture(userID, profilePicture)
     }
 }
 
+async function ChangeBackgroundPicture(userID, BackgroundPicture)
+{
+    let userExists = await UserExistsById(userID)
+    if(userExists.recordset.length >= 1)
+    {
+        // check if user has already uploaded profile picture, if so change it otherwise insert it
+        try{
+            let hasUserUploadedBackgroundPicture = await GetUserBackgroundPicture(userID)
+            if(hasUserUploadedBackgroundPicture.status == 200)
+            {
+                await sql.query`UPDATE dbo.BackgroundPictures SET BackgroundPicture = ${BackgroundPicture.data} WHERE UserID = ${userID}`
+                return {status: 200, msg: 'Background picture successfully updated.'}
+            }
+            else
+            {
+                await sql.query`IF NOT EXISTS (SELECT * FROM dbo.BackgroundPictures WHERE UserID = ${userID}) INSERT INTO dbo.BackgroundPictures(UserID, BackgroundPicture) VALUES(${userID}, ${BackgroundPicture.data})`
+                return {status: 200, msg: 'Profile picture successfully uploaded.'}
+            }
+        }
+        catch(err)
+        {
+            return {status: 500, msg: 'Profile picture successfully uploaded.'}
+        }
+    }
+    else
+    {
+        return {status: 409, msg: 'You can not do that.'}
+    }
+}
+async function GetUserBackgroundPicture(userID)
+{
+    let userExists = await UserExistsById(userID)
+    if(userExists.recordset.length >= 1)
+    {        
+        try{
+            let result = await sql.query`SELECT * FROM dbo.BackgroundPictures WHERE UserID = ${userID}`
+            if(result.recordset.length >= 1)
+            {
+                return {status: 200, msg: 'Profile picture successfully retrieved.', data: result}
+            }
+            else
+            {
+                return {status: 404, msg: 'Profile picture not found.'}
+            }
+        }
+        catch(err)
+        {
+            return {status: 500, msg: 'Profile picture retrieval failed.'}
+        }
+    }
+    else
+    {
+        return {status: 409, msg: 'This user does not exist.'}
+    }
+}
 async function GetUserProfilePicture(userID)
 {
     let userExists = await UserExistsById(userID)
@@ -359,5 +414,7 @@ module.exports = {
     CheckIfConversationExists,
     SendMessage,
     CreateConversation,
-    GetConversationMessages
+    GetConversationMessages, 
+    ChangeBackgroundPicture,
+    GetUserBackgroundPicture
 }

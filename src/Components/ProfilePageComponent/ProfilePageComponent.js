@@ -60,7 +60,11 @@ export default class ProfilePageComponent extends Component {
 
   handleSelectProfilePicture = () => {
     let profileImageInputField = document.querySelector('.profileImageUpload')
-    console.log(profileImageInputField)
+    profileImageInputField.click()
+  }
+
+  handleSelectBackgroundPicture = () => {
+    let profileImageInputField = document.querySelector('.backgroundImageUpload')
     profileImageInputField.click()
   }
 
@@ -70,6 +74,20 @@ export default class ProfilePageComponent extends Component {
     let formData = new FormData()
     formData.append('pfp', profileImage)
     Axios.post('http://localhost:3030/changePfp', formData, {withCredentials: true})
+    .then((res) => {
+        console.log(res)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+  }
+
+  changeBackgroundPicture = () => {
+    let profileImageInputField = document.querySelector('backgroundImageUpload')
+    let profileImage = profileImageInputField.files[0]
+    let formData = new FormData()
+    formData.append('pfp', profileImage)
+    Axios.post('http://localhost:3030/changeBackgroundPicture', formData, {withCredentials: true})
     .then((res) => {
         console.log(res)
     })
@@ -168,7 +186,27 @@ export default class ProfilePageComponent extends Component {
               {/* <NavbarComponentRegisteredUser/> */}
               {this.state.isLoading == false? 
                 <div className='profilePageWrapper'>
-                    <div className='profilePageBackgroundImage' onClick={() => this.handleSelectProfilePicture()}>
+                    <div className='profilePageBackgroundImageWrapper'>
+                    {this.state.userData.BackgroundPicture.data 
+                        ?
+                          <img 
+                              src={
+                                `data: image/png;base64,
+                                ${Buffer.from(this.state.userData.BackgroundPicture.data).toString('base64')}`
+                                }
+                              className='userBackgroundPicture'
+                              onClick={() => this.handleSelectBackgroundPicture()}
+                          />
+                        :
+                          <img 
+                            src={`${this.state.userData.BackgroundPicture}`}
+                            className='userBackgroundPicture'
+                            onClick={() => this.handleSelectBackgroundPicture()}
+                          />
+                      }
+
+
+
                         {this.state.userData.ProfilePicture.data 
                         ?
                           <img 
@@ -177,15 +215,21 @@ export default class ProfilePageComponent extends Component {
                                 ${Buffer.from(this.state.userData.ProfilePicture.data).toString('base64')}`
                                 }
                               className='userPFP'
+                              onClick={() => this.handleSelectProfilePicture()}
                           />
                         :
                           <img 
                             src={`${this.state.userData.ProfilePicture}`}
                             className='userPFP'
+                            onClick={() => this.handleSelectProfilePicture()}
                           />
                       }
                       {this.state.isCurrentUserOwner == true ? 
                         <input type="file" className="profileImageUpload " hidden onChange={() => this.changeProfilePicture()}/>
+                        : ""
+                      }
+                      {this.state.isCurrentUserOwner == true ? 
+                        <input type="file" className="backgroundImageUpload " hidden onChange={() => this.changeBackgroundPicture()}/>
                         : ""
                       }
                       </div>
