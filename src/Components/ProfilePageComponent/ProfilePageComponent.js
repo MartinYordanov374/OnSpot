@@ -51,7 +51,6 @@ export default class ProfilePageComponent extends Component {
       this.setState({'userData': res.data})
       this.checkIfUserIsLoggedIn()
       this.setState({'isLoading': false})
-      this.getUserFollowers(this.targetID)
     })
     .catch((err) => {
       console.log(err)
@@ -64,8 +63,8 @@ export default class ProfilePageComponent extends Component {
   }
 
   handleSelectBackgroundPicture = () => {
-    let profileImageInputField = document.querySelector('.backgroundImageUpload')
-    profileImageInputField.click()
+    let backgroundImageInputField = document.querySelector('.backgroundImageUpload')
+    backgroundImageInputField.click()
   }
 
   changeProfilePicture = () => {
@@ -83,10 +82,10 @@ export default class ProfilePageComponent extends Component {
   }
 
   changeBackgroundPicture = () => {
-    let profileImageInputField = document.querySelector('backgroundImageUpload')
-    let profileImage = profileImageInputField.files[0]
+    let backgroundImageInputField = document.querySelector('.backgroundImageUpload')
+    let backgroundImage = backgroundImageInputField.files[0]
     let formData = new FormData()
-    formData.append('pfp', profileImage)
+    formData.append('pfp', backgroundImage)
     Axios.post('http://localhost:3030/changeBackgroundPicture', formData, {withCredentials: true})
     .then((res) => {
         console.log(res)
@@ -158,22 +157,7 @@ export default class ProfilePageComponent extends Component {
     }
   }
 
-  getUserFollowers = async (targetUserID) => {
-    await Axios.get(`http://localhost:3030/getUserFollowers/${targetUserID}`)
-    .then((res) => {
-      this.setState({'userFollowersIDList':res.data}, () => {
-        this.state.userFollowersIDList.map(async(follower) => {
-            await Axios.post(`http://localhost:3030/getUserDataById/${follower.FollowerUserID}`)
-            .then((res) => {
-              this.setState((prevState) => ({'userFollowersList':[...prevState.userFollowersList, res.data]}), () => {
-                console.log(this.state.userFollowersList)
-              })
-            })
-        })
-      })
-    })
 
-  }
   render() {
     return (
         <div>

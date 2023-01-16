@@ -431,9 +431,11 @@ let start = async() =>
                 data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             }
             let result = await ChangeBackgroundPicture(userData.userID, pfp)
+            console.log(result.err)
             res.status(result.status).send(result.msg)
         }
         catch(err){
+            console.log(err)
             res.status(500).send('Internal server error.')
         }
     })

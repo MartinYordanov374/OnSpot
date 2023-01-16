@@ -218,7 +218,7 @@ async function ChangeProfilePicture(userID, profilePicture)
         }
         catch(err)
         {
-            return {status: 500, msg: 'Profile picture successfully uploaded.'}
+            return {status: 500, msg: 'Profile picture failed to upload.'}
         }
     }
     else
@@ -243,12 +243,12 @@ async function ChangeBackgroundPicture(userID, BackgroundPicture)
             else
             {
                 await sql.query`IF NOT EXISTS (SELECT * FROM dbo.BackgroundPictures WHERE UserID = ${userID}) INSERT INTO dbo.BackgroundPictures(UserID, BackgroundPicture) VALUES(${userID}, ${BackgroundPicture.data})`
-                return {status: 200, msg: 'Profile picture successfully uploaded.'}
+                return {status: 200, msg: 'Background picture successfully uploaded.'}
             }
         }
         catch(err)
         {
-            return {status: 500, msg: 'Profile picture successfully uploaded.'}
+            return {status: 500, msg: 'Background picture failed to upload.', err: err}
         }
     }
     else

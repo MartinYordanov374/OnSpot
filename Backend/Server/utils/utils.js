@@ -61,7 +61,7 @@
         CONSTRAINT PK__Users__3213E83F50BA5307 PRIMARY KEY (id)
     );`
 
-    const CREATE_BACKGROUND_IMAGES_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.BakgroundPictures (
+    const CREATE_BACKGROUND_IMAGES_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.BackgroundPictures (
         UserID int NULL,
         BackgroundPicture varbinary(MAX) NULL
     );`    
