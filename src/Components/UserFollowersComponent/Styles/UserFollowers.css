@@ -1,6 +1,14 @@
+.followersWrapper {
+  margin-left: 25%;
+  width: 70%;
+  height: 90vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 .followersWrapper .followerContainer {
+  margin-top: 5%;
   display: flex;
-  margin-top: 2rem;
   background-color: white;
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -16,4 +24,11 @@
   width: 64px;
   height: 64px;
   border-radius: 50%;
+}
+.followersWrapper .followerContainer:nth-child(1) {
+  margin-top: 0rem;
+}
+
+.followersWrapper::-webkit-scrollbar {
+  display: none;
 }/*# sourceMappingURL=UserFollowers.css.map */

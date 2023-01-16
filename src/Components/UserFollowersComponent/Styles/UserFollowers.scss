@@ -1,7 +1,13 @@
 .followersWrapper{
+    margin-left: 25%;
+    width: 70%;
+    height: 90vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
     .followerContainer{
+        margin-top: 5%;
         display: flex;
-        margin-top: 2rem;
         background-color: white;
         // box-shadow: black 1px 1px 1px 1px;
         padding-top: 2rem;
@@ -17,4 +23,12 @@
             border-radius: 50%;
         }
     }
+    .followerContainer:nth-child(1)
+    {
+        margin-top: 0rem;
+    }
+}
+
+.followersWrapper::-webkit-scrollbar{
+    display: none;
 }
