@@ -148,6 +148,7 @@ export default class EditEvent extends Component {
         this.GetTargetEventData()
         this.checkIfUserIsLoggedIn()
     }
+    
   render() {
     if(this.state.isUserHoster == true)
     {

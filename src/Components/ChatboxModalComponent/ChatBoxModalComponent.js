@@ -86,14 +86,6 @@ export default class ChatBoxModalComponent extends Component {
 
   }
 
-  // componentDidUpdate = async() =>
-  // {
-  //   this.state.socket.emit('requestConvo', {'receiverID': Number(this.state.receiverID), 'senderID':Number(this.state.senderID)})
-  //     this.state.socket.on('getConvo', (res) => {
-  //       this.setState({'conversationMessages': res.data})
-
-  //     })
-  // }
   render() {
     
     return (

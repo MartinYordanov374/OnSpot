@@ -8,6 +8,7 @@ import MapComponent from '../MapComponent/MapComponent'
 import { Buffer } from 'buffer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisH, faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
+import DeleteEventModal from '../DeleteEventModal/DeleteEventModal'
 
 export default class EventPageComponent extends Component {
     // TODO: ADD A LOADING SCREEN UNTIL ALL THE STATE DATA IS LOADED
@@ -38,7 +39,8 @@ export default class EventPageComponent extends Component {
             loginStatus: false,
             currentDate: this.date,
             isLoading: true,
-            isUserHoster: false
+            isUserHoster: false,
+            isModalShown: false
         }
         this.splittedUrl = window.location.href.split('/')
         this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
@@ -48,7 +50,6 @@ export default class EventPageComponent extends Component {
         
         await Axios.get(`http://localhost:3030/getEventById/${this.targetID}`, {withCredentials: true})
         .then((res) => {
-            console.log(res)
             this.setState({
                 'targetEventName': res.data.EventName, 'targetEventClass': res.data.EventClass, 'targetEventType': res.data.EventType,
                 'targetEventDesc': res.data.EventDescription, 'targetEventLocaction': res.data.EventLocation,
@@ -136,6 +137,19 @@ export default class EventPageComponent extends Component {
             this.setState({'loginStatus': false})
           }})
       }
+
+    handleDeleteModal = async() =>
+    {
+        if(this.state.isModalShown == true)
+        {
+          this.setState({'isModalShown': false})
+        }
+        else
+        {
+          this.setState({'isModalShown': true})
+        }
+    }
+
     componentDidMount()
     {
 
@@ -152,8 +166,13 @@ export default class EventPageComponent extends Component {
                 <div>
                     <SidebarComponent/>
                     <Container>
-                    {/* <NavbarComponentRegisteredUser/> */}
-                    <Card className='eventCard'>
+                        {this.state.isModalShown == true 
+                        ?
+                            <DeleteEventModal props={{'isModalShown': true, 'modalHandler':this.handleDeleteModal, 'userID': this.state.targetEventHostId, 'eventID': this.state.targetEventID}}/>
+                        :
+                            <DeleteEventModal props={{'isModalShown': false, 'modalHandler':this.handleDeleteModal, 'userID': this.state.targetEventHostId, 'eventID': this.state.targetEventID}}/>
+                        }
+                   <Card className='eventCard'>
                             <Card.Header className = 'eventCardHeader row'>
                                 <h1 className='eventHeader col-sm-2'>{this.state.targetEventName}</h1>
                                 {this.state.isUserHoster == true ?
@@ -166,10 +185,10 @@ export default class EventPageComponent extends Component {
                                         <FontAwesomeIcon icon={faPen}/>
                                         Edit
                                     </a>
-                                    <a href={`/DeleteEvent/${this.targetID}`} className='option col'> 
+                                    <span className='option col' onClick={()=>{this.handleDeleteModal()}}> 
                                         <FontAwesomeIcon icon={faTrash}/>
                                         Delete
-                                    </a>
+                                    </span>
                                 </div>
                             <div className='eventImagesCarousel'>
                                 {/* TODO: CHECK IF IMAGES EXIST FOR THE GIVEN EVENT, IF THEY DO NOT THEN DISPLAY PLACEHOLDER IMAGES */}
