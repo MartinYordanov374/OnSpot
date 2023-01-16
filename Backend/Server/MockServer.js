@@ -341,26 +341,59 @@ let start = async() =>
         // TODO ADD CHECK IF PROFILE PICTURE FOR GIVEN USER EXISTS OR NOT
         if(targetUserProfilePictureResponse.data != undefined)
         {
-            let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
-            let targetUserBackgroundPicture = targetUserBackgroundPictureResponse.data.recordset[0].BackgroundPicture
-            let userObject = {
-                Username: result.recordset[0].Username,
-                Followers: userFollowers.followers,
-                Bio: result.recordset[0].bio,
-                ProfilePicture: targetUserPfp,
-                BackgroundPicture: targetUserBackgroundPicture
+            if(targetUserBackgroundPictureResponse.data != undefined)
+            {
+                let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
+                let targetUserBackgroundPicture = targetUserBackgroundPictureResponse.data.recordset[0].BackgroundPicture
+                let userObject = {
+                    Username: result.recordset[0].Username,
+                    Followers: userFollowers.followers,
+                    Bio: result.recordset[0].bio,
+                    ProfilePicture: targetUserPfp,
+                    BackgroundPicture: targetUserBackgroundPicture
+                }
+                res.status(200).send(userObject)
             }
-            res.status(200).send(userObject)
+            else
+            {
+                let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
+                let userObject = {
+                    Username: result.recordset[0].Username,
+                    Followers: userFollowers.followers,
+                    Bio: result.recordset[0].bio,
+                    ProfilePicture: targetUserPfp,
+                    BackgroundPicture: `https://www.wallpapers.net/web/wallpapers/night-lights-long-term-exposure-hd-wallpaper/5120x2160.jpg`
+
+                }
+                res.status(200).send(userObject)
+            }
         }
         else
         {
-            let userObject = {
-                Username: result.recordset[0].Username,
-                Followers: userFollowers.Followers,
-                Bio: result.recordset[0].bio,
-                ProfilePicture: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images`
+            if(targetUserBackgroundPictureResponse.data != undefined)
+            {
+                let targetUserBackgroundPicture = targetUserBackgroundPictureResponse.data.recordset[0].BackgroundPicture
+                let userObject = {
+                    Username: result.recordset[0].Username,
+                    Followers: userFollowers.Followers,
+                    Bio: result.recordset[0].bio,
+                    ProfilePicture: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images`,
+                    BackgroundPicture: targetUserBackgroundPicture
+                }
+                res.status(200).send(userObject)
             }
-            res.status(200).send(userObject)
+            else
+            {
+                let userObject = {
+                    Username: result.recordset[0].Username,
+                    Followers: userFollowers.Followers,
+                    Bio: result.recordset[0].bio,
+                    ProfilePicture: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images`,
+                    BackgroundPicture: `https://www.wallpapers.net/web/wallpapers/night-lights-long-term-exposure-hd-wallpaper/5120x2160.jpg`
+
+                }
+                res.status(200).send(userObject)
+            }
         }
         
     })
