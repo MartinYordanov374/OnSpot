@@ -1,1 +1,38 @@
-/*# sourceMappingURL=SettingsStyles.css.map */
+.settingsPageWrapper .settingsContainer {
+  width: 100vh;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  background-color: white;
+  display: flex;
+}
+.settingsPageWrapper .settingsContainer .settingsSideMenu {
+  width: 30vh;
+  float: left;
+}
+.settingsPageWrapper .settingsContainer .sideMenuOption {
+  padding: 1rem;
+}
+.settingsPageWrapper .settingsContainer .sideMenuOption:hover {
+  background-color: rgba(128, 128, 128, 0.288);
+  cursor: pointer;
+}
+.settingsPageWrapper .settingsContainer .section {
+  float: right;
+  width: 100%;
+}
+.settingsPageWrapper .settingsContainer .section .inputField {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin-right: 15rem;
+}
+.settingsPageWrapper .settingsContainer .section .label {
+  width: 100%;
+}
+.settingsPageWrapper .settingsContainer .section .saveBtn {
+  margin-top: 2rem;
+  width: 70%;
+}/*# sourceMappingURL=SettingsStyles.css.map */

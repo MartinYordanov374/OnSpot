@@ -17,6 +17,7 @@ import MapComponent from './Components/MapComponent/MapComponent';
 import HostAnEventPageComponentPaginated from './Components/HostAnEventComponent/HostAnEventPageComponentPaginated';
 import EditEvent from './Components/EditEventComponent/EditEvent';
 import UserFollowers from './Components/UserFollowersComponent/UserFollowers';
+import Settings from './Components/SettingsComponent/Settings';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path = '/HostEvent' element={<HostAnEventPageComponent/>}/>
       <Route path = '/EditEvent/:id' element={<EditEvent/>}/>
       <Route path = '/UserFollowers/:id' element={<UserFollowers/>}/>
+      <Route path = '/Settings' element={<Settings/>}/>
 
       <Route path = '/ExploreEvents' element={<ExploreEventsComponent/>}/>
       <Route path = '/Event/:eventId' element={<EventPageComponent/>}/> 
