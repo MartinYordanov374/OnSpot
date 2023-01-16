@@ -24,6 +24,10 @@
             font-size: 25px;
             font-weight: bold;
             color: black;
+            text-decoration: none;
+            &:hover{
+                color: rgb(95, 95, 95);
+            }
         }
         .userInteractionBtns{
             margin-top: 10rem;

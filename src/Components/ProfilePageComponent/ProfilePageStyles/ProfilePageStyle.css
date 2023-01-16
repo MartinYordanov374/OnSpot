@@ -23,6 +23,10 @@
   font-size: 25px;
   font-weight: bold;
   color: black;
+  text-decoration: none;
+}
+.profilePageWrapper .profilePageUserDetails .followers:hover {
+  color: rgb(95, 95, 95);
 }
 .profilePageWrapper .profilePageUserDetails .userInteractionBtns {
   margin-top: 10rem;

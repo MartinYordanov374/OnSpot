@@ -193,7 +193,7 @@ export default class ProfilePageComponent extends Component {
                         <div className='row'>
                             <span className='username col'>{this.state.userData.Username} </span>
                             {this.state.userData.Followers ? 
-                            <span className='followers'>{this.state.userData.Followers.length} followers</span>
+                            <a className='followers' href={`/userFollowers/${this.targetID}`}>{this.state.userData.Followers.length} followers</a>
                             :
                             <span className='followers'>0 followers</span>
 
