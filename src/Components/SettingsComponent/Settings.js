@@ -84,18 +84,18 @@ export default class Settings extends Component {
     return (
       // TODO: Auth guard !
       <div className='settingsPageWrapper'>
-        {/* <SidebarComponent/> */}
+        <SidebarComponent/>
         <div className='settingsContainer'>
           <div className='settingsSideMenu'>
-            <p className='sideMenuOption' onClick={() => this.selectProfile()}>Profile</p>
-            <p className='sideMenuOption' onClick={() => this.selectPassword()}>Password</p>
+            <p className='sideMenuOption' onClick={() => this.selectProfile()}>Edit profile</p>
+            <p className='sideMenuOption' onClick={() => this.selectPassword()}>Change password</p>
             <p className='sideMenuOption' onClick={() => this.selectBlockedUsers()}>Blocked users</p>
             <p className='sideMenuOption' onClick={() => this.selectDeleteProfile()}>Delete profile</p>
           </div>
 
           {this.state.isProfileSelected == true ?
             <div className='profileSectionContainer section'>
-
+              <h1>Edit profile</h1>
               <div className='d-flex'>
                 <p className='label'>Username</p>
                 <FormControl placeholder='Change username' className='changeUsername inputField'/>
@@ -124,6 +124,8 @@ export default class Settings extends Component {
 
           {this.state.isPasswordSelected == true ?
             <div className='passwordSectionContainer section'>
+              <h1>Change password</h1>
+
               <div className='d-flex'>
                 <p className='label'>Current password</p>
                 <FormControl placeholder='Current password' className='changeEmail inputField'/>
@@ -143,8 +145,11 @@ export default class Settings extends Component {
           }
 
           {this.state.isBlockedUsersSelected == true ?
+          <div>
             <div className='blockedUsersSectionContainer section'>
-              {this.state.blockedUsersList.length <= 1 ?
+              <h1>Blocked users</h1>
+
+              {this.state.blockedUsersList.length >= 1 ?
                 this.state.blockedUsersList.map((blockedUser) => {
                   return(
                     <div className='blockedUserContainer d-flex'>
@@ -155,12 +160,14 @@ export default class Settings extends Component {
                 })
               : "You haven't blocked anybody! Yay!"}
             </div>
+          </div>
             :
             ""
           }
 
           {this.state.isDeleteProfileSelected == true ?
             <div className='deleteProfileSectionContainer section'>
+              <h1>Delete profile</h1>
               <div className='d-block'>
                 <h2>This is an irreversible action!</h2>
 

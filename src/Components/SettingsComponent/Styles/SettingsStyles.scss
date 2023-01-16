@@ -1,12 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@500&display=swap');
 .settingsPageWrapper{
+    font-family: 'Open Sans', sans-serif;
     .settingsContainer{
         width: 100vh;
+        height: 100vh;
         position: absolute;
-        margin-left: auto;
+        margin-left: 30%;
         margin-right: auto;
         left:0;
         right: 0;
-        
         background-color: white;
         display: flex;
         .settingsSideMenu{
@@ -24,31 +26,29 @@
         .section{
             float: right;
             width: 100%;
-            // margin-left: 25%;
-            // border-style: solid;
+            padding-top: 2rem;
+            padding-left: 0rem;
             .inputField{
                 height: fit-content;
-                // margin-top: 2rem;
-                margin-right: 15rem;
+                margin-right: 11rem;
             }
             .label{
                 width: 100%;
             }
             .button{
-                // margin-left: 5.5rem;
                 margin-top: 2rem;
                 width: 70%;
             }
         }
         .blockedUsersSectionContainer
         {
-            height: 35vh;
+            height: 100vh;
+            width: 80vh;
             overflow-y: scroll;
             -ms-overflow-style: none; 
             scrollbar-width: none;
             .blockedUserContainer{
                 box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
-                // box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
                 margin-top: 2rem;
                 .unblockButton{
                     margin-right: 2rem;

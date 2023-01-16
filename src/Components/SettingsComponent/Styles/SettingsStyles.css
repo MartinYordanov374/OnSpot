@@ -1,7 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@500&display=swap");
+.settingsPageWrapper {
+  font-family: "Open Sans", sans-serif;
+}
 .settingsPageWrapper .settingsContainer {
   width: 100vh;
+  height: 100vh;
   position: absolute;
-  margin-left: auto;
+  margin-left: 30%;
   margin-right: auto;
   left: 0;
   right: 0;
@@ -22,12 +27,14 @@
 .settingsPageWrapper .settingsContainer .section {
   float: right;
   width: 100%;
+  padding-top: 2rem;
+  padding-left: 0rem;
 }
 .settingsPageWrapper .settingsContainer .section .inputField {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  margin-right: 15rem;
+  margin-right: 11rem;
 }
 .settingsPageWrapper .settingsContainer .section .label {
   width: 100%;
@@ -37,7 +44,8 @@
   width: 70%;
 }
 .settingsPageWrapper .settingsContainer .blockedUsersSectionContainer {
-  height: 35vh;
+  height: 100vh;
+  width: 80vh;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
