@@ -19,7 +19,9 @@ export default class ProfilePageComponent extends Component {
       isLoading: true, 
       loginStatus: false, 
       userFollowsProfile: false,
-      isChatModalShown: false
+      isChatModalShown: false,
+      userFollowersIDList: [],
+      userFollowersList: []
     }
   }
   // TODO: FIX THE FOLLOW BUTTON DISPLAY
@@ -46,9 +48,10 @@ export default class ProfilePageComponent extends Component {
     this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
     Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
     .then((res) => {
-      this.setState({userData: res.data})
+      this.setState({'userData': res.data})
       this.checkIfUserIsLoggedIn()
       this.setState({'isLoading': false})
+      this.getUserFollowers(this.targetID)
     })
     .catch((err) => {
       console.log(err)
@@ -87,16 +90,23 @@ export default class ProfilePageComponent extends Component {
     await Axios.get(`http://localhost:3030/getUserData`, {withCredentials: true})
     .then((res) => {
       let currentUserID = res.data[0].id
-      this.state.userData.Followers.some((follower) => {
-        if(follower.FollowerUserID == currentUserID) 
-        {
-          this.setState({'userFollowsProfile': true})
-        }
-        else
-        {
-          this.setState({'userFollowsProfile': false})
-        }
-      })
+      if(this.state.userData.Followers.length >= 1)
+      {
+        this.state.userData.Followers.some((follower) => {
+          if(follower.FollowerUserID == currentUserID) 
+          {
+            this.setState({'userFollowsProfile': true})
+          }
+          else
+          {
+            this.setState({'userFollowsProfile': false})
+          }
+        })
+      }
+      else
+      {
+        this.setState({'userFollowsProfile': false})
+      }
 
     })
   }
@@ -128,6 +138,23 @@ export default class ProfilePageComponent extends Component {
     {
       this.setState({'isChatModalShown': true})
     }
+  }
+
+  getUserFollowers = async (targetUserID) => {
+    await Axios.get(`http://localhost:3030/getUserFollowers/${targetUserID}`)
+    .then((res) => {
+      this.setState({'userFollowersIDList':res.data}, () => {
+        this.state.userFollowersIDList.map(async(follower) => {
+            await Axios.post(`http://localhost:3030/getUserDataById/${follower.FollowerUserID}`)
+            .then((res) => {
+              this.setState((prevState) => ({'userFollowersList':[...prevState.userFollowersList, res.data]}), () => {
+                console.log(this.state.userFollowersList)
+              })
+            })
+        })
+      })
+    })
+
   }
   render() {
     return (

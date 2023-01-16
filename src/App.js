@@ -16,6 +16,7 @@ import CalendarScheduleUpcomingEvents from './Components/CalendarScheduleCompone
 import MapComponent from './Components/MapComponent/MapComponent';
 import HostAnEventPageComponentPaginated from './Components/HostAnEventComponent/HostAnEventPageComponentPaginated';
 import EditEvent from './Components/EditEventComponent/EditEvent';
+import UserFollowers from './Components/UserFollowersComponent/UserFollowers';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <Route path = '/login' element={<LoginPageComponent/>}/>
       <Route path = '/HostEvent' element={<HostAnEventPageComponent/>}/>
       <Route path = '/EditEvent/:id' element={<EditEvent/>}/>
+      <Route path = '/UserFollowers/:id' element={<UserFollowers/>}/>
 
       <Route path = '/ExploreEvents' element={<ExploreEventsComponent/>}/>
       <Route path = '/Event/:eventId' element={<EventPageComponent/>}/> 

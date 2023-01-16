@@ -35,9 +35,12 @@ export default class RegisteredLandingPage extends Component {
       getFirstTwoEvents = () => {
         Axios.get(`http://localhost:3030/getNextTwoEvents/0`, {withCredentials: true})
         .then((res) => {
-            this.setState((prevState) => ({
-              'events': [...prevState.events, res.data]
-            }))
+            this.setState((prevState) => (
+              {
+                'events': [...prevState.events, res.data]
+              })
+            )
+
             setTimeout(() => {
               this.setState({'isLoading': false})
 
@@ -47,7 +50,6 @@ export default class RegisteredLandingPage extends Component {
         .catch((err) => {console.log(err)})
       }
       getNextTwoEvents = () => {
-        console.log('after scroll: ', this.state.initialEventElementID)
         Axios.get(`http://localhost:3030/getNextTwoEvents/${this.state.initialEventElementID}`, {withCredentials: true})
         .then((res) => {
           if(res.data != [])
@@ -72,16 +74,17 @@ export default class RegisteredLandingPage extends Component {
               <SidebarComponent/>
                 <Container className='EventCardsContainer'>
                       <div className='EventCardsWrapper row' style={{'margin-left': '2%'}}>
-                        {this.state.events.map((eventsList) => {
-                          return(
-                              eventsList.map((event) => {
-                                return <SquareEventCardComponent props={event}/>
 
-                                }))
+                        { this.state.events.map((eventsList) => {
+                            return(
+                                eventsList.map((event) => {
+                                  return <SquareEventCardComponent props={event}/>
+
+                                  })
+                                )
                             })
-                          
-                          }
-                        
+                        }
+
                         {this.state.isLoading == true ?
                         <div className='d-flex justify-content-center'>
                           <div class="spinner-border text-primary loadingSpinnerWrapper" role="status">

@@ -1,0 +1,19 @@
+.followersWrapper .followerContainer {
+  display: flex;
+  margin-top: 2rem;
+  background-color: white;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 2rem;
+}
+.followersWrapper .followerContainer .followerName {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin-left: 3rem;
+}
+.followersWrapper .followerContainer .userPFP {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}/*# sourceMappingURL=UserFollowers.css.map */
