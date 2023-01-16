@@ -61,6 +61,11 @@
         CONSTRAINT PK__Users__3213E83F50BA5307 PRIMARY KEY (id)
     );`
 
+    const CREATE_BACKGROUND_IMAGES_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.BakgroundPictures (
+        UserID int NULL,
+        BackgroundPicture varbinary(MAX) NULL
+    );`    
+
 
 module.exports = {
     CREATE_ATTENDANCES_TABLE_QUERY,
@@ -72,5 +77,6 @@ module.exports = {
     CREATE_USERS_TABLE_QUERY,
     CREATE_DATABASE,
     CREATE_CONVERSATIONS_TABLE_QUERY,
-    CREATE_MESSAGES_TABLE_QUERY
+    CREATE_MESSAGES_TABLE_QUERY,
+    CREATE_BACKGROUND_IMAGES_TABLE_QUERY
 }
