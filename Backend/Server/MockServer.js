@@ -153,7 +153,6 @@ let start = async() =>
     })
 
     app.delete('/deleteEvent/:userID/:eventId', async(req,res) => {
-        //TODO: ADD CHECKS IF USER IS EVENT OWNER!
         let eventID = Number(JSON.parse(JSON.stringify(req.params)).eventId)
         let EventHosterID = Number(JSON.parse(JSON.stringify(req.params)).userID)
 
@@ -204,7 +203,7 @@ let start = async() =>
         let targetUser = Number(req.params.id)
         let result = await GetUserFollowers(targetUser) 
         try{
-            res.status(result.status).send(result.followers.toString())
+            res.status(result.status).send(result.followers)
         }
         catch(err)
         {
