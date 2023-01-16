@@ -144,7 +144,7 @@ async function getLastTwoEvents(lastEventId)
     return result.recordset
 }
 async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName, 
-    updatedEventCategory, updatedEventStartDate, updatedEventEndDate, updatedEventDesc, updatedEventType )
+    updatedEventCategory, updatedEventStartDate, updatedEventEndDate, updatedEventDesc, updatedEventType, updatedEventLocation )
     {
         let tokenData = validateToken(CurrentUserToken)
         if(tokenData.status == true)
@@ -159,7 +159,8 @@ async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName,
                     EventType = ${updatedEventType},
                     EventStartDate = ${updatedEventStartDate},
                     EventEndDate = ${updatedEventEndDate},
-                    EventClass = ${updatedEventCategory}
+                    EventClass = ${updatedEventCategory},
+                    EventLocation = ${updatedEventLocation}
                     WHERE EventHosterID = ${tokenData.userID} AND EventID = ${TargetEventID} `
                     return {status: 200, msg: 'Event successfully updated.'}
                 }

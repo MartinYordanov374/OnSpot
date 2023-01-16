@@ -129,11 +129,16 @@ export default class EditEvent extends Component {
             updatedEventEndDate: this.state.targetEventEndDate,
             updatedEventType: this.state.targetEventType,
             updatedEventCategory: this.state.targetEventClass,
+            updatedEventLocation: this.state.targetEventLocaction
 
         },
         {withCredentials: true})
         .then((res) => {
             toast.success(res.data)
+            setTimeout(() => {
+                window.location.href = `/Event/${this.targetID}`
+
+            }, 6000);
         })
         //TODO: GO BACK TO EVENT PAGE AFTER A WHILE
     }

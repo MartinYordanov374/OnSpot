@@ -282,11 +282,12 @@ let start = async() =>
 
         let updatedEventType = req.body.updatedEventType;
         let updatedEventCategory = req.body.updatedEventCategory;
+        let updatedEventLocation = req.body.updatedEventLocation;
 
         let targetEventID = Number(req.params.eventID)
         let currentUserToken = req.session.userToken;
 
-        let result = await EditEvent(targetEventID, currentUserToken, updatedEventName, updatedEventCategory, updatedEventStartDate, updatedEventEndDate, updatedEventDesc, updatedEventType )
+        let result = await EditEvent(targetEventID, currentUserToken, updatedEventName, updatedEventCategory, updatedEventStartDate, updatedEventEndDate, updatedEventDesc, updatedEventType, updatedEventLocation )
         .then((result) => {
             res.status(result.status).send(result.msg)
         })
