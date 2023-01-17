@@ -26,7 +26,7 @@ async function UserExistsByEmail(email)
 async function UserExistsById(id)
 {
     let result = await sql.query`   	
-    SELECT id, Email, Username, Followers, bio, ProfilePicture
+    SELECT id, Email, Username, Followers, bio, ProfilePicture, HashedPassword
     FROM dbo.USERS u
     LEFT JOIN ProfilePictures pp 
     ON U.id = pp.UserID
@@ -53,10 +53,25 @@ async function LoginUser(username, password)
     }
 }
 
+// async function CheckUserPassword(password, userID)
+// {
+//     let targetUser = await UserExistsById(userID)
+//     console.log(targetUser.recordset[0])
+//     if(targetUser.recordset[0] != undefined)
+//     {
+//         if(await bcrypt.compare(password, targetUser.recordset[0].HashedPassword))
+//         {
+//             return {status: 200, msg: 'Correct password.'}
+//         }
+//         else{
+//             return {status: 401, msg: 'Wrong password.'}
+//         }
+//     }
+// }
+
 async function FollowUser(FollowerUserID, FollowedUserID)
 {   
     let userAlreadyFollowsGivenUser = await CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID);
-    console.log(userAlreadyFollowsGivenUser)
     if(userAlreadyFollowsGivenUser == true)
     {
         try{
@@ -455,5 +470,6 @@ module.exports = {
     GetUserBackgroundPicture, 
     updateBio,
     updateEmail,
-    updateUsername
+    updateUsername,
+    CheckUserPassword
 }
