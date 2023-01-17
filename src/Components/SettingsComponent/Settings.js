@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Button, FormControl } from 'react-bootstrap'
 import Axios from 'axios'
-
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './Styles/SettingsStyles.css'
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default class Settings extends Component {
 
   constructor()
@@ -97,25 +99,25 @@ export default class Settings extends Component {
     })
   }
   updateProfileData = async() => {
-
+    //TODO: Do not change unchanged fields
     await Axios.post(`http://localhost:3030/updateUsername/${this.state.currentUserID}`, 
     {'username': this.state.currentUsername}, 
     {withCredentials: true})
     .then((res) => {
-      console.log(res)
+      toast.success(res.data)
     })
     .catch((err) => {
-      console.log(err)
+      toast.warn(err)
     })
 
     await Axios.post(`http://localhost:3030/updateEmail/${this.state.currentUserID}`, 
     {'email': this.state.currentEmail}, 
     {withCredentials: true})
     .then((res) => {
-      console.log(res)
+      toast.success(res.data)
     })
     .catch((err) => {
-      console.log(err)
+      toast.warn(err)
     })
 
 
@@ -123,12 +125,15 @@ export default class Settings extends Component {
     {'bio': this.state.currentBio}, 
     {withCredentials: true})
     .then((res) => {
-      console.log(res)
+      toast.success(res.data)
     })
     .catch((err) => {
-      console.log(err)
+      toast.warn(err)
     })
 
+      setTimeout(() => {
+        window.location.reload()
+      }, 6000);
 
   }
 
@@ -140,6 +145,7 @@ export default class Settings extends Component {
       // TODO: Auth guard !
       <div className='settingsPageWrapper'>
         <SidebarComponent/>
+        <ToastContainer/>
         <div className='settingsContainer'>
           <div className='settingsSideMenu'>
             <p className='sideMenuOption' onClick={() => this.selectProfile()}>Edit profile</p>
