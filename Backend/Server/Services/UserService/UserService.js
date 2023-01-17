@@ -471,5 +471,5 @@ module.exports = {
     updateBio,
     updateEmail,
     updateUsername,
-    CheckUserPassword
+    // CheckUserPassword
 }

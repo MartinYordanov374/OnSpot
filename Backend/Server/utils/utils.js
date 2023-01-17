@@ -66,6 +66,11 @@
         BackgroundPicture varbinary(MAX) NULL
     );`    
 
+    const CREATE_BLOCKED_USERS_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.BlockedUsers (
+        BlockerUserID int NOT NULL,
+        BlockedUserID int NOT NULL
+    );`
+
 
 module.exports = {
     CREATE_ATTENDANCES_TABLE_QUERY,
@@ -78,5 +83,6 @@ module.exports = {
     CREATE_DATABASE,
     CREATE_CONVERSATIONS_TABLE_QUERY,
     CREATE_MESSAGES_TABLE_QUERY,
-    CREATE_BACKGROUND_IMAGES_TABLE_QUERY
+    CREATE_BACKGROUND_IMAGES_TABLE_QUERY, 
+    CREATE_BLOCKED_USERS_TABLE_QUERY
 }
