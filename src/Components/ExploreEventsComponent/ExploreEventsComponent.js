@@ -7,6 +7,7 @@ import './ExploreEventsStyles/ExploreEventsStyle.css'
 import Axios from 'axios'
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { findDistance } from '../../KeyWordSimilarityAlgorithm/LevenshteinDistance'
 
 export default class ExploreEventsComponent extends Component {
   constructor()
@@ -31,14 +32,43 @@ export default class ExploreEventsComponent extends Component {
         this.setState({'loginStatus': false})
       }})
   }
-  searchOnSpot = () => {
+  searchOnSpot = async() => {
     // get all events from the database
-    // split their titles to each word
+    let allEvents = await this.getAllEvents()
+    let allEventsSplittedTitles = []
+    let searchTermSplittedByWords = this.state.searchTerm.split(' ')
+    let levenshteinDistancesOverall = []
+    allEvents.map((event) => {
+      // split their titles to each word
+      let splittedTitle = event.EventName.split(' ')
+      allEventsSplittedTitles.push({event: event.EventID, splittedTitle: splittedTitle})
+    })
+
     // run the search term (splitted) + each title splitted word through the levenshtein distance algorithm
+    allEventsSplittedTitles.map((eventTitleObject) => {
+      let levenshteinDistancesRelative = []
+      eventTitleObject.splittedTitle.map((word) => {
+        searchTermSplittedByWords.map((searchTermWord) => {
+          let distance = findDistance(searchTermWord.toLowerCase(), word.toLowerCase())
+          levenshteinDistancesRelative.push(distance)
+        })
+      })
+      let cummulativeDistances = levenshteinDistancesRelative.reduce((prev, next) => {return prev + next}) / levenshteinDistancesRelative.length
+      levenshteinDistancesOverall.push({
+         eventID: eventTitleObject,
+        cummulativeDistance: cummulativeDistances
+      })
+    })
+    console.log(levenshteinDistancesOverall)
     // take the result with the smallest number result
     // track it back to the original event
     // show this event and the others behind this event (sorted by the levenshtein distance result)
     // save those results to the data analytics table -> user ID - event Category
+  }
+
+  getAllEvents = async() => {
+    let result = await Axios.get('http://localhost:3030/getAllEvents', {withCredentials: true})
+    return result.data.payload
   }
 
   render() {

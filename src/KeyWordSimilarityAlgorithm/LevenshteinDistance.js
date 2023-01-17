@@ -28,3 +28,5 @@ function findDistance(userWord, keyword)
     }
     return matrix[userWord.length - 1][keyword.length - 1]
 }
+
+module.exports = {findDistance}
