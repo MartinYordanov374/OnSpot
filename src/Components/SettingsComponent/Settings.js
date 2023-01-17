@@ -142,35 +142,15 @@ export default class Settings extends Component {
 
   deleteProfile = async() => {
     // TODO: DELETE EVERYTHING RELATED TO THAT USER OR REPLACE IT WITH [DELETED USER]
+    // TODO: Redirect to landing page after deletion
     let result = await Axios.delete(`http://localhost:3030/deleteProfile/${this.state.currentUserID}`, {withCredentials: true })
     .then((res) => {
-      console.log(res)
     })
     .catch((err) => {
       console.log(err)
     })
   }
 
-  // handlePasswordChange = async() => {
-  //   //1. Check if the current password is valid (on the back end)
-  //     await Axios.post(`http://localhost:3030/checkUserPassword/${this.state.currentUserID}`, 
-  //     {
-  //       'pass': this.state.currentPassword,
-  //     },
-  //     {withCredentials: true})
-  //     .then((res) => {
-  //       if(res.data.status == 200)
-  //       {
-  //         toast.warn('The password you entered does not match your original')
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })
-  //   //2. Check if the 2 fields for the new password match and if they are valid (back end validation)
-
-
-  // }
   componentDidMount = () => {
     this.getUserData()
   }
@@ -219,49 +199,7 @@ export default class Settings extends Component {
             :
             ""
           }
-
-          {/* {this.state.isPasswordSelected == true ?
-            <div className='passwordSectionContainer section'>
-              <h1>Change password</h1>
-
-              <div className='d-flex'>
-                <p className='label'>Current password</p>
-                <FormControl 
-                  placeholder='Current password' 
-                  className='changeEmail inputField' 
-                  type = 'password' 
-                  value = {this.state.currentPassword}
-                  onChange={(e) => this.setState({'currentPassword': e.target.value})}
-                />
-              </div>
-              <div className='d-flex'>
-                <p className='label'>New password</p>
-                <FormControl 
-                  placeholder='New password' 
-                  className='changeEmail inputField' 
-                  type = 'password' 
-                  value = {this.state.newPassword}
-                  onChange={(e) => this.setState({'newPassword': e.target.value})}
-
-                />
-              </div>
-              <div className='d-flex'>
-                <p className='label'>Repeat new password</p>
-                <FormControl 
-                  placeholder='Repeat new password' 
-                  className='changeEmail inputField' 
-                  type = 'password' 
-                  value = {this.state.confirmNewPassword}
-                  onChange={(e) => this.setState({'confirmNewPassword': e.target.value})}
-
-                />
-              </div>
-              <Button className='changePassBtn button' onClick={() => this.handlePasswordChange()}>Change password</Button>
-            </div>
-            :
-            ""
-          } */}
-
+          
           {this.state.isBlockedUsersSelected == true ?
           <div>
             <div className='blockedUsersSectionContainer section'>

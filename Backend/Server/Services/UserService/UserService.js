@@ -138,6 +138,7 @@ async function DeleteProfile(userToken, ProfileID)
         {
             try{
                 await sql.query`DELETE FROM Users WHERE id = ${ProfileID}`
+                await sql.query`DELETE FROM Events WHERE EventHosterID = ${ProfileID}`
                 return {status: 200, msg: 'Profile successfully deleted.'}
             }
             catch(err)
@@ -471,5 +472,4 @@ module.exports = {
     updateBio,
     updateEmail,
     updateUsername,
-    // CheckUserPassword
 }

@@ -120,22 +120,8 @@ let start = async() =>
         }
     })
 
-    // app.post('/checkUserPassword/:id', async(req,res) => {
-    //     let pass = req.body.pass
-    //     let userID = Number(req.params.id)
-    //     try{
-    //         let result = await CheckUserPassword(pass, userID)
-    //         res.status(200).send(result)
-    //     }
-    //     catch(err)
-    //     {
-    //         res.status(500).send(err)
-    //     }
-    // })
 
     app.post('/hostEvent', async (req,res) => {
-        // TODO FIGURE LOCATION OUT
-        console.log(req.body)
         let eventName = req.body.name;
         let eventDescription = req.body.description;
         let eventLocation = req.body.location;
@@ -242,8 +228,8 @@ let start = async() =>
     app.delete('/deleteProfile/:id', async (req,res) => {
         let profileID = Number(req.params.id)
         let userToken = req.session.userToken;
-        console.log('user token SERVER:', userToken)
         let result = await DeleteProfile(userToken, profileID)
+        delete req.session.userToken
 
     })
     app.get('/GetUserEvents', async (req, res) => {
