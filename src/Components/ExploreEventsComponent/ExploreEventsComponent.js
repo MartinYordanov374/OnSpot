@@ -59,7 +59,12 @@ export default class ExploreEventsComponent extends Component {
         cummulativeDistance: cummulativeDistances
       })
     })
+    levenshteinDistancesOverall.sort((a,b) => {
+      return a.cummulativeDistance - b.cummulativeDistance
+    })
+
     console.log(levenshteinDistancesOverall)
+
     // take the result with the smallest number result
     // track it back to the original event
     // show this event and the others behind this event (sorted by the levenshtein distance result)
