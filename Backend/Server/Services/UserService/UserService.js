@@ -396,6 +396,42 @@ function validateToken(token)
     }
 }
 
+async function updateUsername(userID, username)
+{
+    try{
+        let result = await sql.query`UPDATE dbo.Users SET Username = ${username} WHERE id = ${userID}`
+        return {status: 200, msg:'Username updated successfully'}
+    }
+    catch(err)
+    {
+        return {status: 500, err: err}
+    }
+}
+
+async function updateEmail(userID, email)
+{
+    try{
+        let result = await sql.query`UPDATE dbo.Users SET Email = ${email} WHERE id = ${userID}`
+        return {status: 200, msg:'Email updated successfully'}
+    }
+    catch(err)
+    {
+        return {status: 500, err: err}
+    }
+}
+
+async function updateBio(userID, Bio)
+{
+    try{
+        let result = await sql.query`UPDATE dbo.Users SET bio = ${Bio} WHERE id = ${userID}`
+        return {status: 200, msg:'Bio updated successfully'}
+    }
+    catch(err)
+    {
+        return {status: 500, err:err}
+    }
+}
+
 module.exports = {
     registerUser,
     UserExistsByUsername,
@@ -416,5 +452,8 @@ module.exports = {
     CreateConversation,
     GetConversationMessages, 
     ChangeBackgroundPicture,
-    GetUserBackgroundPicture
+    GetUserBackgroundPicture, 
+    updateBio,
+    updateEmail,
+    updateUsername
 }

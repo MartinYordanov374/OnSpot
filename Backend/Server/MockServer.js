@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
@@ -560,6 +560,80 @@ let start = async() =>
             res.status(500).send({error: err})
         }
         
+    })
+
+    //TODO: add validations !
+    app.post('/updateUsername/:userID', async(req,res) => {
+        let newUsername = req.body.username;
+        let userToken = validateToken(req.session.userToken)
+        let userID = userToken.userID;
+        try{
+            if(userID == Number(req.params.userID))
+            {
+                let result = await updateUsername(userID, newUsername)
+                .then((result) => {
+                    res.status(200).send('Username changed successfully')
+                })
+            }
+            else
+            {
+                res.status(409).send({'msg': 'You can\'t do this aciton'})
+            }
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
+    })
+
+    app.post('/updateEmail/:userID', async(req,res) => {
+        let newEmail = req.body.email;
+        let userToken = validateToken(req.session.userToken)
+        let userID = userToken.userID;
+        try{
+            if(userID == Number(req.params.userID))
+            {
+                let result = await updateEmail(userID, newEmail)
+                .then((result) => {
+                    res.status(200).send('Email changed successfully')
+                })
+    
+            }
+            else
+            {
+                res.status(409).send({'msg': 'You can\'t do this aciton'})
+            }
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
+    })
+
+    app.post('/updateBio/:userID', async(req,res) => {
+        let newBio = req.body.bio;
+        let userToken = validateToken(req.session.userToken)
+        let userID = userToken.userID;
+        try{
+            if(userID == Number(req.params.userID))
+            {
+                let result = await updateBio(userID, newBio)
+                .then((result) => {
+                    res.status(200).send('Bio changed successfully')
+                })
+                .catch((err) => {
+                    res.status(409).send({err: err})
+                })
+            }
+            else
+            {
+                res.status(409).send({'msg': 'You can\'t do this aciton'})
+            }
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
     })
 
     io.on('connection', (socket) => {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, FormControl } from 'react-bootstrap'
+import Axios from 'axios'
 
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './Styles/SettingsStyles.css'
@@ -19,9 +20,11 @@ export default class Settings extends Component {
         {'username': 'testBlock3'}, 
         {'username': 'testBlock4'}, 
         {'username': 'testBlock5'}, 
-
-
-      ]
+      ],
+      currentUsername : '',
+      currentEmail : '',
+      currentBio : '',
+      currentUserID: -1
     }
   }
 
@@ -80,6 +83,58 @@ export default class Settings extends Component {
       }
     )
   }
+
+  getUserData = async() => {
+    await Axios.get(`http://localhost:3030/getUserData`, {withCredentials: true})
+    .then((res) => {
+      let currentUserdata = res.data[0]
+      this.setState({
+        'currentUsername': currentUserdata.Username,
+        'currentEmail': currentUserdata.Email,
+        'currentBio': currentUserdata.bio,
+        'currentUserID': currentUserdata.id
+      })
+    })
+  }
+  updateProfileData = async() => {
+
+    await Axios.post(`http://localhost:3030/updateUsername/${this.state.currentUserID}`, 
+    {'username': this.state.currentUsername}, 
+    {withCredentials: true})
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+
+    await Axios.post(`http://localhost:3030/updateEmail/${this.state.currentUserID}`, 
+    {'email': this.state.currentEmail}, 
+    {withCredentials: true})
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+
+
+    await Axios.post(`http://localhost:3030/updateBio/${this.state.currentUserID}`, 
+    {'bio': this.state.currentBio}, 
+    {withCredentials: true})
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+
+
+  }
+
+  componentDidMount = () => {
+    this.getUserData()
+  }
   render() {
     return (
       // TODO: Auth guard !
@@ -98,12 +153,14 @@ export default class Settings extends Component {
               <h1>Edit profile</h1>
               <div className='d-flex'>
                 <p className='label'>Username</p>
-                <FormControl placeholder='Change username' className='changeUsername inputField'/>
+                <FormControl placeholder='Change username' className='changeUsername inputField' value = {this.state.currentUsername}
+                onChange={(e) => this.setState({'currentUsername': e.target.value})}/>
               </div>
 
               <div className='d-flex'>
                 <p className='label'>Email</p>
-                <FormControl placeholder='Change Email' className='changeEmail inputField'/>
+                <FormControl placeholder='Change Email' className='changeEmail inputField' value = {this.state.currentEmail} 
+                onChange={(e) => this.setState({'currentEmail': e.target.value})}/>
               </div>
               <div className='d-flex'>
                 <p className='label'>Bio</p>
@@ -112,10 +169,11 @@ export default class Settings extends Component {
                 id="exampleFormControlTextarea1" 
                 rows="2" 
                 placeholder='Enter bio'
-                />
+                value = {this.state.currentBio}
+                onChange={(e) => this.setState({'currentBio': e.target.value})}/>
               </div>
 
-              <Button className='saveBtn button'>Save</Button>
+              <Button className='saveBtn button' onClick={() => this.updateProfileData()}>Save</Button>
 
             </div>
             :
