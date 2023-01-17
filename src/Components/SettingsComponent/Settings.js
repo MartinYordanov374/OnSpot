@@ -137,6 +137,15 @@ export default class Settings extends Component {
 
   }
 
+  deleteProfile = async() => {
+    let result = await Axios.delete(`http://localhost:3030/deleteProfile/${this.state.currentUserID}`, {withCredentials: true })
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
   componentDidMount = () => {
     this.getUserData()
   }
@@ -236,7 +245,7 @@ export default class Settings extends Component {
                 <h2>This is an irreversible action!</h2>
 
               </div>
-                <Button className='deleteProfile button btn-danger'>Delete my profile.</Button>
+                <Button className='deleteProfile button btn-danger' onClick={() => this.deleteProfile()}>Delete my profile.</Button>
             </div>
             :
             ""

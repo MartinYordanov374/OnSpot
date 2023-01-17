@@ -228,9 +228,9 @@ let start = async() =>
 
     app.delete('/deleteProfile/:id', async (req,res) => {
         let profileID = Number(req.params.id)
-        let CurrentUserToken = req.session.userToken
-        let result = await DeleteProfile(CurrentUserToken, profileID)
-        res.status(result.status).send(result.msg)
+        let userToken = req.session.userToken;
+        console.log('user token SERVER:', userToken)
+        let result = await DeleteProfile(userToken, profileID)
 
     })
     app.get('/GetUserEvents', async (req, res) => {
