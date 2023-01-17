@@ -1,6 +1,7 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@500&display=swap');
 .searchPageWrapper{
     margin-top: 5%;
+    font-family: 'Open Sans', sans-serif;
     .searchBar{
         width: 50%;
         height:3rem;
@@ -15,10 +16,10 @@
             border-style: none;
             border-bottom-style: solid;
             background-color: transparent;
-            color:white;
+            color:black;
             font-weight: bold;
             &::placeholder{
-                color: rgba(255, 255, 255, 0.637);
+                color: black;
                 font-weight: bold;
             }
         }
@@ -26,7 +27,12 @@
     
     .searchResults{
         margin-top: 5%;
-        color: white;
+        color: black;
+    }
+    .SearchButton{
+        &:hover{
+            cursor: pointer;
+        }
     }
     
 }

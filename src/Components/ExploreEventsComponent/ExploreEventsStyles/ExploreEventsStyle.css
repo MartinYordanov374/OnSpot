@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@500&display=swap");
 .searchPageWrapper {
   margin-top: 5%;
+  font-family: "Open Sans", sans-serif;
 }
 .searchPageWrapper .searchBar {
   width: 50%;
@@ -22,22 +24,25 @@
   border-style: none;
   border-bottom-style: solid;
   background-color: transparent;
-  color: white;
+  color: black;
   font-weight: bold;
 }
 .searchPageWrapper .searchBar:focus::-moz-placeholder {
-  color: rgba(255, 255, 255, 0.637);
+  color: black;
   font-weight: bold;
 }
 .searchPageWrapper .searchBar:focus:-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.637);
+  color: black;
   font-weight: bold;
 }
 .searchPageWrapper .searchBar:focus::placeholder {
-  color: rgba(255, 255, 255, 0.637);
+  color: black;
   font-weight: bold;
 }
 .searchPageWrapper .searchResults {
   margin-top: 5%;
-  color: white;
+  color: black;
+}
+.searchPageWrapper .SearchButton:hover {
+  cursor: pointer;
 }/*# sourceMappingURL=ExploreEventsStyle.css.map */

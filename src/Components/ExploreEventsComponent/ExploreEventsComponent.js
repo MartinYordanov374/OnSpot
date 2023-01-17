@@ -5,12 +5,14 @@ import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentReg
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './ExploreEventsStyles/ExploreEventsStyle.css'
 import Axios from 'axios'
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export default class ExploreEventsComponent extends Component {
   constructor()
   {
     super()
-    this.state = {userData: [], isLoading: true, loginStatus: false}
+    this.state = {userData: [], isLoading: true, loginStatus: false, searchTerm: ''}
   }
   componentDidMount = () =>
   {
@@ -29,6 +31,15 @@ export default class ExploreEventsComponent extends Component {
         this.setState({'loginStatus': false})
       }})
   }
+  searchOnSpot = () => {
+    // get all events from the database
+    // split their titles to each word
+    // run the search term (splitted) + each title splitted word through the levenshtein distance algorithm
+    // take the result with the smallest number result
+    // track it back to the original event
+    // show this event and the others behind this event (sorted by the levenshtein distance result)
+    // save those results to the data analytics table -> user ID - event Category
+  }
 
   render() {
     return (
@@ -40,7 +51,12 @@ export default class ExploreEventsComponent extends Component {
             {/* <NavbarComponentRegisteredUser/> */}
             <div className='searchPageWrapper'>
               <div className='searchBarWrapper d-flex justify-content-center'>
-                <FormControl className='searchBar d-flex' placeholder='Search events'/>
+                <FormControl className='searchBar d-flex' placeholder='Search events' onChange={(e) => this.setState({'searchTerm': e.target.value})}/>
+                <FontAwesomeIcon 
+                  icon = {faMagnifyingGlass} 
+                  onClick={() => this.searchOnSpot()}
+                  className='SearchButton'
+                />
               </div>
               <div className='searchResults d-flex justify-content-center'>
                 <h6>Your search results will be shown below</h6>
