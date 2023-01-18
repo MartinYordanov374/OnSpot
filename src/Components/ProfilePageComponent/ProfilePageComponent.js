@@ -162,6 +162,10 @@ export default class ProfilePageComponent extends Component {
     }
   }
 
+  blockUser = async () => {
+    let blockedUserID = this.state.userData.id
+    let result = await Axios.post(`http://localhost:3030/blockUser/${blockedUserID}`, {}, {withCredentials: true})
+  }
 
   render() {
     return (
@@ -260,7 +264,7 @@ export default class ProfilePageComponent extends Component {
                               </Dropdown.Toggle>
                         
                               <Dropdown.Menu>
-                                <Dropdown.Item>
+                                <Dropdown.Item onClick={() => this.blockUser()}>
                                   <FontAwesomeIcon icon = {faUserLargeSlash} />Block User
                                 </Dropdown.Item>
                               </Dropdown.Menu>

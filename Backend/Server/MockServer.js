@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, CheckUserPassword } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, CheckUserPassword, BlockUser, UnblockUser } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
@@ -633,6 +633,36 @@ let start = async() =>
         {
             console.log(err)
         }
+    })
+
+    app.post('/blockUser/:blockedUserID', async(req,res) => {
+        try{
+            let currentUserToken = req.session.userToken
+            let currentUserID = await validateToken(currentUserToken).userID
+            let blockedUserID = req.params.blockedUserID
+            let result = await BlockUser(currentUserID, blockedUserID)
+            res.status(200).send({msg: result.msg})
+        }
+        catch(err)
+        {
+            res.status(400).send({msg: 'Something went wrong.', err: err})
+        }
+        
+    })
+
+    app.post('/unblockUser/:blockedUserID', async(req,res) => {
+        try{
+            let currentUserToken = req.session.userToken
+            let currentUserID = await validateToken(currentUserToken).userID
+            let blockedUserID = req.params.blockedUserID
+            let result = await UnblockUser(currentUserID, blockedUserID)
+            res.status(200).send({msg: result.msg})
+        }
+        catch(err)
+        {
+            res.status(400).send({msg: 'Something went wrong.', err: err})
+        }
+        
     })
 
     io.on('connection', (socket) => {

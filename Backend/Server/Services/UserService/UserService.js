@@ -53,21 +53,33 @@ async function LoginUser(username, password)
     }
 }
 
-// async function CheckUserPassword(password, userID)
-// {
-//     let targetUser = await UserExistsById(userID)
-//     console.log(targetUser.recordset[0])
-//     if(targetUser.recordset[0] != undefined)
-//     {
-//         if(await bcrypt.compare(password, targetUser.recordset[0].HashedPassword))
-//         {
-//             return {status: 200, msg: 'Correct password.'}
-//         }
-//         else{
-//             return {status: 401, msg: 'Wrong password.'}
-//         }
-//     }
-// }
+async function BlockUser(blockerUserID, blockedUserID)
+{
+    //TODO: CHECK IF BLOCKED USER EXISTS
+    try
+    {
+        await sql.query`INSERT INTO dbo.BlockedUsers(BlockerUserID, BlockedUserID) VALUES(${blockerUserID}, ${blockedUserID})`
+        return {status: 200, msg: 'User was blocked!'}
+    }
+    catch(err)
+    {
+        return {status: 400, msg: 'Somethingwent wrong.', err: err}
+    }
+}
+
+async function UnblockUser(blockerUserID, blockedUserID)
+{
+    //TODO: CHECK IF BLOCKED USER EXISTS
+    try
+    {
+        await sql.query`DELETE FROM dbo.BlockedUsers WHERE BlockedUserID = ${blockedUserID} AND BlockerUserID = ${blockerUserID}`
+        return {status: 200, msg: 'User was unblocked!'}
+    }
+    catch(err)
+    {
+        return {status: 400, msg: 'Somethingwent wrong.', err: err}
+    }
+}
 
 async function FollowUser(FollowerUserID, FollowedUserID)
 {   
@@ -448,6 +460,7 @@ async function updateBio(userID, Bio)
     }
 }
 
+
 module.exports = {
     registerUser,
     UserExistsByUsername,
@@ -472,4 +485,6 @@ module.exports = {
     updateBio,
     updateEmail,
     updateUsername,
+    BlockUser,
+    UnblockUser
 }
