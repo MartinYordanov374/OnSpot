@@ -3,12 +3,14 @@
     margin-top: 5%;
     font-family: 'Open Sans', sans-serif;
     padding-left: 20%;
+    
     .searchBar{
         width: 50%;
         height:3rem;
         border-style: none;
         background-color: transparent;
         font-weight: bold;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;        
         &::placeholder{
             color: rgba(0, 0, 0, 0.517);
         }
@@ -31,8 +33,6 @@
     }
     .eventsContainer{
         margin-left: 10%;
-        .eventsMessage{
-        }
     }
     .SearchButton{
         background-color: white;
@@ -44,9 +44,10 @@
 
     .searchInput{
         border: 0;
+        
         &:focus{
             outline: none;
-            border: none;
+            border: none;            
         }
         &:active{
             outline: none;
