@@ -1,4 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@500&display=swap");
 .profilePageWrapper{
+    font-family: "Open Sans", sans-serif;
     .profilePageBackgroundImageWrapper{
         height: 200px;
         background-color: black;
@@ -32,6 +34,7 @@
             color: black;
             text-decoration: none;
             &:hover{
+                cursor: pointer;
                 color: rgb(95, 95, 95);
             }
         }
