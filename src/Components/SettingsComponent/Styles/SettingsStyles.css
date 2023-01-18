@@ -86,4 +86,8 @@
   border-radius: 50%;
   margin-left: 2rem;
 }
+
+.settingsPageWrapper .blockedUsername {
+  margin-left: 5%;
+}
 /*# sourceMappingURL=SettingsStyles.css.map */

@@ -161,6 +161,11 @@ export default class Settings extends Component {
     let blockedUsers = result.data.users.blockedUsersList.recordset
     this.setState({'blockedUsersList': blockedUsers})
   }
+
+  unblockUser = async(blockedUserID) => {
+    let result = await Axios.post(`http://localhost:3030/unblockUser/${blockedUserID}`, {}, {withCredentials: true})
+    this.getBlockedUsers()
+  }
   render() {
     return (
       // TODO: Auth guard !
@@ -214,6 +219,7 @@ export default class Settings extends Component {
 
               {this.state.blockedUsersList.length >= 1 ?
                 this.state.blockedUsersList.map((blockedUser) => {
+                  console.log(blockedUser)
                   return(
                     <div className='blockedUserContainer d-flex'>
                       {blockedUser.ProfilePicture 
@@ -231,8 +237,8 @@ export default class Settings extends Component {
                             className='blockedUserPFP'
                           />
                       }
-                      <p>{blockedUser.Username}</p>
-                      <p className='ms-auto unblockButton'>Unblock</p>
+                      <h5 className='blockedUsername'>{blockedUser.Username}</h5>
+                      <p className='ms-auto unblockButton' onClick={() => this.unblockUser(blockedUser.BlockedUserID)}>Unblock</p>
                     </div>
                   )
                 })
