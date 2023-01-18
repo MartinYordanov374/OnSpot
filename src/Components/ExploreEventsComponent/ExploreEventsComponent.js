@@ -19,8 +19,8 @@ export default class ExploreEventsComponent extends Component {
       isLoading: true, 
       loginStatus: false, 
       searchTerm: '',
-    searchResults: [],
-    areSearchResultsLoaded: false}
+      searchResults: [],
+      areSearchResultsLoaded: false}
   }
   componentDidMount = () =>
   {
@@ -69,6 +69,7 @@ export default class ExploreEventsComponent extends Component {
     this.setState({'searchResults': levenshteinDistancesOverall}, () => {
       this.setState({'areSearchResultsLoaded': true})
     })
+    this.setState({'searchTerm': ''})
 
     // take the result with the smallest number result
     // track it back to the original event
@@ -93,7 +94,7 @@ export default class ExploreEventsComponent extends Component {
             <div className='searchPageWrapper'>
               <div className='searchBarWrapper d-flex justify-content-center'>
                 <InputGroup  className='searchBar d-flex'>
-                  <FormControl placeholder='Search events' onChange={(e) => this.setState({'searchTerm': e.target.value})} className='searchInput shadow-none'/>
+                  <FormControl placeholder='Search events' onChange={(e) => this.setState({'searchTerm': e.target.value})} value={this.state.searchTerm} className='searchInput shadow-none'/>
                   <InputGroup.Text 
                       className='SearchButton' 
                       onClick={() => this.searchOnSpot()}
@@ -104,9 +105,12 @@ export default class ExploreEventsComponent extends Component {
                   </InputGroup.Text>
                 </InputGroup>
               </div>
+              {this.state.searchResults.length <= 0 ?
               <div className='searchResults d-flex justify-content-center'>
                 <h6>Your search results will be shown below</h6>
               </div>
+              :
+              ""}
               {this.state.areSearchResultsLoaded == true 
               ?
                 this.state.searchResults.map((searchResult) => {
