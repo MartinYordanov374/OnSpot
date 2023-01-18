@@ -6,7 +6,6 @@
         width: 50%;
         height:3rem;
         border-style: none;
-        border-bottom-style: solid;
         background-color: transparent;
         font-weight: bold;
         &::placeholder{
@@ -30,6 +29,7 @@
         color: black;
     }
     .SearchButton{
+
         &:hover{
             cursor: pointer;
         }

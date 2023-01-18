@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, FormControl } from 'react-bootstrap'
+import { Container, FormControl, InputGroup } from 'react-bootstrap'
 import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandingPage'
 import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentRegisteredUser'
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
@@ -92,12 +92,17 @@ export default class ExploreEventsComponent extends Component {
             {/* <NavbarComponentRegisteredUser/> */}
             <div className='searchPageWrapper'>
               <div className='searchBarWrapper d-flex justify-content-center'>
-                <FormControl className='searchBar d-flex' placeholder='Search events' onChange={(e) => this.setState({'searchTerm': e.target.value})}/>
-                <FontAwesomeIcon 
-                  icon = {faMagnifyingGlass} 
-                  onClick={() => this.searchOnSpot()}
-                  className='SearchButton'
-                />
+                <InputGroup  className='searchBar d-flex'>
+                  <FormControl placeholder='Search events' onChange={(e) => this.setState({'searchTerm': e.target.value})}/>
+                  <InputGroup.Text 
+                      className='SearchButton' 
+                      onClick={() => this.searchOnSpot()}
+                  >
+                    <FontAwesomeIcon 
+                      icon = {faMagnifyingGlass} 
+                    />
+                  </InputGroup.Text>
+                </InputGroup>
               </div>
               <div className='searchResults d-flex justify-content-center'>
                 <h6>Your search results will be shown below</h6>
