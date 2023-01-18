@@ -2,6 +2,7 @@
 .searchPageWrapper {
   margin-top: 5%;
   font-family: "Open Sans", sans-serif;
+  padding-left: 20%;
 }
 .searchPageWrapper .searchBar {
   width: 50%;
@@ -41,6 +42,9 @@
 .searchPageWrapper .searchResults {
   margin-top: 5%;
   color: black;
+}
+.searchPageWrapper .eventsContainer {
+  margin-left: 10%;
 }
 .searchPageWrapper .SearchButton {
   background-color: white;

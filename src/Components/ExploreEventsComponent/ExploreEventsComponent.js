@@ -110,15 +110,17 @@ export default class ExploreEventsComponent extends Component {
                 <h6>Your search results will be shown below</h6>
               </div>
               :
-              ""}
-              {this.state.areSearchResultsLoaded == true 
-              ?
-                this.state.searchResults.map((searchResult) => {
-                  let event = searchResult.targetEventObject.event
-                  return <SquareEventCardComponent props={event}/>
-                })
-              :
-                ""
+              <div className='searchResults eventsContainer'>
+                {this.state.areSearchResultsLoaded == true 
+                ?
+                  this.state.searchResults.map((searchResult) => {
+                    let event = searchResult.targetEventObject.event
+                    return <SquareEventCardComponent props={event}/>
+                  })
+                :
+                  ""
+                }
+              </div>
               }
             </div>
 
