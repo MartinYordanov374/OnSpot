@@ -14,8 +14,9 @@
 .hostEventLink {
   color: white;
 }
+
 .hostEventLink:hover {
-  color: rgb(245, 245, 245);
+  color: whitesmoke;
 }
 
 .navbar-brand {
@@ -29,6 +30,8 @@
   width: 100%;
   background-color: #72B2E4;
 }
+
 .navbarWrapper .navbar-links {
   margin-left: 75%;
-}/*# sourceMappingURL=NavbarStyles.css.map */
+}
+/*# sourceMappingURL=NavbarStyles.css.map */

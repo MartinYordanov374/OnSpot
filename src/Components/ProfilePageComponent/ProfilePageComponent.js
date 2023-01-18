@@ -1,12 +1,16 @@
 import Axios from 'axios'
 import React, { Component } from 'react'
-import { Container, Button,Card, } from 'react-bootstrap'
+import { Container, Button,Card, Dropdown, } from 'react-bootstrap'
 import { Buffer } from 'buffer';
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './ProfilePageStyles/ProfilePageStyle.css'
 import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandingPage';
 import ChatBoxModalComponent from '../ChatboxModalComponent/ChatBoxModalComponent';
 import PostComponent from '../PostComponent/PostComponent';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsis, faGripHorizontal, faListDots, faSlash, faUserLargeSlash, faUsersLine } from '@fortawesome/free-solid-svg-icons';
+import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 export default class ProfilePageComponent extends Component {
 
@@ -248,6 +252,22 @@ export default class ProfilePageComponent extends Component {
                        "" }     
                     </div>
                     <div className='userEvents'>
+                    {this.state.isCurrentUserOwner == false 
+                      ? 
+                            <Dropdown>
+                              <Dropdown.Toggle className='moreOptionsButton btn-light'>
+                                    <FontAwesomeIcon icon={faEllipsis}/>
+                              </Dropdown.Toggle>
+                        
+                              <Dropdown.Menu>
+                                <Dropdown.Item>
+                                  <FontAwesomeIcon icon = {faUserLargeSlash} />Block User
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                          </Dropdown>
+                      :
+                      ""
+                    }
                         {/* I should probably include what the user attended as well?? */}
                         <h2 className='userActivityHeader'>Latest Activity</h2>
                         <div className='EventsActivity'>

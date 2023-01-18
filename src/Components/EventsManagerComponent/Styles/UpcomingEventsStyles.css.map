@@ -1,1 +1,9 @@
-{"version":3,"sources":["UpcomingEventsStyles.scss","UpcomingEventsStyles.css"],"names":[],"mappings":"AAAA;EACI,uBAAA;EACA,aAAA;EACA,aAAA;ACCJ;;ADEA;EACI,WAAA;EACA,YAAA;EACA,mBAAA;EACA,oCAAA;EACA,kBAAA;ACCJ","file":"UpcomingEventsStyles.css"}
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,CAAA;EACV,gBAAgB,EAAE,KAAK;EACvB,KAAK,EAAE,MAAM;EACb,MAAM,EAAE,KACZ;CAAC;;AAED,AAAA,WAAW,CAAA;EACP,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;EACZ,YAAY,EAAE,KAAK;EACnB,gBAAgB,EAAE,OAAkB;EACpC,UAAU,EAAE,MAAM;CACrB",
+    "sources": [
+        "UpcomingEventsStyles.scss"
+    ],
+    "names": [],
+    "file": "UpcomingEventsStyles.css"
+}
