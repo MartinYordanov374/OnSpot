@@ -78,7 +78,8 @@
     
     const CREATE_POSTS_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.Posts (
         Userid int NOT NULL,
-        PostContent nvarchar(120) NULL
+        PostContent nvarchar(120) NULL,
+        PostDate datetime NOT NULL
     );`
 
     const CREATE_POST_IMAGES_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.PostImages (
