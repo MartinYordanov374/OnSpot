@@ -30,14 +30,22 @@
     }
     .SearchButton{
         background-color: white;
-        border-left-style: none;
+        border-style: none;
         &:hover{
             cursor: pointer;
         }
     }
 
     .searchInput{
-        border-right-style: none;
+        border: 0;
+        &:focus{
+            outline: none;
+            border: none;
+        }
+        &:active{
+            outline: none;
+            border: none;
+        }
     }
     
 }

@@ -44,11 +44,19 @@
 }
 .searchPageWrapper .SearchButton {
   background-color: white;
-  border-left-style: none;
+  border-style: none;
 }
 .searchPageWrapper .SearchButton:hover {
   cursor: pointer;
 }
 .searchPageWrapper .searchInput {
-  border-right-style: none;
+  border: 0;
+}
+.searchPageWrapper .searchInput:focus {
+  outline: none;
+  border: none;
+}
+.searchPageWrapper .searchInput:active {
+  outline: none;
+  border: none;
 }/*# sourceMappingURL=ExploreEventsStyle.css.map */
