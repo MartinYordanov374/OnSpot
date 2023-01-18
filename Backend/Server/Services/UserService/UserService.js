@@ -81,6 +81,24 @@ async function UnblockUser(blockerUserID, blockedUserID)
     }
 }
 
+async function GetBlockedUsers(blockerUserID)
+{
+    try
+    {
+        let result = await sql.query`SELECT Username, ProfilePicture, BlockedUserID FROM dbo.BlockedUsers
+        LEFT JOIN Users u 
+        on u.id = BlockedUserID
+        LEFT JOIN ProfilePictures pp 
+        on pp.UserID = BlockedUserID 
+        WHERE BlockerUserID = ${blockerUserID}`
+        return {status: 200, blockedUsersList: result }
+    }
+    catch(err)
+    {
+        return {status: 400, msg: 'Something went wrong.', err: err}
+    }
+}
+
 async function FollowUser(FollowerUserID, FollowedUserID)
 {   
     let userAlreadyFollowsGivenUser = await CheckIfUserFollowsGivenUser(FollowerUserID, FollowedUserID);
@@ -486,5 +504,6 @@ module.exports = {
     updateEmail,
     updateUsername,
     BlockUser,
-    UnblockUser
+    UnblockUser,
+    GetBlockedUsers
 }

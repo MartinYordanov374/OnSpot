@@ -204,9 +204,6 @@ export default class ProfilePageComponent extends Component {
                             onClick={() => this.handleSelectBackgroundPicture()}
                           />
                       }
-
-
-
                         {this.state.userData.ProfilePicture.data 
                         ?
                           <img 

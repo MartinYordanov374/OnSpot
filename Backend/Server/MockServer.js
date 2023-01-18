@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, CheckUserPassword, BlockUser, UnblockUser } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, CheckUserPassword, BlockUser, UnblockUser, GetBlockedUsers } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
@@ -664,6 +664,20 @@ let start = async() =>
             res.status(400).send({msg: 'Something went wrong.', err: err})
         }
         
+    })
+
+    app.get('/getBlockedUsers', async(req,res) => {
+        try{
+            let userToken = req.session.userToken
+            let userTokenValidated = await validateToken(userToken)
+            let userID = userTokenValidated.userID
+            let result = await GetBlockedUsers(userID)
+            res.status(200).send({msg: 'Blocked users list retrieved', users: result})
+        }
+        catch(err)
+        {
+            res.status(400).send({msg: 'something went wrong', err: err})
+        }
     })
 
     io.on('connection', (socket) => {
