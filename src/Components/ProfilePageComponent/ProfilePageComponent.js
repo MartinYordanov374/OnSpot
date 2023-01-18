@@ -163,8 +163,15 @@ export default class ProfilePageComponent extends Component {
   }
 
   blockUser = async () => {
-    let blockedUserID = this.state.userData.id
-    let result = await Axios.post(`http://localhost:3030/blockUser/${blockedUserID}`, {}, {withCredentials: true})
+    this.splittedUrl = window.location.href.split('/')
+    this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
+    let result = await Axios.post(`http://localhost:3030/blockUser/${this.targetID}`, {}, {withCredentials: true})
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
 
   render() {

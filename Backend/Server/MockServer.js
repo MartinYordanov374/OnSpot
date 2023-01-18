@@ -638,10 +638,11 @@ let start = async() =>
     app.post('/blockUser/:blockedUserID', async(req,res) => {
         try{
             let currentUserToken = req.session.userToken
-            let currentUserID = await validateToken(currentUserToken).userID
+            let currentUserTokenValidated = await validateToken(currentUserToken)
+            let currentUserID = currentUserTokenValidated.userID
             let blockedUserID = req.params.blockedUserID
             let result = await BlockUser(currentUserID, blockedUserID)
-            res.status(200).send({msg: result.msg})
+            res.status(200).send({responseData: result})
         }
         catch(err)
         {

@@ -63,7 +63,7 @@ async function BlockUser(blockerUserID, blockedUserID)
     }
     catch(err)
     {
-        return {status: 400, msg: 'Somethingwent wrong.', err: err}
+        return {status: 400, msg: 'Something went wrong.', err: err}
     }
 }
 
@@ -77,7 +77,7 @@ async function UnblockUser(blockerUserID, blockedUserID)
     }
     catch(err)
     {
-        return {status: 400, msg: 'Somethingwent wrong.', err: err}
+        return {status: 400, msg: 'Something went wrong.', err: err}
     }
 }
 
