@@ -75,7 +75,31 @@
         UserID int NOT NULL,
         EventType nvarchar(MAX) NOT NULL
     );`
+    
+    const CREATE_POSTS_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.Posts (
+        Userid int NOT NULL,
+        PostContent nvarchar(120) NULL
+    );`
 
+    const CREATE_POST_IMAGES_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.PostImages (
+        PostID int NOT NULL,
+        PostImage varbinary(MAX) NOT NULL
+    );`
+
+    const CREATE_POST_LIKES_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.PostLikes (
+        PostID int NOT NULL,
+        LikerID int NOT NULL
+    );`
+
+    const CREATE_POST_COMMENTS_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.PostComments (
+        PostID int NOT NULL,
+        CommentID int NOT NULL
+    );`
+
+    const CREATE_POST_SHARES_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.PostShares (
+        PostID int NOT NULL,
+        SharerID int NOT NULL
+    );`
 
 module.exports = {
     CREATE_ATTENDANCES_TABLE_QUERY,
@@ -90,5 +114,10 @@ module.exports = {
     CREATE_MESSAGES_TABLE_QUERY,
     CREATE_BACKGROUND_IMAGES_TABLE_QUERY, 
     CREATE_BLOCKED_USERS_TABLE_QUERY,
-    CREATE_DATA_ANALYTICS_TABLE_QUERY
+    CREATE_DATA_ANALYTICS_TABLE_QUERY,
+    CREATE_POSTS_TABLE_QUERY,
+    CREATE_POST_IMAGES_TABLE_QUERY,
+    CREATE_POST_LIKES_TABLE_QUERY,
+    CREATE_POST_COMMENTS_TABLE_QUERY,
+    CREATE_POST_SHARES_TABLE_QUERY
 }
