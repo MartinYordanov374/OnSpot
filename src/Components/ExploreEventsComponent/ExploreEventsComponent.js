@@ -8,12 +8,19 @@ import Axios from 'axios'
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { findDistance } from '../../KeyWordSimilarityAlgorithm/LevenshteinDistance'
+import SquareEventCardComponent from '../SquareEventCardComponent/SquareEventCardComponent';
 
 export default class ExploreEventsComponent extends Component {
   constructor()
   {
     super()
-    this.state = {userData: [], isLoading: true, loginStatus: false, searchTerm: ''}
+    this.state = {
+      userData: [], 
+      isLoading: true, 
+      loginStatus: false, 
+      searchTerm: '',
+    searchResults: [],
+    areSearchResultsLoaded: false}
   }
   componentDidMount = () =>
   {
@@ -41,7 +48,7 @@ export default class ExploreEventsComponent extends Component {
     allEvents.map((event) => {
       // split their titles to each word
       let splittedTitle = event.EventName.split(' ')
-      allEventsSplittedTitles.push({event: event.EventID, splittedTitle: splittedTitle})
+      allEventsSplittedTitles.push({event: event, splittedTitle: splittedTitle})
     })
 
     // run the search term (splitted) + each title splitted word through the levenshtein distance algorithm
@@ -55,15 +62,16 @@ export default class ExploreEventsComponent extends Component {
       })
       let cummulativeDistances = levenshteinDistancesRelative.reduce((prev, next) => {return prev + next}) / levenshteinDistancesRelative.length
       levenshteinDistancesOverall.push({
-         eventID: eventTitleObject,
+         targetEventObject: eventTitleObject,
         cummulativeDistance: cummulativeDistances
       })
     })
     levenshteinDistancesOverall.sort((a,b) => {
       return a.cummulativeDistance - b.cummulativeDistance
     })
-
-    console.log(levenshteinDistancesOverall)
+    this.setState({'searchResults': levenshteinDistancesOverall}, () => {
+      this.setState({'areSearchResultsLoaded': true})
+    })
 
     // take the result with the smallest number result
     // track it back to the original event
@@ -96,6 +104,15 @@ export default class ExploreEventsComponent extends Component {
               <div className='searchResults d-flex justify-content-center'>
                 <h6>Your search results will be shown below</h6>
               </div>
+              {this.state.areSearchResultsLoaded == true 
+              ?
+                this.state.searchResults.map((searchResult) => {
+                  let event = searchResult.targetEventObject.event
+                  return <SquareEventCardComponent props={event}/>
+                })
+              :
+                ""
+              }
             </div>
 
           </Container>
