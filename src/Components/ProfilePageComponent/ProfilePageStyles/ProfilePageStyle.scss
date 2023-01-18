@@ -4,9 +4,9 @@
         background-color: black;
     }
     .userPFP{
-        width: 15rem;
+        width: 7rem;
         border-radius: 50%;
-        margin-top: -8rem;
+        margin-top: -4rem;
         margin-left: 2rem;
     }
     .userBackgroundPicture{
@@ -17,14 +17,16 @@
         background-color: white;
         
         .username{
-            margin-top:7rem;
-            margin-left: 4rem;
+            margin-top:2.5rem;
+            margin-left: 2rem;
+            margin-bottom: -6rem;
             font-size: 40px;
             font-weight: bold;
             color: black;
         }
         .followers{
-            margin-left: 5.7rem;
+            margin-left: 2rem;
+            margin-top: 5rem;
             font-size: 25px;
             font-weight: bold;
             color: black;
@@ -34,7 +36,7 @@
             }
         }
         .userInteractionBtns{
-            margin-top: 10rem;
+            padding-top: 5rem;
             margin-left: auto;
             margin-right: 1rem;
             font-size: 25px;

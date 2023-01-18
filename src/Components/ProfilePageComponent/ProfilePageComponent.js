@@ -235,13 +235,14 @@ export default class ProfilePageComponent extends Component {
                               {
                                 this.state.userFollowsProfile == true ? 
                                 <span className='followUser col' onClick={() => this.followUser()}>
-                                  Following
+                                  Unfollow
                                 </span>
                                 : 
                                 <span className='followUser col' onClick={() => this.followUser()}>
                                   Follow
                                 </span>
                               }
+
                         </div>
                        : 
                        "" }     
