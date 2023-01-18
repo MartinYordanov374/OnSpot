@@ -166,7 +166,7 @@ export default class Settings extends Component {
     let result = await Axios.post(`http://localhost:3030/unblockUser/${blockedUserID}`, {}, {withCredentials: true})
     this.getBlockedUsers()
   }
-  render() {
+  render() { 
     return (
       // TODO: Auth guard !
       <div className='settingsPageWrapper'>
