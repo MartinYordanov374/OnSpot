@@ -71,6 +71,12 @@ export default class SidebarComponent extends Component {
           {/* <h3 className='followers'> {this.state.userFollowers} Followers </h3> */}
         </div>
         <div className='safeMenu menu'>
+        <h2 className='upcomingEvents menuItem'> 
+            <a href='/'>
+              <FontAwesomeIcon icon={faHome}/> 
+              <span className='menuItemName'> Home </span>
+            </a>
+          </h2>
           <h2 className='upcomingEvents menuItem'> 
             <a href='/EventsManager/CalendarSchedule/UpcomingEvents'>
               <FontAwesomeIcon icon={faCalendarDays}/> 
