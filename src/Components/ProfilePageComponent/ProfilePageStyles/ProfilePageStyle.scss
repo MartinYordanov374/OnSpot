@@ -70,7 +70,21 @@
             margin-left: 2rem;
         }
         .EventsActivity{
-
+            .eventPost{
+                    border-style: solid;
+                    width: 50%;
+                    margin-left: 25%;
+                    // height: 50vh;
+            }
+            .postInteractionButtons{
+                text-align: center;
+                .interactionButton{
+                    &:hover{
+                        cursor: pointer;
+                        color: gray;
+                    }
+                }
+            }
         }
     }
 }

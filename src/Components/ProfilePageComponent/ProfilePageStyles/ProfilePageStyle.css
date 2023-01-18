@@ -70,6 +70,19 @@
   margin-top: 2rem;
   margin-left: 2rem;
 }
+.profilePageWrapper .userEvents .EventsActivity .eventPost {
+  border-style: solid;
+  width: 50%;
+  margin-left: 25%;
+}
+.profilePageWrapper .userEvents .EventsActivity .postInteractionButtons {
+  text-align: center;
+}
+.profilePageWrapper .userEvents .EventsActivity .postInteractionButtons .interactionButton:hover {
+  cursor: pointer;
+  color: gray;
+}
+
 @media screen and (max-width: 1440px) {
   .profilePageWrapper {
     margin-left: 19%;
