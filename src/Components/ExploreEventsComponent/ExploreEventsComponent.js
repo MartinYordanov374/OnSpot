@@ -33,18 +33,15 @@ export default class ExploreEventsComponent extends Component {
       }})
   }
   searchOnSpot = async() => {
-    // get all events from the database
     let allEvents = await this.getAllEvents()
     let allEventsSplittedTitles = []
     let searchTermSplittedByWords = this.state.searchTerm.split(' ')
     let levenshteinDistancesOverall = []
     allEvents.map((event) => {
-      // split their titles to each word
       let splittedTitle = event.EventName.split(' ')
       allEventsSplittedTitles.push({event: event.EventID, splittedTitle: splittedTitle})
     })
 
-    // run the search term (splitted) + each title splitted word through the levenshtein distance algorithm
     allEventsSplittedTitles.map((eventTitleObject) => {
       let levenshteinDistancesRelative = []
       eventTitleObject.splittedTitle.map((word) => {
@@ -55,7 +52,7 @@ export default class ExploreEventsComponent extends Component {
       })
       let cummulativeDistances = levenshteinDistancesRelative.reduce((prev, next) => {return prev + next}) / levenshteinDistancesRelative.length
       levenshteinDistancesOverall.push({
-         eventID: eventTitleObject,
+         eventID: eventTitleObject.event,
         cummulativeDistance: cummulativeDistances
       })
     })
@@ -64,11 +61,8 @@ export default class ExploreEventsComponent extends Component {
     })
 
     console.log(levenshteinDistancesOverall)
-
-    // take the result with the smallest number result
-    // track it back to the original event
-    // show this event and the others behind this event (sorted by the levenshtein distance result)
     // save those results to the data analytics table -> user ID - event Category
+
   }
 
   getAllEvents = async() => {
