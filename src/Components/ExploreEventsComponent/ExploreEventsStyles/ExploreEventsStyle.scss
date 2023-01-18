@@ -29,10 +29,15 @@
         color: black;
     }
     .SearchButton{
-
+        background-color: white;
+        border-left-style: none;
         &:hover{
             cursor: pointer;
         }
+    }
+
+    .searchInput{
+        border-right-style: none;
     }
     
 }

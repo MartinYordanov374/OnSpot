@@ -93,7 +93,7 @@ export default class ExploreEventsComponent extends Component {
             <div className='searchPageWrapper'>
               <div className='searchBarWrapper d-flex justify-content-center'>
                 <InputGroup  className='searchBar d-flex'>
-                  <FormControl placeholder='Search events' onChange={(e) => this.setState({'searchTerm': e.target.value})}/>
+                  <FormControl placeholder='Search events' onChange={(e) => this.setState({'searchTerm': e.target.value})} className='searchInput'/>
                   <InputGroup.Text 
                       className='SearchButton' 
                       onClick={() => this.searchOnSpot()}

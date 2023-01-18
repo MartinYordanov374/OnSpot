@@ -42,6 +42,13 @@
   margin-top: 5%;
   color: black;
 }
+.searchPageWrapper .SearchButton {
+  background-color: white;
+  border-left-style: none;
+}
 .searchPageWrapper .SearchButton:hover {
   cursor: pointer;
+}
+.searchPageWrapper .searchInput {
+  border-right-style: none;
 }/*# sourceMappingURL=ExploreEventsStyle.css.map */
