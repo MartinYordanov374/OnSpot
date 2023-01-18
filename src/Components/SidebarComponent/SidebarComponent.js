@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './SidebarStyling/SidebarStyle.css'
-import { faCog, faSignOut, faCalendarCheck, faCalendar, faCalendarDays, faSearch, faBell, faPlusCircle, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faSignOut, faCalendarCheck, faCalendar, faCalendarDays, faSearch, faBell, faPlusCircle, faLocationDot, faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Buffer } from 'buffer';
 import Axios from 'axios'
