@@ -36,6 +36,7 @@ export default class PostComponent extends Component {
         {this.state.isLoading == false ?
           <Card className='eventPost'>
             <Card.Header>
+              {console.log(this.state.postOwnerData)}
             {this.state.postOwnerData.ProfilePicture.data 
                         ?
                           <img 
