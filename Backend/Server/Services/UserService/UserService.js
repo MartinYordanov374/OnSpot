@@ -478,7 +478,7 @@ async function updateBio(userID, Bio)
     }
 }
 
-async function getUserEvents(userID)
+async function GetUserPosts(userID)
 {
     try{
         let result = await sql.query`SELECT * FROM dbo.Posts WHERE userid = ${userID}`
@@ -517,5 +517,6 @@ module.exports = {
     updateUsername,
     BlockUser,
     UnblockUser,
-    GetBlockedUsers
+    GetBlockedUsers,
+    GetUserPosts
 }

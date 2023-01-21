@@ -26,13 +26,16 @@ export default class ProfilePageComponent extends Component {
       userFollowsProfile: false,
       isChatModalShown: false,
       userFollowersIDList: [],
-      userFollowersList: []
+      userFollowersList: [],
+      posts: []
     }
   }
   // TODO: FIX THE FOLLOW BUTTON DISPLAY
   // REMOVE FOLLOW AND MESSAGE OPTION IF USER IS OWNER OF THE PROFILE
   // REMOVE CHANGE PFPF IF USER IS NOT OWNER OF THE PROFILE
   checkIfUserIsLoggedIn = async () => {
+    this.splittedUrl = window.location.href.split('/')
+    this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
     await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
     .then((res)=>{
       if(res.data == true)
@@ -40,6 +43,7 @@ export default class ProfilePageComponent extends Component {
           this.setState({'loginStatus': true})
           this.checkIfUserFollowsProfile()
           this.checkIfUserIsOwner()
+
       }
       else
       {
@@ -279,7 +283,11 @@ export default class ProfilePageComponent extends Component {
                         {/* I should probably include what the user attended as well?? */}
                         <h2 className='userActivityHeader'>Latest Activity</h2>
                         <div className='EventsActivity'>
-                              <PostComponent/>
+                         {this.state.userData.Posts.result.recordset.map((post) => {
+                            return (
+                              <PostComponent postData = {post}/>
+                            )
+                         })}
                         </div>  
                     </div>
                     {
