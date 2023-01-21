@@ -3,14 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faCommentAlt, faShare, faShareAlt, faShareAltSquare, faShareFromSquare, faShareNodes, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { Container, Button,Card, } from 'react-bootstrap'
 import Axios from 'axios'
-
+import './Styles/PostStyles.css'
 export default class PostComponent extends Component {
 
   constructor()
   {
     super()
     this.state = {
-      postOwnerData: null
+      postOwnerData: null,
+      isLoading: true
     }
   }
   getPosterData = async(userID) => {
@@ -27,7 +28,15 @@ export default class PostComponent extends Component {
   render() {
     return (
     <Card className='eventPost'>
-        <Card.Header>test</Card.Header>
+        <Card.Header>
+
+          {this.state.postOwnerData
+          ? 
+            <span className='posterUsername'> {this.state.postOwnerData.Username}</span>
+          :
+            ""
+          }
+        </Card.Header>
         <Card.Body>
           <Card.Text>
             {this.props.postData.PostContent}

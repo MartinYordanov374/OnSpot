@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,UAAU,CAAA;EACN,KAAK,EAAE,IAAI;EACX,aAAa,EAAE,GAAG;CACrB;;AAED,AAAA,eAAe,CAAA;EACX,WAAW,EAAE,MAAM;CACtB",
+    "sources": [
+        "PostStyles.scss"
+    ],
+    "names": [],
+    "file": "PostStyles.css"
+}

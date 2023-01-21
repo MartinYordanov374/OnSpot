@@ -43,27 +43,28 @@ export default class ProfilePageComponent extends Component {
           this.setState({'loginStatus': true})
           this.checkIfUserFollowsProfile()
           this.checkIfUserIsOwner()
-
-      }
+          
+        }
       else
       {
         this.setState({'loginStatus': false})
       }})
-  }
-
-  componentDidMount = () =>
-  {
-    this.splittedUrl = window.location.href.split('/')
-    this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
-    Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
-    .then((res) => {
-      this.setState({'userData': res.data})
+    }
+    
+    componentDidMount = () =>
+    {
+      this.splittedUrl = window.location.href.split('/')
+      this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
       this.checkIfUserIsLoggedIn()
-      this.setState({'isLoading': false})
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+       Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
+      .then((res) => {
+        this.setState({'userData': res.data}, () => {
+        this.setState({'isLoading': false})
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   handleSelectProfilePicture = () => {
@@ -298,8 +299,10 @@ export default class ProfilePageComponent extends Component {
                     }
                 </div>
                 :
-                <div>
-                  <p>Loading</p>
+                <div className='d-flex justify-content-center'>
+                          <div class="spinner-border text-primary loadingSpinnerWrapper" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
                 </div>
               }
           </Container>
