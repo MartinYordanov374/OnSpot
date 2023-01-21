@@ -79,7 +79,8 @@
     const CREATE_POSTS_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.Posts (
         Userid int NOT NULL,
         PostContent nvarchar(120) NULL,
-        PostDate datetime NOT NULL
+        PostDate datetime NOT NULL,
+        PostID int IDENTITY(1,1) NOT NULL
     );`
 
     const CREATE_POST_IMAGES_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.PostImages (
@@ -99,7 +100,7 @@
 
     const CREATE_POST_SHARES_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.PostShares (
         PostID int NOT NULL,
-        SharerID int NOT NULL
+        SharerID int NOT NULL,
     );`
 
 module.exports = {
