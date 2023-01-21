@@ -478,6 +478,18 @@ async function updateBio(userID, Bio)
     }
 }
 
+async function getUserEvents(userID)
+{
+    try{
+        let result = await sql.query`SELECT * FROM dbo.Posts WHERE userid = ${userID}`
+        return {status: 200, msg:'Events fetched successfully', result: result}
+    }
+    catch(err)
+    {
+        return {status: 500, err:err}
+    }
+}
+
 
 module.exports = {
     registerUser,

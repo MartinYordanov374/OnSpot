@@ -77,7 +77,7 @@
     );`
     
     const CREATE_POSTS_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.Posts (
-        Userid int NOT NULL,
+        UserID int NOT NULL,
         PostContent nvarchar(120) NULL,
         PostDate datetime NOT NULL,
         PostID int IDENTITY(1,1) NOT NULL
