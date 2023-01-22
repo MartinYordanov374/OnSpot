@@ -9,8 +9,6 @@ import ChatBoxModalComponent from '../ChatboxModalComponent/ChatBoxModalComponen
 import PostComponent from '../PostComponent/PostComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis, faGripHorizontal, faListDots, faSlash, faUserLargeSlash, faUsersLine } from '@fortawesome/free-solid-svg-icons';
-import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 export default class ProfilePageComponent extends Component {
 

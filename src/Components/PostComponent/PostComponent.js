@@ -15,6 +15,7 @@ export default class PostComponent extends Component {
     this.state = {
       postOwnerData: null,
       isLoading: true,
+      areCommentsSelected: false,
       postComments: []
     }
   }
@@ -35,6 +36,17 @@ export default class PostComponent extends Component {
         console.log(this.state.postComments)
       })
     })
+  }
+
+  showComments = () => {
+    if(this.state.areCommentsSelected == true )
+    {
+      this.setState({'areCommentsSelected': false})
+    }
+    else
+    {
+      this.setState({'areCommentsSelected': true})
+    }
   }
 
   componentDidMount = () => {
@@ -80,7 +92,7 @@ export default class PostComponent extends Component {
                 <span className='col-sm-4 interactionButton'>
                   <FontAwesomeIcon icon={faThumbsUp}/> Like
                 </span>
-                <span className='col-sm-4 interactionButton'>
+                <span className='col-sm-4 interactionButton' onClick={()=> this.showComments()}>
                   <FontAwesomeIcon icon={faCommentAlt}/> Comment
                 </span>
                 <span className='col-sm-4 interactionButton'>
@@ -88,7 +100,7 @@ export default class PostComponent extends Component {
                 </span>
               </div>
             </Card.Footer>
-            <div className='CommentsWrapper'>
+            <div className={this.state.areCommentsSelected == true ? 'CommentsWrapper d-block' : 'CommentsWrapper d-none'}>
                 {this.state.postComments.comments.result ?
                     this.state.postComments.comments.result.recordset.map((postComment) => {
                       return (
