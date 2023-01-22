@@ -494,10 +494,10 @@ async function GetUserPosts(userID)
 async function GetPostComments(PostID)
 {
     try{
-        let result = await sql.query`SELECT * FROM dbo.PostComments pc
+        let result = await sql.query`
+        SELECT * FROM dbo.PostComments pc
         LEFT JOIN dbo.Posts p
-        ON pc.PostID = p.PostID 
-        WHERE pc.PostID = ${PostID}`
+        ON p.PostID  = pc.CommentID`
         return {status: 200, msg:'Post comments fetched successfully', result: result}
     }
     catch(err)
