@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faCommentAlt, faShare, faShareAlt, faShareAltSquare, faShareFromSquare, faShareNodes, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
-import { Container, Button,Card, } from 'react-bootstrap'
+import { faComment, faCommentAlt, faPaperPlane, faShare, faShareAlt, faShareAltSquare, faShareFromSquare, faShareNodes, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { Container, Button,Card, FormControl, InputGroup } from 'react-bootstrap'
 import Axios from 'axios'
 import './Styles/PostStyles.css'
 import { Buffer } from 'buffer';
@@ -59,7 +59,7 @@ export default class PostComponent extends Component {
       <div>
         {this.state.isLoading == false ?
           <Card className='eventPost'>
-            <Card.Header>
+            <Card.Header className='eventHeader'>
             {this.state.postOwnerData.ProfilePicture.data 
                         ?
                           <img 
@@ -101,6 +101,12 @@ export default class PostComponent extends Component {
               </div>
             </Card.Footer>
             <div className={this.state.areCommentsSelected == true ? 'CommentsWrapper d-block' : 'CommentsWrapper d-none'}>
+              <InputGroup className='writeCommenttWrapper'>
+                  <FormControl placeholder='Write a comment..' className='commentInputField shadow-none'/>
+                  <InputGroup.Text className='PostCommentBtn'>
+                      <FontAwesomeIcon icon={faComment} />
+                  </InputGroup.Text>
+              </InputGroup>
                 {this.state.postComments.comments.result ?
                     this.state.postComments.comments.result.recordset.map((postComment) => {
                       return (

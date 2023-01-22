@@ -10,4 +10,11 @@
 .postInteractionButtons {
   background-color: white;
 }
-/*# sourceMappingURL=PostStyles.css.map */
+
+.eventPost {
+  background-color: white;
+}
+
+.eventHeader {
+  background-color: white;
+}/*# sourceMappingURL=PostStyles.css.map */

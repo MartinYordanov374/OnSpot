@@ -11,7 +11,6 @@
   border-width: 0.1rem;
   border-color: rgba(0, 0, 0, 0.4);
 }
-
 .DayContainer .DayNumber {
   font-size: 5rem;
   font-weight: bold;
@@ -32,24 +31,18 @@
 }
 
 .MonthSelectorWrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .MonthSelectorWrapper .caret {
   font-size: 3rem;
   color: white;
 }
-
 .MonthSelectorWrapper .caret:hover {
   cursor: pointer;
 }
-
 .MonthSelectorWrapper .caret:active {
-  color: #ededed;
+  color: rgb(237, 237, 237);
 }
-
 .MonthSelectorWrapper .MonthSelector {
   text-align: center;
   font-weight: bold;
@@ -61,5 +54,4 @@
     margin-left: 22%;
     width: 78%;
   }
-}
-/*# sourceMappingURL=CalendarScheduleStyle.css.map */
+}/*# sourceMappingURL=CalendarScheduleStyle.css.map */

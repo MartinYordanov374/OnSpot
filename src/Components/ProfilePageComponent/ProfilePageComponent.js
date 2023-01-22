@@ -282,6 +282,7 @@ export default class ProfilePageComponent extends Component {
                         {/* I should probably include what the user attended as well?? */}
                         <h2 className='userActivityHeader'>Latest Activity</h2>
                         <div className='EventsActivity'>
+                          
                          {this.state.userData.Posts.result.recordset.map((post) => {
                             return (
                               <PostComponent postData = {post}/>
