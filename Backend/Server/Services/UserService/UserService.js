@@ -481,11 +481,28 @@ async function updateBio(userID, Bio)
 async function GetUserPosts(userID)
 {
     try{
-        let result = await sql.query`SELECT * FROM dbo.Posts WHERE userid = ${userID}`
-        return {status: 200, msg:'Events fetched successfully', result: result}
+        let result = await sql.query`SELECT * FROM dbo.Posts WHERE UserID = ${userID}`
+        return {status: 200, msg:'Posts fetched successfully', result: result}
     }
     catch(err)
     {
+        return {status: 500, err:err}
+    }
+}
+
+
+async function GetPostComments(PostID)
+{
+    try{
+        let result = await sql.query`SELECT * FROM dbo.PostComments pc
+        LEFT JOIN dbo.Posts p
+        ON pc.PostID = p.PostID 
+        WHERE pc.PostID = ${PostID}`
+        return {status: 200, msg:'Post comments fetched successfully', result: result}
+    }
+    catch(err)
+    {
+        console.log(err)
         return {status: 500, err:err}
     }
 }
@@ -518,5 +535,6 @@ module.exports = {
     BlockUser,
     UnblockUser,
     GetBlockedUsers,
-    GetUserPosts
+    GetUserPosts,
+    GetPostComments
 }

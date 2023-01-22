@@ -95,7 +95,7 @@
 
     const CREATE_POST_COMMENTS_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.PostComments (
         PostID int NOT NULL,
-        CommentID int NOT NULL
+        CommentID int IDENTITY(1,1) NOT NULL
     );`
 
     const CREATE_POST_SHARES_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.PostShares (

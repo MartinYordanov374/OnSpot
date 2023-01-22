@@ -1,0 +1,10 @@
+.commentWrapper {
+  margin: 1rem;
+  -webkit-box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px !important;
+          box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px !important;
+}
+
+.commentHeader {
+  background-color: white;
+}
+/*# sourceMappingURL=Styles.css.map */

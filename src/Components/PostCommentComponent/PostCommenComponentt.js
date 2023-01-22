@@ -3,11 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faCommentAlt, faShare, faShareAlt, faShareAltSquare, faShareFromSquare, faShareNodes, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { Container, Button,Card, } from 'react-bootstrap'
 import Axios from 'axios'
-import './Styles/PostStyles.css'
+import './PostCommentStyles/Styles.css'
 import { Buffer } from 'buffer';
-import PostCommentComponent from '../PostCommentComponent/PostCommenComponentt';
 
-export default class PostComponent extends Component {
+export default class PostCommentComponent extends Component {
 
   constructor()
   {
@@ -44,8 +43,8 @@ export default class PostComponent extends Component {
     return (
       <div>
         {this.state.isLoading == false ?
-          <Card className='eventPost'>
-            <Card.Header>
+          <Card className='commentWrapper'>
+            <Card.Header className='commentHeader'>
             {this.state.postOwnerData.ProfilePicture.data 
                         ?
                           <img 
@@ -63,7 +62,7 @@ export default class PostComponent extends Component {
               }
               {this.state.postOwnerData
               ? 
-                <span className='posterUsername'> {this.state.postOwnerData.Username}</span>
+                <span className='commenterUsername'> {this.state.postOwnerData.Username}</span>
               :
                 ""
               }
@@ -73,29 +72,6 @@ export default class PostComponent extends Component {
                 {this.props.postData.PostContent}
               </Card.Text>
             </Card.Body>
-            <Card.Footer className='postInteractionButtons'>
-              <div className='row'>
-                <span className='col-sm-4 interactionButton'>
-                  <FontAwesomeIcon icon={faThumbsUp}/> Like
-                </span>
-                <span className='col-sm-4 interactionButton'>
-                  <FontAwesomeIcon icon={faCommentAlt}/> Comment
-                </span>
-                <span className='col-sm-4 interactionButton'>
-                  <FontAwesomeIcon icon={faShare}/> Share
-                </span>
-              </div>
-            </Card.Footer>
-            <div className='CommentsWrapper'>
-                {this.state.postComments.comments.result ?
-                    this.state.postComments.comments.result.recordset.map((postComment) => {
-                      return (
-                        <PostCommentComponent postData = {postComment}/>
-                      )})
-                    :
-                    ""
-                }
-            </div>
           </Card>
         :
           <div className='d-flex justify-content-center'>
