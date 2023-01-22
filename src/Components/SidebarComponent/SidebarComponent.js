@@ -47,6 +47,7 @@ export default class SidebarComponent extends Component {
         </div>
 
         <div className = 'ProfileDataWrapper'>
+        <a href={`Profile/${this.state.userID}`}>
           <div className=' profileDataContainer d-flex'>
             {this.state.ProfilePicture.data
                           ?
@@ -63,10 +64,9 @@ export default class SidebarComponent extends Component {
                               className='userPFP'
                             />
               }
-              <a href={`Profile/${this.state.userID}`}> 
                 <h2 className='username menuItemName'>{this.state.username}</h2>
-              </a>
           </div>
+          </a>
 
           {/* <h3 className='followers'> {this.state.userFollowers} Followers </h3> */}
         </div>

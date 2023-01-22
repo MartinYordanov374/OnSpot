@@ -93,7 +93,7 @@ export default class PostComponent extends Component {
                   <FontAwesomeIcon icon={faThumbsUp}/> Like
                 </span>
                 <span className='col-sm-4 interactionButton' onClick={()=> this.showComments()}>
-                  <FontAwesomeIcon icon={faCommentAlt}/> Comment
+                  <FontAwesomeIcon icon={faCommentAlt}/> Comments
                 </span>
                 <span className='col-sm-4 interactionButton'>
                   <FontAwesomeIcon icon={faShare}/> Share
