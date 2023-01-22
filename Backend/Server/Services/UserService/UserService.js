@@ -503,12 +503,37 @@ async function GetPostComments(PostID)
         LEFT JOIN dbo.Posts p
         ON p.PostID  = pc.CommentID 
         WHERE pc.PostID = ${PostID}`
-        console.log(`
-        SELECT * FROM dbo.PostComments pc
-        LEFT JOIN dbo.Posts p
-        ON p.PostID  = pc.CommentID 
-        WHERE pc.PostID = ${PostID}`)
+
         return {status: 200, msg:'Post comments fetched successfully', result: result}
+    }
+    catch(err)
+    {
+        console.log(err)
+        return {status: 500, err:err}
+    }
+}
+
+async function CreatePost(UserID, PostContent, PostDate, targetPostID)
+{
+    try{
+        if(targetPostID == undefined)
+        {
+            let result = await sql.query`
+            INSERT INTO dbo.Posts(UserID, PostContent, PostDate) VALUES (${UserID}, ${PostContent}, ${PostDate})`
+        }
+        else
+        {
+            let createPostResult = await sql.query`
+            INSERT INTO dbo.Posts(UserID, PostContent, PostDate) VALUES (${UserID}, ${PostContent}, ${PostDate})`
+
+            let commentResult = await sql.query`SELECT * from dbo.Posts WHERE UserID = ${UserID} AND PostContent = ${PostContent}`
+            let commentID = commentResult.recordset[0].PostID
+
+            let createCommentResult = await sql.query`
+            INSERT INTO dbo.PostComments(PostID, CommentID) VALUES (${targetPostID},${commentID})`
+        }
+
+        return {status: 200, msg:'Post successfully created', result: result}
     }
     catch(err)
     {
@@ -546,5 +571,6 @@ module.exports = {
     UnblockUser,
     GetBlockedUsers,
     GetUserPosts,
-    GetPostComments
+    GetPostComments,
+    CreatePost
 }

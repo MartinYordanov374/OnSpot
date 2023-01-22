@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments, CreatePost } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
@@ -711,6 +711,34 @@ let start = async() =>
             console.log(err)
             res.status(400).send({msg: 'something went wrong', err: err})
         }
+    })
+
+    app.post('/createPost', async(req,res) => {
+        try{
+            let postContent = req.body.PostContent
+
+            let userToken = validateToken(req.session.userToken)
+            let userID = Number(userToken.userID)
+
+
+            let postDate = new Date().toISOString()
+
+            let targetPostID = req.body.targetPostID
+
+            let result = await CreatePost(userID, postContent, postDate, targetPostID)
+            res.status(200).send({msg: 'Posts comments list retrieved', comments: result})
+
+        }
+        catch(err)
+        {
+            console.log(err)
+            res.status(400).send({msg: 'something went wrong', err: err})
+
+        }
+
+        
+
+
     })
     io.on('connection', (socket) => {
 

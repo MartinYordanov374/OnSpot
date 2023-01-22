@@ -39,6 +39,7 @@ export default class PostCommentComponent extends Component {
     this.getPostComments(this.props.postData.PostID)
 
   }
+
   render() {
     return (
       <div>

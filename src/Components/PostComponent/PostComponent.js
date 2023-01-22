@@ -16,7 +16,8 @@ export default class PostComponent extends Component {
       postOwnerData: null,
       isLoading: true,
       areCommentsSelected: false,
-      postComments: []
+      postComments: [],
+      commentContent: ''
     }
   }
   getPosterData = async(userID) => {
@@ -33,7 +34,6 @@ export default class PostComponent extends Component {
     await Axios.get(`http://localhost:3030/getPostComments/${postID}`, {}, {withCredentials: true})
     .then((res) => {
       this.setState({'postComments': res.data}, () => {
-        console.log(this.state.postComments)
       })
     })
   }
@@ -49,6 +49,20 @@ export default class PostComponent extends Component {
     }
   }
 
+  postComment = async() => {
+    let targetPostID = this.props.postData.PostID[0]
+    let commentContent = this.state.commentContent
+    let result = await Axios.post(`http://localhost:3030/createPost`, {
+      PostContent: commentContent,
+      targetPostID: targetPostID
+    }, {withCredentials: true})
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
   componentDidMount = () => {
     this.getPosterData(this.props.postData.UserID)
     this.getPostComments(this.props.postData.PostID[0])
@@ -102,8 +116,8 @@ export default class PostComponent extends Component {
             </Card.Footer>
             <div className={this.state.areCommentsSelected == true ? 'CommentsWrapper d-block' : 'CommentsWrapper d-none'}>
               <InputGroup className='writeCommenttWrapper'>
-                  <FormControl placeholder='Write a comment..' className='commentInputField shadow-none'/>
-                  <InputGroup.Text className='PostCommentBtn'>
+                  <FormControl placeholder='Write a comment..' className='commentInputField shadow-none' onChange={(e) => this.setState({'commentContent': e.target.value})}/>
+                  <InputGroup.Text className='PostCommentBtn' onClick={() => {this.postComment()} }>
                       <FontAwesomeIcon icon={faComment} />
                   </InputGroup.Text>
               </InputGroup>
