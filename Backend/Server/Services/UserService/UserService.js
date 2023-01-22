@@ -481,7 +481,11 @@ async function updateBio(userID, Bio)
 async function GetUserPosts(userID)
 {
     try{
-        let result = await sql.query`SELECT * FROM dbo.Posts WHERE UserID = ${userID}`
+        let result = await sql.query`SELECT * FROM Posts p 
+        LEFT JOIN PostComments pc 
+        ON p.PostID = pc.CommentID  
+        WHERE pc.PostID IS NULL 
+        AND UserID = ${userID}`
         return {status: 200, msg:'Posts fetched successfully', result: result}
     }
     catch(err)
@@ -497,7 +501,13 @@ async function GetPostComments(PostID)
         let result = await sql.query`
         SELECT * FROM dbo.PostComments pc
         LEFT JOIN dbo.Posts p
-        ON p.PostID  = pc.CommentID`
+        ON p.PostID  = pc.CommentID 
+        WHERE pc.PostID = ${PostID}`
+        console.log(`
+        SELECT * FROM dbo.PostComments pc
+        LEFT JOIN dbo.Posts p
+        ON p.PostID  = pc.CommentID 
+        WHERE pc.PostID = ${PostID}`)
         return {status: 200, msg:'Post comments fetched successfully', result: result}
     }
     catch(err)

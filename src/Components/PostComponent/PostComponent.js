@@ -31,13 +31,15 @@ export default class PostComponent extends Component {
   getPostComments = async(postID) => {
     await Axios.get(`http://localhost:3030/getPostComments/${postID}`, {}, {withCredentials: true})
     .then((res) => {
-      this.setState({'postComments': res.data})
+      this.setState({'postComments': res.data}, () => {
+        console.log(this.state.postComments)
+      })
     })
   }
 
   componentDidMount = () => {
     this.getPosterData(this.props.postData.UserID)
-    this.getPostComments(this.props.postData.PostID)
+    this.getPostComments(this.props.postData.PostID[0])
 
   }
   render() {

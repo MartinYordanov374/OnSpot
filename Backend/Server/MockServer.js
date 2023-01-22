@@ -688,7 +688,7 @@ let start = async() =>
     app.get('/getUserPosts/:userID', async(req,res) => {
         try{
             
-            let userID = req.params.userID
+            let userID = Number(req.params.userID)
             let result = await GetUserPosts(userID)
             res.status(200).send({msg: 'User posts list retrieved', posts: result})
         }
@@ -702,7 +702,7 @@ let start = async() =>
     app.get('/getPostComments/:postID', async(req,res) => {
         try{
             
-            let postID = req.params.postID
+            let postID = Number(req.params.postID)
             let result = await GetPostComments(postID)
             res.status(200).send({msg: 'Posts comments list retrieved', comments: result})
         }
