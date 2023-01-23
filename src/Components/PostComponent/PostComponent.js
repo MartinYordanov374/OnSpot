@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faCommentAlt, faShare, faThumbsUp, faEllipsis } from "@fortawesome/free-solid-svg-icons";
-import { Container, Button,Card, FormControl, InputGroup } from 'react-bootstrap'
+import { faComment, faCommentAlt, faShare, faThumbsUp, faEllipsis, faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
+import { Container, Button,Card, FormControl, InputGroup, Dropdown } from 'react-bootstrap'
 import Axios from 'axios'
 import './Styles/PostStyles.css'
 import { Buffer } from 'buffer';
@@ -75,12 +75,21 @@ export default class PostComponent extends Component {
       console.log(err)
     })
   }
+
+  deletePost = async() => {
+
+  }
+  //TODO: add edit post modal
+  editPost = async() => {
+
+  }
   componentDidMount = () => {
     this.getCurrentUserData()
     this.getPosterData(this.props.postData.UserID)
     this.getPostComments(this.props.postData.PostID[0])
-
   }
+
+
   render() {
     return (
       <div>
@@ -110,7 +119,19 @@ export default class PostComponent extends Component {
               }
              
               {this.props.postData.UserID == this.state.currentUserData[0].id ?
-              <FontAwesomeIcon icon={faEllipsis} className='postOptions'/>
+              <Dropdown>
+                <Dropdown.Toggle className='moreOptionsButton btn-light'>
+                      <FontAwesomeIcon icon={faEllipsis}/>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => this.deletePost()}>
+                    <FontAwesomeIcon icon={faTrash}/> Delete post
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => this.editPost()}>
+                    <FontAwesomeIcon icon={faPen}/> Edit post
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
               :
               ""}
             </Card.Header>

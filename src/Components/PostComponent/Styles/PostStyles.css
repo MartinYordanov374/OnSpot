@@ -24,4 +24,14 @@
 }
 .postOptions:hover {
   cursor: pointer;
+}
+
+.moreOptionsButton {
+  margin-top: -5%;
+  background-color: white;
+  border-color: white;
+}
+.moreOptionsButton:hover {
+  background-color: rgba(211, 212, 213, 0.1490196078);
+  border-color: rgba(211, 212, 213, 0.1490196078);
 }/*# sourceMappingURL=PostStyles.css.map */

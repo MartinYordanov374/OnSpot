@@ -1,3 +1,4 @@
+$hover-ellipsis-color: #d3d4d526;
 .posterPFP{
     width: 2.5rem;
     border-radius: 50%;
@@ -20,5 +21,14 @@
     float: right;
     &:hover{
         cursor: pointer;
+    }
+}
+.moreOptionsButton{
+    margin-top: -5%;
+    background-color: white;
+    border-color: white;
+    &:hover{
+        background-color: $hover-ellipsis-color;
+        border-color: $hover-ellipsis-color;
     }
 }
