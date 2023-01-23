@@ -68,7 +68,8 @@ export default class PostComponent extends Component {
       targetPostID: targetPostID
     }, {withCredentials: true})
     .then((res) => {
-      console.log(res)
+      this.getPostComments(this.props.postData.PostID[0])
+      this.setState({'commentContent': ''})
     })
     .catch((err) => {
       console.log(err)
@@ -133,7 +134,7 @@ export default class PostComponent extends Component {
             </Card.Footer>
             <div className={this.state.areCommentsSelected == true ? 'CommentsWrapper d-block' : 'CommentsWrapper d-none'}>
               <InputGroup className='writeCommenttWrapper'>
-                  <FormControl placeholder='Write a comment..' className='commentInputField shadow-none' onChange={(e) => this.setState({'commentContent': e.target.value})}/>
+                  <FormControl placeholder='Write a comment..' className='commentInputField shadow-none' value={this.state.commentContent} onChange={(e) => this.setState({'commentContent': e.target.value})}/>
                   <InputGroup.Text className='PostCommentBtn' onClick={() => {this.postComment()} }>
                       <FontAwesomeIcon icon={faComment} />
                   </InputGroup.Text>
