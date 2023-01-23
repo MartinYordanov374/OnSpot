@@ -34,4 +34,8 @@
 .moreOptionsButton:hover {
   background-color: rgba(211, 212, 213, 0.1490196078);
   border-color: rgba(211, 212, 213, 0.1490196078);
+}
+
+.editEventModal {
+  position: absolute;
 }/*# sourceMappingURL=PostStyles.css.map */

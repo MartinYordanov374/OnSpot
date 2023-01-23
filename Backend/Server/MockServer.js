@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments, CreatePost, DeletePost } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments, CreatePost, DeletePost, UpdatePost } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
@@ -742,10 +742,20 @@ let start = async() =>
             res.status(400).send({msg: 'something went wrong', err: err})
 
         }
+    })
 
-        
-
-
+    app.post('/updatePost/:postID', async(req,res) => {
+        try{
+            let postID = Number(req.params.postID)
+            let updatedContent = req.body.updatedContent;
+            let result = await UpdatePost(postID, updatedContent)
+            res.status(200).send({msg: 'Posts comments list retrieved', comments: result})
+        }
+        catch(err)
+        {
+            console.log(err)
+            res.status(400).send({msg: 'something went wrong', err: err})
+        }
     })
     io.on('connection', (socket) => {
 

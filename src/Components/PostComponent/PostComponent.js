@@ -18,8 +18,8 @@ export default class PostComponent extends Component {
       areCommentsSelected: false,
       postComments: [],
       commentContent: '',
-      currentUserData: null
-    }
+      currentUserData: null,
+      }
   }
   getPosterData = async(userID) => {
     await Axios.post(`http://localhost:3030/getUserDataById/${userID}`, {}, {withCredentials: true})
@@ -85,8 +85,8 @@ export default class PostComponent extends Component {
   }
 
   //TODO: add edit post modal
-  editPost = async() => {
-  }
+  
+
   componentDidMount = () => {
     this.getCurrentUserData()
     this.getPosterData(this.props.postData.UserID)
@@ -98,6 +98,7 @@ export default class PostComponent extends Component {
     return (
       <div>
         {this.state.isLoading == false ?
+        
           <Card className='eventPost'>
             {/* TODO: ADD LINK TO THE PROFILE PAGE TO THE HEADER ELEMENT  */}
             <Card.Header className='eventHeader'>
@@ -131,9 +132,6 @@ export default class PostComponent extends Component {
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={() => this.deletePost()}>
                     <FontAwesomeIcon icon={faTrash}/> Delete post
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => this.editPost()}>
-                    <FontAwesomeIcon icon={faPen}/> Edit post
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

@@ -556,6 +556,24 @@ async function DeletePost(postID)
     }
 }
 
+async function UpdatePost(postID, updatedContent)
+{
+    try{
+        let result = await sql.query
+        `
+        UPDATE dbo.Posts 
+        SET PostContent = ${updatedContent}
+        WHERE postID = ${postID}
+        `
+        return {status: 200, msg:'Post successfully updated', result: result}
+
+    }
+    catch(err)
+    {
+
+    }
+}
+
 
 module.exports = {
     registerUser,
@@ -587,5 +605,6 @@ module.exports = {
     GetUserPosts,
     GetPostComments,
     CreatePost,
-    DeletePost
+    DeletePost,
+    UpdatePost
 }

@@ -26,7 +26,8 @@ export default class ProfilePageComponent extends Component {
       userFollowersIDList: [],
       userFollowersList: [],
       posts: [],
-      commentContent: ''
+      commentContent: '',
+      isModalShown: false
     }
   }
     //TODO: IMPLEMENT INFINITE SCROLL FUNCTIONALITY
@@ -214,6 +215,24 @@ export default class ProfilePageComponent extends Component {
     })
   }
 
+
+  handleEditModal = () => {
+    if(this.state.isModalShown == true )
+    {
+      this.setState({'isModalShown': false})
+    }
+    else
+    {
+      this.setState({'isModalShown': true})
+    }
+  }
+
+  editPost = async(targetPostData) => {
+    this.handleEditModal()
+    let targetPost = targetPostData
+    this.setState({'editedPostData': targetPost})
+  }
+
   render() {
     return (
         <div>
@@ -221,7 +240,6 @@ export default class ProfilePageComponent extends Component {
         this.state.loginStatus == true ? 
           <div>
           <SidebarComponent/>
-          
           <Container>
               {this.state.isLoading == false? 
                 <div className='profilePageWrapper'>
@@ -331,7 +349,7 @@ export default class ProfilePageComponent extends Component {
                           
                          {this.state.userData.Posts.result.recordset.map((post) => {
                             return (
-                              <PostComponent postData = {post} dataHandler = {this.getUserData}/>
+                              <PostComponent postData = {post} dataHandler = {this.getUserData} editPost={this.editPost} editModal = {this.state.isModalShown}/>
                             )
                          })}
                         </div>  
