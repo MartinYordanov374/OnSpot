@@ -17,7 +17,8 @@ export default class PostComponent extends Component {
       isLoading: true,
       areCommentsSelected: false,
       postComments: [],
-      commentContent: ''
+      commentContent: '',
+      currentUserData: null
     }
   }
   getPosterData = async(userID) => {
@@ -27,6 +28,16 @@ export default class PostComponent extends Component {
         this.setState({'isLoading': false})
 
       })
+    })
+  }
+
+  getCurrentUserData = async() => {
+    await Axios.get(`http://localhost:3030/getUserData`, {withCredentials: true})
+    .then((res) => {
+      this.setState({'currentUserData': res.data})
+    })
+    .catch((err) => {
+      console.log(err)
     })
   }
 
@@ -64,6 +75,7 @@ export default class PostComponent extends Component {
     })
   }
   componentDidMount = () => {
+    this.getCurrentUserData()
     this.getPosterData(this.props.postData.UserID)
     this.getPostComments(this.props.postData.PostID[0])
 
@@ -95,7 +107,11 @@ export default class PostComponent extends Component {
               :
                 ""
               }
+             
+              {this.props.postData.UserID == this.state.currentUserData[0].id ?
               <FontAwesomeIcon icon={faEllipsis} className='postOptions'/>
+              :
+              ""}
             </Card.Header>
             <Card.Body>
               <Card.Text>

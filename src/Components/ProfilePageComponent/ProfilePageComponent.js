@@ -315,12 +315,16 @@ export default class ProfilePageComponent extends Component {
                       ""
                     }
                         {/* I should probably include what the user attended as well?? */}
+                        {this.state.isCurrentUserOwner ?
                         <InputGroup className='writeCommenttWrapper'>
                           <FormControl placeholder='Write a post...' className='commentInputField shadow-none' onChange={(e) => this.setState({'commentContent': e.target.value})}/>
                           <InputGroup.Text className='PostCommentBtn' onClick={() => {this.postComment()} }>
                               <FontAwesomeIcon icon={faComment} />
                           </InputGroup.Text>
                         </InputGroup>
+                        :
+                        ""
+                        }
                         <h2 className='userActivityHeader'>Latest Activity</h2>
                         <div className='EventsActivity'>
                           
