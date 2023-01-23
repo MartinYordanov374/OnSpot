@@ -5,6 +5,7 @@ import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './Styles/SettingsStyles.css'
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Buffer } from 'buffer';
 
 export default class Settings extends Component {
 

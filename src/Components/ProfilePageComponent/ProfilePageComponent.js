@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import React, { Component } from 'react'
-import { Container, Button,Card, Dropdown, } from 'react-bootstrap'
+import { Container, Button,Card, Dropdown, FormControl, InputGroup } from 'react-bootstrap'
 import { Buffer } from 'buffer';
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './ProfilePageStyles/ProfilePageStyle.css'
@@ -8,7 +8,7 @@ import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandi
 import ChatBoxModalComponent from '../ChatboxModalComponent/ChatBoxModalComponent';
 import PostComponent from '../PostComponent/PostComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsis, faGripHorizontal, faListDots, faSlash, faUserLargeSlash, faUsersLine } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsis, faGripHorizontal, faListDots, faSlash, faUserLargeSlash, faUsersLine, faComment } from '@fortawesome/free-solid-svg-icons';
 
 export default class ProfilePageComponent extends Component {
 
@@ -25,7 +25,8 @@ export default class ProfilePageComponent extends Component {
       isChatModalShown: false,
       userFollowersIDList: [],
       userFollowersList: [],
-      posts: []
+      posts: [],
+      commentContent: ''
     }
   }
   // TODO: FIX THE FOLLOW BUTTON DISPLAY
@@ -47,6 +48,40 @@ export default class ProfilePageComponent extends Component {
       {
         this.setState({'loginStatus': false})
       }})
+    }
+    postComment = async() => {
+      try
+      {
+        let targetPostID = this.props.postData.PostID[0]
+        let commentContent = this.state.commentContent
+        let result = await Axios.post(`http://localhost:3030/createPost`, {
+          PostContent: commentContent,
+          targetPostID: targetPostID
+        }, {withCredentials: true})
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
+      catch(err)
+      {
+        
+          let targetPostID = null
+          let commentContent = this.state.commentContent
+          let result = await Axios.post(`http://localhost:3030/createPost`, {
+            PostContent: commentContent,
+            targetPostID: targetPostID
+          }, {withCredentials: true})
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+        
+      }
     }
     
     componentDidMount = () =>
@@ -280,6 +315,12 @@ export default class ProfilePageComponent extends Component {
                       ""
                     }
                         {/* I should probably include what the user attended as well?? */}
+                        <InputGroup className='writeCommenttWrapper'>
+                          <FormControl placeholder='Write a post...' className='commentInputField shadow-none' onChange={(e) => this.setState({'commentContent': e.target.value})}/>
+                          <InputGroup.Text className='PostCommentBtn' onClick={() => {this.postComment()} }>
+                              <FontAwesomeIcon icon={faComment} />
+                          </InputGroup.Text>
+                        </InputGroup>
                         <h2 className='userActivityHeader'>Latest Activity</h2>
                         <div className='EventsActivity'>
                           
