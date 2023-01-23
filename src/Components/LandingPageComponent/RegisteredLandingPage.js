@@ -74,7 +74,7 @@ export default class RegisteredLandingPage extends Component {
               <SidebarComponent/>
                 <Container className='EventCardsContainer'>
                       <div className='EventCardsWrapper row' style={{'margin-left': '2%'}}>
-
+                        <h2>Recommended for you</h2>
                         { this.state.events.map((eventsList) => {
                             return(
                                 eventsList.map((event) => {
