@@ -223,7 +223,6 @@ export default class ProfilePageComponent extends Component {
           <SidebarComponent/>
           
           <Container>
-              {/* <NavbarComponentRegisteredUser/> */}
               {this.state.isLoading == false? 
                 <div className='profilePageWrapper'>
                     <div className='profilePageBackgroundImageWrapper'>
@@ -332,7 +331,7 @@ export default class ProfilePageComponent extends Component {
                           
                          {this.state.userData.Posts.result.recordset.map((post) => {
                             return (
-                              <PostComponent postData = {post}/>
+                              <PostComponent postData = {post} dataHandler = {this.getUserData}/>
                             )
                          })}
                         </div>  

@@ -542,6 +542,20 @@ async function CreatePost(UserID, PostContent, PostDate, targetPostID)
     }
 }
 
+async function DeletePost(postID)
+{
+    try{
+        //TODO: ADD CHECK IF CURRENT USER IS OWNER s
+        let result = await sql.query`DELETE FROM dbo.Posts WHERE postID = ${postID}`
+        return {status: 200, msg:'Post successfully created', result: result}
+    }
+    catch(err)
+    {
+        console.log(err)
+        return {status: 500, err:err}
+    }
+}
+
 
 module.exports = {
     registerUser,
@@ -572,5 +586,6 @@ module.exports = {
     GetBlockedUsers,
     GetUserPosts,
     GetPostComments,
-    CreatePost
+    CreatePost,
+    DeletePost
 }

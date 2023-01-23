@@ -77,11 +77,15 @@ export default class PostComponent extends Component {
   }
 
   deletePost = async() => {
+    await Axios.delete(`http://localhost:3030/DeletePost/${this.props.postData.PostID[0]}`)
+    .then((res) => {
+      this.props.dataHandler()
 
+    })
   }
+
   //TODO: add edit post modal
   editPost = async() => {
-
   }
   componentDidMount = () => {
     this.getCurrentUserData()
@@ -95,6 +99,7 @@ export default class PostComponent extends Component {
       <div>
         {this.state.isLoading == false ?
           <Card className='eventPost'>
+            {/* TODO: ADD LINK TO THE PROFILE PAGE TO THE HEADER ELEMENT  */}
             <Card.Header className='eventHeader'>
             {this.state.postOwnerData.ProfilePicture.data 
                         ?
