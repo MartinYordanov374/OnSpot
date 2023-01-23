@@ -29,10 +29,10 @@ export default class ProfilePageComponent extends Component {
       commentContent: ''
     }
   }
-  // TODO: FIX THE FOLLOW BUTTON DISPLAY
-  // REMOVE FOLLOW AND MESSAGE OPTION IF USER IS OWNER OF THE PROFILE
-  // REMOVE CHANGE PFPF IF USER IS NOT OWNER OF THE PROFILE
-  checkIfUserIsLoggedIn = async () => {
+    // TODO: FIX THE FOLLOW BUTTON DISPLAY
+    // REMOVE FOLLOW AND MESSAGE OPTION IF USER IS OWNER OF THE PROFILE
+    // REMOVE CHANGE PFPF IF USER IS NOT OWNER OF THE PROFILE
+    checkIfUserIsLoggedIn = async () => {
     this.splittedUrl = window.location.href.split('/')
     this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
     await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
@@ -49,6 +49,13 @@ export default class ProfilePageComponent extends Component {
         this.setState({'loginStatus': false})
       }})
     }
+    componentDidMount = () =>
+    {
+      this.splittedUrl = window.location.href.split('/')
+      this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
+      this.checkIfUserIsLoggedIn()
+      this.getUserData()
+    } 
     postComment = async() => {
       try
       {
@@ -59,7 +66,8 @@ export default class ProfilePageComponent extends Component {
           targetPostID: targetPostID
         }, {withCredentials: true})
         .then((res) => {
-          console.log(res)
+          this.setState({'commentContent': ''})
+          this.getUserData()
         })
         .catch((err) => {
           console.log(err)
@@ -75,7 +83,8 @@ export default class ProfilePageComponent extends Component {
             targetPostID: targetPostID
           }, {withCredentials: true})
           .then((res) => {
-            console.log(res)
+            this.setState({'commentContent': ''})
+            this.getUserData()
           })
           .catch((err) => {
             console.log(err)
@@ -83,13 +92,9 @@ export default class ProfilePageComponent extends Component {
         
       }
     }
-    
-    componentDidMount = () =>
-    {
-      this.splittedUrl = window.location.href.split('/')
-      this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
-      this.checkIfUserIsLoggedIn()
-       Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
+
+  getUserData = () => {
+    Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
       .then((res) => {
         this.setState({'userData': res.data}, () => {
         this.setState({'isLoading': false})
@@ -99,7 +104,6 @@ export default class ProfilePageComponent extends Component {
         console.log(err)
       })
   }
-
   handleSelectProfilePicture = () => {
     let profileImageInputField = document.querySelector('.profileImageUpload')
     profileImageInputField.click()
@@ -317,7 +321,7 @@ export default class ProfilePageComponent extends Component {
                         {/* I should probably include what the user attended as well?? */}
                         {this.state.isCurrentUserOwner ?
                         <InputGroup className='writeCommenttWrapper'>
-                          <FormControl placeholder='Write a post...' className='commentInputField shadow-none' onChange={(e) => this.setState({'commentContent': e.target.value})}/>
+                          <FormControl placeholder='Write a post...' className='commentInputField shadow-none' value = {this.state.commentContent} onChange={(e) => this.setState({'commentContent': e.target.value})}/>
                           <InputGroup.Text className='PostCommentBtn' onClick={() => {this.postComment()} }>
                               <FontAwesomeIcon icon={faComment} />
                           </InputGroup.Text>
