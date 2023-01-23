@@ -29,9 +29,7 @@ export default class ProfilePageComponent extends Component {
       commentContent: ''
     }
   }
-    // TODO: FIX THE FOLLOW BUTTON DISPLAY
-    // REMOVE FOLLOW AND MESSAGE OPTION IF USER IS OWNER OF THE PROFILE
-    // REMOVE CHANGE PFPF IF USER IS NOT OWNER OF THE PROFILE
+    //TODO: IMPLEMENT INFINITE SCROLL FUNCTIONALITY
     checkIfUserIsLoggedIn = async () => {
     this.splittedUrl = window.location.href.split('/')
     this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
