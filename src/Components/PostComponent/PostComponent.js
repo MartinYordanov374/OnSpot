@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faCommentAlt, faPaperPlane, faShare, faShareAlt, faShareAltSquare, faShareFromSquare, faShareNodes, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faComment, faCommentAlt, faShare, faThumbsUp, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Container, Button,Card, FormControl, InputGroup } from 'react-bootstrap'
 import Axios from 'axios'
 import './Styles/PostStyles.css'
@@ -95,6 +95,7 @@ export default class PostComponent extends Component {
               :
                 ""
               }
+              <FontAwesomeIcon icon={faEllipsis} className='postOptions'/>
             </Card.Header>
             <Card.Body>
               <Card.Text>

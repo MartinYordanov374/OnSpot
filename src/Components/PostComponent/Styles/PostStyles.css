@@ -17,4 +17,13 @@
 
 .eventHeader {
   background-color: white;
-}/*# sourceMappingURL=PostStyles.css.map */
+}
+
+.postOptions {
+  float: right;
+}
+
+.postOptions:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=PostStyles.css.map */

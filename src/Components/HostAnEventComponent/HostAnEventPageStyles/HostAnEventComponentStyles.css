@@ -2,6 +2,7 @@
   background-color: #F3EDED;
   margin-top: 5%;
 }
+
 .HostEventCard .hostEventButton {
   font-size: 25px !important;
   font-weight: bold;
@@ -10,22 +11,32 @@
   background-color: #FF7A00;
   border-color: #FF7A00;
 }
+
 .HostEventCard .hostEventButton:active {
   background-color: #e97100;
   border-color: #e97100;
 }
+
 .HostEventCard .fieldLabel {
   font-weight: bold !important;
 }
+
 .HostEventCard .inputField {
   height: 3rem;
 }
-.HostEventCard .inputField::-moz-placeholder {
+
+.HostEventCard .inputField::-webkit-input-placeholder {
   font-weight: bold;
 }
+
 .HostEventCard .inputField:-ms-input-placeholder {
   font-weight: bold;
 }
+
+.HostEventCard .inputField::-ms-input-placeholder {
+  font-weight: bold;
+}
+
 .HostEventCard .inputField::placeholder {
   font-weight: bold;
 }
@@ -37,35 +48,47 @@
   right: 50%;
   top: 35%;
 }
+
 .hostEventPage .eventNameWrapper {
   width: 60%;
   left: 15% !important;
   position: absolute;
   margin-top: 0rem !important;
 }
+
 .hostEventPage .inputFieldDropdown {
   width: 120%;
 }
+
 .hostEventPage .continueBtn {
   width: 100%;
 }
+
 .hostEventPage .previousBtn {
   width: 100%;
 }
+
 .hostEventPage .fieldLabel {
   text-align: center;
 }
+
 .hostEventPage .calendar {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
+
 .hostEventPage .buttonsWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
+
 .hostEventPage .buttonsWrapper .continueBtn {
   width: 50%;
 }
+
 .hostEventPage .buttonsWrapper .previousBtn {
   width: 50%;
-}/*# sourceMappingURL=HostAnEventComponentStyles.css.map */
+}
+/*# sourceMappingURL=HostAnEventComponentStyles.css.map */

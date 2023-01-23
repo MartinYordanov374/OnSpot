@@ -16,3 +16,9 @@
 .eventHeader{
     background-color: white;
 }
+.postOptions{
+    float: right;
+    &:hover{
+        cursor: pointer;
+    }
+}

@@ -2,7 +2,8 @@
   margin: 1rem;
   margin-left: 13rem;
   width: 50%;
-  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px !important;
+  -webkit-box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px !important;
+          box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px !important;
 }
 
 .commentHeader {
@@ -15,7 +16,8 @@
   border-style: none;
   background-color: transparent;
   font-weight: bold;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
   margin-left: 25.5%;
   margin-top: 1rem;
 }
@@ -25,6 +27,7 @@
   border-style: none;
   border-radius: 18px;
 }
+
 .PostCommentBtn:hover {
   cursor: pointer;
 }
@@ -37,13 +40,16 @@
   word-break: normal;
   border-radius: 18px;
 }
+
 .commentInputField:focus {
   background-color: #F2F3F5;
   outline: none;
   border: none;
 }
+
 .commentInputField:active {
   background-color: #F2F3F5;
   outline: none;
   border: none;
-}/*# sourceMappingURL=Styles.css.map */
+}
+/*# sourceMappingURL=Styles.css.map */
