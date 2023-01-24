@@ -20,7 +20,8 @@ export default class PostComponent extends Component {
       commentContent: '',
       currentUserData: null,
       postLikesAmount: 0,
-      postLikers: []
+      postLikers: [],
+      hasUserLikedThisPost: false
       }
   }
   getPosterData = async(userID) => {
@@ -91,7 +92,14 @@ export default class PostComponent extends Component {
   getPostLikers = async(postID) => {
     await Axios.get(`http://localhost:3030/getPostLikers/${postID}`)
     .then((res) => {
-      this.setState({'postLikers': res.data.LikersIDList.result.recordset[0].LikerID})
+      this.setState({'postLikers': res.data.LikersIDList.result.recordset}, () => {
+        this.state.postLikers.map((liker) => {
+          if(liker.LikerID == this.state.currentUserData.id)
+          {
+            this.setState({'hasUserLikedThisPost': true})
+          }
+        })
+      })
     })
     .catch((err) => {
       console.log(err)
@@ -170,9 +178,15 @@ export default class PostComponent extends Component {
             ""}
             <Card.Footer className='postInteractionButtons'>
               <div className='row'>
-                <span className='col-sm-4 interactionButton'>
-                  <FontAwesomeIcon icon={faThumbsUp}/> Like
-                </span>
+                {this.state.hasUserLikedThisPost == true ?
+                  <span className='col-sm-4 interactionButton'>
+                    <FontAwesomeIcon icon={faThumbsUp}/> Like
+                  </span>
+                :
+                  <span className='col-sm-4 interactionButton'>
+                    <FontAwesomeIcon icon={faThumbsUp}/> Unlike
+                  </span>
+                }
                 <span className='col-sm-4 interactionButton' onClick={()=> this.showComments()}>
                   <FontAwesomeIcon icon={faCommentAlt}/> Comments
                 </span>
