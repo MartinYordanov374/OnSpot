@@ -649,8 +649,9 @@ async function SharePost(UserID, PostID)
 {
     try{
         let result = await sql.query`
-            INSERT INTO dbo.PostShares(PostID, SharerID) 
-            VALUES(${PostID}, ${UserID})`
+        IF NOT EXISTS (SELECT * FROM PostShares ps WHERE PostID = ${PostID} AND SharerID = ${UserID})
+        INSERT INTO dbo.PostShares(PostID, SharerID) 
+                   VALUES(${PostID}, ${UserID})`
         return {status: 200, msg:'Post successfully shared.'}
 
     }
