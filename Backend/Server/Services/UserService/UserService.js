@@ -631,6 +631,23 @@ async function LikePost(UserID, PostID)
     }
 }
 
+async function GetPostShares(PostID)
+{
+    try{
+        let result = await sql.query`
+        SELECT count(PostID) as postSharesTotal
+        FROM PostShares ps 
+        WHERE PostID = ${PostID}`
+        return {status: 200, msg:'Post shares successfully retrieved.', result: result}
+
+    }
+    catch(err)
+    {
+        return {status: 200, msg:'Post shares not retrieved.', result: err}
+    }
+}
+
+
 module.exports = {
     registerUser,
     UserExistsByUsername,
@@ -665,5 +682,6 @@ module.exports = {
     UpdatePost,
     GetTotalPostLikes,
     GetPostLikers,
-    LikePost
+    LikePost,
+    GetPostShares
 }

@@ -21,7 +21,8 @@ export default class PostComponent extends Component {
       currentUserData: null,
       postLikesAmount: 0,
       postLikers: [],
-      hasUserLikedThisPost: false
+      hasUserLikedThisPost: false,
+      postSharesAmount: 0
       }
   }
   getPosterData = async(userID) => {
@@ -113,7 +114,8 @@ export default class PostComponent extends Component {
       this.props.dataHandler()
 
     })
-  }  
+  } 
+
   likePost = async() => {
    await Axios.post(`http://localhost:3030/likePost/${this.props.postData.PostID[0]}`, {}, {withCredentials: true})
    .then((res) => {
@@ -124,12 +126,23 @@ export default class PostComponent extends Component {
     console.log(err)
    })
   }
+
+  getPostShares = async(postID) => {
+    await Axios.get(`http://localhost:3030/getPostShares/${postID}`)
+    .then((res) => {
+      this.setState({'postSharesAmount': res.data.PostSharesAmount.result.recordset[0].postSharesTotal})
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
   componentDidMount = () => {
     this.getCurrentUserData()
     this.getPosterData(this.props.postData.UserID)
     this.getPostComments(this.props.postData.PostID[0])
     this.getPostLikes(this.props.postData.PostID[0])
     this.hasUserLikedThisPost(this.props.postData.PostID[0])
+    this.getPostShares(this.props.postData.PostID[0])
   }
 
 
@@ -197,7 +210,7 @@ export default class PostComponent extends Component {
                   <FontAwesomeIcon icon={faCommentAlt}/> Comments
                 </span>
                 <span className='col-sm-4 interactionButton'>
-                  <FontAwesomeIcon icon={faShare}/> Share
+                  <FontAwesomeIcon icon={faShare}/> Share {this.state.postSharesAmount}
                 </span>
               </div>
             </Card.Footer>
