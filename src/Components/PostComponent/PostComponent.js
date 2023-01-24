@@ -138,10 +138,10 @@ export default class PostComponent extends Component {
   }
 
   sharePost = async() => {
-    await Axios.get(`http://localhost:3030/sharePost/${this.props.postData.PostID[0]}`)
+    await Axios.post(`http://localhost:3030/sharePost/${this.props.postData.PostID[0]}`, {},  {withCredentials: true})
     .then((res) => {
       this.getPostShares(this.props.postData.PostID[0])
-    }, {withCredentials: true})
+    })
     .catch((err) => {
       console.log(err)
     })
