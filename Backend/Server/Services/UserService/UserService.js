@@ -591,20 +591,20 @@ async function GetTotalPostLikes(PostID)
         return {status: 500, err:err}
     }
 }
-
-async function GetPostLikers(PostID)
+// TODO: Rename to HasUserLikedPost
+async function GetPostLikers(UserID, PostID)
 {
     try{
         let result = await sql.query`
-        SELECT LikerID
+        SELECT * 
         FROM PostLikes pl 
-        WHERE PostID = ${PostID}`
-        return {status: 200, msg:'Post liked successfully retrieved.', result: result}
+        WHERE PostID = ${PostID} and LikerID = ${UserID}`
+        return {status: 200, msg:'Post likes successfully retrieved.', result: result}
 
     }
     catch(err)
     {
-        
+        return {status: 200, msg:'Post lies not retrieved.', result: err}
     }
 }
 

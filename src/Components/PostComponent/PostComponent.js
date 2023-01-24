@@ -89,17 +89,13 @@ export default class PostComponent extends Component {
     })
   }
 
-  getPostLikers = async(postID) => {
-    await Axios.get(`http://localhost:3030/getPostLikers/${postID}`)
+  hasUserLikedThisPost = async(postID) => {
+    await Axios.get(`http://localhost:3030/hasUserLikedPost/${postID}`, {withCredentials: true})
     .then((res) => {
-      this.setState({'postLikers': res.data.LikersIDList.result.recordset}, () => {
-        this.state.postLikers.map((liker) => {
-          if(liker.LikerID == this.state.currentUserData.id)
-          {
-            this.setState({'hasUserLikedThisPost': true})
-          }
-        })
-      })
+      if(res.data.LikersIDList.result.recordset[0] != undefined)
+      {
+        this.setState({'hasUserLikedThisPost': true})
+      }
     })
     .catch((err) => {
       console.log(err)
@@ -119,7 +115,7 @@ export default class PostComponent extends Component {
     this.getPosterData(this.props.postData.UserID)
     this.getPostComments(this.props.postData.PostID[0])
     this.getPostLikes(this.props.postData.PostID[0])
-    this.getPostLikers(this.props.postData.PostID[0])
+    this.hasUserLikedThisPost(this.props.postData.PostID[0])
   }
 
 
@@ -178,7 +174,7 @@ export default class PostComponent extends Component {
             ""}
             <Card.Footer className='postInteractionButtons'>
               <div className='row'>
-                {this.state.hasUserLikedThisPost == true ?
+                {this.state.hasUserLikedThisPost == false ?
                   <span className='col-sm-4 interactionButton'>
                     <FontAwesomeIcon icon={faThumbsUp}/> Like
                   </span>

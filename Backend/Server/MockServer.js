@@ -770,10 +770,13 @@ let start = async() =>
         }
     })
 
-    app.get('/getPostLikers/:PostID', async(req,res) => {
+    app.get('/hasUserLikedPost/:PostID', async(req,res) => {
         try{
+            let userToken = req.session.userToken
+            let userTokenValidated = validateToken(userToken)
+            let userID = userTokenValidated.userID
             let postID = Number(req.params.PostID)
-            let result = await GetPostLikers(postID)
+            let result = await GetPostLikers(userID, postID)
             res.status(200).send({msg: 'Posts likers retrieved', LikersIDList: result})
         }
         catch(err)
