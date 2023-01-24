@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faCommentAlt, faShare, faThumbsUp, faEllipsis, faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faComment, faCommentAlt, faShare, faThumbsUp, faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Container, Button,Card, FormControl, InputGroup, Dropdown } from 'react-bootstrap'
 import Axios from 'axios'
 import './Styles/PostStyles.css'
@@ -118,6 +118,7 @@ export default class PostComponent extends Component {
    await Axios.post(`http://localhost:3030/likePost/${this.props.postData.PostID[0]}`, {}, {withCredentials: true})
    .then((res) => {
     this.hasUserLikedThisPost(this.props.postData.PostID[0])
+    this.getPostLikes(this.props.postData.PostID[0])
    })
    .catch((err) => {
     console.log(err)
@@ -181,19 +182,15 @@ export default class PostComponent extends Component {
                 {this.props.postData.PostContent}
               </Card.Text>
             </Card.Body>
-            {this.state.postLikesAmount > 0 ?
-              <span className='likesIndicator'>{this.state.postLikesAmount} people like this</span>
-            : 
-            ""}
             <Card.Footer className='postInteractionButtons'>
               <div className='row'>
                 {this.state.hasUserLikedThisPost == false ?
                   <span className='col-sm-4 interactionButton' onClick={() => this.likePost()}>
-                    <FontAwesomeIcon icon={faThumbsUp}/> Like
+                    <FontAwesomeIcon icon={faThumbsUp}/> Like {this.state.postLikesAmount > 0 ? this.state.postLikesAmount : ""} 
                   </span>
                 :
                   <span className='col-sm-4 interactionButton' onClick={() => this.likePost()}>
-                    <FontAwesomeIcon icon={faThumbsUp}/> Liked
+                    <FontAwesomeIcon icon={faThumbsUp}/> Liked {this.state.postLikesAmount > 0 ? this.state.postLikesAmount : ""} 
                   </span>
                 }
                 <span className='col-sm-4 interactionButton' onClick={()=> this.showComments()}>
