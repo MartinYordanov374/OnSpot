@@ -131,7 +131,17 @@ export default class PostComponent extends Component {
     await Axios.get(`http://localhost:3030/getPostShares/${postID}`)
     .then((res) => {
       this.setState({'postSharesAmount': res.data.PostSharesAmount.result.recordset[0].postSharesTotal})
+    }, {withCredentials: true})
+    .catch((err) => {
+      console.log(err)
     })
+  }
+
+  sharePost = async() => {
+    await Axios.get(`http://localhost:3030/sharePost/${this.props.postData.PostID[0]}`)
+    .then((res) => {
+      this.getPostShares(this.props.postData.PostID[0])
+    }, {withCredentials: true})
     .catch((err) => {
       console.log(err)
     })
@@ -209,9 +219,9 @@ export default class PostComponent extends Component {
                 <span className='col-sm-4 interactionButton' onClick={()=> this.showComments()}>
                   <FontAwesomeIcon icon={faCommentAlt}/> Comments
                 </span>
-                <span className='col-sm-4 interactionButton'>
+                <span className='col-sm-4 interactionButton' onClick={() => this.sharePost()}>
                   <FontAwesomeIcon icon={faShare}/> Share {this.state.postSharesAmount}
-                </span>
+                </span> 
               </div>
             </Card.Footer>
             <div className={this.state.areCommentsSelected == true ? 'CommentsWrapper d-block' : 'CommentsWrapper d-none'}>

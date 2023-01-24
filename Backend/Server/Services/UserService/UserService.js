@@ -646,7 +646,20 @@ async function GetPostShares(PostID)
         return {status: 200, msg:'Post shares not retrieved.', result: err}
     }
 }
+async function SharePost(UserID, PostID)
+{
+    try{
+        let result = await sql.query`
+            INSERT INTO dbo.PostShares(PostID, SharerID) 
+            VALUES(${PostID}, ${UserID})`
+        return {status: 200, msg:'Post successfully shared.'}
 
+    }
+    catch(err)
+    {
+        return {status: 200, msg:'Something went wrong.', result: err}
+    }
+}
 
 module.exports = {
     registerUser,
@@ -683,5 +696,6 @@ module.exports = {
     GetTotalPostLikes,
     GetPostLikers,
     LikePost,
-    GetPostShares
+    GetPostShares,
+    SharePost
 }
