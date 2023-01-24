@@ -250,7 +250,6 @@ async function ChangeProfilePicture(userID, profilePicture)
         // check if user has already uploaded profile picture, if so change it otherwise insert it
         try{
             let hasUserUploadedProfilePicture = await GetUserProfilePicture(userID)
-            console.log(hasUserUploadedProfilePicture)
             if(hasUserUploadedProfilePicture.status == 200)
             {
                 await sql.query`UPDATE dbo.ProfilePictures SET ProfilePicture = ${profilePicture.data} WHERE UserID = ${userID}`
@@ -481,7 +480,7 @@ async function updateBio(userID, Bio)
 async function GetUserPosts(userID)
 {
     try{
-        let result = await sql.query`SELECT * FROM Posts p 
+        let result = await sql.query`SELECT UserID, PostContent, PostDate, P.PostID, pc.CommentID, pc.PostID as CommentParentID FROM Posts p 
         LEFT JOIN PostComments pc 
         ON p.PostID = pc.CommentID  
         WHERE pc.PostID IS NULL 
@@ -669,7 +668,6 @@ async function GetUserSharedPosts(sharerID)
         inner JOIN PostShares ps
         ON p.PostID = ps.PostID  
         WHERE ps.SharerID = ${sharerID}`
-        console.log(result)
         return {status: 200, msg:'Post successfully shared.', result: result}
     }
     catch(err)

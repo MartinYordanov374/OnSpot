@@ -344,7 +344,6 @@ let start = async() =>
         let userFollowers = await GetUserFollowers(Number(req.params.id))
         let userPosts = await GetUserPosts(Number(req.params.id))
         let userSharedPosts = await GetUserSharedPosts(Number(req.params.id))
-        console.log(userSharedPosts)
         let targetUserProfilePictureResponse = await GetUserProfilePicture(req.params.id)
         let targetUserBackgroundPictureResponse = await GetUserBackgroundPicture(req.params.id)
         // TODO ADD CHECK IF PROFILE PICTURE FOR GIVEN USER EXISTS OR NOT

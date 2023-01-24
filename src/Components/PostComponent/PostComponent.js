@@ -65,14 +65,14 @@ export default class PostComponent extends Component {
   }
 
   postComment = async() => {
-    let targetPostID = this.props.postData.PostID[0]
+    let targetPostID = this.props.postData.PostID
     let commentContent = this.state.commentContent
     let result = await Axios.post(`http://localhost:3030/createPost`, {
       PostContent: commentContent,
       targetPostID: targetPostID
     }, {withCredentials: true})
     .then((res) => {
-      this.getPostComments(this.props.postData.PostID[0])
+      this.getPostComments(this.props.postData.PostID)
       this.setState({'commentContent': ''})
     })
     .catch((err) => {
@@ -109,7 +109,7 @@ export default class PostComponent extends Component {
   }
 
   deletePost = async() => {
-    await Axios.delete(`http://localhost:3030/DeletePost/${this.props.postData.PostID[0]}`)
+    await Axios.delete(`http://localhost:3030/DeletePost/${this.props.postData.PostID}`)
     .then((res) => {
       this.props.dataHandler()
 
@@ -117,10 +117,10 @@ export default class PostComponent extends Component {
   } 
 
   likePost = async() => {
-   await Axios.post(`http://localhost:3030/likePost/${this.props.postData.PostID[0]}`, {}, {withCredentials: true})
+   await Axios.post(`http://localhost:3030/likePost/${this.props.postData.PostID}`, {}, {withCredentials: true})
    .then((res) => {
-    this.hasUserLikedThisPost(this.props.postData.PostID[0])
-    this.getPostLikes(this.props.postData.PostID[0])
+    this.hasUserLikedThisPost(this.props.postData.PostID)
+    this.getPostLikes(this.props.postData.PostID)
    })
    .catch((err) => {
     console.log(err)
@@ -138,9 +138,9 @@ export default class PostComponent extends Component {
   }
 
   sharePost = async() => {
-    await Axios.post(`http://localhost:3030/sharePost/${this.props.postData.PostID[0]}`, {},  {withCredentials: true})
+    await Axios.post(`http://localhost:3030/sharePost/${this.props.postData.PostID}`, {},  {withCredentials: true})
     .then((res) => {
-      this.getPostShares(this.props.postData.PostID[0])
+      this.getPostShares(this.props.postData.PostID)
     })
     .catch((err) => {
       console.log(err)
@@ -149,10 +149,10 @@ export default class PostComponent extends Component {
   componentDidMount = () => {
     this.getCurrentUserData()
     this.getPosterData(this.props.postData.UserID)
-    this.getPostComments(this.props.postData.PostID[0])
-    this.getPostLikes(this.props.postData.PostID[0])
-    this.hasUserLikedThisPost(this.props.postData.PostID[0])
-    this.getPostShares(this.props.postData.PostID[0])
+    this.getPostComments(this.props.postData.Post)
+    this.getPostLikes(this.props.postData.PostID)
+    this.hasUserLikedThisPost(this.props.postData.PostID)
+    this.getPostShares(this.props.postData.PostID)
   }
 
 
