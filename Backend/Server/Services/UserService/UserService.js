@@ -676,7 +676,19 @@ async function GetUserSharedPosts(sharerID)
         console.log(err)
     }
 }
+async function DeleteSharedPost(UserID, PostID)
+{
+    try{
+        let result = await sql.query`
+        DELETE FROM dbo.PostShares WHERE SharerID=${UserID} AND PostID = ${PostID}`
+        return {status: 200, msg:'Post successfully deleted.'}
 
+    }
+    catch(err)
+    {
+        return {status: 200, msg:'Something went wrong.', result: err}
+    }
+}
 module.exports = {
     registerUser,
     UserExistsByUsername,
@@ -714,5 +726,6 @@ module.exports = {
     LikePost,
     GetPostShares,
     SharePost,
-    GetUserSharedPosts
+    GetUserSharedPosts,
+    DeleteSharedPost
 }

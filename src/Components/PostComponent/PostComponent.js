@@ -147,6 +147,15 @@ export default class PostComponent extends Component {
       console.log(err)
     })
   }
+  deleteSharedPost = async() => {
+    await Axios.delete(`http://localhost:3030/deleteSharedPost/${this.props.postData.PostID}`, {withCredentials: true})
+    .then((res) => {
+      this.getPostShares(this.props.postData.PostID)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
   componentDidMount = () => {
     this.getCurrentUserData()
     this.getPosterData(this.props.postData.UserID)
@@ -201,9 +210,15 @@ export default class PostComponent extends Component {
                       <FontAwesomeIcon icon={faEllipsis}/>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
+                  {this.state.isPostShared == false ? 
                   <Dropdown.Item onClick={() => this.deletePost()}>
                     <FontAwesomeIcon icon={faTrash}/> Delete post
                   </Dropdown.Item>
+                  :
+                  <Dropdown.Item onClick={() => this.deleteSharedPost()}>
+                    <FontAwesomeIcon icon={faTrash}/> Delete post
+                  </Dropdown.Item>
+                  } 
                 </Dropdown.Menu>
               </Dropdown>
               :
