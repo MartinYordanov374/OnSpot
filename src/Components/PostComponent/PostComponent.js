@@ -76,6 +76,26 @@ export default class PostComponent extends Component {
     })
   }
 
+  getPostLikes = async(postID) => {
+    await Axios.get(`http://localhost:3030/getTotalPostLikes/${postID}`)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  getPostLikers = async(postID) => {
+    await Axios.get(`http://localhost:3030/getPostLikers/${postID}`)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
   deletePost = async() => {
     await Axios.delete(`http://localhost:3030/DeletePost/${this.props.postData.PostID[0]}`)
     .then((res) => {
@@ -91,6 +111,8 @@ export default class PostComponent extends Component {
     this.getCurrentUserData()
     this.getPosterData(this.props.postData.UserID)
     this.getPostComments(this.props.postData.PostID[0])
+    this.getPostLikes(this.props.postData.PostID[0])
+    this.getPostLikers(this.props.postData.PostID[0])
   }
 
 

@@ -233,6 +233,7 @@ export default class ProfilePageComponent extends Component {
     this.setState({'editedPostData': targetPost})
   }
 
+
   render() {
     return (
         <div>

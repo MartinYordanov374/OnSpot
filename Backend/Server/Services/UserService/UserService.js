@@ -570,10 +570,43 @@ async function UpdatePost(postID, updatedContent)
     }
     catch(err)
     {
-
+        console.log(err)
+        return {status: 500, err:err}
     }
 }
 
+async function GetTotalPostLikes(PostID)
+{
+    try{
+        let result = await sql.query`
+        SELECT count(PostID) as postLikesTotal
+        FROM PostLikes pl 
+        WHERE PostID = ${PostID}`
+        return {status: 200, msg:'Post liked successfully retrieved.', result: result}
+
+    }
+    catch(err)
+    {
+        console.log(err)
+        return {status: 500, err:err}
+    }
+}
+
+async function GetPostLikers(PostID)
+{
+    try{
+        let result = await sql.query`
+        SELECT LikerID
+        FROM PostLikes pl 
+        WHERE PostID = ${PostID}`
+        return {status: 200, msg:'Post liked successfully retrieved.', result: result}
+
+    }
+    catch(err)
+    {
+        
+    }
+}
 
 module.exports = {
     registerUser,
@@ -606,5 +639,7 @@ module.exports = {
     GetPostComments,
     CreatePost,
     DeletePost,
-    UpdatePost
+    UpdatePost,
+    GetTotalPostLikes,
+    GetPostLikers
 }
