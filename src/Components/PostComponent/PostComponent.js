@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faCommentAlt, faShare, faThumbsUp, faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faComment, faCommentAlt, faShare, faThumbsUp, faEllipsis, faTrash, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import { Container, Button,Card, FormControl, InputGroup, Dropdown } from 'react-bootstrap'
 import Axios from 'axios'
 import './Styles/PostStyles.css'
@@ -154,7 +154,6 @@ export default class PostComponent extends Component {
     this.getPostLikes(this.props.postData.PostID)
     this.hasUserLikedThisPost(this.props.postData.PostID)
     this.getPostShares(this.props.postData.PostID)
-
     this.setState({'isPostShared': this.props.isShared})
   }
 
@@ -165,7 +164,12 @@ export default class PostComponent extends Component {
       <div>
         {this.state.isLoading == false ?
           <div>
-            {this.state.isPostShared == true ? `${this.state.currentUserData[0].Username} shared a post` : ""}
+            {this.state.isPostShared == true ? 
+              <div className='sharedPostIndicator'>
+                <FontAwesomeIcon icon={faShareNodes}/>
+                <p className='shareText'>{this.state.currentUserData[0].Username} shared a post </p>
+              </div>
+            : ""}
           <Card className='eventPost'>
             {/* TODO: ADD LINK TO THE PROFILE PAGE TO THE HEADER ELEMENT  */}
             <Card.Header className='eventHeader'>
