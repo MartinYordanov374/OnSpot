@@ -19,6 +19,8 @@ export default class PostComponent extends Component {
       postComments: [],
       commentContent: '',
       currentUserData: null,
+      postLikesAmount: 0,
+      postLikers: []
       }
   }
   getPosterData = async(userID) => {
@@ -79,7 +81,7 @@ export default class PostComponent extends Component {
   getPostLikes = async(postID) => {
     await Axios.get(`http://localhost:3030/getTotalPostLikes/${postID}`)
     .then((res) => {
-      console.log(res)
+      this.setState({'postLikesAmount': res.data.likesAmount.result.recordset[0].postLikesTotal})
     })
     .catch((err) => {
       console.log(err)
@@ -89,7 +91,7 @@ export default class PostComponent extends Component {
   getPostLikers = async(postID) => {
     await Axios.get(`http://localhost:3030/getPostLikers/${postID}`)
     .then((res) => {
-      console.log(res)
+      this.setState({'postLikers': res.data.LikersIDList.result.recordset[0].LikerID})
     })
     .catch((err) => {
       console.log(err)
@@ -102,10 +104,7 @@ export default class PostComponent extends Component {
       this.props.dataHandler()
 
     })
-  }
-
-  //TODO: add edit post modal
-  
+  }  
 
   componentDidMount = () => {
     this.getCurrentUserData()
@@ -165,6 +164,10 @@ export default class PostComponent extends Component {
                 {this.props.postData.PostContent}
               </Card.Text>
             </Card.Body>
+            {this.state.postLikesAmount > 0 ?
+              <span className='likesIndicator'>{this.state.postLikesAmount} people like this</span>
+            : 
+            ""}
             <Card.Footer className='postInteractionButtons'>
               <div className='row'>
                 <span className='col-sm-4 interactionButton'>
