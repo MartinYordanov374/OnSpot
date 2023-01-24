@@ -62,6 +62,7 @@ export default class PostComponent extends Component {
     else
     {
       this.setState({'areCommentsSelected': true})
+      this.getPostComments(this.props.postData.PostID)
     }
   }
 
@@ -143,6 +144,7 @@ export default class PostComponent extends Component {
     await Axios.post(`http://localhost:3030/sharePost/${this.props.postData.PostID}`, {},  {withCredentials: true})
     .then((res) => {
       this.getPostShares(this.props.postData.PostID)
+      this.getPostComments(this.props.postData.PostID)
       this.props.dataHandler()
     })
     .catch((err) => {
