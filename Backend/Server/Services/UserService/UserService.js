@@ -608,6 +608,29 @@ async function GetPostLikers(UserID, PostID)
     }
 }
 
+async function LikePost(UserID, PostID)
+{
+    try{
+        let result = await sql.query`
+        IF NOT EXISTS 
+            (
+             SELECT * 
+             FROM PostLikes pl 
+             WHERE PostID = ${PostID} and LikerID = ${UserID}
+            )
+            INSERT INTO dbo.PostLikes(PostID, LikerID) 
+            VALUES(${PostID}, ${UserID})
+        ELSE 
+            DELETE FROM dbo.PostLikes WHERE PostID = ${PostID} and LikerID = ${UserID}`
+        return {status: 200, msg:'Post successfully liked.'}
+
+    }
+    catch(err)
+    {
+        return {status: 200, msg:'Something went wrong.', result: err}
+    }
+}
+
 module.exports = {
     registerUser,
     UserExistsByUsername,
@@ -641,5 +664,6 @@ module.exports = {
     DeletePost,
     UpdatePost,
     GetTotalPostLikes,
-    GetPostLikers
+    GetPostLikers,
+    LikePost
 }

@@ -96,6 +96,11 @@ export default class PostComponent extends Component {
       {
         this.setState({'hasUserLikedThisPost': true})
       }
+      else
+      {
+        this.setState({'hasUserLikedThisPost': false})
+
+      }
     })
     .catch((err) => {
       console.log(err)
@@ -109,7 +114,15 @@ export default class PostComponent extends Component {
 
     })
   }  
-
+  likePost = async() => {
+   await Axios.post(`http://localhost:3030/likePost/${this.props.postData.PostID[0]}`, {}, {withCredentials: true})
+   .then((res) => {
+    this.hasUserLikedThisPost(this.props.postData.PostID[0])
+   })
+   .catch((err) => {
+    console.log(err)
+   })
+  }
   componentDidMount = () => {
     this.getCurrentUserData()
     this.getPosterData(this.props.postData.UserID)
