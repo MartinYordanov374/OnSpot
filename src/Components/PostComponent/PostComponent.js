@@ -22,7 +22,8 @@ export default class PostComponent extends Component {
       postLikesAmount: 0,
       postLikers: [],
       hasUserLikedThisPost: false,
-      postSharesAmount: 0
+      postSharesAmount: 0,
+      isPostShared: false
       }
   }
   getPosterData = async(userID) => {
@@ -153,14 +154,18 @@ export default class PostComponent extends Component {
     this.getPostLikes(this.props.postData.PostID)
     this.hasUserLikedThisPost(this.props.postData.PostID)
     this.getPostShares(this.props.postData.PostID)
+
+    this.setState({'isPostShared': this.props.isShared})
   }
+
 
 
   render() {
     return (
       <div>
         {this.state.isLoading == false ?
-        
+          <div>
+            {this.state.isPostShared == true ? `${this.state.currentUserData[0].Username} shared a post` : ""}
           <Card className='eventPost'>
             {/* TODO: ADD LINK TO THE PROFILE PAGE TO THE HEADER ELEMENT  */}
             <Card.Header className='eventHeader'>
@@ -241,6 +246,7 @@ export default class PostComponent extends Component {
                 }
             </div>
           </Card>
+          </div>
         :
           <div className='d-flex justify-content-center'>
             <div class="spinner-border text-primary loadingSpinnerWrapper" role="status">

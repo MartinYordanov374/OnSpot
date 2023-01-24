@@ -357,9 +357,18 @@ export default class ProfilePageComponent extends Component {
                         <div className='EventsActivity'>
                           
                          {this.state.allPostsData.map((post) => {
-                            return (
-                              <PostComponent postData = {post} dataHandler = {this.getUserData} editPost={this.editPost} editModal = {this.state.isModalShown}/>
-                            )
+                            if(post.SharerID != undefined)
+                            {
+                              return (
+                                <PostComponent postData = {post} dataHandler = {this.getUserData} editPost={this.editPost} editModal = {this.state.isModalShown} isShared = {true}/>
+                              )
+                            }
+                            else
+                            {
+                              return (
+                                <PostComponent postData = {post} dataHandler = {this.getUserData} editPost={this.editPost} editModal = {this.state.isModalShown} isShared = {false}/>
+                              )
+                            }
                          })}
                         </div>  
                     </div>
