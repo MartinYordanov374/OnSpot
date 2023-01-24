@@ -175,12 +175,12 @@ export default class PostComponent extends Component {
             <Card.Footer className='postInteractionButtons'>
               <div className='row'>
                 {this.state.hasUserLikedThisPost == false ?
-                  <span className='col-sm-4 interactionButton'>
+                  <span className='col-sm-4 interactionButton' onClick={() => this.likePost()}>
                     <FontAwesomeIcon icon={faThumbsUp}/> Like
                   </span>
                 :
-                  <span className='col-sm-4 interactionButton'>
-                    <FontAwesomeIcon icon={faThumbsUp}/> Unlike
+                  <span className='col-sm-4 interactionButton' onClick={() => this.likePost()}>
+                    <FontAwesomeIcon icon={faThumbsUp}/> Liked
                   </span>
                 }
                 <span className='col-sm-4 interactionButton' onClick={()=> this.showComments()}>
