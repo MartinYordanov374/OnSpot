@@ -102,6 +102,7 @@ export default class ProfilePageComponent extends Component {
           let userSharedPosts = this.state.userData.SharedPosts.result.recordset
           this.setState({'posts': allUserPosts})
           this.setState({'sharedPosts': userSharedPosts})
+          console.log(userSharedPosts)
           this.setState({'allPostsData': allUserPosts.concat(userSharedPosts)})
           this.setState({'isLoading': false})
         })
@@ -356,7 +357,6 @@ export default class ProfilePageComponent extends Component {
                         <div className='EventsActivity'>
                           
                          {this.state.allPostsData.map((post) => {
-                            console.log(post)
                             return (
                               <PostComponent postData = {post} dataHandler = {this.getUserData} editPost={this.editPost} editModal = {this.state.isModalShown}/>
                             )

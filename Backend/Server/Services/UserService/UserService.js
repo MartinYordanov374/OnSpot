@@ -669,6 +669,7 @@ async function GetUserSharedPosts(sharerID)
         inner JOIN PostShares ps
         ON p.PostID = ps.PostID  
         WHERE ps.SharerID = ${sharerID}`
+        console.log(result)
         return {status: 200, msg:'Post successfully shared.', result: result}
     }
     catch(err)
