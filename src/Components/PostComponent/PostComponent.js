@@ -131,7 +131,8 @@ export default class PostComponent extends Component {
   getPostShares = async(postID) => {
     await Axios.get(`http://localhost:3030/getPostShares/${postID}`)
     .then((res) => {
-      this.setState({'postSharesAmount': res.data.PostSharesAmount.result.recordset[0].postSharesTotal})
+        this.setState({'postSharesAmount': res.data.PostSharesAmount.result.recordset[0].postSharesTotal})
+        this.props.dataHandler()
     }, {withCredentials: true})
     .catch((err) => {
       console.log(err)
@@ -142,6 +143,7 @@ export default class PostComponent extends Component {
     await Axios.post(`http://localhost:3030/sharePost/${this.props.postData.PostID}`, {},  {withCredentials: true})
     .then((res) => {
       this.getPostShares(this.props.postData.PostID)
+      this.props.dataHandler()
     })
     .catch((err) => {
       console.log(err)
