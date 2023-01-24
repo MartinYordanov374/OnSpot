@@ -660,6 +660,22 @@ async function SharePost(UserID, PostID)
         return {status: 200, msg:'Something went wrong.', result: err}
     }
 }
+async function GetUserSharedPosts(sharerID)
+{
+    try{
+        let result = await sql.query`
+        SELECT p.UserID, p.PostContent, p.PostDate, p.PostID, ps.SharerID 
+        FROM Posts p 
+        inner JOIN PostShares ps
+        ON p.PostID = ps.PostID  
+        WHERE ps.SharerID = ${sharerID}`
+        return {status: 200, msg:'Post successfully shared.', result: result}
+    }
+    catch(err)
+    {
+        console.log(err)
+    }
+}
 
 module.exports = {
     registerUser,
@@ -697,5 +713,6 @@ module.exports = {
     GetPostLikers,
     LikePost,
     GetPostShares,
-    SharePost
+    SharePost,
+    GetUserSharedPosts
 }

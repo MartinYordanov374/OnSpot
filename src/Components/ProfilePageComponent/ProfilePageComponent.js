@@ -26,6 +26,8 @@ export default class ProfilePageComponent extends Component {
       userFollowersIDList: [],
       userFollowersList: [],
       posts: [],
+      sharedPosts: [],
+      allPostsData: [],
       commentContent: '',
       isModalShown: false
     }
@@ -96,7 +98,12 @@ export default class ProfilePageComponent extends Component {
     Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
       .then((res) => {
         this.setState({'userData': res.data}, () => {
-        this.setState({'isLoading': false})
+          let allUserPosts = this.state.userData.Posts.result.recordset
+          let userSharedPosts = this.state.userData.SharedPosts.result.recordset
+          this.setState({'posts': allUserPosts})
+          this.setState({'sharedPosts': userSharedPosts})
+          this.setState({'allPostsData': allUserPosts.concat(userSharedPosts)})
+          this.setState({'isLoading': false})
         })
       })
       .catch((err) => {
@@ -348,7 +355,8 @@ export default class ProfilePageComponent extends Component {
                         <h2 className='userActivityHeader'>Latest Activity</h2>
                         <div className='EventsActivity'>
                           
-                         {this.state.userData.Posts.result.recordset.map((post) => {
+                         {this.state.allPostsData.map((post) => {
+                            console.log(post)
                             return (
                               <PostComponent postData = {post} dataHandler = {this.getUserData} editPost={this.editPost} editModal = {this.state.isModalShown}/>
                             )
