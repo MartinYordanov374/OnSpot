@@ -40,8 +40,6 @@ function App() {
       <Route path = '/EventsManager/CalendarSchedule/UpcomingEvents' element={<CalendarScheduleUpcomingEvents/>}/> 
 
 
-      {/* TODO: ADD ID TO THE EVENT AND PROFILE ROUTES */}
-
       <Route path = '*' element={<LandingPageComponent/>}/>
 
     </Routes>

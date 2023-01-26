@@ -56,9 +56,22 @@ export default class EventPageComponent extends Component {
                 'targetEventStartDate': res.data.EventStartDate.split('T')[0].split('-').join('/'), 'targetEventEndDate': res.data.EventEndDate.split('T')[0].split('-').join('/'),
                 'targetEventHostUsername': res.data.Username, 'targetEventHostId': res.data.id, 'targetEventHostBio': res.data.Bio == null ? "This user has not added any bio to their profile." : res.data.Bio,
                 'targetEventID': this.targetID, 'targetEventHostProfilePicture': res.data.ProfilePicture 
+            }, () => {
+                this.SaveUserPreferences(this.state.targetEventType)
             })
             this.CheckIfUserIsOwner()
             this.setState({'isLoading': false})
+        })
+    }
+
+    async SaveUserPreferences(EventType)
+    {
+        await Axios.post(`http://localhost:3030/saveUserPreference`, {EventType: EventType}, {withCredentials: true})
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) => {
+            console.log(err)
         })
     }
 

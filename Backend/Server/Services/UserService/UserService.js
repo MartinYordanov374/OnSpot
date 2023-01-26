@@ -689,6 +689,20 @@ async function DeleteSharedPost(UserID, PostID)
         return {status: 200, msg:'Something went wrong.', result: err}
     }
 }
+
+async function SaveUserPreference(UserID, EventType)
+{
+    try{
+        let result = await sql.query`
+        INSERT INTO dbo.Analytics(UserID, EventType) VALUES(${UserID}, ${EventType})`
+        return {status: 200, msg:'Post successfully deleted.'}
+
+    }
+    catch(err)
+    {
+        return {status: 200, msg:'Something went wrong.', result: err}
+    }
+}
 module.exports = {
     registerUser,
     UserExistsByUsername,
@@ -727,5 +741,6 @@ module.exports = {
     GetPostShares,
     SharePost,
     GetUserSharedPosts,
-    DeleteSharedPost
+    DeleteSharedPost,
+    SaveUserPreference
 }
