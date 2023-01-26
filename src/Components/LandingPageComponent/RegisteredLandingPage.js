@@ -8,7 +8,7 @@ export default class RegisteredLandingPage extends Component {
     constructor()
     {
       super()
-      this.state = {events: [], initialEventElementID: 0, isLoading: false, endReached: false, eventSortOrder: null}
+      this.state = {events: [], initialEventElementID: 0, isLoading: false, endReached: false, eventsOrder: []}
     }
 
     componentDidMount()
@@ -58,6 +58,7 @@ export default class RegisteredLandingPage extends Component {
             this.setState((prevState) => ({
               'events': [...prevState.events, res.data]
             }))
+            this.sortEventsByClass()
             setTimeout(() => {
               this.setState({'isLoading': false})
 
@@ -68,17 +69,10 @@ export default class RegisteredLandingPage extends Component {
     }
     getUserPreferences = async () => {
       await Axios.get('http://localhost:3030/GetUserPreferences', {withCredentials: true})
-      .then((res) => {
-        this.setState({'eventSortOrder': res.data.result.data.recordset})
-      })
-      .catch((err) => {
-        console.log(err)
-      })
     }
 
-    
-    
-    
+
+
     render() {
     return (
         <div>

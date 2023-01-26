@@ -107,10 +107,23 @@ async function GetAllEvents()
         // let result = await sql.query`SELECT * FROM dbo.Events`
         //TODO: FIX THE BUG WHICH CAUSES
         let result = await sql.query`
-        SELECT EventName, EventDescription, EventType, EventClass, EventID, EventLocation, EventStartDate, EventEndDate, Username, id as UserID
-        FROM Events e
-        JOIN Users u
-        ON e.EventHosterID  = u.id `
+        SELECT DISTINCT
+		e.EventName, 
+		e.EventDescription, 
+		e.EventHosterID, 
+		e.EventType, 
+		e.EventClass, 
+		e.EventStartDate, 
+		e.EventEndDate, 
+		e.EventID, 
+		e.EventLocation  
+	FROM Events e
+	LEFT JOIN 
+		(SELECT UserID, EventType as EventClass, COUNT(EventType) AS EventOccurences 
+		FROM Analytics a 
+		GROUP BY UserID, EventType ) a
+	ON a.UserID = e.EventHosterID 
+	ORDER BY e.EventClass`
         return {status: 200, msg: 'Events successfully fetched from the database.', payload: result.recordset}
     }
     catch(err)
