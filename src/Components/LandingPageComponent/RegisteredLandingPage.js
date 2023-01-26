@@ -8,12 +8,13 @@ export default class RegisteredLandingPage extends Component {
     constructor()
     {
       super()
-      this.state = {events: [], initialEventElementID: 0, isLoading: false, endReached: false}
+      this.state = {events: [], initialEventElementID: 0, isLoading: false, endReached: false, eventSortOrder: null}
     }
 
     componentDidMount()
     {
       this.getFirstTwoEvents()
+      this.getUserPreferences()
       window.addEventListener('scroll', this.checkIfUserScrolledToBottom);
     }
     componentWillUnmount()
@@ -65,7 +66,17 @@ export default class RegisteredLandingPage extends Component {
         })
         .catch((err) => {console.log(err)})
     }
+    getUserPreferences = async () => {
+      await Axios.get('http://localhost:3030/GetUserPreferences', {withCredentials: true})
+      .then((res) => {
+        this.setState({'eventSortOrder': res.data.result.data.recordset})
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
 
+    
     
     
     render() {

@@ -696,7 +696,21 @@ async function SaveUserPreference(UserID, EventType)
         let result = await sql.query`
         INSERT INTO dbo.Analytics(UserID, EventType) VALUES(${UserID}, ${EventType})`
         return {status: 200, msg:'Post successfully deleted.'}
+    }
+    catch(err)
+    {
+        return {status: 200, msg:'Something went wrong.', result: err}
+    }
+}
 
+async function GetUserPreferences(UserID)
+{
+    try{
+        let result = await sql.query`
+        SELECT EventType, COUNT(EventType) as EventOccurences FROM Analytics a
+        WHERE UserID = ${UserID}
+        GROUP BY EventType`
+        return {status: 200, msg:'Post successfully deleted.', data: result}
     }
     catch(err)
     {
@@ -742,5 +756,6 @@ module.exports = {
     SharePost,
     GetUserSharedPosts,
     DeleteSharedPost,
-    SaveUserPreference
+    SaveUserPreference,
+    GetUserPreferences
 }

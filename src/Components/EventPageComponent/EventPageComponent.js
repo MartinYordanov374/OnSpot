@@ -57,7 +57,7 @@ export default class EventPageComponent extends Component {
                 'targetEventHostUsername': res.data.Username, 'targetEventHostId': res.data.id, 'targetEventHostBio': res.data.Bio == null ? "This user has not added any bio to their profile." : res.data.Bio,
                 'targetEventID': this.targetID, 'targetEventHostProfilePicture': res.data.ProfilePicture 
             }, () => {
-                this.SaveUserPreferences(this.state.targetEventType)
+                this.SaveUserPreferences(this.state.targetEventClass)
             })
             this.CheckIfUserIsOwner()
             this.setState({'isLoading': false})
