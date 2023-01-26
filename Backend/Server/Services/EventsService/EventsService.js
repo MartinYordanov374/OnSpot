@@ -150,10 +150,24 @@ async function getEventById(eventId)
 async function getLastTwoEvents(lastEventId)
 {
     let result = await sql.query(`
-    SELECT * 
-    FROM dbo.Events e
-    ORDER BY e.EventID
-    OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY`)
+	SELECT DISTINCT
+		e.EventName, 
+		e.EventDescription, 
+		e.EventHosterID, 
+		e.EventType, 
+		e.EventClass, 
+		e.EventStartDate, 
+		e.EventEndDate, 
+		e.EventID, 
+		e.EventLocation  
+	FROM Events e
+	LEFT JOIN 
+		(SELECT UserID, EventType as EventClass, COUNT(EventType) AS EventOccurences 
+		FROM Analytics a 
+		GROUP BY UserID, EventType ) a
+	ON a.UserID = e.EventHosterID 
+	ORDER BY e.EventClass DESC
+	OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY`)
     return result.recordset
 }
 async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName, 
