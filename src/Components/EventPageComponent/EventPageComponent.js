@@ -64,6 +64,17 @@ export default class EventPageComponent extends Component {
         })
     }
 
+    async GetTargetEventImages()
+    {
+        await Axios.get(`http://localhost:3030/GetEventImages/${this.targetID}`, {withCredentials: true})
+        .then((res) => {
+            this.setState({'targetEventImages': res.data.result})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
     async SaveUserPreferences(EventType)
     {
         await Axios.post(`http://localhost:3030/saveUserPreference`, {EventType: EventType}, {withCredentials: true})
@@ -192,6 +203,7 @@ export default class EventPageComponent extends Component {
     {
 
         this.GetTargetEventData()
+        this.GetTargetEventImages()
         this.doesUserAttendEvent()
         this.checkIfUserIsLoggedIn()
     }
@@ -236,11 +248,20 @@ export default class EventPageComponent extends Component {
                                     ""
                                 }
                                 <Carousel onClick={() => this.handleSelectEventImages()}>
-                                    {this.state.targetEventImages.map((eventImage) => {
-                                        return(
-                                        <Carousel.Item>
-                                            <img src= {eventImage} width='100%' height='426px'/>
-                                        </Carousel.Item>)
+                                    {this.state.targetEventImages.map((eventImageObject) => {
+                                        let EventImageData = eventImageObject
+                                        if(EventImageData.EventImage)
+                                        {
+                                            return(
+                                                <Carousel.Item>
+                                                    <img src= {
+                                                        `data: image/png;base64,
+                                                        ${Buffer.from(EventImageData.EventImage.data).toString('base64')}`} 
+                                                        width='100%' height='426px'
+                                                    />
+                                                </Carousel.Item>)
+                                        }
+      
                                     })}
                                 </Carousel>
                             </div>
