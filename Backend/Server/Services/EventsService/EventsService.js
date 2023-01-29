@@ -293,14 +293,31 @@ async function GetAllAttendedUserEvents(userID)
     }
 }
 
-async function UploadEventImages(UserID, PostID, EventImages)
+async function UploadEventImages(UserID, EventID, EventImages)
 {
     try{
-        console.log(UserID, PostID, EventImages)
+        // check if event exists
+        let eventExists = await getEventById(EventID)
+        let eventOwnerID = eventExists[0].id
+        // -- check if user is owner of the event
+        if(Number(UserID) != Number(eventOwnerID))
+        {
+            throw new Error('This user is not the owner of the event.')
+        }
+        else
+        {
+            // --- insert the images to the event images table
+            for(let EventImage of EventImages)
+            {
+                await sql.query`INSERT INTO dbo.EventsImages(EventID, EventImage) VALUES (${EventID}, ${EventImage})`
+            }
+            return {status: 200, msg: 'Event pictures successfully uploaded.'}
+
+        }
     }
     catch(err)
     {
-        console.log(err)
+        return {status: 500, msg: 'Event pictures failed to upload.', err: err}
     }
 }
 
