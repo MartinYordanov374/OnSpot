@@ -242,7 +242,7 @@ export default class EventPageComponent extends Component {
                                 </div>
                             <div className='eventImagesCarousel'>
                                 {/* TODO: CHECK IF IMAGES EXIST FOR THE GIVEN EVENT, IF THEY DO NOT THEN DISPLAY PLACEHOLDER IMAGES */}
-                                {this.state.isUserHoster == true ?
+                                {this.state.isUserHoster == true && this.state.targetEventImages.length < 4?
                                     <input type="file" className="eventImagesUploadField" hidden  multiple="multiple" onChange={() => this.uploadEventImages()}/>
                                     : 
                                     ""
