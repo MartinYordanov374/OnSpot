@@ -147,6 +147,18 @@ async function getEventById(eventId)
     return result.recordset
 }
 
+async function GetEventImages(EventID)
+{
+    try{
+        let result = await sql.query`SELECT * FROM EventsImages ei WHERE EventID = ${EventID}`
+        return result.recordset
+    }
+    catch(err)
+    {
+        return{msg: 'Internal server error.', status: 500, err: err}
+    }
+}
+
 async function getLastTwoEvents(lastEventId)
 {
     let result = await sql.query(`
@@ -335,5 +347,6 @@ module.exports = {
     GetAllAttendedUserEvents,
     GetAllUpcomingUserEvents,
     getLastTwoEvents,
-    UploadEventImages
+    UploadEventImages,
+    GetEventImages
 }
