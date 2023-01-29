@@ -421,7 +421,7 @@ let start = async() =>
     })
 
     app.get('/getNextTwoEvents/:lastEventId', async(req,res) => {
-        let result = await getLastTwoEvents(req.params.lastEventId)
+        let result = await getLastTwoEvents(req.params.lastEventId, validateToken(req.session.userToken).userID)
         res.status(200).send(result)
     })
     app.post('/changePfp', upload.single('pfp'), async(req,res) => {

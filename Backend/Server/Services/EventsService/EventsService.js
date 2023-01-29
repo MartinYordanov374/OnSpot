@@ -159,7 +159,7 @@ async function GetEventImages(EventID)
     }
 }
 
-async function getLastTwoEvents(lastEventId)
+async function getLastTwoEvents(lastEventId, userID)
 {
     let result = await sql.query(`
     SELECT DISTINCT
@@ -180,7 +180,7 @@ async function getLastTwoEvents(lastEventId)
 		END 
 	FROM Analytics a 
         WHERE a.EventType = e.EventClass  
-        AND a.UserID = 1005) AS EventOccurences
+        AND a.UserID = ${userID}) AS EventOccurences
     FROM Events e
     LEFT JOIN LatestVisitedEvent lve 
         ON e.EventClass = lve.EventType 
