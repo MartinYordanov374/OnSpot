@@ -163,6 +163,17 @@ export default class EventPageComponent extends Component {
         }
     }
 
+    uploadEventImages = async() => {
+        let eventImagesUploadField = document.querySelector('.eventImagesUploadField')
+        let eventImages = eventImagesUploadField.files
+        let formData = new FormData()
+        formData.append('pfp', backgroundImage)
+    }
+    handleSelectEventImages = () => {
+        let eventImagesUploadField = document.querySelector('.eventImagesUploadField')
+        eventImagesUploadField.click()
+      }
+
     componentDidMount()
     {
 
@@ -205,7 +216,12 @@ export default class EventPageComponent extends Component {
                                 </div>
                             <div className='eventImagesCarousel'>
                                 {/* TODO: CHECK IF IMAGES EXIST FOR THE GIVEN EVENT, IF THEY DO NOT THEN DISPLAY PLACEHOLDER IMAGES */}
-                                <Carousel>
+                                {this.state.isUserHoster == true ?
+                                    <input type="file" className="eventImagesUploadField" hidden  multiple="multiple" onChange={() => this.uploadEventImages()}/>
+                                    : 
+                                    ""
+                                }
+                                <Carousel onClick={() => this.handleSelectEventImages()}>
                                     {this.state.targetEventImages.map((eventImage) => {
                                         return(
                                         <Carousel.Item>
