@@ -701,7 +701,10 @@ others_class = [[0.95238795, 0.83037499, 0.69642973, 0.9463254 , 0.88601857,
 
 dataset = [{UsersData: tech_class_data, category: 'Tech'}, {UsersData: business_class, category: 'Business'}, {UsersData: others_class, category: 'Other'}]
 train_x = []
-train_y = ['Tech', 'Business', 'Other']
+train_y = ['Tech', 'Business', 'Other'] 
+// tech - [0.1, 0.33]; 
+// business - [0.34, 0.66]; 
+// other - [0.67, 1];
 for (categoryIndex in dataset)
 {
     dataPoints = dataset[categoryIndex].UsersData.slice(0, 900)
@@ -711,7 +714,8 @@ KNN_MODEL = new KNearestNeighbor(3)
 KNN_MODEL.fit(train_x, train_y)
 pred = KNN_MODEL.predict(   
     [
-        [0.87],[0.0],[0.95238795]
+        [0.87],[0.0],[0.12]
     ]
 )
+console.log(pred)
 module.exports = { KNearestNeighbor }

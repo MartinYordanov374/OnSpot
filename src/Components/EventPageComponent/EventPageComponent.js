@@ -31,7 +31,6 @@ export default class EventPageComponent extends Component {
             targetEventID: '', 
             targetEventImages: 
             [
-
                 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F229814.jpg&f=1&nofb=1&ipt=6ef7e87366a7594e6aa872f1e77969fde626b06c216c750207295af4a77b0aff&ipo=images',
                 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fhdqwalls.com%2Fdownload%2Fmarshmello-live-event-image-2560x1080.jpg&f=1&nofb=1&ipt=fe18caabc6022d88e04d82e1300e836a0363f5d0311c78f022f4344754db947f&ipo=images'
             ], 
@@ -247,6 +246,7 @@ export default class EventPageComponent extends Component {
                                     : 
                                     ""
                                 }
+                                {this.state.targetEventImages.length > 0 ?
                                 <Carousel onClick={() => this.handleSelectEventImages()}>
                                     {this.state.targetEventImages.map((eventImageObject) => {
                                         let EventImageData = eventImageObject
@@ -264,6 +264,25 @@ export default class EventPageComponent extends Component {
       
                                     })}
                                 </Carousel>
+                                :
+                                <Carousel onClick={() => this.handleSelectEventImages()}>
+                                                <Carousel.Item>
+                                                    <img 
+                                                        src= 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F229814.jpg&f=1&nofb=1&ipt=6ef7e87366a7594e6aa872f1e77969fde626b06c216c750207295af4a77b0aff&ipo=images'
+                                                        width='100%' 
+                                                        height='426px'
+                                                    />
+                                                </Carousel.Item>
+                                                <Carousel.Item>
+                                                    <img 
+                                                        src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fhdqwalls.com%2Fdownload%2Fmarshmello-live-event-image-2560x1080.jpg&f=1&nofb=1&ipt=fe18caabc6022d88e04d82e1300e836a0363f5d0311c78f022f4344754db947f&ipo=images'
+                                                        width='100%' 
+                                                        height='426px'
+                                                    />
+
+                                                </Carousel.Item>
+                                </Carousel>
+                             }
                             </div>
                             <div className='eventDetailsMenu d-flex row'>
                                 <p className='eventDetail col-lg-4'>{this.state.targetEventStartDate} - {this.state.targetEventEndDate}</p>
