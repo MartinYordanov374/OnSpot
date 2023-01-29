@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
-const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents } = require('./Services/EventsService/EventsService.js')
+const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents, UploadEventImages } = require('./Services/EventsService/EventsService.js')
 const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments, CreatePost, DeletePost, UpdatePost, GetTotalPostLikes, GetPostLikers, LikePost, GetPostShares, SharePost, GetUserSharedPosts, DeleteSharedPost, SaveUserPreference, GetUserPreferences } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
@@ -447,6 +447,23 @@ let start = async() =>
                 data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             }
             let result = await ChangeBackgroundPicture(userData.userID, pfp)
+            console.log(result.err)
+            res.status(result.status).send(result.msg)
+        }
+        catch(err){
+            console.log(err)
+            res.status(500).send('Internal server error.')
+        }
+    })
+
+    app.post('/addEventImages/:postID', upload.array('eventImages'), async(req,res) => {
+        try{
+            let postID = Number(req.params.postID)
+            let userData = validateToken(req.session.userToken);
+            let eventImages = {
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            }
+            let result = await UploadEventImages(userData.userID, postID, eventImages)
             console.log(result.err)
             res.status(result.status).send(result.msg)
         }

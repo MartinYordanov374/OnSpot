@@ -167,7 +167,7 @@ export default class EventPageComponent extends Component {
         let eventImagesUploadField = document.querySelector('.eventImagesUploadField')
         let eventImages = eventImagesUploadField.files
         let formData = new FormData()
-        formData.append('pfp', backgroundImage)
+        formData.append('eventImages', eventImages)
     }
     handleSelectEventImages = () => {
         let eventImagesUploadField = document.querySelector('.eventImagesUploadField')

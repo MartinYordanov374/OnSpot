@@ -293,6 +293,17 @@ async function GetAllAttendedUserEvents(userID)
     }
 }
 
+async function UploadEventImages(UserID, PostID, EventImages)
+{
+    try{
+        
+    }
+    catch(err)
+    {
+        console.log(err)
+    }
+}
+
 module.exports = {
     HostEvent,
     CheckIfUserAlreadyCreatedEvent,
@@ -306,5 +317,6 @@ module.exports = {
     GetAllEventsHostedByUser,
     GetAllAttendedUserEvents,
     GetAllUpcomingUserEvents,
-    getLastTwoEvents
+    getLastTwoEvents,
+    UploadEventImages
 }
