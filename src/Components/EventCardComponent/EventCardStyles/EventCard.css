@@ -1,53 +1,67 @@
 .eventCard {
   color: white;
-  box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
+          box-shadow: rgba(0, 0, 0, 0.198) 2px 2px 4px 0px;
   width: 75%;
   margin-left: 18%;
   border-style: none;
   color: black;
   margin-top: 100px;
 }
+
 .eventCard .eventCardHeader {
   border-style: none;
 }
+
 .eventCard .eventCardHeader .eventCardHeaderDetails .eventCardHeaderDetail {
   font-weight: bold;
   font-size: larger;
   margin-left: 10px;
 }
+
 .eventCard .eventCardHeader .eventCardHeaderDetails .eventHost {
   text-align: left;
 }
+
 .eventCard .eventCardHeader .eventCardHeaderDetails .eventType {
   text-align: center;
 }
+
 .eventCard .eventCardHeader .eventCardHeaderDetails .eventClass {
   text-align: center;
 }
+
 .eventCard .eventCardHeader .eventCardHeaderDetails .eventHostPFP {
   border-radius: 50%;
   width: 64px;
   height: 32px;
 }
+
 .eventCard .eventCardBody .eventCardTitle {
   font-size: 2.5rem;
 }
+
 .eventCard .eventCardBody .eventCardDescription {
   font-size: 1.25rem;
 }
+
 .eventCard .eventCardFooter {
   border-top: none;
   margin-left: auto;
   background-color: white;
 }
+
 .eventCard .eventCardFooter .Attend {
   margin-left: 20px;
 }
+
 .eventCard .eventCardFooter .btn {
   font-size: medium;
   font-weight: bold;
 }
+
 .eventCard .eventCardFooter .learnMore {
   margin-left: auto;
   background-color: white;
-}/*# sourceMappingURL=EventCard.css.map */
+}
+/*# sourceMappingURL=EventCard.css.map */

@@ -15,6 +15,15 @@ $left-margin-details: 0.5rem;
             border-bottom-left-radius: 0%;
             border-bottom-right-radius: 0%;
         }
+        .carousel-control-next-icon{
+            display: none;
+        }
+        .carousel-control-prev-icon{
+            display: none;
+        }
+        .carousel-indicators{
+            display: none;
+        }
         .EventCardBody{
             padding:0px !important;
         }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Card, Button } from 'react-bootstrap'
+import { Container, Card, Button, Carousel } from 'react-bootstrap'
 import Axios from 'axios'
 import './Styles/SquareEventCardStyles.css'
 import { Buffer } from 'buffer';
@@ -14,10 +14,28 @@ export default class SquareEventCardComponent extends Component {
 
             <Card.Body className='EventCardBody'>
                 <Card.Link href={`/Event/${eventData.props.EventID}`}>
+                    {eventData.props.EventImages != undefined ?
+                        <Carousel >
+                            {eventData.props.EventImages.map((eventImageObject) => {
+                                let EventImageData = eventImageObject.EventImage.data
+                                return(
+                                         <Carousel.Item>
+                                             <img src= {
+                                                 `data: image/png;base64,
+                                                 ${Buffer.from(EventImageData).toString('base64')}`} 
+                                                 width='100%'
+                                                 height='250px'
+                                             />
+                                         </Carousel.Item>)
+                                
+                            })}
+                        </Carousel>
+                    :
                     <Card.Img
                         className='EventCardImage'
                         src={`https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fedgewood.org%2Fwp-content%2Fuploads%2F2020%2F08%2FiStock-1172741523-scaled.jpg&f=1&nofb=1&ipt=a4878aef5df609e9ad98d20d4a6bc68b145813865386519dbcb42199c651669c&ipo=images`}
                     />
+                    }
                     <Card.Title className='EventCardTitle'>
                         {eventData.props.EventName}
                     </Card.Title>

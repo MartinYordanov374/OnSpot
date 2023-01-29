@@ -35,11 +35,21 @@ export default class RegisteredLandingPage extends Component {
       }
       getFirstTwoEvents = () => {
         Axios.get(`http://localhost:3030/getNextTwoEvents/0`, {withCredentials: true})
-        .then((res) => {
-            this.setState((prevState) => (
+        .then( async (res) => {
+          for(let targetEventID in res.data)
+          {
+            let targetEventData = res.data[targetEventID]
+            let EventImages = await this.GetTargetEventImages(targetEventData.EventID)
+            if(EventImages.length > 0)
+            {
+              targetEventData['EventImages'] = EventImages
+            }
+          }
+          this.setState((prevState) => (
               {
                 'events': [...prevState.events, res.data]
-              })
+              }),
+              
             )
 
             setTimeout(() => {
@@ -71,7 +81,11 @@ export default class RegisteredLandingPage extends Component {
       await Axios.get('http://localhost:3030/GetUserPreferences', {withCredentials: true})
     }
 
-
+    async GetTargetEventImages(targetID)
+    {
+      let result = await Axios.get(`http://localhost:3030/GetEventImages/${targetID}`, {withCredentials: true})
+      return result.data.result
+    }
 
     render() {
     return (

@@ -3,10 +3,12 @@
   font-weight: 300;
   color: black;
 }
+
 .welcomeText .signUpButtonWrapper {
   font-weight: bold;
   text-align: center !important;
 }
+
 .welcomeText .signUpButtonWrapper .signUpButtonLink {
   text-decoration: none;
   color: black;
@@ -20,6 +22,7 @@
 .secondRow {
   margin-top: 6rem;
 }
+
 .secondRow .welcomeImageWrapper .welcomeImage {
   width: 25rem;
 }
@@ -45,4 +48,5 @@
     margin-left: 10%;
     margin-top: 1%;
   }
-}/*# sourceMappingURL=LandingPage.css.map */
+}
+/*# sourceMappingURL=LandingPage.css.map */

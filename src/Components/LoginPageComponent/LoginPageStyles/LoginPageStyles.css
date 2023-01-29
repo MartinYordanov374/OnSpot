@@ -2,18 +2,23 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
+
 .LoginFormWrapper .logInText {
   font-weight: bold;
   font-size: 3rem;
 }
+
 .LoginFormWrapper .field {
   margin-top: 2rem;
 }
+
 .LoginFormWrapper .logInButtonWrapper {
   text-align: center;
 }
+
 .LoginFormWrapper .logInButtonWrapper .LogInButton {
   margin-top: 2rem;
   font-weight: bold;
@@ -23,7 +28,10 @@
 .NotRegisteredYetWrapper .NotRegisteredYet {
   font-weight: bold;
 }
+
 .NotRegisteredYetWrapper .registerLink {
   text-decoration: none;
+  -webkit-transition: 0.5s linear;
   transition: 0.5s linear;
-}/*# sourceMappingURL=LoginPageStyles.css.map */
+}
+/*# sourceMappingURL=LoginPageStyles.css.map */

@@ -1,1 +1,9 @@
-{"version":3,"sources":["DeleteEventModal.scss","DeleteEventModal.css"],"names":[],"mappings":"AAAA;EAEI,cAAA;EACA,kBAAA;EACA,QAAA;ACAJ;;ADGA;EAEI,aAAA;ACDJ","file":"DeleteEventModal.css"}
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,CAAA;EAEV,OAAO,EAAE,KAAK;EACd,QAAQ,EAAE,QAAQ;EAClB,GAAG,EAAE,GAAG;CACX;;AAED,AAAA,aAAa,CACb;EACI,OAAO,EAAE,IAAI;CAChB",
+    "sources": [
+        "DeleteEventModal.scss"
+    ],
+    "names": [],
+    "file": "DeleteEventModal.css"
+}
