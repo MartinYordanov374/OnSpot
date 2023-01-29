@@ -707,9 +707,20 @@ async function GetUserPreferences(UserID)
 {
     try{
         let result = await sql.query`
-        SELECT EventType, COUNT(EventType) as EventOccurences FROM Analytics a
-        WHERE UserID = ${UserID}
-        GROUP BY EventType`
+        SELECT 
+        a.EventType as EventClass, 
+        CASE 
+            WHEN lve.EventType = a.EventType 
+            THEN COUNT(a.EventType) * 5 
+            ELSE COUNT(a.EventType) 
+        END AS EventOccurences 
+    FROM Analytics a 
+    LEFT JOIN LatestVisitedEvent lve 
+        ON a.UserID = lve.UserID 
+        AND a.EventType = lve.EventType 
+        WHERE a.UserID = ${UserID}
+    GROUP BY a.EventType, lve.EventType 
+    `
         return {status: 200, msg:'Post successfully deleted.', data: result}
     }
     catch(err)
