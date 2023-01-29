@@ -167,7 +167,21 @@ export default class EventPageComponent extends Component {
         let eventImagesUploadField = document.querySelector('.eventImagesUploadField')
         let eventImages = eventImagesUploadField.files
         let formData = new FormData()
-        formData.append('eventImages', eventImages)
+        for(let image of eventImages)
+        {
+            formData.append('eventImages', image)
+        }
+        Axios.post(`http://localhost:3030/addEventImages/${this.state.targetEventID}`, 
+            formData, 
+            {
+                withCredentials: true, 
+            })
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
     handleSelectEventImages = () => {
         let eventImagesUploadField = document.querySelector('.eventImagesUploadField')

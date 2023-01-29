@@ -456,15 +456,16 @@ let start = async() =>
         }
     })
 
-    app.post('/addEventImages/:postID', upload.array('eventImages'), async(req,res) => {
+    app.post('/addEventImages/:postID', upload.array('eventImages',4), async(req,res) => {
         try{
             let postID = Number(req.params.postID)
-            let userData = validateToken(req.session.userToken);
-            let eventImages = {
-                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            let userData = validateToken(req.session.userToken)
+            let eventImages = []
+            for(let image of req.files)
+            {
+                eventImages.push(fs.readFileSync(path.join(__dirname + '/uploads/' + image.filename)))
             }
             let result = await UploadEventImages(userData.userID, postID, eventImages)
-            console.log(result.err)
             res.status(result.status).send(result.msg)
         }
         catch(err){

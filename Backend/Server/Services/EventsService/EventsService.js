@@ -296,7 +296,7 @@ async function GetAllAttendedUserEvents(userID)
 async function UploadEventImages(UserID, PostID, EventImages)
 {
     try{
-        
+        console.log(UserID, PostID, EventImages)
     }
     catch(err)
     {
