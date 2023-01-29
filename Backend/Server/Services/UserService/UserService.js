@@ -708,19 +708,37 @@ async function GetUserPreferences(UserID)
     try{
         let result = await sql.query`
         SELECT 
-        a.EventType as EventClass, 
-        CASE 
-            WHEN lve.EventType = a.EventType 
-            THEN COUNT(a.EventType) * 5 
-            ELSE COUNT(a.EventType) 
-        END AS EventOccurences 
-    FROM Analytics a 
-    LEFT JOIN LatestVisitedEvent lve 
-        ON a.UserID = lve.UserID 
-        AND a.EventType = lve.EventType 
-        WHERE a.UserID = ${UserID}
-    GROUP BY a.EventType, lve.EventType 
+            a.EventType, 
+            CASE 
+                WHEN lve.EventType = a.EventType 
+                THEN COUNT(a.EventType) * 5 
+                ELSE COUNT(a.EventType) 
+            END AS EventOccurences 
+        FROM Analytics a 
+        LEFT JOIN LatestVisitedEvent lve 
+            ON a.UserID = lve.UserID 
+            AND a.EventType = lve.EventType 
+            WHERE a.UserID = ${UserID}
+        GROUP BY a.EventType, lve.EventType 
     `
+        return {status: 200, msg:'Preferences successfully retrieved.', data: result}
+    }
+    catch(err)
+    {
+        return {status: 200, msg:'Something went wrong.', result: err}
+    }
+}
+
+async function SaveUserLatestPreference(UserID, EventType)
+{
+    try{
+        let result = await sql.query`
+        IF NOT EXISTS 
+		    (SELECT UserID FROM dbo.LatestVisitedEvent lve WHERE UserID = ${UserID}) 
+            INSERT INTO dbo.LatestVisitedEvent(UserID, EventType) VALUES(${UserID}, ${EventType}) 
+        ELSE
+            UPDATE dbo.LatestVisitedEvent SET UserID = ${UserID}, EventType = ${EventType} WHERE UserID = ${UserID}`
+
         return {status: 200, msg:'Post successfully deleted.', data: result}
     }
     catch(err)
@@ -768,5 +786,6 @@ module.exports = {
     GetUserSharedPosts,
     DeleteSharedPost,
     SaveUserPreference,
-    GetUserPreferences
+    GetUserPreferences,
+    SaveUserLatestPreference
 }

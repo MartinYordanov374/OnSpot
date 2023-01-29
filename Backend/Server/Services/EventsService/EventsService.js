@@ -162,24 +162,30 @@ async function GetEventImages(EventID)
 async function getLastTwoEvents(lastEventId)
 {
     let result = await sql.query(`
-	SELECT DISTINCT
-		e.EventName, 
-		e.EventDescription, 
-		e.EventHosterID, 
-		e.EventType, 
-		e.EventClass, 
-		e.EventStartDate, 
-		e.EventEndDate, 
-		e.EventID, 
-		e.EventLocation  
-	FROM Events e
-	LEFT JOIN 
-		(SELECT UserID, EventType as EventClass, COUNT(EventType) AS EventOccurences 
-		FROM Analytics a 
-		GROUP BY UserID, EventType ) a
-	ON a.UserID = e.EventHosterID 
-	ORDER BY e.EventClass DESC
-	OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY`)
+    SELECT DISTINCT
+	e.EventName, 
+	e.EventDescription, 
+	e.EventHosterID, 
+	e.EventType, 
+	e.EventClass, 
+	e.EventStartDate, 
+	e.EventEndDate, 
+	e.EventID, 
+	e.EventLocation, 
+	(SELECT 
+		CASE 
+			WHEN lve.EventType = e.EventClass
+			THEN COUNT(*) * 5 
+			ELSE COUNT(*) 
+		END 
+	FROM Analytics a 
+        WHERE a.EventType = e.EventClass  
+        AND a.UserID = 1005) AS EventOccurences
+    FROM Events e
+    LEFT JOIN LatestVisitedEvent lve 
+        ON e.EventClass = lve.EventType 
+    ORDER BY EventOccurences DESC
+    OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY`)
     return result.recordset
 }
 async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName, 
