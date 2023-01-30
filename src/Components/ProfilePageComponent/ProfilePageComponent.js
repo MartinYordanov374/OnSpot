@@ -8,7 +8,7 @@ import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandi
 import ChatBoxModalComponent from '../ChatboxModalComponent/ChatBoxModalComponent';
 import PostComponent from '../PostComponent/PostComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsis, faGripHorizontal, faListDots, faSlash, faUserLargeSlash, faUsersLine, faComment } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsis, faGripHorizontal, faListDots, faSlash, faUserLargeSlash, faUsersLine, faComment, faImage } from '@fortawesome/free-solid-svg-icons';
 
 export default class ProfilePageComponent extends Component {
 
@@ -102,7 +102,6 @@ export default class ProfilePageComponent extends Component {
           let userSharedPosts = this.state.userData.SharedPosts.result.recordset
           this.setState({'posts': allUserPosts})
           this.setState({'sharedPosts': userSharedPosts})
-          console.log(userSharedPosts)
           this.setState({'allPostsData': allUserPosts.concat(userSharedPosts)})
           this.setState({'isLoading': false})
         })
@@ -241,6 +240,31 @@ export default class ProfilePageComponent extends Component {
     this.setState({'editedPostData': targetPost})
   }
 
+  handleSelectPostImages = () => {
+    let postImagesUploadField = document.querySelector('.postImagesUploadField')
+    postImagesUploadField.click()
+  }
+
+  uploadPostImages = async() => {
+    let postImagesUploadField = document.querySelector('.postImagesUploadField')
+    let postImages = postImagesUploadField.files
+    let formData = new FormData()
+    for(let image of postImages)
+    {
+        formData.append('postImages', image)
+    }
+    Axios.post(`http://localhost:3030/addEventImages/${this.state.targetEventID}`, 
+        formData, 
+        {
+            withCredentials: true, 
+        })
+    .then((res) => {
+        console.log(res)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
 
   render() {
     return (
@@ -344,12 +368,23 @@ export default class ProfilePageComponent extends Component {
                     }
                         {/* I should probably include what the user attended as well?? */}
                         {this.state.isCurrentUserOwner ?
-                        <InputGroup className='writeCommenttWrapper'>
-                          <FormControl placeholder='Write a post...' className='commentInputField shadow-none' value = {this.state.commentContent} onChange={(e) => this.setState({'commentContent': e.target.value})}/>
-                          <InputGroup.Text className='PostCommentBtn' onClick={() => {this.postComment()} }>
-                              <FontAwesomeIcon icon={faComment} />
-                          </InputGroup.Text>
-                        </InputGroup>
+                        <div>
+                          <InputGroup className='writeCommenttWrapper'>
+                            <FormControl 
+                              placeholder='Write a post...' 
+                              className='commentInputField shadow-none' 
+                              value = {this.state.commentContent}
+                              onChange={(e) => this.setState({'commentContent': e.target.value})}
+                            />
+                            <input type="file" className="postImagesUploadField" hidden  multiple="multiple" onChange={() => this.uploadPostImages()}/>
+                              <InputGroup.Text className='PostCommentBtn' onClick={() => this.handleSelectPostImages()}>
+                                <FontAwesomeIcon icon={faImage} />
+                              </InputGroup.Text>
+                            <InputGroup.Text className='PostCommentBtn' onClick={() => {this.postComment()} }>
+                                <FontAwesomeIcon icon={faComment} />
+                            </InputGroup.Text>
+                          </InputGroup>
+                        </div>
                         :
                         ""
                         }
