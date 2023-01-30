@@ -339,6 +339,34 @@ async function UploadEventImages(UserID, EventID, EventImages)
     }
 }
 
+async function UploadPostImages(UserID, PostID, PostImages)
+{
+    try{
+        // check if event exists
+        let postExists = await getEventById(EventID)
+        let postOwnerID = postExists[0].id
+        // -- check if user is owner of the event
+        if(Number(UserID) != Number(postOwnerID))
+        {
+            throw new Error('This user is not the owner of the post.')
+        }
+        else
+        {
+            // --- insert the images to the event images table
+            for(let PostImage of PostImages)
+            {
+                await sql.query`INSERT INTO dbo.PostImages(PostID, PostImage) VALUES (${PostID}, ${PostImages})`
+            }
+            return {status: 200, msg: 'Post pictures successfully uploaded.'}
+
+        }
+    }
+    catch(err)
+    {
+        return {status: 500, msg: 'Event pictures failed to upload.', err: err}
+    }
+}
+
 module.exports = {
     HostEvent,
     CheckIfUserAlreadyCreatedEvent,
@@ -354,5 +382,6 @@ module.exports = {
     GetAllUpcomingUserEvents,
     getLastTwoEvents,
     UploadEventImages,
-    GetEventImages
+    GetEventImages,
+    UploadPostImages
 }
