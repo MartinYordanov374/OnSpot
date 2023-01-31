@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents, UploadEventImages, GetEventImages, UploadPostImages } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments, CreatePost, DeletePost, UpdatePost, GetTotalPostLikes, GetPostLikers, LikePost, GetPostShares, SharePost, GetUserSharedPosts, DeleteSharedPost, SaveUserPreference, GetUserPreferences, SaveUserLatestPreference } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments, CreatePost, DeletePost, UpdatePost, GetTotalPostLikes, GetPostLikers, LikePost, GetPostShares, SharePost, GetUserSharedPosts, DeleteSharedPost, SaveUserPreference, GetUserPreferences, SaveUserLatestPreference, GetPostImages } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
@@ -343,6 +343,7 @@ let start = async() =>
         let result = await UserExistsById(Number(req.params.id))
         let userFollowers = await GetUserFollowers(Number(req.params.id))
         let userPosts = await GetUserPosts(Number(req.params.id))
+        let userPostImages = await GetPostImages(Number(req.params.id))
         let userSharedPosts = await GetUserSharedPosts(Number(req.params.id))
         let targetUserProfilePictureResponse = await GetUserProfilePicture(req.params.id)
         let targetUserBackgroundPictureResponse = await GetUserBackgroundPicture(req.params.id)
@@ -360,7 +361,8 @@ let start = async() =>
                     ProfilePicture: targetUserPfp,
                     BackgroundPicture: targetUserBackgroundPicture,
                     Posts: userPosts,
-                    SharedPosts: userSharedPosts
+                    SharedPosts: userSharedPosts,
+                    PostsImages: userPostImages
                 }
                 res.status(200).send(userObject)
             }
@@ -374,7 +376,8 @@ let start = async() =>
                     ProfilePicture: targetUserPfp,
                     BackgroundPicture: `https://www.wallpapers.net/web/wallpapers/night-lights-long-term-exposure-hd-wallpaper/5120x2160.jpg`,
                     Posts: userPosts,
-                    SharedPosts: userSharedPosts
+                    SharedPosts: userSharedPosts,
+                    PostsImages: userPostImages
 
                 }
                 res.status(200).send(userObject)
@@ -392,7 +395,8 @@ let start = async() =>
                     ProfilePicture: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images`,
                     BackgroundPicture: targetUserBackgroundPicture,
                     Posts: userPosts,
-                    SharedPosts: userSharedPosts
+                    SharedPosts: userSharedPosts,
+                    PostsImages: userPostImages
                 }
                 res.status(200).send(userObject)
             }
@@ -405,7 +409,8 @@ let start = async() =>
                     ProfilePicture: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images`,
                     BackgroundPicture: `https://www.wallpapers.net/web/wallpapers/night-lights-long-term-exposure-hd-wallpaper/5120x2160.jpg`,
                     Posts: userPosts,
-                    SharedPosts: userSharedPosts
+                    SharedPosts: userSharedPosts,
+                    PostsImages: userPostImages
 
                 }
                 res.status(200).send(userObject)

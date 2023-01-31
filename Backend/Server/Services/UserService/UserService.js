@@ -493,6 +493,23 @@ async function GetUserPosts(userID)
     }
 }
 
+async function GetPostImages(UserID)
+{
+    try{
+        let result = await sql.query`
+        SELECT pi2.PostID, pi2.PostImage FROM PostImages pi2 
+        LEFT JOIN Posts p 
+        ON p.PostID = pi2.PostID 
+        WHERE p.UserID = ${UserID}`
+
+        return result
+    }
+    catch(err)
+    {
+        console.log(result)
+    }
+}
+
 
 async function GetPostComments(PostID)
 {
@@ -797,5 +814,6 @@ module.exports = {
     DeleteSharedPost,
     SaveUserPreference,
     GetUserPreferences,
-    SaveUserLatestPreference
+    SaveUserLatestPreference,
+    GetPostImages
 }

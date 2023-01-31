@@ -170,6 +170,7 @@ export default class PostComponent extends Component {
     this.hasUserLikedThisPost(this.props.postData.PostID)
     this.getPostShares(this.props.postData.PostID)
     this.setState({'isPostShared': this.props.isShared})
+    this.setState({'postImages': this.props.postImages})
   }
 
 
@@ -231,6 +232,24 @@ export default class PostComponent extends Component {
               ""}
             </Card.Header>
             <Card.Body>
+              {this.state.postImages.length > 0 ?
+                <div>
+                  {this.state.postImages.map((image) => {
+                    return(<img 
+                       src={
+                         `data: image/png;base64,
+                         ${Buffer.from(image.PostImage.data).toString('base64')}`
+                       }
+                       className = 'PostImage'
+                       />)
+                })
+              }
+                </div>
+
+            
+            :
+            ""
+              }
               <Card.Text>
                 {this.props.postData.PostContent}
               </Card.Text>

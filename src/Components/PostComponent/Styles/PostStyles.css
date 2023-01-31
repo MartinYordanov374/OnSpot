@@ -22,7 +22,6 @@
 .postOptions {
   float: right;
 }
-
 .postOptions:hover {
   cursor: pointer;
 }
@@ -32,10 +31,9 @@
   background-color: white;
   border-color: white;
 }
-
 .moreOptionsButton:hover {
-  background-color: #d3d4d526;
-  border-color: #d3d4d526;
+  background-color: rgba(211, 212, 213, 0.1490196078);
+  border-color: rgba(211, 212, 213, 0.1490196078);
 }
 
 .editEventModal {
@@ -46,13 +44,18 @@
   padding-left: 15%;
   margin-top: 2rem !important;
   margin-bottom: -2rem !important;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .sharedPostIndicator .shareText {
   line-height: 1;
   padding-left: 1rem;
 }
-/*# sourceMappingURL=PostStyles.css.map */
+
+.PostImage {
+  width: 30%;
+  height: 20vh;
+}
+.PostImage:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}/*# sourceMappingURL=PostStyles.css.map */

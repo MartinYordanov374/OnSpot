@@ -4,58 +4,43 @@
   padding-right: 0%;
   margin-left: 6rem;
   margin-top: 2rem;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
-
 .EventCard:hover {
   cursor: pointer;
 }
-
 .EventCard .EventCardImage {
   width: 100%;
   padding-right: 0% !important;
   border-bottom-left-radius: 0%;
   border-bottom-right-radius: 0%;
 }
-
 .EventCard .carousel-control-next-icon {
   display: none;
 }
-
 .EventCard .carousel-control-prev-icon {
   display: none;
 }
-
 .EventCard .carousel-indicators {
   display: none;
 }
-
 .EventCard .EventCardBody {
   padding: 0px !important;
 }
-
 .EventCard .EventDetailsContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin-top: 0.5rem;
   font-size: 1rem;
 }
-
 .EventCard .EventDetailsContainer .EventType {
   margin-left: auto;
 }
-
 .EventCard .EventDetailsContainer .EventClass {
   margin-left: auto;
 }
-
 .EventCard .EventInteractionButtons {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .EventCard .EventInteractionButtons .Button {
   width: 100%;
   color: rgba(0, 0, 0, 0.8);
@@ -68,46 +53,36 @@
   font-weight: bold;
   font-size: 1.2rem;
 }
-
 .EventCard .EventInteractionButtons .Button:hover {
-  -webkit-box-shadow: #5ea2d6 1px 1px 4px 1px;
-          box-shadow: #5ea2d6 1px 1px 4px 1px;
+  box-shadow: #5ea2d6 1px 1px 4px 1px;
   color: #5ea2d6;
 }
-
 .EventCard .EventInteractionButtons .InterestedButton {
-  color: #00000056;
+  color: rgba(0, 0, 0, 0.337254902);
 }
-
 .EventCard .EventInteractionButtons .InterestedButton:hover {
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   color: black;
 }
-
 .EventCard .EventCardTitle {
   font-size: 2rem;
   margin-bottom: 0rem !important;
   margin-left: 0.5rem;
 }
-
 .EventCard .EventCardDescription {
   margin-left: 0.5rem;
 }
-
 .EventCard .EventCardDate {
   margin-top: 0.25rem;
   margin-left: 0.5rem;
   font-size: 1.25rem;
 }
-
 .EventCard .EventCardLocation {
   margin-top: 0.25rem;
   margin-left: 0.5rem;
   font-size: 1rem;
   color: rgba(0, 0, 0, 0.726);
 }
-
 .EventCard .card-link {
   text-decoration: none;
   color: black;
@@ -117,5 +92,4 @@
   .EventCard {
     margin-left: 24%;
   }
-}
-/*# sourceMappingURL=SquareEventCardStyles.css.map */
+}/*# sourceMappingURL=SquareEventCardStyles.css.map */

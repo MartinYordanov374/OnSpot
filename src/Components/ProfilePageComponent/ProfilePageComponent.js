@@ -30,7 +30,8 @@ export default class ProfilePageComponent extends Component {
       allPostsData: [],
       commentContent: '',
       isModalShown: false,
-      postImages: []
+      postImages: [],
+      allUserPostImages: []
     }
   }
     //TODO: IMPLEMENT INFINITE SCROLL FUNCTIONALITY
@@ -120,12 +121,16 @@ export default class ProfilePageComponent extends Component {
     Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
       .then((res) => {
         this.setState({'userData': res.data}, () => {
+          let allUserPostImages = this.state.userData.PostsImages.recordset
           let allUserPosts = this.state.userData.Posts.result.recordset
           let userSharedPosts = this.state.userData.SharedPosts.result.recordset
           this.setState({'posts': allUserPosts})
           this.setState({'sharedPosts': userSharedPosts})
           this.setState({'allPostsData': allUserPosts.concat(userSharedPosts)})
+          this.setState({'userPostsImages': allUserPostImages})
+          this.setState({'allUserPostImages': allUserPostImages})
           this.setState({'isLoading': false})
+
         })
       })
       .catch((err) => {
@@ -399,16 +404,17 @@ export default class ProfilePageComponent extends Component {
                         <div className='EventsActivity'>
                           
                          {this.state.allPostsData.map((post) => {
-                            if(post.SharerID != undefined)
+                          let PostImages = this.state.userPostsImages.filter((postImage) => postImage.PostID == post.PostID)
+                          if(post.SharerID != undefined)
                             {
                               return (
-                                <PostComponent postData = {post} dataHandler = {this.getUserData} editPost={this.editPost} editModal = {this.state.isModalShown} isShared = {true}/>
+                                <PostComponent postImages = {PostImages} postData = {post} dataHandler = {this.getUserData} editPost={this.editPost} editModal = {this.state.isModalShown} isShared = {true}/>
                               )
                             }
                             else
                             {
                               return (
-                                <PostComponent postData = {post} dataHandler = {this.getUserData} editPost={this.editPost} editModal = {this.state.isModalShown} isShared = {false}/>
+                                <PostComponent postImages = {PostImages} postData = {post} dataHandler = {this.getUserData} editPost={this.editPost} editModal = {this.state.isModalShown} isShared = {false}/>
                               )
                             }
                          })}
