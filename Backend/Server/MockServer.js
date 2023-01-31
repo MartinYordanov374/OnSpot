@@ -743,19 +743,23 @@ let start = async() =>
         }
     })
 
-    app.post('/createPost', async(req,res) => {
+    app.post('/createPost', upload.array('postImage', 8), async(req,res) => {
         try{
             let postContent = req.body.PostContent
-
+            
             let userToken = validateToken(req.session.userToken)
             let userID = Number(userToken.userID)
 
-
+            let postImages = []
+            for(let image of req.files)
+            {
+                postImages.push(fs.readFileSync(path.join(__dirname + '/uploads/' + image.filename)))
+            }
             let postDate = new Date().toISOString()
 
-            let targetPostID = req.body.targetPostID
+            let targetPostID = Number(req.body.targetPostID)
 
-            let result = await CreatePost(userID, postContent, postDate, targetPostID)
+            let result = await CreatePost(userID, postContent, postDate, postImages, targetPostID)
             res.status(200).send({msg: 'Posts comments list retrieved', comments: result})
 
         }

@@ -512,13 +512,24 @@ async function GetPostComments(PostID)
     }
 }
 
-async function CreatePost(UserID, PostContent, PostDate, targetPostID)
+async function CreatePost(UserID, PostContent, PostDate, PostImages, targetPostID)
 {
     try{
-        if(targetPostID == undefined)
+        if(!targetPostID)
         {
             let result = await sql.query`
             INSERT INTO dbo.Posts(UserID, PostContent, PostDate) VALUES (${UserID}, ${PostContent}, ${PostDate})`
+            if(PostImages.length > 0)
+            {
+                let newPost = await sql.query`SELECT * from dbo.Posts WHERE UserID = ${UserID} AND PostContent = ${PostContent}`
+                let newPostID = newPost.recordset[0].PostID
+                newPostData = newPost
+
+                for(let PostImage of PostImages)
+                {
+                    await sql.query`INSERT INTO dbo.PostImages(PostID, PostImage) VALUES(${newPostID}, ${PostImage})`
+                }
+            }
         }
         else
         {
@@ -532,11 +543,10 @@ async function CreatePost(UserID, PostContent, PostDate, targetPostID)
             INSERT INTO dbo.PostComments(PostID, CommentID) VALUES (${targetPostID},${commentID})`
         }
 
-        return {status: 200, msg:'Post successfully created', result: result}
+        return {status: 200, msg:'Post successfully created'}
     }
     catch(err)
     {
-        console.log(err)
         return {status: 500, err:err}
     }
 }

@@ -29,7 +29,8 @@ export default class ProfilePageComponent extends Component {
       sharedPosts: [],
       allPostsData: [],
       commentContent: '',
-      isModalShown: false
+      isModalShown: false,
+      postImages: []
     }
   }
     //TODO: IMPLEMENT INFINITE SCROLL FUNCTIONALITY
@@ -62,16 +63,26 @@ export default class ProfilePageComponent extends Component {
       {
         let targetPostID = this.props.postData.PostID[0]
         let commentContent = this.state.commentContent
-        let result = await Axios.post(`http://localhost:3030/createPost`, {
-          PostContent: commentContent,
-          targetPostID: targetPostID
-        }, {withCredentials: true})
-        .then((res) => {
-          this.setState({'commentContent': ''})
-          this.getUserData()
-        })
-        .catch((err) => {
-          console.log(err)
+        let formData = new FormData()
+        formData.append('targetPostID', targetPostID)
+        formData.append('PostContent', commentContent)
+        for(let image of this.state.postImages)
+        {
+          formData.append('postImage', image)
+        }
+         let result = await Axios.post(`http://localhost:3030/createPost`, formData,
+         {
+          withCredentials: true, 
+          headers: {
+          'Content-Type': 'multipart/form-data'
+          }
+        })  
+         .then((res) => {
+           this.setState({'commentContent': ''})
+           this.getUserData()
+         })
+         .catch((err) => {
+           console.log(err)
         })
       }
       catch(err)
@@ -79,16 +90,27 @@ export default class ProfilePageComponent extends Component {
         
           let targetPostID = null
           let commentContent = this.state.commentContent
-          let result = await Axios.post(`http://localhost:3030/createPost`, {
-            PostContent: commentContent,
-            targetPostID: targetPostID
-          }, {withCredentials: true})
-          .then((res) => {
-            this.setState({'commentContent': ''})
-            this.getUserData()
+          let formData = new FormData()
+          formData.append('targetPostID', targetPostID)
+          formData.append('PostContent', commentContent)
+
+          for(let image of this.state.postImages)
+          {
+            formData.append('postImage', image)
+          }
+           let result = await Axios.post(`http://localhost:3030/createPost`, formData,
+           {
+            withCredentials: true, 
+            headers: {
+            'Content-Type': 'multipart/form-data'
+            }
           })
-          .catch((err) => {
-            console.log(err)
+           .then((res) => {
+             this.setState({'commentContent': ''})
+             this.getUserData()
+           })
+           .catch((err) => {
+             console.log(err)
           })
         
       }
@@ -248,22 +270,7 @@ export default class ProfilePageComponent extends Component {
   uploadPostImages = async() => {
     let postImagesUploadField = document.querySelector('.postImagesUploadField')
     let postImages = postImagesUploadField.files
-    let formData = new FormData()
-    for(let image of postImages)
-    {
-        formData.append('postImages', image)
-    }
-    Axios.post(`http://localhost:3030/addEventImages/${this.state.targetEventID}`, 
-        formData, 
-        {
-            withCredentials: true, 
-        })
-    .then((res) => {
-        console.log(res)
-    })
-    .catch((err) => {
-        console.log(err)
-    })
+    this.setState({'postImages': postImages})
 }
 
   render() {

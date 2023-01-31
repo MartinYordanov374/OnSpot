@@ -82,6 +82,8 @@ export default class PostComponent extends Component {
     })
   }
 
+  
+
   getPostLikes = async(postID) => {
     await Axios.get(`http://localhost:3030/getTotalPostLikes/${postID}`)
     .then((res) => {
