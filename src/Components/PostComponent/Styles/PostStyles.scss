@@ -47,11 +47,17 @@ $hover-ellipsis-color: #d3d4d526;
             padding-left: 1rem;
     }
 }
-.PostImage{
-    width: 30%;
-    height: 20vh;
-    &:hover{
-        opacity: 0.8;
-        cursor: pointer;
+.PostImageWrapper{
+    .PostImage{
+        width: 30%;
+        height: 20vh;
+        margin-left: 2%;
+        &:first-child{
+            margin-left: 0%;
+        }
+        &:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
     }
 }

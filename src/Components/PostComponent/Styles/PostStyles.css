@@ -51,11 +51,15 @@
   padding-left: 1rem;
 }
 
-.PostImage {
+.PostImageWrapper .PostImage {
   width: 30%;
   height: 20vh;
+  margin-left: 2%;
 }
-.PostImage:hover {
+.PostImageWrapper .PostImage:first-child {
+  margin-left: 0%;
+}
+.PostImageWrapper .PostImage:hover {
   opacity: 0.8;
   cursor: pointer;
 }/*# sourceMappingURL=PostStyles.css.map */

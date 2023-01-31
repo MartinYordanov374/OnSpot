@@ -232,8 +232,11 @@ export default class PostComponent extends Component {
               ""}
             </Card.Header>
             <Card.Body>
+              <Card.Text>
+                {this.props.postData.PostContent}
+              </Card.Text>
               {this.state.postImages.length > 0 ?
-                <div>
+                <div className='PostImageWrapper'>
                   {this.state.postImages.map((image) => {
                     return(<img 
                        src={
@@ -242,17 +245,12 @@ export default class PostComponent extends Component {
                        }
                        className = 'PostImage'
                        />)
-                })
-              }
-                </div>
-
-            
+                    })
+                  }
+               </div>
             :
             ""
               }
-              <Card.Text>
-                {this.props.postData.PostContent}
-              </Card.Text>
             </Card.Body>
             <Card.Footer className='postInteractionButtons'>
               <div className='row'>
