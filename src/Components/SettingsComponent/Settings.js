@@ -195,16 +195,6 @@ export default class Settings extends Component {
                 <FormControl placeholder='Change Email' className='changeEmail inputField' value = {this.state.currentEmail} 
                 onChange={(e) => this.setState({'currentEmail': e.target.value})}/>
               </div>
-              <div className='d-flex'>
-                <p className='label'>Bio</p>
-                <textarea 
-                class="form-control inputField" 
-                id="exampleFormControlTextarea1" 
-                rows="2" 
-                placeholder='Enter bio'
-                value = {this.state.currentBio}
-                onChange={(e) => this.setState({'currentBio': e.target.value})}/>
-              </div>
 
               <Button className='saveBtn button' onClick={() => this.updateProfileData()}>Save</Button>
 
