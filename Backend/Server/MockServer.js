@@ -342,80 +342,94 @@ let start = async() =>
     })
     
     app.post('/getUserDataById/:id', async(req,res) => {
-        let result = await UserExistsById(Number(req.params.id))
-        let userFollowers = await GetUserFollowers(Number(req.params.id))
-        let userPosts = await GetUserPosts(Number(req.params.id))
-        let userPostImages = await GetPostImages(Number(req.params.id))
-        let userSharedPosts = await GetUserSharedPosts(Number(req.params.id))
-        let targetUserProfilePictureResponse = await GetUserProfilePicture(req.params.id)
-        let targetUserBackgroundPictureResponse = await GetUserBackgroundPicture(req.params.id)
-        // TODO ADD CHECK IF PROFILE PICTURE FOR GIVEN USER EXISTS OR NOT
-        if(targetUserProfilePictureResponse.data != undefined)
+        let profileID = Number(req.params.id)
+        let result = await UserExistsById(profileID)
+        let currentUserID = validateToken(req.session.userToken).userID
+        let currentUserBlockList = await GetBlockedUsers(currentUserID)
+        let blockedUsers = currentUserBlockList.blockedUsersList.recordset
+        let isProfileBlocked = blockedUsers.find((blockedUser) => blockedUser.BlockedUserID == profileID)
+        if(isProfileBlocked)
         {
-            if(targetUserBackgroundPictureResponse.data != undefined)
-            {
-                let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
-                let targetUserBackgroundPicture = targetUserBackgroundPictureResponse.data.recordset[0].BackgroundPicture
-                let userObject = {
-                    Username: result.recordset[0].Username,
-                    Followers: userFollowers.followers,
-                    Bio: result.recordset[0].bio,
-                    ProfilePicture: targetUserPfp,
-                    BackgroundPicture: targetUserBackgroundPicture,
-                    Posts: userPosts,
-                    SharedPosts: userSharedPosts,
-                    PostsImages: userPostImages
-                }
-                res.status(200).send(userObject)
-            }
-            else
-            {
-                let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
-                let userObject = {
-                    Username: result.recordset[0].Username,
-                    Followers: userFollowers.followers,
-                    Bio: result.recordset[0].bio,
-                    ProfilePicture: targetUserPfp,
-                    BackgroundPicture: `https://www.wallpapers.net/web/wallpapers/night-lights-long-term-exposure-hd-wallpaper/5120x2160.jpg`,
-                    Posts: userPosts,
-                    SharedPosts: userSharedPosts,
-                    PostsImages: userPostImages
+            res.status(200).send({isUserBlocked: true})
 
-                }
-                res.status(200).send(userObject)
-            }
         }
         else
         {
-            if(targetUserBackgroundPictureResponse.data != undefined)
+            
+            let userFollowers = await GetUserFollowers(profileID)
+            let userPosts = await GetUserPosts(profileID)
+            let userPostImages = await GetPostImages(profileID)
+            let userSharedPosts = await GetUserSharedPosts(profileID)
+            let targetUserProfilePictureResponse = await GetUserProfilePicture(profileID)
+            let targetUserBackgroundPictureResponse = await GetUserBackgroundPicture(profileID)
+            // TODO ADD CHECK IF PROFILE PICTURE FOR GIVEN USER EXISTS OR NOT
+            if(targetUserProfilePictureResponse.data != undefined)
             {
-                let targetUserBackgroundPicture = targetUserBackgroundPictureResponse.data.recordset[0].BackgroundPicture
-                let userObject = {
-                    Username: result.recordset[0].Username,
-                    Followers: userFollowers.Followers,
-                    Bio: result.recordset[0].bio,
-                    ProfilePicture: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images`,
-                    BackgroundPicture: targetUserBackgroundPicture,
-                    Posts: userPosts,
-                    SharedPosts: userSharedPosts,
-                    PostsImages: userPostImages
+                if(targetUserBackgroundPictureResponse.data != undefined)
+                {
+                    let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
+                    let targetUserBackgroundPicture = targetUserBackgroundPictureResponse.data.recordset[0].BackgroundPicture
+                    let userObject = {
+                        Username: result.recordset[0].Username,
+                        Followers: userFollowers.followers,
+                        Bio: result.recordset[0].bio,
+                        ProfilePicture: targetUserPfp,
+                        BackgroundPicture: targetUserBackgroundPicture,
+                        Posts: userPosts,
+                        SharedPosts: userSharedPosts,
+                        PostsImages: userPostImages
+                    }
+                    res.status(200).send(userObject)
                 }
-                res.status(200).send(userObject)
+                else
+                {
+                    let targetUserPfp = targetUserProfilePictureResponse.data.recordset[0].ProfilePicture
+                    let userObject = {
+                        Username: result.recordset[0].Username,
+                        Followers: userFollowers.followers,
+                        Bio: result.recordset[0].bio,
+                        ProfilePicture: targetUserPfp,
+                        BackgroundPicture: `https://www.wallpapers.net/web/wallpapers/night-lights-long-term-exposure-hd-wallpaper/5120x2160.jpg`,
+                        Posts: userPosts,
+                        SharedPosts: userSharedPosts,
+                        PostsImages: userPostImages
+
+                    }
+                    res.status(200).send(userObject)
+                }
             }
             else
             {
-                let userObject = {
-                    Username: result.recordset[0].Username,
-                    Followers: userFollowers.Followers,
-                    Bio: result.recordset[0].bio,
-                    ProfilePicture: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images`,
-                    BackgroundPicture: `https://www.wallpapers.net/web/wallpapers/night-lights-long-term-exposure-hd-wallpaper/5120x2160.jpg`,
-                    Posts: userPosts,
-                    SharedPosts: userSharedPosts,
-                    PostsImages: userPostImages
-
+                if(targetUserBackgroundPictureResponse.data != undefined)
+                {
+                    let targetUserBackgroundPicture = targetUserBackgroundPictureResponse.data.recordset[0].BackgroundPicture
+                    let userObject = {
+                        Username: result.recordset[0].Username,
+                        Followers: userFollowers.Followers,
+                        Bio: result.recordset[0].bio,
+                        ProfilePicture: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images`,
+                        BackgroundPicture: targetUserBackgroundPicture,
+                        Posts: userPosts,
+                        SharedPosts: userSharedPosts,
+                        PostsImages: userPostImages
+                    }
+                    res.status(200).send(userObject)
                 }
-                res.status(200).send(userObject)
+                else
+                {
+                    let userObject = {
+                        Username: result.recordset[0].Username,
+                        Followers: userFollowers.Followers,
+                        Bio: result.recordset[0].bio,
+                        ProfilePicture: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images`,
+                        BackgroundPicture: `https://www.wallpapers.net/web/wallpapers/night-lights-long-term-exposure-hd-wallpaper/5120x2160.jpg`,
+                        Posts: userPosts,
+                        SharedPosts: userSharedPosts,
+                        PostsImages: userPostImages
+
+                    }
+                    res.status(200).send(userObject)
+                }
             }
         }
         

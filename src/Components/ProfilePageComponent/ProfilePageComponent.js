@@ -120,6 +120,10 @@ export default class ProfilePageComponent extends Component {
   getUserData = () => {
     Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
       .then((res) => {
+        if(res.data.isUserBlocked)
+        {
+          window.location.href = '/'
+        }
         this.setState({'userData': res.data}, () => {
           let allUserPostImages = this.state.userData.PostsImages.recordset
           let allUserPosts = this.state.userData.Posts.result.recordset
