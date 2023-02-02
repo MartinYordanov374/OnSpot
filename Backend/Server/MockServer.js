@@ -330,7 +330,9 @@ let start = async() =>
 
     app.get('/getAllEvents', async(req,res) => {
         try{
-            let result = await GetAllEvents()
+            const userToken = req.session.userToken;
+            const UserID = validateToken(userToken).userID
+            let result = await GetAllEvents(UserID)
             res.status(200).send(result)
         }
         catch(err)
@@ -427,6 +429,7 @@ let start = async() =>
 
     app.get('/getNextTwoEvents/:lastEventId', async(req,res) => {
         let result = await getLastTwoEvents(req.params.lastEventId, validateToken(req.session.userToken).userID)
+        console.log(result)
         res.status(200).send(result)
     })
     app.post('/changePfp', upload.single('pfp'), async(req,res) => {

@@ -101,7 +101,7 @@ async function CheckIfUserAlreadyAttendsEvent(UserID, EventID)
     return userAttendsAlready
 }
 
-async function GetAllEvents()
+async function GetAllEvents(userID)
 {
     try{
         // let result = await sql.query`SELECT * FROM dbo.Events`
@@ -123,6 +123,9 @@ async function GetAllEvents()
 		FROM Analytics a 
 		GROUP BY UserID, EventType ) a
 	ON a.UserID = e.EventHosterID 
+	LEFT JOIN BlockedUsers bu 
+	on bu.BlockerUserID = ${userID}
+	WHERE bu.BlockedUserID != e.EventHosterID 
 	ORDER BY e.EventClass`
         return {status: 200, msg: 'Events successfully fetched from the database.', payload: result.recordset}
     }
@@ -161,8 +164,7 @@ async function GetEventImages(EventID)
 
 async function getLastTwoEvents(lastEventId, userID)
 {
-    let result = await sql.query(`
-    SELECT DISTINCT
+    let result = await sql.query(`SELECT DISTINCT
 	e.EventName, 
 	e.EventDescription, 
 	e.EventHosterID, 
@@ -184,8 +186,13 @@ async function getLastTwoEvents(lastEventId, userID)
     FROM Events e
     LEFT JOIN LatestVisitedEvent lve 
         ON e.EventClass = lve.EventType 
-    ORDER BY EventOccurences DESC
-    OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY`)
+	LEFT JOIN BlockedUsers bu
+		ON bu.BlockedUserID = e.EventHosterID
+			AND bu.BlockerUserID = ${userID}
+	WHERE bu.BlockedUserID IS NULL
+    ORDER BY EventOccurences DESC 
+    OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY
+    `)
     return result.recordset
 }
 async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName, 
