@@ -6,6 +6,7 @@ import './Styles/SettingsStyles.css'
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Buffer } from 'buffer';
+import LandingPageComponent from '../LandingPageComponent/LandingPageComponent'
 
 export default class Settings extends Component {
 
@@ -30,7 +31,8 @@ export default class Settings extends Component {
       currentUserID: -1,
       currentPassword: '',
       newPassword: '',
-      confirmNewPassword: ''
+      confirmNewPassword: '',
+      loginStatus: false
     }
   }
 
@@ -153,6 +155,7 @@ export default class Settings extends Component {
   }
 
   componentDidMount = () => {
+    this.checkIfUserIsLoggedIn()
     this.getUserData()
     this.getBlockedUsers()
   }
@@ -167,93 +170,112 @@ export default class Settings extends Component {
     let result = await Axios.post(`http://localhost:3030/unblockUser/${blockedUserID}`, {}, {withCredentials: true})
     this.getBlockedUsers()
   }
+
+  checkIfUserIsLoggedIn = async () => {
+    await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
+    .then((res)=>{
+      if(res.data == true)
+      {
+          this.setState({'loginStatus': true})
+      }
+      else
+      {
+        this.setState({'loginStatus': false})
+      }})
+  }
   render() { 
     return (
       // TODO: Auth guard !
       <div className='settingsPageWrapper'>
-        <SidebarComponent/>
-        <ToastContainer/>
-        <div className='settingsContainer'>
-          <div className='settingsSideMenu'>
-            <p className='sideMenuOption' onClick={() => this.selectProfile()}>Edit profile</p>
-            {/* <p className='sideMenuOption' onClick={() => this.selectPassword()}>Change password</p> */}
-            <p className='sideMenuOption' onClick={() => this.selectBlockedUsers()}>Blocked users</p>
-            <p className='sideMenuOption' onClick={() => this.selectDeleteProfile()}>Delete profile</p>
-          </div>
-
-          {this.state.isProfileSelected == true ?
-            <div className='profileSectionContainer section'>
-              <h1>Edit profile</h1>
-              <div className='d-flex'>
-                <p className='label'>Username</p>
-                <FormControl placeholder='Change username' className='changeUsername inputField' value = {this.state.currentUsername}
-                onChange={(e) => this.setState({'currentUsername': e.target.value})}/>
-              </div>
-
-              <div className='d-flex'>
-                <p className='label'>Email</p>
-                <FormControl placeholder='Change Email' className='changeEmail inputField' value = {this.state.currentEmail} 
-                onChange={(e) => this.setState({'currentEmail': e.target.value})}/>
-              </div>
-
-              <Button className='saveBtn button' onClick={() => this.updateProfileData()}>Save</Button>
-
-            </div>
-            :
-            ""
-          }
-          
-          {this.state.isBlockedUsersSelected == true ?
+        {this.state.loginStatus == true ?
           <div>
-            <div className='blockedUsersSectionContainer section'>
-              <h1>Blocked users</h1>
+            <SidebarComponent/>
+            <ToastContainer/>
+            <div className='settingsContainer'>
+              <div className='settingsSideMenu'>
+                <p className='sideMenuOption' onClick={() => this.selectProfile()}>Edit profile</p>
+                {/* <p className='sideMenuOption' onClick={() => this.selectPassword()}>Change password</p> */}
+                <p className='sideMenuOption' onClick={() => this.selectBlockedUsers()}>Blocked users</p>
+                <p className='sideMenuOption' onClick={() => this.selectDeleteProfile()}>Delete profile</p>
+              </div>
 
-              {this.state.blockedUsersList.length >= 1 ?
-                this.state.blockedUsersList.map((blockedUser) => {
-                  console.log(blockedUser)
-                  return(
-                    <div className='blockedUserContainer d-flex'>
-                      {blockedUser.ProfilePicture 
-                        ?
-                          <img 
-                              src={
-                                `data: image/png;base64,
-                                ${Buffer.from(blockedUser.ProfilePicture.data).toString('base64')}`
-                                }
-                              className='blockedUserPFP'
-                          />
-                        :
-                          <img 
-                            src={`https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images`}
-                            className='blockedUserPFP'
-                          />
-                      }
-                      <h5 className='blockedUsername'>{blockedUser.Username}</h5>
-                      <p className='ms-auto unblockButton' onClick={() => this.unblockUser(blockedUser.BlockedUserID)}>Unblock</p>
-                    </div>
-                  )
-                })
-              : "You haven't blocked anybody! Yay!"}
+              {this.state.isProfileSelected == true ?
+                <div className='profileSectionContainer section'>
+                  <h1>Edit profile</h1>
+                  <div className='d-flex'>
+                    <p className='label'>Username</p>
+                    <FormControl placeholder='Change username' className='changeUsername inputField' value = {this.state.currentUsername}
+                    onChange={(e) => this.setState({'currentUsername': e.target.value})}/>
+                  </div>
+
+                  <div className='d-flex'>
+                    <p className='label'>Email</p>
+                    <FormControl placeholder='Change Email' className='changeEmail inputField' value = {this.state.currentEmail} 
+                    onChange={(e) => this.setState({'currentEmail': e.target.value})}/>
+                  </div>
+
+                  <Button className='saveBtn button' onClick={() => this.updateProfileData()}>Save</Button>
+
+                </div>
+                :
+                ""
+              }
+              
+              {this.state.isBlockedUsersSelected == true ?
+              <div>
+                <div className='blockedUsersSectionContainer section'>
+                  <h1>Blocked users</h1>
+
+                  {this.state.blockedUsersList.length >= 1 ?
+                    this.state.blockedUsersList.map((blockedUser) => {
+                      console.log(blockedUser)
+                      return(
+                        <div className='blockedUserContainer d-flex'>
+                          {blockedUser.ProfilePicture 
+                            ?
+                              <img 
+                                  src={
+                                    `data: image/png;base64,
+                                    ${Buffer.from(blockedUser.ProfilePicture.data).toString('base64')}`
+                                    }
+                                  className='blockedUserPFP'
+                              />
+                            :
+                              <img 
+                                src={`https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images`}
+                                className='blockedUserPFP'
+                              />
+                          }
+                          <h5 className='blockedUsername'>{blockedUser.Username}</h5>
+                          <p className='ms-auto unblockButton' onClick={() => this.unblockUser(blockedUser.BlockedUserID)}>Unblock</p>
+                        </div>
+                      )
+                    })
+                  : "You haven't blocked anybody! Yay!"}
+                </div>
+              </div>
+                :
+                ""
+              }
+
+              {this.state.isDeleteProfileSelected == true ?
+                <div className='deleteProfileSectionContainer section'>
+                  <h1>Delete profile</h1>
+                  <div className='d-block'>
+                    <h2>This is an irreversible action!</h2>
+
+                  </div>
+                    <Button className='deleteProfile button btn-danger' onClick={() => this.deleteProfile()}>Delete my profile.</Button>
+                </div>
+                :
+                ""
+              }
+
             </div>
           </div>
-            :
-            ""
-          }
-
-          {this.state.isDeleteProfileSelected == true ?
-            <div className='deleteProfileSectionContainer section'>
-              <h1>Delete profile</h1>
-              <div className='d-block'>
-                <h2>This is an irreversible action!</h2>
-
-              </div>
-                <Button className='deleteProfile button btn-danger' onClick={() => this.deleteProfile()}>Delete my profile.</Button>
-            </div>
-            :
-            ""
-          }
-
-        </div>
+          :
+          <LandingPageComponent/>
+        }
         
       </div>
     )
