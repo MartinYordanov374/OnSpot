@@ -69,7 +69,7 @@
         .moreOptionsButton{
             float:right;
             margin-right: 0.5rem;
-            margin-top: 0.5rem;
+            margin-top: 0.5rem !important;
             &::after{
                 display: none;
             }
