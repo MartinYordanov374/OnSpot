@@ -814,6 +814,21 @@ async function GetUserNotifications(UserID)
         return {status: 500, msg:'Something went wrong.', err: err}
     }
 }
+
+async function MarkNotificationAsRead(NotificationID)
+{
+    try{
+        let result = await sql.query`UPDATE Notifications 
+        SET IsNotificationRead = 0
+        WHERE NotificationID = ${NotificationID}`
+
+        return {status: 200, msg:'Notification successfully marked as read.'}
+    }
+    catch(err)
+    {
+        return {status: 500, msg: 'Something went wrong.', err:err}
+    }
+}
 module.exports = {
     registerUser,
     UserExistsByUsername,
@@ -858,5 +873,6 @@ module.exports = {
     SaveUserLatestPreference,
     GetPostImages,
     SaveNotification,
-    GetUserNotifications
+    GetUserNotifications,
+    MarkNotificationAsRead
 }

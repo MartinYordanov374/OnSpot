@@ -112,7 +112,12 @@ export default class NotificationsPage extends Component {
 
   MarkAsRead(notificationID)
   {
-    console.log(`marked ${notificationID} as Read`)
+    Axios.post('http://localhost:3030/MarkNotificationAsRead',
+    {NotificationID: notificationID},
+    {withCredentials: true})
+    .then((res) => {
+      this.getUserNotifications()
+    })
   }
 
   render() {
