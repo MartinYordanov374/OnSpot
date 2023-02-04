@@ -773,9 +773,12 @@ let start = async() =>
             let userID = Number(userToken.userID)
 
             let postImages = []
-            for(let image of req.files)
+            if(req.files)
             {
-                postImages.push(fs.readFileSync(path.join(__dirname + '/uploads/' + image.filename)))
+                for(let image of req.files)
+                {
+                    postImages.push(fs.readFileSync(path.join(__dirname + '/uploads/' + image.filename)))
+                }
             }
             let postDate = new Date().toISOString()
 
