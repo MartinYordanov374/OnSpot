@@ -40,7 +40,7 @@ export default class SidebarComponent extends Component {
       })
     }
 
-    // this.getUserNotifications()
+    this.getUserNotifications()
 
   }
 

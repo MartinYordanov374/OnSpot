@@ -118,7 +118,8 @@
         ReceiverID int NOT NULL,
         NotificationDate datetime NOT NULL,
         IsNotificationRead int NOT NULL,
-        NotificationMessage varchar(100) NULL
+        NotificationMessage varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+        NotificationID int IDENTITY(0,1) NOT NULL
     );`
 
 module.exports = {

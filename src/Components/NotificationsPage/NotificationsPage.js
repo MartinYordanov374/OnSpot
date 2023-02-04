@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { faSquare, faCheckSquare, faEye } from '@fortawesome/free-solid-svg-icons';
 import './Style/NotificationsPage.css'
 import SidebarComponent from '../SidebarComponent/SidebarComponent';
 import Axios from 'axios'
@@ -89,6 +89,11 @@ export default class NotificationsPage extends Component {
       console.log(err)
     })
   }
+
+  MarkAsRead(notificationID)
+  {
+    console.log(`marked ${notificationID} as Read`)
+  }
   render() {
     return (
       <div>
@@ -100,13 +105,17 @@ export default class NotificationsPage extends Component {
             <NotificationFilters />
             <ListGroup>
             {this.state.Notifications.map((notification) => {
-              console.log(notification)
               return(
-                <ListGroup.Item className="notification">
-                  <p className="date">{new Date(notification.NotificationDate).toLocaleString()}</p>
-                  <p className="message">{notification.Username + ' ' + notification.NotificationMessage}</p>
-                  <p className="status">{notification.IsNotificationRead == 1 ? 'Unread' : 'Read'}</p>
-                </ListGroup.Item>
+                <ListGroup.Item className="notification" key = {notification.id}>
+                    <p className="date">{new Date(notification.NotificationDate).toLocaleString()}</p>
+                    <p className="message">{notification.Username + ' ' + notification.NotificationMessage}</p>
+                    <p className="status">{notification.IsNotificationRead == 1 ? 'Unread' : 'Read'}</p>
+                    { notification.IsNotificationRead == 1 ?
+                    <FontAwesomeIcon icon={faEye} className="check-mark empty"  onClick={() => this.MarkAsRead(notification.id)}/>
+                    :
+                    <FontAwesomeIcon icon={faCheckSquare} className="check-mark" />
+                    }
+                  </ListGroup.Item>
               )
 
             })}
