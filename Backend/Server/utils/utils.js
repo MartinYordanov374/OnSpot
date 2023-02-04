@@ -111,8 +111,15 @@
     const CREATE_LATEST_VISITED_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.LatestVisitedEvent (
         UserID int NOT NULL,
         EventType nvarchar(MAX) NOT NULL
-    );
-    `
+    );`
+
+    const CREATE_NOTIFICATIONS_TABLE_QUERY = `CREATE TABLE OnSpot.dbo.Notifications (
+        SenderID int NOT NULL,
+        ReceiverID int NOT NULL,
+        NotificationDate datetime NOT NULL,
+        IsNotificationRead int NOT NULL,
+        NotificationMessage varchar(100) NULL
+    );`
 
 module.exports = {
     CREATE_ATTENDANCES_TABLE_QUERY,
