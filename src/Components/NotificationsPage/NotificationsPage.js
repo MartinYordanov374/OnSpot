@@ -106,12 +106,12 @@ export default class NotificationsPage extends Component {
             <ListGroup>
             {this.state.Notifications.map((notification) => {
               return(
-                <ListGroup.Item className="notification" key = {notification.id}>
+                <ListGroup.Item className="notification" key = {notification.NotificationID}>
                     <p className="date">{new Date(notification.NotificationDate).toLocaleString()}</p>
                     <p className="message">{notification.Username + ' ' + notification.NotificationMessage}</p>
                     <p className="status">{notification.IsNotificationRead == 1 ? 'Unread' : 'Read'}</p>
                     { notification.IsNotificationRead == 1 ?
-                    <FontAwesomeIcon icon={faEye} className="check-mark empty"  onClick={() => this.MarkAsRead(notification.id)}/>
+                    <FontAwesomeIcon title="Mark as read" icon={faEye} className="check-mark empty"  onClick={() => this.MarkAsRead(notification.NotificationID)}/>
                     :
                     <FontAwesomeIcon icon={faCheckSquare} className="check-mark" />
                     }
