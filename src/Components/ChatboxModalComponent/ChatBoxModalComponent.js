@@ -28,7 +28,9 @@ export default class ChatBoxModalComponent extends Component {
         this.setState({'senderID': Number(currentUserID)})
       }, 200)
       this.state.socket.on('connect', () => {
-        this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
+        this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)}, () => {
+          
+        })
         this.state.socket.on('getConvo', (res) => {
           this.setState({'conversationMessages': res.data})
 
@@ -72,12 +74,22 @@ export default class ChatBoxModalComponent extends Component {
       let currentUserData = await this.getCurrentUserData()
       let currentUserID = currentUserData.id
       this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
-        this.state.socket.on('getConvo', (res) => {
-          this.setState({'conversationMessages': res.data})
 
-        })
-        let messageInputField = document.querySelector('.sendMessageInputField')
-        messageInputField.value = ''
+      this.state.socket.on('getConvo', (res) => {
+            this.setState({'conversationMessages': res.data})
+
+      })
+
+      this.state.socket.emit('notify', {
+          notificationData: {senderID: currentUserID, receiverID: receiverID},
+          isMessage: true,
+          isPost: false,
+          isFollower: false,
+          isComment: false
+      })
+
+      let messageInputField = document.querySelector('.sendMessageInputField')
+      messageInputField.value = ''
     }
     catch(err)
     {
