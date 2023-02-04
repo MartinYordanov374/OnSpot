@@ -12,44 +12,38 @@ class NotificationFilters extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedFilter: 'unread',
+      selectedFilter: this.props.selectedFilter,
       Notifications: []
     };
   }
 
-  handleClick = (filter) => {
-    this.setState({
-      selectedFilter: filter
-    });
-  }
-
-
+  
+  
+  
   render() {
-    const { selectedFilter } = this.state;
-
     return (
       <div>
         <div>
           <div id="notification-filters">
             <button 
-              className={`notification-filter ${this.state.selectedFilter === 'unread' ? 'selected' : ''}`} 
-              onClick={() => this.handleClick('unread')}
+              className={`notification-filter ${this.props.selectedFilter === 'unread' ? 'selected' : ''}`} 
+              onClick={() => this.props.handleClick('unread')}
             >
-              <FontAwesomeIcon icon={this.state.selectedFilter === 'unread' ? faCheckSquare : faSquare} />
+              <FontAwesomeIcon icon={this.props.selectedFilter === 'unread' ? faCheckSquare : faSquare} />
               Unread
             </button>
             <button 
-              className={`notification-filter ${this.state.selectedFilter === 'read' ? 'selected' : ''}`} 
-              onClick={() => this.handleClick('read')}
+              className={`notification-filter ${this.props.selectedFilter === 'read' ? 'selected' : ''}`} 
+              onClick={() => this.props.handleClick('read')}
             >
-              <FontAwesomeIcon icon={this.state.selectedFilter === 'read' ? faCheckSquare : faSquare} />
+              <FontAwesomeIcon icon={this.props.selectedFilter === 'read' ? faCheckSquare : faSquare} />
               Read
             </button>
             <button 
-              className={`notification-filter ${this.state.selectedFilter === 'all' ? 'selected' : ''}`} 
-              onClick={() => this.handleClick('all')}
+              className={`notification-filter ${this.props.selectedFilter === 'all' ? 'selected' : ''}`} 
+              onClick={() => this.props.handleClick('all')}
             >
-              <FontAwesomeIcon icon={this.state.selectedFilter === 'all' ? faCheckSquare : faSquare} />
+              <FontAwesomeIcon icon={this.props.selectedFilter === 'all' ? faCheckSquare : faSquare} />
               All
             </button>
           </div>
@@ -66,7 +60,10 @@ export default class NotificationsPage extends Component {
   {
     super()
     this.state = {
-      Notifications: []
+      Notifications: [],
+      shownNotifications: [],
+      selectedFilter: 'unread'
+
     };
   }
 
@@ -83,6 +80,7 @@ export default class NotificationsPage extends Component {
       if(notifications)
       {
         this.setState({'Notifications': notifications})
+        this.setState({'shownNotifications': notifications})
       }
     })
     .catch((err) => {
@@ -90,10 +88,33 @@ export default class NotificationsPage extends Component {
     })
   }
 
+  handleClick = (filter) => {
+    this.setState({'selectedFilter': filter}, () => {
+      if(this.state.selectedFilter == 'read')
+      {
+        let readNotifications = this.state.Notifications.filter((notification) => notification.IsNotificationRead == 0) 
+        this.setState({'shownNotifications': readNotifications}) 
+
+      }
+      else if(this.state.selectedFilter == 'unread')
+      {
+        let unreadNotifications = this.state.Notifications.filter((notification) => notification.IsNotificationRead == 1) 
+        this.setState({'shownNotifications': unreadNotifications}) 
+
+      }
+      else{
+        let allNotifications = this.state.Notifications
+        this.setState({'shownNotifications': allNotifications}) 
+
+      }
+    });
+  }
+
   MarkAsRead(notificationID)
   {
     console.log(`marked ${notificationID} as Read`)
   }
+
   render() {
     return (
       <div>
@@ -102,9 +123,9 @@ export default class NotificationsPage extends Component {
         <Row className="justify-content-center">
           <Col lg={10}>
             <h2 className="text-center">Notifications</h2>
-            <NotificationFilters />
+            <NotificationFilters selectedFilter={this.state.selectedFilter} handleClick = {this.handleClick}/>
             <ListGroup>
-            {this.state.Notifications.map((notification) => {
+            {this.state.shownNotifications.map((notification) => {
               return(
                 <ListGroup.Item className="notification" key = {notification.NotificationID}>
                     <p className="date">{new Date(notification.NotificationDate).toLocaleString()}</p>
