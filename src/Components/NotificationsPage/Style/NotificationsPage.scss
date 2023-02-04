@@ -1,0 +1,53 @@
+// Container for the filters
+#notification-filters {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    }
+    
+    // Style for each filter button
+    .notification-filter {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    margin-right: 1rem;
+    transition: all 0.3s ease-in-out;
+    
+    &.selected {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    }
+    
+    &:hover {
+    background-color: #f8f9fa;
+    }
+    }
+    
+    // Style for the FontAwesome icons
+    .fa-check-square,
+    .fa-square {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+    }
+    
+    // Style for the date and status text
+    .notification .date,
+    .notification .status {
+    font-size: 0.9rem;
+    color: #999;
+    text-transform: uppercase;
+    }
+    
+    // Style for the message text
+    .notification .message {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    }

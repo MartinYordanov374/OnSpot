@@ -50,6 +50,7 @@ export default class SidebarComponent extends Component {
       let senderID = res.senderID
       let receiverID = Number(res.receiverID)
       let notificationType = res.notificationType
+
       if(notificationType == 'msg')
       {
         if(Number(this.state.userID) == receiverID)
