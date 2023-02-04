@@ -80,7 +80,10 @@ export default class NotificationsPage extends Component {
     Axios.get('http://localhost:3030/GetUserNotifications', {withCredentials: true})
     .then((res) => {
       let notifications = res.data.data.data
-      this.setState({'Notifications': notifications})
+      if(notifications)
+      {
+        this.setState({'Notifications': notifications})
+      }
     })
     .catch((err) => {
       console.log(err)
@@ -101,7 +104,7 @@ export default class NotificationsPage extends Component {
               return(
                 <ListGroup.Item className="notification">
                   <p className="date">{new Date(notification.NotificationDate).toLocaleString()}</p>
-                  <p className="message">{notification.NotificationMessage}</p>
+                  <p className="message">{notification.Username + ' ' + notification.NotificationMessage}</p>
                   <p className="status">{notification.IsNotificationRead == 1 ? 'Unread' : 'Read'}</p>
                 </ListGroup.Item>
               )

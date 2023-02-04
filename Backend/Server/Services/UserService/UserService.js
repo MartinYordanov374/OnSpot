@@ -799,7 +799,11 @@ async function GetUserNotifications(UserID)
 {
     try{
 
-        let result = await sql.query`SELECT * FROM dbo.Notifications WHERE ReceiverID = ${UserID}`
+        let result = await sql.query`        
+        select n.*, u.Username  from Notifications n
+        LEFT JOIN Users u
+        on u.id = n.SenderID
+        WHERE n.ReceiverID = ${UserID}`
         
         return {status: 200, msg:'Notification successfully retrieved.', data: result.recordset}
         

@@ -40,7 +40,7 @@ export default class SidebarComponent extends Component {
       })
     }
 
-    this.getUserNotifications()
+    // this.getUserNotifications()
 
   }
 
@@ -66,7 +66,7 @@ export default class SidebarComponent extends Component {
         await Axios.post('http://localhost:3030/SaveNotifications', {
             SenderID: senderID,
             ReceiverID: receiverID,
-            NotificationContent: `${senderID} sent you a message!`,
+            NotificationContent: `sent you a message!`,
             NotificationDate: new Date(),
             NotificationType: notificationType,
 
@@ -86,12 +86,15 @@ export default class SidebarComponent extends Component {
     })
   }
 
-  getUserNotifications()
+  async getUserNotifications()
   {
     Axios.get('http://localhost:3030/GetUserNotifications', {withCredentials: true})
     .then((res) => {
       let notifications = res.data.data.data
-      this.setState({'Notifications': notifications})
+      if(notifications)
+      {
+        this.setState({'Notifications': notifications})
+      }
     })
     .catch((err) => {
       console.log(err)
