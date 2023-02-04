@@ -998,6 +998,31 @@ let start = async() =>
             }
         })
 
+        socket.on('notify', (requestData) => {
+            let isNotificationMessage = requestData.isMessage
+            let isNotificationPost = requestData.isPost
+            let isNotificationFollower = requestData.isFollower
+            let isNotificationComment = requestData.isComment
+
+            if(isNotificationMessage)
+            {
+                // TODO: SAVE NOTIFICATION TO NOTIFICATIONS TABLE!
+                io.emit('receiveMessageNotification', {receiverID: requestData.notificationData.receiverID, senderID: requestData.notificationData.senderID})
+            }
+            else if(isNotificationPost)
+            {
+                console.log(`${requestData.notificationData.senderID} posted to their followers.`)
+            }
+            else if(isNotificationFollower)
+            {
+                console.log(`${requestData.notificationData.senderID} started following ${requestData.notificationData.receiverID}.`)
+            }
+            else if(isNotificationComment)
+            {
+                console.log(`${requestData.notificationData.senderID} commented on post ${requestData.notificationData.receiverID}.`)
+            }
+        })
+
         socket.on('disconnect', function() {
             console.log('User disconnected.');
         });

@@ -12,7 +12,8 @@ export default class SidebarComponent extends Component {
     super()
     this.state = {username: '', userFollowers: 0, userID: 0, 
     ProfilePicture: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images',
-    socket: io.connect('http://localhost:3030/')}
+    socket: io.connect('http://localhost:3030/'),
+    unreadNotifications: 0}
   }
   async logOut(){
     await Axios.get('http://localhost:3030/logout', {withCredentials: true})
@@ -46,8 +47,9 @@ export default class SidebarComponent extends Component {
       let receiverID = Number(res.receiverID)
       if(Number(this.state.userID) == receiverID)
       {
-        //TODO: Make this show itself on the notifications side!
-        console.log(`message notification from ${senderID} to ${receiverID}`)
+        // TODO: Make the message notifications count as one notification, if coming from one user
+        // two notifications if coming from 2 users etc.
+        this.setState({'unreadNotifications': this.state.unreadNotifications+1})
       }
 
     })
@@ -130,6 +132,7 @@ export default class SidebarComponent extends Component {
           <h2 className='exploreEvents menuItem'>
             <a href='/Notifications'>
               <FontAwesomeIcon icon={faBell}/> 
+              <span>{this.state.unreadNotifications}</span>
               <span className='menuItemName'> Notifications </span>
             </a>
           </h2>
