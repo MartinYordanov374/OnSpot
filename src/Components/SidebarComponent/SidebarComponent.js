@@ -179,11 +179,20 @@ export default class SidebarComponent extends Component {
           </h2>
           <h2 className='exploreEvents menuItem'>
             <a href='/Notifications'>
-              <FontAwesomeIcon icon={faBell}/> 
-              <span>{this.state.unreadNotifications + this.state.Notifications.length}</span>
+              <div style={{position: "relative"}}>
+                <FontAwesomeIcon icon={faBell} />
+                <span className={this.state.unreadNotifications + this.state.Notifications.length > 0 ? 'notificationsCircle': 'hiddenNotificatiosCircle'}>
+                  {
+                    this.state.unreadNotifications + this.state.Notifications.length > 0 ? 
+                    this.state.unreadNotifications + this.state.Notifications.length : 
+                    ""
+                  }
+                </span>
               <span className='menuItemName'> Notifications </span>
+              </div>
             </a>
           </h2>
+
           <h2 className='exploreEvents menuItem'>
             <a href='/Settings'>
               <FontAwesomeIcon icon={faCog}/> 

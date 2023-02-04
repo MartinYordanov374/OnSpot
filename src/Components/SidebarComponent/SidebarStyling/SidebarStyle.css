@@ -76,6 +76,32 @@
   color: black;
 }
 
+.sidebarWrapper .notificationsCircle {
+  position: absolute;
+  top: -2px;
+  left: -7px;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  background-color: #ff4c4c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+}
+
+.sidebarWrapper .hiddenNotificatiosCircle {
+  display: none;
+}
+
 .sidebarWrapper .dangerousMenu {
   padding: 1rem;
 }
