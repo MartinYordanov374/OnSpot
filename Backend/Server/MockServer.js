@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents, UploadEventImages, GetEventImages, UploadPostImages } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments, CreatePost, DeletePost, UpdatePost, GetTotalPostLikes, GetPostLikers, LikePost, GetPostShares, SharePost, GetUserSharedPosts, DeleteSharedPost, SaveUserPreference, GetUserPreferences, SaveUserLatestPreference, GetPostImages } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments, CreatePost, DeletePost, UpdatePost, GetTotalPostLikes, GetPostLikers, LikePost, GetPostShares, SharePost, GetUserSharedPosts, DeleteSharedPost, SaveUserPreference, GetUserPreferences, SaveUserLatestPreference, GetPostImages, SaveNotification } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
@@ -978,9 +978,26 @@ let start = async() =>
         }
     })
 
-    io.on('connection', (socket) => {
+    app.post('/SaveNotifications', async(req,res) => {
+        try
+        {   
+            let SenderID = req.body.SenderID
+            let ReceiverID = req.body.ReceiverID
+            let NotificationContent = req.body.NotificationContent
+            let NotificationDate = req.body.NotificationDate
+            let NotificationType = req.body.NotificationType
+            let result = await SaveNotification(SenderID, ReceiverID, NotificationContent, NotificationDate, NotificationType)
+            
+            res.status(200).send({msg: 'Notifications successfully stored on the databse', data: result})
+        }
+        catch(err)
+        {
+            console.log(err)
+            res.status(500).send('Internal server error.')
+        }
+    })
 
-        console.log('User connected.');
+    io.on('connection', (socket) => {
     
         socket.on('requestConvo', async (requestData) => {
             let senderID = requestData.senderID
@@ -1007,7 +1024,7 @@ let start = async() =>
             if(isNotificationMessage)
             {
                 // TODO: SAVE NOTIFICATION TO NOTIFICATIONS TABLE!
-                io.emit('receiveMessageNotification', {receiverID: requestData.notificationData.receiverID, senderID: requestData.notificationData.senderID})
+                io.emit('receiveMessageNotification', {receiverID: requestData.notificationData.receiverID, senderID: requestData.notificationData.senderID, notificationType: 'msg'})
             }
             else if(isNotificationPost)
             {

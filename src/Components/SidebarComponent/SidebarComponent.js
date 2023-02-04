@@ -42,14 +42,39 @@ export default class SidebarComponent extends Component {
 
   componentDidUpdate()
   {
-    this.state.socket.on('receiveMessageNotification', (res) => {
+    this.state.socket.on('receiveMessageNotification', async (res) => {
       let senderID = res.senderID
       let receiverID = Number(res.receiverID)
-      if(Number(this.state.userID) == receiverID)
+      let notificationType = res.notificationType
+      if(notificationType == 'msg')
       {
-        // TODO: Make the message notifications count as one notification, if coming from one user
-        // two notifications if coming from 2 users etc.
-        this.setState({'unreadNotifications': this.state.unreadNotifications+1})
+        if(Number(this.state.userID) == receiverID)
+        {
+          // TODO: Make the message notifications count as one notification, if coming from one user
+          // two notifications if coming from 2 users etc.
+          // TODO: CHANGE THE USER ID IN THE NOTIFICATION CONTENT WITH THE USERNAME OF THE GIVEN USER.
+          this.setState({'unreadNotifications': this.state.unreadNotifications+1})
+          
+        }
+
+        
+        await Axios.post('http://localhost:3030/SaveNotifications', {
+            SenderID: senderID,
+            ReceiverID: receiverID,
+            NotificationContent: `${senderID} sent you a message!`,
+            NotificationDate: new Date(),
+            NotificationType: notificationType,
+
+          }, 
+          {
+            withCredentials: true
+          })
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       }
 
     })

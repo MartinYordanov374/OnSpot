@@ -773,6 +773,27 @@ async function SaveUserLatestPreference(UserID, EventType)
         return {status: 200, msg:'Something went wrong.', result: err}
     }
 }
+
+async function SaveNotification(SenderID, ReceiverID, NotificationContent, NotificationDate, NotificationType)
+{
+    try{
+        if(NotificationType == 'msg')
+        {
+            let result = await sql.query`
+            IF NOT EXISTS 
+            (SELECT SenderID  FROM dbo.Notifications WHERE SenderID = ${SenderID} AND ReceiverID = ${ReceiverID}) 
+                INSERT INTO dbo.Notifications(SenderID, ReceiverID, NotificationDate, IsNotificationRead, NotificationMessage) 
+            VALUES(${SenderID}, ${ReceiverID}, ${NotificationDate}, 1, ${NotificationContent})`
+    
+            return {status: 200, msg:'Notification successfully saved.', data: result}
+        }
+        //TODO: Handle the rest of the notifications
+    }
+    catch(err)
+    {
+        return {status: 200, msg:'Something went wrong.', result: err}
+    }
+}
 module.exports = {
     registerUser,
     UserExistsByUsername,
@@ -815,5 +836,6 @@ module.exports = {
     SaveUserPreference,
     GetUserPreferences,
     SaveUserLatestPreference,
-    GetPostImages
+    GetPostImages,
+    SaveNotification
 }
