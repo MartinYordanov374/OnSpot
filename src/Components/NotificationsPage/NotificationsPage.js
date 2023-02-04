@@ -81,6 +81,7 @@ export default class NotificationsPage extends Component {
       {
         this.setState({'Notifications': notifications})
         this.setState({'shownNotifications': notifications})
+        this.handleClick('all')
       }
     })
     .catch((err) => {
