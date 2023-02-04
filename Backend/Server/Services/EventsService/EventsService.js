@@ -181,17 +181,19 @@ async function getLastTwoEvents(lastEventId, userID)
 			ELSE COUNT(*) 
 		END 
 	FROM Analytics a 
-        WHERE a.EventType = e.EventClass  
-        AND a.UserID = ${userID}) AS EventOccurences
-    FROM Events e
-    LEFT JOIN LatestVisitedEvent lve 
-        ON e.EventClass = lve.EventType 
-	LEFT JOIN BlockedUsers bu
-		ON bu.BlockedUserID = e.EventHosterID
-			AND bu.BlockerUserID = ${userID}
-	WHERE bu.BlockedUserID IS NULL
-    ORDER BY EventOccurences DESC 
-    OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY
+		WHERE a.EventType = e.EventClass  
+		AND a.UserID = ${userID}) AS EventOccurences
+FROM Events e
+LEFT JOIN LatestVisitedEvent lve 
+	ON e.EventClass = lve.EventType 
+WHERE NOT EXISTS (
+	SELECT 1 
+	FROM BlockedUsers bu 
+	WHERE (bu.BlockedUserID = e.EventHosterID AND bu.BlockerUserID = ${userID}) 
+	OR (bu.BlockedUserID = ${userID} AND bu.BlockerUserID = e.EventHosterID)
+)
+ORDER BY EventOccurences DESC 
+OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY
     `)
     return result.recordset
 }

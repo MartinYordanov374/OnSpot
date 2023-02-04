@@ -780,6 +780,7 @@ let start = async() =>
                     postImages.push(fs.readFileSync(path.join(__dirname + '/uploads/' + image.filename)))
                 }
             }
+
             let postDate = new Date().toISOString()
 
             let targetPostID = Number(req.body.targetPostID)
