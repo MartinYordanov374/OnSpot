@@ -10,41 +10,52 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .sidebarWrapper .ProfileDataWrapper {
   text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin-left: 2rem;
   margin-top: 2rem;
   border-radius: 5px;
 }
+
 .sidebarWrapper .ProfileDataWrapper .profileDataContainer {
   padding: 1rem;
 }
+
 .sidebarWrapper .ProfileDataWrapper:hover {
   background-color: rgba(238, 238, 238, 0.829);
   cursor: pointer;
 }
+
 .sidebarWrapper .ProfileDataWrapper .userPFP {
   border-radius: 50%;
   width: 36px;
   height: 36px;
 }
+
 .sidebarWrapper .ProfileDataWrapper .username {
-  margin-left: 0.5rem;
+  margin-left: .5rem;
   line-height: 2.1rem;
   font-size: 20px;
   font-weight: 300;
   color: black;
 }
+
 .sidebarWrapper .ProfileDataWrapper .followers {
   color: #BDA9A9;
 }
+
 .sidebarWrapper .ProfileDataWrapper a {
   text-decoration: none;
 }
+
 .sidebarWrapper .safeMenu {
   color: white;
 }
+
 .sidebarWrapper .safeMenu .menuItem {
   margin-top: 2.8rem;
   font-size: 20px;
@@ -54,36 +65,44 @@
   padding-right: -1rem;
   border-radius: 5px;
 }
+
 .sidebarWrapper .safeMenu .menuItem:hover {
   background-color: rgba(238, 238, 238, 0.829);
   cursor: pointer;
 }
+
 .sidebarWrapper .safeMenu .menuItem a {
   text-decoration: none;
   color: black;
 }
+
 .sidebarWrapper .dangerousMenu {
   padding: 1rem;
 }
+
 .sidebarWrapper .dangerousMenu .settings {
   margin-top: 3rem;
   color: black;
   font-size: 20px;
   font-weight: 300;
 }
+
 .sidebarWrapper .dangerousMenu .logout {
   margin-top: 0rem;
   color: black;
   font-size: 20px;
   font-weight: 300;
 }
+
 .sidebarWrapper .menu {
   margin-left: 2rem;
 }
+
 .sidebarWrapper .HeaderWrapper .homeLink {
   text-decoration: none;
   color: black;
 }
+
 @media screen and (max-width: 1240px) {
   .sidebarWrapper {
     width: -webkit-max-content;
@@ -97,6 +116,7 @@
     height: 100vh;
   }
 }
+
 @media screen and (max-width: 810px) {
   .sidebarWrapper .menuItemName {
     display: none;
@@ -106,6 +126,7 @@
     height: 100vh;
   }
 }
+
 @media screen and (max-width: 375px) {
   .sidebarWrapper .menuItemName {
     display: none;
@@ -115,6 +136,7 @@
     height: 100vh;
   }
 }
+
 @media screen and (max-width: 1440px) {
   .sidebarWrapper .safeMenu .menuItem {
     padding: 1rem;
@@ -123,4 +145,5 @@
 
 .sidebarWrapper::-webkit-scrollbar {
   display: none;
-}/*# sourceMappingURL=SidebarStyle.css.map */
+}
+/*# sourceMappingURL=SidebarStyle.css.map */

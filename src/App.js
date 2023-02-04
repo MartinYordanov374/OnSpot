@@ -18,6 +18,7 @@ import HostAnEventPageComponentPaginated from './Components/HostAnEventComponent
 import EditEvent from './Components/EditEventComponent/EditEvent';
 import UserFollowers from './Components/UserFollowersComponent/UserFollowers';
 import Settings from './Components/SettingsComponent/Settings';
+import NotificationsPage from './Components/NotificationsPage/NotificationsPage';
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
       <Route path = '/EditEvent/:id' element={<EditEvent/>}/>
       <Route path = '/UserFollowers/:id' element={<UserFollowers/>}/>
       <Route path = '/Settings' element={<Settings/>}/>
-
+      <Route path = '/Notifications' element={<NotificationsPage/>}/>
       <Route path = '/ExploreEvents' element={<ExploreEventsComponent/>}/>
       <Route path = '/Event/:eventId' element={<EventPageComponent/>}/> 
       <Route path = '/Profile/:id' element={<ProfilePageComponent/>}/> 
