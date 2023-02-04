@@ -13,7 +13,8 @@ export default class SidebarComponent extends Component {
     this.state = {username: '', userFollowers: 0, userID: 0, 
     ProfilePicture: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images',
     socket: io.connect('http://localhost:3030/'),
-    unreadNotifications: 0}
+    unreadNotifications: 0,
+    Notifications: []}
   }
   async logOut(){
     await Axios.get('http://localhost:3030/logout', {withCredentials: true})
@@ -38,6 +39,9 @@ export default class SidebarComponent extends Component {
         'username': targetUserData.Username, 'userFollowers': targetUserData.Followers, 'userID': targetUserData.id
       })
     }
+
+    this.getUserNotifications()
+
   }
 
   componentDidUpdate()
@@ -77,6 +81,19 @@ export default class SidebarComponent extends Component {
           })
       }
 
+      this.getUserNotifications()
+    })
+  }
+
+  getUserNotifications()
+  {
+    Axios.get('http://localhost:3030/GetUserNotifications', {withCredentials: true})
+    .then((res) => {
+      let notifications = res.data.data.data
+      this.setState({'Notifications': notifications})
+    })
+    .catch((err) => {
+      console.log(err)
     })
   }
 
@@ -157,7 +174,7 @@ export default class SidebarComponent extends Component {
           <h2 className='exploreEvents menuItem'>
             <a href='/Notifications'>
               <FontAwesomeIcon icon={faBell}/> 
-              <span>{this.state.unreadNotifications}</span>
+              <span>{this.state.unreadNotifications + this.state.Notifications.length}</span>
               <span className='menuItemName'> Notifications </span>
             </a>
           </h2>

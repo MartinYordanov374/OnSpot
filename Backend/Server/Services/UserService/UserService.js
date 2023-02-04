@@ -794,6 +794,22 @@ async function SaveNotification(SenderID, ReceiverID, NotificationContent, Notif
         return {status: 200, msg:'Something went wrong.', result: err}
     }
 }
+
+async function GetUserNotifications(UserID)
+{
+    try{
+
+        let result = await sql.query`SELECT * FROM dbo.Notifications WHERE ReceiverID = ${UserID}`
+        
+        return {status: 200, msg:'Notification successfully retrieved.', data: result.recordset}
+        
+        //TODO: Handle the rest of the notifications
+    }
+    catch(err)
+    {
+        return {status: 500, msg:'Something went wrong.', err: err}
+    }
+}
 module.exports = {
     registerUser,
     UserExistsByUsername,
@@ -837,5 +853,6 @@ module.exports = {
     GetUserPreferences,
     SaveUserLatestPreference,
     GetPostImages,
-    SaveNotification
+    SaveNotification,
+    GetUserNotifications
 }
