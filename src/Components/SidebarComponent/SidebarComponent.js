@@ -93,7 +93,9 @@ export default class SidebarComponent extends Component {
       let notifications = res.data.data.data
       if(notifications)
       {
-        this.setState({'Notifications': notifications})
+        let unreadNotifications = notifications.filter((notification) => notification.IsNotificationRead == 1) 
+        console.log(notifications)
+        this.setState({'Notifications': unreadNotifications})
       }
     })
     .catch((err) => {
