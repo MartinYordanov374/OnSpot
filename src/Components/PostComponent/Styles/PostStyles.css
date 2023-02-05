@@ -27,13 +27,18 @@
   cursor: pointer;
 }
 
-.moreOptionsButton {
+.morePostOptionsButton {
   margin-top: -5% !important;
   background-color: white;
   border-color: white;
+  float: right;
 }
 
-.moreOptionsButton:hover {
+.morePostOptionsButton::after {
+  display: none;
+}
+
+.morePostOptionsButton:hover {
   background-color: #d3d4d526;
   border-color: #d3d4d526;
 }

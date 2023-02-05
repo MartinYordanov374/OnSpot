@@ -24,10 +24,14 @@ $hover-ellipsis-color: #d3d4d526;
         cursor: pointer;
     }
 }
-.moreOptionsButton{
+.morePostOptionsButton{
     margin-top: -5% !important;
     background-color: white;
     border-color: white;
+    float:right;
+    &::after{
+        display: none;
+    }
     &:hover{
         background-color: $hover-ellipsis-color;
         border-color: $hover-ellipsis-color;

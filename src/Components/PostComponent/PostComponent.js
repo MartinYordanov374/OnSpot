@@ -213,7 +213,7 @@ export default class PostComponent extends Component {
              
               {this.props.postData.UserID == this.state.currentUserData[0].id ?
               <Dropdown>
-                <Dropdown.Toggle className='moreOptionsButton btn-light'>
+                <Dropdown.Toggle className='morePostOptionsButton btn-light'>
                       <FontAwesomeIcon icon={faEllipsis}/>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
