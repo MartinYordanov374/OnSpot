@@ -59,11 +59,7 @@ export default class SidebarComponent extends Component {
           // two notifications if coming from 2 users etc.
           // TODO: CHANGE THE USER ID IN THE NOTIFICATION CONTENT WITH THE USERNAME OF THE GIVEN USER.
           this.setState({'unreadNotifications': this.state.unreadNotifications+1})
-          
-        }
-
-        
-        await Axios.post('http://localhost:3030/SaveNotifications', {
+          await Axios.post('http://localhost:3030/SaveNotifications', {
             SenderID: senderID,
             ReceiverID: receiverID,
             NotificationContent: `sent you a message!`,
@@ -80,6 +76,7 @@ export default class SidebarComponent extends Component {
           .catch((err) => {
             console.log(err)
           })
+        }
       }
 
       this.getUserNotifications()
@@ -100,8 +97,8 @@ export default class SidebarComponent extends Component {
             {
               this.setState({'unreadNotifications': this.state.unreadNotifications+1})
             }
-
-              await Axios.post('http://localhost:3030/SaveNotifications', {
+            
+            await Axios.post('http://localhost:3030/SaveNotifications', {
               SenderID: posterID,
               ReceiverID: userFollower.FollowerUserID,
               NotificationContent: `made a post!`,
@@ -130,6 +127,13 @@ export default class SidebarComponent extends Component {
 
 
     })
+  }
+
+  componentWillUnmount()
+  {
+    this.state.socket.off('receiveMessageNotification')
+    this.state.socket.off('receivePostNotification')
+
   }
 
   async getUserNotifications()
