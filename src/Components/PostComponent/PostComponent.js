@@ -6,6 +6,7 @@ import Axios from 'axios'
 import './Styles/PostStyles.css'
 import { Buffer } from 'buffer';
 import PostCommentComponent from '../PostCommentComponent/PostCommenComponentt';
+import * as io from 'socket.io-client'
 
 export default class PostComponent extends Component {
 
@@ -23,7 +24,8 @@ export default class PostComponent extends Component {
       postLikers: [],
       hasUserLikedThisPost: false,
       postSharesAmount: 0,
-      isPostShared: false
+      isPostShared: false,
+      socket: io.connect('http://localhost:3030/'),
       }
   }
   getPosterData = async(userID) => {
@@ -76,7 +78,20 @@ export default class PostComponent extends Component {
     }, {withCredentials: true})
     .then((res) => {
       this.getPostComments(this.props.postData.PostID)
+      this.state.socket.emit('notify', {
+        notificationData: {
+        senderID: this.state.currentUserData[0].id,
+        postID: this.props.postData.PostID,
+        receiverID: this.props.postData.UserID},
+        isMessage: false,
+        isPost: false,
+        isFollower: false,
+        isComment: true
+        
+      })
       this.setState({'commentContent': ''})
+      
+      
     })
     .catch((err) => {
       console.log(err)

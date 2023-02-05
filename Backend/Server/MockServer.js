@@ -1044,8 +1044,8 @@ let start = async() =>
             let isNotificationPost = requestData.isPost
             let isNotificationFollower = requestData.isFollower
             let isNotificationComment = requestData.isComment
-
-            if(isNotificationMessage)
+            console.log(requestData)
+            if(isNotificationMessage == true)
             {
                 io.emit('receiveMessageNotification', 
                 {
@@ -1054,7 +1054,7 @@ let start = async() =>
                     notificationType: 'msg'
                 })
             }
-            else if(isNotificationPost)
+            else if(isNotificationPost == true)
             {
                 console.log(`${requestData.notificationData.senderID} posted to their followers.`)
                 io.emit('receivePostNotification', 
@@ -1065,7 +1065,7 @@ let start = async() =>
                     notificationType: 'post'
                 })
             }
-            else if(isNotificationFollower)
+            else if(isNotificationFollower == true)
             {
                 console.log(`${requestData.notificationData.senderID} started following ${requestData.notificationData.receiverID}.`)
                 io.emit('newFollowerNotification', 
@@ -1075,10 +1075,10 @@ let start = async() =>
                     notificationType: 'follower'
                 })
             }
-            else if(isNotificationComment)
+            else if(isNotificationComment == true)
             {
-                console.log(`${requestData.notificationData.senderID} commented on post ${requestData.notificationData.receiverID}.`)
-                io.emit('newFollowerNotification', 
+                console.log(`${requestData.notificationData.senderID} commented on post ${requestData.notificationData.postID}.`)
+                io.emit('newCommentNotification', 
                 {   
                     postID: requestData.notificationData.postID,
                     receiverID: requestData.notificationData.receiverID,
