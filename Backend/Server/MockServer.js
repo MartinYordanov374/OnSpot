@@ -1049,11 +1049,17 @@ let start = async() =>
             if(isNotificationMessage)
             {
                 // TODO: SAVE NOTIFICATION TO NOTIFICATIONS TABLE!
-                io.emit('receiveMessageNotification', {receiverID: requestData.notificationData.receiverID, senderID: requestData.notificationData.senderID, notificationType: 'msg'})
+                io.emit('receiveMessageNotification', 
+                {receiverID: requestData.notificationData.receiverID, senderID: requestData.notificationData.senderID, notificationType: 'msg'})
             }
             else if(isNotificationPost)
             {
                 console.log(`${requestData.notificationData.senderID} posted to their followers.`)
+                io.emit('receivePostNotification', 
+                {   
+                    senderID: requestData.notificationData.senderID, 
+                    notificationType: 'post'
+                })
             }
             else if(isNotificationFollower)
             {

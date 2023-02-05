@@ -9,6 +9,7 @@ import ChatBoxModalComponent from '../ChatboxModalComponent/ChatBoxModalComponen
 import PostComponent from '../PostComponent/PostComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis, faGripHorizontal, faListDots, faSlash, faUserLargeSlash, faUsersLine, faComment, faImage } from '@fortawesome/free-solid-svg-icons';
+import * as io from 'socket.io-client'
 
 export default class ProfilePageComponent extends Component {
 
@@ -31,7 +32,8 @@ export default class ProfilePageComponent extends Component {
       commentContent: '',
       isModalShown: false,
       postImages: [],
-      allUserPostImages: []
+      allUserPostImages: [],
+      socket: io.connect('http://localhost:3030/')
     }
   }
     //TODO: IMPLEMENT INFINITE SCROLL FUNCTIONALITY
@@ -59,6 +61,14 @@ export default class ProfilePageComponent extends Component {
       this.checkIfUserIsLoggedIn()
       this.getUserData()
     } 
+    componentDidUpdate = () => {
+      this.state.socket.on('receivePostNotification', async(res) => {
+        let posterID = res.senderID
+        let notificationType = res.notificationType
+        
+        
+      })
+    }
     postComment = async() => {
       try
       {
@@ -109,6 +119,15 @@ export default class ProfilePageComponent extends Component {
            .then((res) => {
              this.setState({'commentContent': ''})
              this.getUserData()
+
+             this.state.socket.emit('notify', {
+              notificationData: {senderID: this.state.currentUserData.id},
+              isMessage: false,
+              isPost: true,
+              isFollower: false,
+              isComment: false
+            })
+
            })
            .catch((err) => {
              console.log(err)
