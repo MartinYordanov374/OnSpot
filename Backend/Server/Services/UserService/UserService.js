@@ -800,8 +800,6 @@ async function SaveNotification(SenderID, ReceiverID, NotificationContent, Notif
         else if(NotificationType == 'follower')
         {
             let result = await sql.query`
-            IF NOT EXISTS 
-            (SELECT SenderID  FROM dbo.Notifications WHERE SenderID = ${SenderID} AND ReceiverID = ${ReceiverID}) 
                 INSERT INTO dbo.Notifications(SenderID, ReceiverID, NotificationDate, IsNotificationRead, NotificationMessage) 
             VALUES(${SenderID}, ${ReceiverID}, ${NotificationDate}, 1, ${NotificationContent})`
             

@@ -51,8 +51,8 @@ export default class ProfilePageComponent extends Component {
       if(res.data == true)
       {
           this.setState({'loginStatus': true})
-          this.checkIfUserFollowsProfile()
           this.checkIfUserIsOwner()
+          this.checkIfUserFollowsProfile()
           
         }
       else
@@ -127,7 +127,14 @@ export default class ProfilePageComponent extends Component {
     let followedUserID = this.targetID
     let result = Axios.post(`http://localhost:3030/followUser/${followedUserID}`, {}, {withCredentials: true})
     .then((res) => {
-       this.checkIfUserFollowsProfile()
+      this.state.socket.emit('notify', {
+        notificationData: {senderID: this.state.currentUserData.id, receiverID: this.targetID},
+        isMessage: false,
+        isPost: false,
+        isFollower: true,
+        isComment: false
+      })
+      this.checkIfUserFollowsProfile()
     })
   }
 

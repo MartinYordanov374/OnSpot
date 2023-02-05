@@ -202,6 +202,7 @@ export default class SidebarComponent extends Component {
     })
 
     this.state.socket.on('newLikeNotification', async(res) => {
+      
     })
 
     this.state.socket.on('shareNotification', async(res) => {
