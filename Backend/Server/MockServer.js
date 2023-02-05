@@ -985,7 +985,6 @@ let start = async() =>
             let NotificationContent = req.body.NotificationContent
             let NotificationDate = req.body.NotificationDate
             let NotificationType = req.body.NotificationType
-
             let result = await SaveNotification(SenderID, ReceiverID, NotificationContent, NotificationDate, NotificationType)
 
             res.status(200).send({msg: 'Notifications successfully stored on the databse', data: result})

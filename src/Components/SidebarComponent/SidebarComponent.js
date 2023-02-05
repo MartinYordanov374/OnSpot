@@ -95,14 +95,36 @@ export default class SidebarComponent extends Component {
         userFollowers = res.data
         if(notificationType == 'post')
         {
-          userFollowers.map((userFollower) => {
+          userFollowers.map( async (userFollower) => {
             if(userFollower.FollowerUserID == this.state.userID)
             {
               this.setState({'unreadNotifications': this.state.unreadNotifications+1})
             }
+
+              await Axios.post('http://localhost:3030/SaveNotifications', {
+              SenderID: posterID,
+              ReceiverID: userFollower.FollowerUserID,
+              NotificationContent: `made a post!`,
+              NotificationDate: new Date(),
+              NotificationType: notificationType,
+  
+            }, 
+            {
+              withCredentials: true
+            })
+            .then((res) => {
+              console.log(res)
+            })
+            .catch((err) => {
+              console.log(err)
+            })
           })
+
         }
+
+        
       })
+      
 
       this.getUserNotifications()
 
