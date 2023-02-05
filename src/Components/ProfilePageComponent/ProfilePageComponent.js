@@ -61,14 +61,7 @@ export default class ProfilePageComponent extends Component {
       this.checkIfUserIsLoggedIn()
       this.getUserData()
     } 
-    componentDidUpdate = () => {
-      this.state.socket.on('receivePostNotification', async(res) => {
-        let posterID = res.senderID
-        let notificationType = res.notificationType
-        
-        
-      })
-    }
+
     postComment = async() => {
       try
       {
@@ -92,9 +85,6 @@ export default class ProfilePageComponent extends Component {
            this.setState({'commentContent': ''})
            this.getUserData()
          })
-         .catch((err) => {
-           console.log(err)
-        })
       }
       catch(err)
       {
@@ -129,9 +119,6 @@ export default class ProfilePageComponent extends Component {
             })
 
            })
-           .catch((err) => {
-             console.log(err)
-          })
         
       }
     }

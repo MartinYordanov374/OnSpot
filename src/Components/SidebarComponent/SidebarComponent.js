@@ -84,6 +84,32 @@ export default class SidebarComponent extends Component {
 
       this.getUserNotifications()
     })
+
+    this.state.socket.on('receivePostNotification', async(res) => {
+      let posterID = res.senderID
+      let notificationType = res.notificationType
+      let userFollowers = []
+
+      Axios.get(`http://localhost:3030/getUserFollowers/${posterID}`, {withCredentials: true})
+      .then((res) => {
+        userFollowers = res.data
+      })
+
+      if(notificationType == 'post')
+      {
+        userFollowers.map((userFollower) => {
+          console.log(userFollower)
+          if(userFollower.FollowerUserID == this.state.userID)
+          {
+            this.setState({'unreadNotifications': this.state.unreadNotifications+1})
+          }
+        })
+      }
+
+      this.getUserNotifications()
+
+
+    })
   }
 
   async getUserNotifications()
@@ -94,7 +120,6 @@ export default class SidebarComponent extends Component {
       if(notifications)
       {
         let unreadNotifications = notifications.filter((notification) => notification.IsNotificationRead == 1) 
-        console.log(notifications)
         this.setState({'Notifications': unreadNotifications})
       }
     })
