@@ -18,7 +18,7 @@ export default class PostComponent extends Component {
       areCommentsSelected: false,
       postComments: [],
       commentContent: '',
-      currentUserData: null,
+      currentUserData: {},
       postLikesAmount: 0,
       postLikers: [],
       hasUserLikedThisPost: false,
@@ -62,6 +62,7 @@ export default class PostComponent extends Component {
     else
     {
       this.setState({'areCommentsSelected': true})
+      console.log(this.props.postData.PostID)
       this.getPostComments(this.props.postData.PostID)
     }
   }
@@ -173,7 +174,16 @@ export default class PostComponent extends Component {
     this.setState({'postImages': this.props.postImages})
   }
 
+  shouldComponentUpdate (nextProps) {
+    // Rendering the component only if
+    // passed props value is changed
 
+    if (nextProps !== this.props) {
+      return true;
+    } else {
+      return false;
+    }
+}
 
   render() {
     return (

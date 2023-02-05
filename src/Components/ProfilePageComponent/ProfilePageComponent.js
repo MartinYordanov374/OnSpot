@@ -6,10 +6,8 @@ import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './ProfilePageStyles/ProfilePageStyle.css'
 import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandingPage';
 import ChatBoxModalComponent from '../ChatboxModalComponent/ChatBoxModalComponent';
-import PostComponent from '../PostComponent/PostComponent';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsis, faGripHorizontal, faListDots, faSlash, faUserLargeSlash, faUsersLine, faComment, faImage } from '@fortawesome/free-solid-svg-icons';
 import * as io from 'socket.io-client'
+import ProfilePageActivitySection from './ProfilePageActivitySection';
 
 export default class ProfilePageComponent extends Component {
 
@@ -37,6 +35,14 @@ export default class ProfilePageComponent extends Component {
     }
   }
     //TODO: IMPLEMENT INFINITE SCROLL FUNCTIONALITY
+    componentDidMount = () =>
+    {
+      this.splittedUrl = window.location.href.split('/')
+      this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
+      this.checkIfUserIsLoggedIn()
+      this.getUserData()
+    } 
+    
     checkIfUserIsLoggedIn = async () => {
     this.splittedUrl = window.location.href.split('/')
     this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
@@ -54,77 +60,9 @@ export default class ProfilePageComponent extends Component {
         this.setState({'loginStatus': false})
       }})
     }
-    componentDidMount = () =>
-    {
-      this.splittedUrl = window.location.href.split('/')
-      this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
-      this.checkIfUserIsLoggedIn()
-      this.getUserData()
-    } 
 
-    postComment = async() => {
-      try
-      {
-        let targetPostID = this.props.postData.PostID[0]
-        let commentContent = this.state.commentContent
-        let formData = new FormData()
-        formData.append('targetPostID', targetPostID)
-        formData.append('PostContent', commentContent)
-        for(let image of this.state.postImages)
-        {
-          formData.append('postImage', image)
-        }
-         let result = await Axios.post(`http://localhost:3030/createPost`, formData,
-         {
-          withCredentials: true, 
-          headers: {
-          'Content-Type': 'multipart/form-data'
-          }
-        })  
-         .then((res) => {
-           this.setState({'commentContent': ''})
-           this.getUserData()
-         })
-      }
-      catch(err)
-      {
-        
-          let targetPostID = null
-          let commentContent = this.state.commentContent
-          let formData = new FormData()
-          formData.append('targetPostID', targetPostID)
-          formData.append('PostContent', commentContent)
-
-          for(let image of this.state.postImages)
-          {
-            formData.append('postImage', image)
-          }
-           let result = await Axios.post(`http://localhost:3030/createPost`, formData,
-           {
-            withCredentials: true, 
-            headers: {
-            'Content-Type': 'multipart/form-data'
-            }
-          })
-           .then((res) => {
-             this.setState({'commentContent': ''})
-             this.getUserData()
-
-             this.state.socket.emit('notify', {
-              notificationData: {senderID: this.state.currentUserData.id},
-              isMessage: false,
-              isPost: true,
-              isFollower: false,
-              isComment: false
-            })
-
-           })
-        
-      }
-    }
-
-  getUserData = () => {
-    Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
+  getUserData = async() => {
+    await Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
       .then((res) => {
         if(res.data.isUserBlocked)
         {
@@ -288,6 +226,7 @@ export default class ProfilePageComponent extends Component {
     this.setState({'postImages': postImages})
 }
 
+
   render() {
     return (
         <div>
@@ -371,65 +310,17 @@ export default class ProfilePageComponent extends Component {
                        : 
                        "" }     
                     </div>
-                    <div className='userEvents'>
-                    {this.state.isCurrentUserOwner == false 
-                      ? 
-                            <Dropdown>
-                              <Dropdown.Toggle className='moreOptionsButton btn-light'>
-                                    <FontAwesomeIcon icon={faEllipsis}/>
-                              </Dropdown.Toggle>
-                        
-                              <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => this.blockUser()}>
-                                  <FontAwesomeIcon icon = {faUserLargeSlash} />Block User
-                                </Dropdown.Item>
-                              </Dropdown.Menu>
-                          </Dropdown>
-                      :
-                      ""
-                    }
-                        {/* I should probably include what the user attended as well?? */}
-                        {this.state.isCurrentUserOwner ?
-                        <div>
-                          <InputGroup className='writeCommenttWrapper'>
-                            <FormControl 
-                              placeholder='Write a post...' 
-                              className='commentInputField shadow-none' 
-                              value = {this.state.commentContent}
-                              onChange={(e) => this.setState({'commentContent': e.target.value})}
-                            />
-                            <input type="file" className="postImagesUploadField" hidden  multiple="multiple" onChange={() => this.uploadPostImages()}/>
-                              <InputGroup.Text className='PostCommentBtn' onClick={() => this.handleSelectPostImages()}>
-                                <FontAwesomeIcon icon={faImage} />
-                              </InputGroup.Text>
-                            <InputGroup.Text className='PostCommentBtn' onClick={() => {this.postComment()} }>
-                                <FontAwesomeIcon icon={faComment} />
-                            </InputGroup.Text>
-                          </InputGroup>
-                        </div>
-                        :
-                        ""
-                        }
-                        <h2 className='userActivityHeader'>Latest Activity</h2>
-                        <div className='EventsActivity'>
-                          
-                         {this.state.allPostsData.map((post) => {
-                          let PostImages = this.state.userPostsImages.filter((postImage) => postImage.PostID == post.PostID)
-                          if(post.SharerID != undefined)
-                            {
-                              return (
-                                <PostComponent postImages = {PostImages} postData = {post} dataHandler = {this.getUserData} editPost={this.editPost} editModal = {this.state.isModalShown} isShared = {true}/>
-                              )
-                            }
-                            else
-                            {
-                              return (
-                                <PostComponent postImages = {PostImages} postData = {post} dataHandler = {this.getUserData} editPost={this.editPost} editModal = {this.state.isModalShown} isShared = {false}/>
-                              )
-                            }
-                         })}
-                        </div>  
-                    </div>
+                    <ProfilePageActivitySection props = {{
+                      isCurrentUserOwner: this.state.isCurrentUserOwner, 
+                      allPostsData: this.state.allPostsData,
+                      userPostsImages: this.state.userPostsImages,
+                      postImages: this.state.postImages,
+                      isModalShown: this.state.isModalShown,
+                      getUserDataFunction: this.getUserData, 
+                      commentContent: this.state.commentContent,
+                      handleSelectPostImages: this.handleSelectPostImages,
+                      uploadPostImages: this.uploadPostImages,
+                      currentUserData: this.state.currentUserData}}/>
                     {
                       this.state.isChatModalShown == true ?
                       <ChatBoxModalComponent props = {{'isModalShown': true, 'modalHandler':this.handleChatBoxModal, 'senderData': this.state.currentUserData, 'receiverData': this.state.userData}}/>
