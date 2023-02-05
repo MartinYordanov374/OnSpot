@@ -174,16 +174,6 @@ export default class PostComponent extends Component {
     this.setState({'postImages': this.props.postImages})
   }
 
-  shouldComponentUpdate (nextProps) {
-    // Rendering the component only if
-    // passed props value is changed
-
-    if (nextProps !== this.props) {
-      return true;
-    } else {
-      return false;
-    }
-}
 
   render() {
     return (
