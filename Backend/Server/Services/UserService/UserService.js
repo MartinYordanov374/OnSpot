@@ -813,6 +813,22 @@ async function SaveNotification(SenderID, ReceiverID, NotificationContent, Notif
             
             return {status: 200, msg:'Notification successfully saved.', data: result}
         }
+        else if(NotificationType == 'share')
+        {
+            let result = await sql.query`
+                INSERT INTO dbo.Notifications(SenderID, ReceiverID, NotificationDate, IsNotificationRead, NotificationMessage) 
+            VALUES(${SenderID}, ${ReceiverID}, ${NotificationDate}, 1, ${NotificationContent})`
+            
+            return {status: 200, msg:'Notification successfully saved.', data: result}
+        }
+        else if(NotificationType == 'like')
+        {
+            let result = await sql.query`
+                INSERT INTO dbo.Notifications(SenderID, ReceiverID, NotificationDate, IsNotificationRead, NotificationMessage) 
+            VALUES(${SenderID}, ${ReceiverID}, ${NotificationDate}, 1, ${NotificationContent})`
+            
+            return {status: 200, msg:'Notification successfully saved.', data: result}
+        }
     }
     catch(err)
     {

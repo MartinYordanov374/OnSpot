@@ -202,10 +202,79 @@ export default class SidebarComponent extends Component {
     })
 
     this.state.socket.on('newLikeNotification', async(res) => {
-      
+      let senderID = res.senderID
+      let receiverID = Number(res.receiverID)
+      let postID = Number(res.postID)
+      let notificationType = res.notificationType
+
+      if(notificationType == 'like')
+      {
+        if(Number(this.state.userID) == receiverID)
+        {
+          // TODO: Make the message notifications count as one notification, if coming from one user
+          // two notifications if coming from 2 users etc.
+          // TODO: CHANGE THE USER ID IN THE NOTIFICATION CONTENT WITH THE USERNAME OF THE GIVEN USER.
+          this.setState({'unreadNotifications': this.state.unreadNotifications+1})
+          await Axios.post('http://localhost:3030/SaveNotifications', {
+            SenderID: senderID,
+            ReceiverID: receiverID,
+            postID: postID,
+            NotificationContent: `liked a post of yours!`,
+            NotificationDate: new Date(),
+            NotificationType: notificationType,
+
+          }, 
+          {
+            withCredentials: true
+          })
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+        }
+      }
+
+      this.getUserNotifications()
     })
 
-    this.state.socket.on('shareNotification', async(res) => {
+    this.state.socket.on('newShareNotification', async(res) => {
+      let senderID = res.senderID
+      let receiverID = Number(res.receiverID)
+      let postID = Number(res.postID)
+      let notificationType = res.notificationType
+
+      if(notificationType == 'share')
+      {
+        if(Number(this.state.userID) == receiverID)
+        {
+          // TODO: Make the message notifications count as one notification, if coming from one user
+          // two notifications if coming from 2 users etc.
+          // TODO: CHANGE THE USER ID IN THE NOTIFICATION CONTENT WITH THE USERNAME OF THE GIVEN USER.
+          this.setState({'unreadNotifications': this.state.unreadNotifications+1})
+          await Axios.post('http://localhost:3030/SaveNotifications', {
+            SenderID: senderID,
+            ReceiverID: receiverID,
+            postID: postID,
+            NotificationContent: `shared a post of yours!`,
+            NotificationDate: new Date(),
+            NotificationType: notificationType,
+
+          }, 
+          {
+            withCredentials: true
+          })
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+        }
+      }
+
+      this.getUserNotifications()
     })
   }
 

@@ -1044,6 +1044,9 @@ let start = async() =>
             let isNotificationPost = requestData.isPost
             let isNotificationFollower = requestData.isFollower
             let isNotificationComment = requestData.isComment
+            let isNotificationLike = requestData.isLike
+            let isNotificationShare = requestData.isShare
+
             console.log(requestData)
             if(isNotificationMessage == true)
             {
@@ -1084,6 +1087,28 @@ let start = async() =>
                     receiverID: requestData.notificationData.receiverID,
                     senderID: requestData.notificationData.senderID, 
                     notificationType: 'comment'
+                })
+            }
+            else if(isNotificationShare == true)
+            {
+                console.log(`${requestData.notificationData.senderID} shared post ${requestData.notificationData.postID}.`)
+                io.emit('newShareNotification', 
+                {   
+                    postID: requestData.notificationData.postID,
+                    receiverID: requestData.notificationData.receiverID,
+                    senderID: requestData.notificationData.senderID, 
+                    notificationType: 'share'
+                })
+            }
+            else if(isNotificationLike == true)
+            {
+                console.log(`${requestData.notificationData.senderID} liked post ${requestData.notificationData.postID}.`)
+                io.emit('newLikeNotification', 
+                {   
+                    postID: requestData.notificationData.postID,
+                    receiverID: requestData.notificationData.receiverID,
+                    senderID: requestData.notificationData.senderID, 
+                    notificationType: 'like'
                 })
             }
         })

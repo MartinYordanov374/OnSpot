@@ -141,6 +141,19 @@ export default class PostComponent extends Component {
    .then((res) => {
     this.hasUserLikedThisPost(this.props.postData.PostID)
     this.getPostLikes(this.props.postData.PostID)
+    this.state.socket.emit('notify', {
+      notificationData: {
+      senderID: this.state.currentUserData[0].id,
+      postID: this.props.postData.PostID,
+      receiverID: this.props.postData.UserID},
+      isMessage: false,
+      isPost: false,
+      isFollower: false,
+      isComment: false,
+      isLike: true,
+      isShare: false
+    })
+
    })
    .catch((err) => {
     console.log(err)
@@ -164,6 +177,18 @@ export default class PostComponent extends Component {
       this.getPostShares(this.props.postData.PostID)
       this.getPostComments(this.props.postData.PostID)
       this.props.dataHandler()
+      this.state.socket.emit('notify', {
+        notificationData: {
+        senderID: this.state.currentUserData[0].id,
+        postID: this.props.postData.PostID,
+        receiverID: this.props.postData.UserID},
+        isMessage: false,
+        isPost: false,
+        isFollower: false,
+        isComment: false,
+        isLike: false,
+        isShare: true
+      })
     })
     .catch((err) => {
       console.log(err)
