@@ -797,7 +797,26 @@ async function SaveNotification(SenderID, ReceiverID, NotificationContent, Notif
             
             return {status: 200, msg:'Notification successfully saved.', data: result}
         }
-        //TODO: Handle the rest of the notifications
+        else if(NotificationType == 'follower')
+        {
+            let result = await sql.query`
+            IF NOT EXISTS 
+            (SELECT SenderID  FROM dbo.Notifications WHERE SenderID = ${SenderID} AND ReceiverID = ${ReceiverID}) 
+                INSERT INTO dbo.Notifications(SenderID, ReceiverID, NotificationDate, IsNotificationRead, NotificationMessage) 
+            VALUES(${SenderID}, ${ReceiverID}, ${NotificationDate}, 1, ${NotificationContent})`
+            
+            return {status: 200, msg:'Notification successfully saved.', data: result}
+        }
+        else if(NotificationType == 'comment')
+        {
+            let result = await sql.query`
+            IF NOT EXISTS 
+            (SELECT SenderID  FROM dbo.Notifications WHERE SenderID = ${SenderID} AND ReceiverID = ${ReceiverID}) 
+                INSERT INTO dbo.Notifications(SenderID, ReceiverID, NotificationDate, IsNotificationRead, NotificationMessage) 
+            VALUES(${SenderID}, ${ReceiverID}, ${NotificationDate}, 1, ${NotificationContent})`
+            
+            return {status: 200, msg:'Notification successfully saved.', data: result}
+        }
     }
     catch(err)
     {

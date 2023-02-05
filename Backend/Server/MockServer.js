@@ -1047,15 +1047,20 @@ let start = async() =>
 
             if(isNotificationMessage)
             {
-                // TODO: SAVE NOTIFICATION TO NOTIFICATIONS TABLE!
                 io.emit('receiveMessageNotification', 
-                {receiverID: requestData.notificationData.receiverID, senderID: requestData.notificationData.senderID, notificationType: 'msg'})
+                {
+                    receiverID: requestData.notificationData.receiverID, 
+                    senderID: requestData.notificationData.senderID, 
+                    notificationType: 'msg'
+                })
             }
             else if(isNotificationPost)
             {
                 console.log(`${requestData.notificationData.senderID} posted to their followers.`)
                 io.emit('receivePostNotification', 
                 {   
+                    postID: requestData.notificationData.postID,
+                    receiverID: requestData.notificationData.receiverID, 
                     senderID: requestData.notificationData.senderID, 
                     notificationType: 'post'
                 })
@@ -1063,10 +1068,23 @@ let start = async() =>
             else if(isNotificationFollower)
             {
                 console.log(`${requestData.notificationData.senderID} started following ${requestData.notificationData.receiverID}.`)
+                io.emit('newFollowerNotification', 
+                {   
+                    receiverID: requestData.notificationData.receiverID,
+                    senderID: requestData.notificationData.senderID, 
+                    notificationType: 'follower'
+                })
             }
             else if(isNotificationComment)
             {
                 console.log(`${requestData.notificationData.senderID} commented on post ${requestData.notificationData.receiverID}.`)
+                io.emit('newFollowerNotification', 
+                {   
+                    postID: requestData.notificationData.postID,
+                    receiverID: requestData.notificationData.receiverID,
+                    senderID: requestData.notificationData.senderID, 
+                    notificationType: 'comment'
+                })
             }
         })
 
