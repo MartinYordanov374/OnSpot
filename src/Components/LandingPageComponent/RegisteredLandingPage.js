@@ -97,7 +97,10 @@ export default class RegisteredLandingPage extends Component {
                         { this.state.events.map((eventsList) => {
                             return(
                                 eventsList.map((event) => {
-                                  return <SquareEventCardComponent props={event}/>
+                                  return (
+                                  <div style={{"marginTop": "2%"}}>
+                                    <SquareEventCardComponent props={event}/>
+                                  </div>)
 
                                   })
                                 )
