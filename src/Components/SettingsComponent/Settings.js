@@ -199,10 +199,9 @@ export default class Settings extends Component {
                   </div>
                   <div className='sideMenuOption' onClick={() => this.selectProfile()}>
                     <FontAwesomeIcon className = 'sideMenuOptionLeftIcon' icon={faUserCircle}/>
-                    Profile settings
+                    Edit profile
                     <FontAwesomeIcon className = 'sideMenuOptionRightAngleIcon' icon={faAngleRight}/>
                   </div>
-                                  {/* <p className='sideMenuOption' onClick={() => this.selectPassword()}>Change password</p> */}
                 <div className='sideMenuOption' onClick={() => this.selectBlockedUsers()}>
                   <FontAwesomeIcon className = 'sideMenuOptionLeftIcon' icon={faBan}/>
                   Blocked users 
@@ -217,14 +216,14 @@ export default class Settings extends Component {
 
               {this.state.isProfileSelected == true ?
                 <div className='profileSectionContainer section'>
-                  <h1>Edit profile</h1>
-                  <div className='d-flex'>
+                  <h4 className='sectionHeader'>Edit profile</h4>
+                  <div className='inputFieldWrapper d-flex'>
                     <p className='label'>Username</p>
                     <FormControl placeholder='Change username' className='changeUsername inputField' value = {this.state.currentUsername}
                     onChange={(e) => this.setState({'currentUsername': e.target.value})}/>
                   </div>
 
-                  <div className='d-flex'>
+                  <div className='inputFieldWrapper d-flex'>
                     <p className='label'>Email</p>
                     <FormControl placeholder='Change Email' className='changeEmail inputField' value = {this.state.currentEmail} 
                     onChange={(e) => this.setState({'currentEmail': e.target.value})}/>
@@ -244,7 +243,6 @@ export default class Settings extends Component {
 
                   {this.state.blockedUsersList.length >= 1 ?
                     this.state.blockedUsersList.map((blockedUser) => {
-                      console.log(blockedUser)
                       return(
                         <div className='blockedUserContainer d-flex'>
                           {blockedUser.ProfilePicture 

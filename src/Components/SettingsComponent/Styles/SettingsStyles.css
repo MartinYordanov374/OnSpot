@@ -16,12 +16,22 @@
 .settingsPageWrapper .settingsContainer .settingsSideMenu {
   width: 40vh;
   float: left;
+  border-right-style: solid;
+  border-right-color: #D3D3D3;
+  border-width: 1px;
 }
 .settingsPageWrapper .settingsContainer .section {
   float: right;
   width: 100%;
   padding-top: 2rem;
-  padding-left: 0rem;
+}
+.settingsPageWrapper .settingsContainer .section .sectionHeader {
+  margin-left: 2.9rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+.settingsPageWrapper .settingsContainer .section .inputFieldWrapper {
+  margin-left: 3rem;
 }
 .settingsPageWrapper .settingsContainer .section .inputField {
   height: -moz-fit-content;
@@ -33,6 +43,7 @@
 }
 .settingsPageWrapper .settingsContainer .section .button {
   margin-top: 2rem;
+  margin-left: 3rem;
   width: 70%;
 }
 .settingsPageWrapper .settingsContainer .blockedUsersSectionContainer {
@@ -67,6 +78,8 @@
 .settingsPageWrapper .settingsHeaderWrapper {
   display: flex;
   margin-bottom: 2rem;
+  padding-left: 2rem;
+  padding-top: 2rem;
 }
 .settingsPageWrapper .sideMenuOption {
   display: flex;
