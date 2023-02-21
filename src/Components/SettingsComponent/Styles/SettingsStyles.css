@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@500&display=swap");
 .settingsPageWrapper {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
-
 .settingsPageWrapper .settingsContainer {
   width: 100vh;
   height: 100vh;
@@ -12,48 +11,37 @@
   left: 0;
   right: 0;
   background-color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .settingsPageWrapper .settingsContainer .settingsSideMenu {
   width: 30vh;
   float: left;
 }
-
 .settingsPageWrapper .settingsContainer .sideMenuOption {
   padding: 1rem;
 }
-
 .settingsPageWrapper .settingsContainer .sideMenuOption:hover {
   background-color: rgba(128, 128, 128, 0.288);
   cursor: pointer;
 }
-
 .settingsPageWrapper .settingsContainer .section {
   float: right;
   width: 100%;
   padding-top: 2rem;
   padding-left: 0rem;
 }
-
 .settingsPageWrapper .settingsContainer .section .inputField {
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   margin-right: 11rem;
 }
-
 .settingsPageWrapper .settingsContainer .section .label {
   width: 100%;
 }
-
 .settingsPageWrapper .settingsContainer .section .button {
   margin-top: 2rem;
   width: 70%;
 }
-
 .settingsPageWrapper .settingsContainer .blockedUsersSectionContainer {
   height: 100vh;
   width: 80vh;
@@ -61,33 +49,25 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
 .settingsPageWrapper .settingsContainer .blockedUsersSectionContainer .blockedUserContainer {
-  -webkit-box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
-          box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
   margin-top: 2rem;
 }
-
 .settingsPageWrapper .settingsContainer .blockedUsersSectionContainer .blockedUserContainer .unblockButton {
   margin-right: 2rem;
 }
-
 .settingsPageWrapper .settingsContainer .blockedUsersSectionContainer .blockedUserContainer .unblockButton:hover {
   cursor: pointer;
 }
-
 .settingsPageWrapper .settingsContainer .blockedUsersSectionContainer::-webkit-scrollbar {
   display: none;
 }
-
 .settingsPageWrapper .blockedUserPFP {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   margin-left: 2rem;
 }
-
 .settingsPageWrapper .blockedUsername {
   margin-left: 5%;
-}
-/*# sourceMappingURL=SettingsStyles.css.map */
+}/*# sourceMappingURL=SettingsStyles.css.map */

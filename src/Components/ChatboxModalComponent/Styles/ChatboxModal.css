@@ -3,47 +3,38 @@
   position: absolute;
   top: 20%;
 }
-
 .modal-visible .userPFP {
   width: 64px;
   margin-top: 0;
   margin-left: 0rem;
   margin-right: 1rem;
 }
-
 .modal-visible .chatWrapper {
   height: 20rem;
   overflow-y: scroll;
   overflow-y: scroll;
 }
-
 .modal-visible .chatWrapper .receiverMessage {
   margin-right: 60%;
   background-color: #a8c9e3;
   color: white;
 }
-
 .modal-visible .chatWrapper .senderMessage {
   margin-left: 72%;
   background-color: #72B2E4;
   color: white;
 }
-
 .modal-visible .chatWrapper .message {
   padding: 20px;
   margin-top: 2%;
   border-radius: 4%;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
-
 .modal-visible .sendMessageInputField {
   margin-top: 5%;
 }
-
 .modal-visible .sendMessageBtn {
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   margin-top: 5%;
@@ -51,5 +42,4 @@
 
 .modal-hidden {
   display: none;
-}
-/*# sourceMappingURL=ChatboxModal.css.map */
+}/*# sourceMappingURL=ChatboxModal.css.map */

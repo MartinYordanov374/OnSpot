@@ -1,9 +1,1 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,kBAAkB,CAAC;EACf,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,KAAK;CAChB",
-    "sources": [
-        "MapComponent.scss"
-    ],
-    "names": [],
-    "file": "MapComponent.css"
-}
+{"version":3,"sources":["MapComponent.scss","MapComponent.css"],"names":[],"mappings":"AAAA;EACI,YAAA;EACA,aAAA;ACCJ","file":"MapComponent.css"}

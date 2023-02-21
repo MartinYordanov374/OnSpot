@@ -1,36 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@500&display=swap");
 .searchPageWrapper {
   margin-top: 5%;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   padding-left: 20%;
 }
-
 .searchPageWrapper .searchBar {
   width: 50%;
   height: 3rem;
   border-style: none;
   background-color: transparent;
   font-weight: bold;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-          box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
-
-.searchPageWrapper .searchBar::-webkit-input-placeholder {
+.searchPageWrapper .searchBar::-moz-placeholder {
   color: rgba(0, 0, 0, 0.517);
 }
-
-.searchPageWrapper .searchBar:-ms-input-placeholder {
-  color: rgba(0, 0, 0, 0.517);
-}
-
-.searchPageWrapper .searchBar::-ms-input-placeholder {
-  color: rgba(0, 0, 0, 0.517);
-}
-
 .searchPageWrapper .searchBar::placeholder {
   color: rgba(0, 0, 0, 0.517);
 }
-
 .searchPageWrapper .searchBar:focus {
   border-style: none;
   border-bottom-style: solid;
@@ -38,56 +25,36 @@
   color: black;
   font-weight: bold;
 }
-
-.searchPageWrapper .searchBar:focus::-webkit-input-placeholder {
+.searchPageWrapper .searchBar:focus::-moz-placeholder {
   color: black;
   font-weight: bold;
 }
-
-.searchPageWrapper .searchBar:focus:-ms-input-placeholder {
-  color: black;
-  font-weight: bold;
-}
-
-.searchPageWrapper .searchBar:focus::-ms-input-placeholder {
-  color: black;
-  font-weight: bold;
-}
-
 .searchPageWrapper .searchBar:focus::placeholder {
   color: black;
   font-weight: bold;
 }
-
 .searchPageWrapper .searchResults {
   margin-top: 5%;
   color: black;
 }
-
 .searchPageWrapper .eventsContainer {
   margin-left: 10%;
 }
-
 .searchPageWrapper .SearchButton {
   background-color: white;
   border-style: none;
 }
-
 .searchPageWrapper .SearchButton:hover {
   cursor: pointer;
 }
-
 .searchPageWrapper .searchInput {
   border: 0;
 }
-
 .searchPageWrapper .searchInput:focus {
   outline: none;
   border: none;
 }
-
 .searchPageWrapper .searchInput:active {
   outline: none;
   border: none;
-}
-/*# sourceMappingURL=ExploreEventsStyle.css.map */
+}/*# sourceMappingURL=ExploreEventsStyle.css.map */

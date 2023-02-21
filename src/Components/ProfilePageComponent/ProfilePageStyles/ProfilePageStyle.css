@@ -3,28 +3,23 @@
   font-family: "Open Sans", sans-serif;
   margin-left: 20%;
 }
-
 .profilePageWrapper .profilePageBackgroundImageWrapper {
   height: 200px;
   background-color: black;
 }
-
 .profilePageWrapper .userPFP {
   width: 7rem;
   border-radius: 50%;
   margin-top: -4rem;
   margin-left: 2rem;
 }
-
 .profilePageWrapper .userBackgroundPicture {
   height: 200px;
   width: 100%;
 }
-
 .profilePageWrapper .profilePageUserDetails {
   background-color: white;
 }
-
 .profilePageWrapper .profilePageUserDetails .username {
   margin-top: 2.5rem;
   margin-left: 2rem;
@@ -33,7 +28,6 @@
   font-weight: bold;
   color: black;
 }
-
 .profilePageWrapper .profilePageUserDetails .followers {
   margin-left: 2rem;
   margin-top: 5rem;
@@ -42,74 +36,61 @@
   color: black;
   text-decoration: none;
 }
-
 .profilePageWrapper .profilePageUserDetails .followers:hover {
   cursor: pointer;
-  color: #5f5f5f;
+  color: rgb(95, 95, 95);
 }
-
 .profilePageWrapper .profilePageUserDetails .userInteractionBtns {
   padding-top: 5rem;
   margin-left: auto;
   margin-right: 1rem;
   font-size: 25px;
 }
-
 .profilePageWrapper .profilePageUserDetails .userInteractionBtns .messageUser {
   font-size: larger;
   font-weight: bold;
   color: #008CDB;
 }
-
 .profilePageWrapper .profilePageUserDetails .userInteractionBtns .messageUser:hover {
   cursor: pointer;
 }
-
 .profilePageWrapper .profilePageUserDetails .userInteractionBtns .followUser {
   font-size: larger;
   font-weight: bold;
   color: #008CDB;
 }
-
 .profilePageWrapper .profilePageUserDetails .userInteractionBtns .followUser:hover {
   cursor: pointer;
 }
-
 .profilePageWrapper .userEvents {
   border-top-style: solid;
   height: 100%;
   background-color: white;
 }
-
 .profilePageWrapper .userEvents .moreOptionsButton {
   float: right;
   margin-right: 0.5rem;
   margin-top: 0.5rem !important;
 }
-
 .profilePageWrapper .userEvents .moreOptionsButton::after {
   display: none;
 }
-
 .profilePageWrapper .userEvents .userActivityHeader {
   margin-top: 2rem;
   margin-left: 2rem;
 }
-
 .profilePageWrapper .userEvents .EventsActivity .eventPost {
   border-style: solid;
   margin-left: 14%;
   margin-right: 14%;
   margin-top: 2rem;
 }
-
 .profilePageWrapper .userEvents .EventsActivity .postInteractionButtons {
   text-align: center;
   border-bottom-style: solid;
   border-width: 1px;
   border-color: #dee2e6;
 }
-
 .profilePageWrapper .userEvents .EventsActivity .postInteractionButtons .interactionButton:hover {
   cursor: pointer;
   color: gray;
@@ -120,5 +101,4 @@
     margin-left: 19%;
     width: 87%;
   }
-}
-/*# sourceMappingURL=ProfilePageStyle.css.map */
+}/*# sourceMappingURL=ProfilePageStyle.css.map */

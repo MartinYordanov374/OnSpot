@@ -3,26 +3,32 @@
   font-weight: 300;
   color: black;
 }
-
 .welcomeText .signUpButtonWrapper {
   font-weight: bold;
+  margin-top: 3rem;
   text-align: center !important;
 }
-
 .welcomeText .signUpButtonWrapper .signUpButtonLink {
   text-decoration: none;
   color: black;
   font-weight: 400;
 }
 
+.weclomeTextNonRegistered {
+  margin-top: 10rem !important;
+}
+
+.firstWelcomeText {
+  margin-top: 1rem !important;
+}
+
 .mapIcon {
-  margin-left: 1rem;
+  margin-left: 5rem;
 }
 
 .secondRow {
   margin-top: 6rem;
 }
-
 .secondRow .welcomeImageWrapper .welcomeImage {
   width: 25rem;
 }
@@ -48,5 +54,4 @@
     margin-left: 10%;
     margin-top: 1%;
   }
-}
-/*# sourceMappingURL=LandingPage.css.map */
+}/*# sourceMappingURL=LandingPage.css.map */
