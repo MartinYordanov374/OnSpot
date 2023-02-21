@@ -88,7 +88,7 @@ export default class ProfilePageActivitySection extends Component {
     }
     render() {
     return (
-        <div className='userEvents'>
+        <div className={this.props.props.allPostsData.length > 0 ? 'userEvents' : 'userEvents NoEvents'}>
         {this.props.props.isCurrentUserOwner == false 
           ? 
                 <Dropdown>
@@ -128,6 +128,7 @@ export default class ProfilePageActivitySection extends Component {
           ""
           }
           <h2 className='userActivityHeader'>Latest Activity</h2>
+          {this.props.props.allPostsData.length > 0 ? 
           <div className='EventsActivity'>
             
            {this.props.props.allPostsData.map((post) => {
@@ -146,6 +147,11 @@ export default class ProfilePageActivitySection extends Component {
               }
            })}
           </div>  
+          :
+            <div className='NoActivityMessageWrapper'>
+              <p className='NoActivityMessage'>This user has not spotted anything lately.</p>
+            </div>
+          }
       </div>
     )
   }

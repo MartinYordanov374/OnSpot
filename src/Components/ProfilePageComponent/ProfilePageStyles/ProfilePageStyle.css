@@ -95,6 +95,16 @@
   cursor: pointer;
   color: gray;
 }
+.profilePageWrapper .NoEvents {
+  height: 100vh !important;
+}
+.profilePageWrapper .NoActivityMessageWrapper .NoActivityMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 50vh;
+}
 
 @media screen and (max-width: 1440px) {
   .profilePageWrapper {
