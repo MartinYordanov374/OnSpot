@@ -76,6 +76,18 @@ export default class ProfilePageActivitySection extends Component {
         }
       }
 
+      blockUser = async () => {
+        this.splittedUrl = window.location.href.split('/')
+        this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
+        let result = await Axios.post(`http://localhost:3030/blockUser/${this.targetID}`, {}, {withCredentials: true})
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
+
       shouldComponentUpdate (nextProps) {
         // Rendering the component only if
         // passed props value is changed

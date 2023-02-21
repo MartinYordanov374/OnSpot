@@ -237,9 +237,9 @@ export default class Settings extends Component {
               }
               
               {this.state.isBlockedUsersSelected == true ?
-              <div>
-                <div className='blockedUsersSectionContainer section'>
-                  <h1>Blocked users</h1>
+              <div className='blockedUsersSectionContainer section'>
+                <div>
+                  <h4 className='sectionHeader'>Blocked users</h4>
 
                   {this.state.blockedUsersList.length >= 1 ?
                     this.state.blockedUsersList.map((blockedUser) => {

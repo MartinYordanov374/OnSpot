@@ -47,14 +47,15 @@
         }
         .blockedUsersSectionContainer
         {
-            height: 100vh;
-            width: 80vh;
+            // height: 100vh;
+            width: 100%;
             overflow-y: scroll;
             -ms-overflow-style: none; 
             scrollbar-width: none;
             .blockedUserContainer{
                 box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
                 margin-top: 2rem;
+                margin-left: 2rem;
                 .unblockButton{
                     margin-right: 2rem;
                     &:hover{
