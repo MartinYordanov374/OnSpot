@@ -14,15 +14,8 @@
   display: flex;
 }
 .settingsPageWrapper .settingsContainer .settingsSideMenu {
-  width: 30vh;
+  width: 40vh;
   float: left;
-}
-.settingsPageWrapper .settingsContainer .sideMenuOption {
-  padding: 1rem;
-}
-.settingsPageWrapper .settingsContainer .sideMenuOption:hover {
-  background-color: rgba(128, 128, 128, 0.288);
-  cursor: pointer;
 }
 .settingsPageWrapper .settingsContainer .section {
   float: right;
@@ -70,4 +63,26 @@
 }
 .settingsPageWrapper .blockedUsername {
   margin-left: 5%;
+}
+.settingsPageWrapper .settingsHeaderWrapper {
+  display: flex;
+  margin-bottom: 2rem;
+}
+.settingsPageWrapper .sideMenuOption {
+  display: flex;
+  padding: 1rem;
+  padding-left: 2rem;
+  margin-top: 3rem;
+}
+.settingsPageWrapper .sideMenuOption:hover {
+  background-color: rgba(128, 128, 128, 0.288);
+  cursor: pointer;
+}
+.settingsPageWrapper .sideMenuOption .sideMenuOptionRightAngleIcon {
+  margin-left: auto;
+  padding-top: 0.25rem;
+}
+.settingsPageWrapper .sideMenuOption .sideMenuOptionLeftIcon {
+  margin-right: auto;
+  padding-top: 0.25rem;
 }/*# sourceMappingURL=SettingsStyles.css.map */

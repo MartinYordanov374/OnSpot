@@ -12,16 +12,10 @@
         background-color: white;
         display: flex;
         .settingsSideMenu{
-            width: 30vh;
+            width: 40vh;
             float: left;
         }
-        .sideMenuOption{
-            padding: 1rem;
-            &:hover{
-                background-color: rgba(128, 128, 128, 0.288);
-                cursor: pointer;
-            }
-        }
+        
 
         .section{
             float: right;
@@ -70,5 +64,29 @@
     }
     .blockedUsername{
         margin-left: 5%;
+    }
+
+    .settingsHeaderWrapper{
+        display: flex;
+        margin-bottom: 2rem;
+    }
+
+    .sideMenuOption{
+        display: flex;
+        padding: 1rem;
+        padding-left: 2rem;
+        margin-top: 3rem;
+        &:hover{
+            background-color: rgba(128, 128, 128, 0.288);
+            cursor: pointer;
+        }
+        .sideMenuOptionRightAngleIcon{
+            margin-left: auto;
+            padding-top: 0.25rem;
+        }
+        .sideMenuOptionLeftIcon{
+            margin-right: auto;
+            padding-top: 0.25rem;
+        }
     }
 }

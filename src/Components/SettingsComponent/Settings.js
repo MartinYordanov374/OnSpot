@@ -7,7 +7,8 @@ import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Buffer } from 'buffer';
 import LandingPageComponent from '../LandingPageComponent/LandingPageComponent'
-
+import { faAngleRight, faBan, faCircleXmark, faCog, faSquareXmark, faTrash, faUserCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export default class Settings extends Component {
 
   constructor()
@@ -193,10 +194,25 @@ export default class Settings extends Component {
             <ToastContainer/>
             <div className='settingsContainer'>
               <div className='settingsSideMenu'>
-                <p className='sideMenuOption' onClick={() => this.selectProfile()}>Edit profile</p>
-                {/* <p className='sideMenuOption' onClick={() => this.selectPassword()}>Change password</p> */}
-                <p className='sideMenuOption' onClick={() => this.selectBlockedUsers()}>Blocked users</p>
-                <p className='sideMenuOption' onClick={() => this.selectDeleteProfile()}>Delete profile</p>
+                  <div className='settingsHeaderWrapper'>
+                    <h2> <FontAwesomeIcon icon={faCog}/>Settings</h2>
+                  </div>
+                  <div className='sideMenuOption' onClick={() => this.selectProfile()}>
+                    <FontAwesomeIcon className = 'sideMenuOptionLeftIcon' icon={faUserCircle}/>
+                    Profile settings
+                    <FontAwesomeIcon className = 'sideMenuOptionRightAngleIcon' icon={faAngleRight}/>
+                  </div>
+                                  {/* <p className='sideMenuOption' onClick={() => this.selectPassword()}>Change password</p> */}
+                <div className='sideMenuOption' onClick={() => this.selectBlockedUsers()}>
+                  <FontAwesomeIcon className = 'sideMenuOptionLeftIcon' icon={faBan}/>
+                  Blocked users 
+                  <FontAwesomeIcon className = 'sideMenuOptionRightAngleIcon' icon={faAngleRight}/>
+                </div>
+                <div className='sideMenuOption' onClick={() => this.selectDeleteProfile()}>
+                  <FontAwesomeIcon className = 'sideMenuOptionLeftIcon' icon={faCircleXmark}/>
+                  Delete profile
+                  <FontAwesomeIcon className = 'sideMenuOptionRightAngleIcon' icon={faAngleRight}/>
+                </div>
               </div>
 
               {this.state.isProfileSelected == true ?
