@@ -66,7 +66,7 @@ export default class RegistrationPageComponent extends Component {
                 </div>
             </div>
                 <div className='AlreadyRegisteredWrapper text-center fixed-bottom'>
-                    <p className='alreadyRegistered'>You already have an account? <a href='/login' className='loginLink'>Log in here</a></p>
+                    <p className='alreadyRegistered'>You already have an account? <a href='/login' className='loginLink'>Log in here.</a></p>
                 </div>
         </Container>
     )
