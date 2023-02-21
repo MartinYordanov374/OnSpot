@@ -12,6 +12,8 @@
 }
 
 .eventPost {
+  margin-left: 21% !important;
+  width: 90vh;
   background-color: white;
 }
 
