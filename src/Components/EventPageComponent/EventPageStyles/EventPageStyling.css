@@ -1,4 +1,6 @@
 .card {
+  margin-top: 0% !important;
+  margin-left: 20rem !important;
   font-weight: bold;
   font-size: large;
 }
@@ -6,6 +8,7 @@
   width: -moz-fit-content;
   width: fit-content;
   padding: 1rem;
+  background-color: transparent;
 }
 .card .eventCardHeader .dotsMenu {
   float: right;
@@ -96,4 +99,7 @@
   background-color: #cf6400;
   border-color: #cf6400;
   color: rgba(255, 255, 255, 0.862);
+}
+.card .card-header {
+  background-color: transparent;
 }/*# sourceMappingURL=EventPageStyling.css.map */

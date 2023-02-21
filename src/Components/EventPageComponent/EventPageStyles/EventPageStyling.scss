@@ -1,11 +1,14 @@
 $shortTextFontSize: 30px;
 .card{
+    margin-top:  0% !important;
+    margin-left: 20rem !important;
     font-weight: bold;
     font-size: large;
     .eventCardHeader{
         .eventHeader{
             width: fit-content;
             padding: 1rem;
+            background-color: transparent;
         }
         .dotsMenu{
             float: right;
@@ -99,5 +102,8 @@ $shortTextFontSize: 30px;
                 color: rgba(255, 255, 255, 0.862);
             }
         }
+    }
+    .card-header{
+        background-color: transparent;
     }
 }
