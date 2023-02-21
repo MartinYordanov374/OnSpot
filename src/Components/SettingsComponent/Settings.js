@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, FormControl } from 'react-bootstrap'
+import { Button, FormControl,Modal } from 'react-bootstrap'
 import Axios from 'axios'
 import SidebarComponent from '../SidebarComponent/SidebarComponent'
 import './Styles/SettingsStyles.css'
@@ -33,7 +33,8 @@ export default class Settings extends Component {
       currentPassword: '',
       newPassword: '',
       confirmNewPassword: '',
-      loginStatus: false
+      loginStatus: false,
+      isModalShown: false,
     }
   }
 
@@ -146,9 +147,9 @@ export default class Settings extends Component {
 
   deleteProfile = async() => {
     // TODO: DELETE EVERYTHING RELATED TO THAT USER OR REPLACE IT WITH [DELETED USER]
-    // TODO: Redirect to landing page after deletion
     let result = await Axios.delete(`http://localhost:3030/deleteProfile/${this.state.currentUserID}`, {withCredentials: true })
     .then((res) => {
+      window.location.href = '/'
     })
     .catch((err) => {
       console.log(err)
@@ -183,6 +184,14 @@ export default class Settings extends Component {
       {
         this.setState({'loginStatus': false})
       }})
+  }
+
+  handleCloseModal = () => {
+    this.setState({'isModalShown':false})
+  }
+
+  confirmDeleteProfile = async() => {
+    this.setState({'isModalShown':true})
   }
   render() { 
     return (
@@ -265,7 +274,11 @@ export default class Settings extends Component {
                         </div>
                       )
                     })
-                  : "You haven't blocked anybody! Yay!"}
+                  : 
+                    <div className='noBlockedUsersMessage'>
+                      <p>You haven't blocked anybody.</p>
+                    </div>
+                  }
                 </div>
               </div>
                 :
@@ -274,12 +287,22 @@ export default class Settings extends Component {
 
               {this.state.isDeleteProfileSelected == true ?
                 <div className='deleteProfileSectionContainer section'>
-                  <h1>Delete profile</h1>
-                  <div className='d-block'>
-                    <h2>This is an irreversible action!</h2>
+                  <h4 className='sectionHeader'>Delete profile</h4>
+                  <Button className='deleteProfile button btn-danger' onClick={() => this.confirmDeleteProfile()}>Delete my profile.</Button>
+                 <Modal show={this.state.isModalShown} onHide={this.handleCloseModal}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>You're about to delete your account!</Modal.Title>
+                      </Modal.Header>
 
-                  </div>
-                    <Button className='deleteProfile button btn-danger' onClick={() => this.deleteProfile()}>Delete my profile.</Button>
+                      <Modal.Body>
+                        <p>This is an irreversible action, are you sure you want to delete your account?</p>
+                      </Modal.Body>
+
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={() => this.handleCloseModal()}>Close</Button>
+                        <Button variant="danger" onClick={() => {this.deleteProfile()}}>Confirm</Button>
+                      </Modal.Footer>
+                  </Modal>
                 </div>
                 :
                 ""

@@ -98,4 +98,7 @@
 .settingsPageWrapper .sideMenuOption .sideMenuOptionLeftIcon {
   margin-right: auto;
   padding-top: 0.25rem;
+}
+.settingsPageWrapper .noBlockedUsersMessage {
+  text-align: center;
 }/*# sourceMappingURL=SettingsStyles.css.map */
