@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
-const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents, UploadEventImages, GetEventImages, UploadPostImages } = require('./Services/EventsService/EventsService.js')
+const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents, UploadEventImages, GetEventImages, UploadPostImages, GetAllSearchedEvents } = require('./Services/EventsService/EventsService.js')
 const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments, CreatePost, DeletePost, UpdatePost, GetTotalPostLikes, GetPostLikers, LikePost, GetPostShares, SharePost, GetUserSharedPosts, DeleteSharedPost, SaveUserPreference, GetUserPreferences, SaveUserLatestPreference, GetPostImages, SaveNotification, GetUserNotifications, MarkNotificationAsRead } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
@@ -720,6 +720,18 @@ let start = async() =>
             res.status(400).send({msg: 'Something went wrong.', err: err})
         }
         
+    })
+
+    app.get('/GetAllSearchedEvents', async(req,res) => {
+        try{
+            let result = await GetAllSearchedEvents()
+            res.status(200).send({msg: 'Events successfully fetched', result: result})
+        }
+        catch(err)
+        {
+            res.status(400).send({msg: 'Something went wrong.', err: err})
+
+        }
     })
 
     app.get('/getBlockedUsers', async(req,res) => {

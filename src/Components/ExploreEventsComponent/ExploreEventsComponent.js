@@ -48,7 +48,6 @@ export default class ExploreEventsComponent extends Component {
       let splittedTitle = event.EventName.split(' ')
       allEventsSplittedTitles.push({event: event, splittedTitle: splittedTitle})
     })
-
     allEventsSplittedTitles.map((eventTitleObject) => {
       let levenshteinDistancesRelative = []
       eventTitleObject.splittedTitle.map((word) => {
@@ -79,8 +78,8 @@ export default class ExploreEventsComponent extends Component {
   }
 
   getAllEvents = async() => {
-    let result = await Axios.get('http://localhost:3030/getAllEvents', {withCredentials: true})
-    return result.data.payload
+    let result = await Axios.get('http://localhost:3030/getAllSearchedEvents', {withCredentials: true})
+    return result.data.result.recordset
   }
 
   render() {

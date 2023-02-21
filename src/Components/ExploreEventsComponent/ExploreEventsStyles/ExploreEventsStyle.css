@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@500&display=swap");
 .searchPageWrapper {
-  margin-top: 5%;
+  padding-top: 5%;
   font-family: "Open Sans", sans-serif;
   padding-left: 20%;
 }

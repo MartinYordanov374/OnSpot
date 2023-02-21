@@ -70,7 +70,7 @@ export default class ProfilePageActivitySection extends Component {
                 isFollower: false,
                 isComment: false
               })
-  
+              
              })
           
         }

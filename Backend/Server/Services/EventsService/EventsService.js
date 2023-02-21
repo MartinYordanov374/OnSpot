@@ -135,6 +135,12 @@ async function GetAllEvents(userID)
     }
 }
 
+async function GetAllSearchedEvents()
+{
+    let result = await sql.query('SELECT * FROM dbo.Events e')
+    return result
+}
+
 async function getEventById(eventId)
 {
     // TODO: ADD CHECKS FOR VALID ID !
@@ -382,6 +388,7 @@ module.exports = {
     DeleteEvent,
     AttendEvent,
     GetAllEvents,
+    GetAllSearchedEvents,
     EditEvent,
     getEventById,
     DoesUserAttendEvent,
