@@ -30,16 +30,11 @@ export default class MessagesSideMenu extends Component {
     {
         Axios.get('http://localhost:3030/GetAllUserConversations', {withCredentials: true})
         .then((res) => {
-            this.setState({'allUserConversations': res.data.data}, () => {
-                console.log(this.state.allUserConversations)
-            })
+            this.setState({'allUserConversations': res.data.data})
         })
         .catch((err) => {
             console.log('An error occured, outer catch: ', err)
         })
-
-        console.log(this.state.allUserConversations)
-
     }
   render() {
     return (
@@ -66,22 +61,25 @@ export default class MessagesSideMenu extends Component {
                         </div>
                 </div>
                 <div className='ChatsWrapper'>
-                        <div className='ChatContainer'>
-                            <img src = {conversation} className = 'ChatProfilePicture'/>
-                            <div className='ChatInfoWrapper'>
-                                <p className='ChatUsername'>Sample user two</p>
-                                <p className='ChatLatestMessage'>Latest message...</p>
-                            </div>
-                        </div>
-
-                        <div className='ChatContainer'>
-                            <img src = {conversation} className = 'ChatProfilePicture'/>
-                            <div className='ChatInfoWrapper'>
-                                <p className='ChatUsername'>Sample user two</p>
-                                <p className='ChatLatestMessage'>Latest message...</p>
-                            </div>
-
-                        </div>
+                        {this.state.allUserConversations.map((UserConversation) => {
+                            return(
+                                <div className='ChatContainer' key = {UserConversation.ConvoID}>
+                                    <img src = {conversation} className = 'ChatProfilePicture'/>
+                                    <div className='ChatInfoWrapper'>
+                                        <p className='ChatUsername'>Sample user two</p>
+                                        <p className='ChatLatestMessage'>
+                                            {
+                                                    UserConversation.Message.length > 20 
+                                                ? 
+                                                    UserConversation.Message.slice(0,25) + '...'
+                                                : 
+                                                    UserConversation.Message
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             }
