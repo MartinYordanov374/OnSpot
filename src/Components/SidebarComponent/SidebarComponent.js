@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './SidebarStyling/SidebarStyle.css'
-import { faCog, faSignOut, faCalendarCheck, faCalendar, faCalendarDays, faSearch, faBell, faPlusCircle, faLocationDot, faHome } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faSignOut, faCalendarCheck, faCalendar, faCalendarDays, faSearch, faBell, faPlusCircle, faLocationDot, faHome, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Buffer } from 'buffer';
 import Axios from 'axios'
@@ -342,6 +342,28 @@ export default class SidebarComponent extends Component {
               <span className='menuItemName'> Home </span>
             </a>
           </h2>
+          <h2 className='exploreEvents menuItem'>
+            <a href='/Notifications'>
+              <div style={{position: "relative"}}>
+                <FontAwesomeIcon icon={faBell} />
+                <span className={this.state.unreadNotifications + this.state.Notifications.length > 0 ? 'notificationsCircle': 'hiddenNotificatiosCircle'}>
+                  {
+                    this.state.unreadNotifications + this.state.Notifications.length > 0 ? 
+                    this.state.unreadNotifications + this.state.Notifications.length : 
+                    ""
+                  }
+                </span>
+              <span className='menuItemName'> Notifications </span>
+              </div>
+            </a>
+          </h2>
+          <h2 className='upcomingEvents menuItem'> 
+            <a href='/messages'>
+              <FontAwesomeIcon icon={faEnvelope}/> 
+              <span className='menuItemName'> Messages </span>
+            </a>
+          </h2>
+          
           <h2 className='upcomingEvents menuItem'> 
             <a href='/EventsManager/CalendarSchedule/UpcomingEvents'>
               <FontAwesomeIcon icon={faCalendarDays}/> 
@@ -373,21 +395,6 @@ export default class SidebarComponent extends Component {
             <a href='/HostEvent'>
               <FontAwesomeIcon icon={faPlusCircle}/> 
               <span className='menuItemName'> Host an event </span>
-            </a>
-          </h2>
-          <h2 className='exploreEvents menuItem'>
-            <a href='/Notifications'>
-              <div style={{position: "relative"}}>
-                <FontAwesomeIcon icon={faBell} />
-                <span className={this.state.unreadNotifications + this.state.Notifications.length > 0 ? 'notificationsCircle': 'hiddenNotificatiosCircle'}>
-                  {
-                    this.state.unreadNotifications + this.state.Notifications.length > 0 ? 
-                    this.state.unreadNotifications + this.state.Notifications.length : 
-                    ""
-                  }
-                </span>
-              <span className='menuItemName'> Notifications </span>
-              </div>
             </a>
           </h2>
 
