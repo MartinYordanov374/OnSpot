@@ -3,12 +3,15 @@ import './Styles/MessagesStyles.css'
 import { faEnvelope, faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import conversation from '../../Images/conversation.png'
+import Axios from 'axios'
+
 export default class MessagesSideMenu extends Component {
     constructor()
     {
         super()
         this.state = {
-            isMessageBoxExpanded: false
+            isMessageBoxExpanded: false,
+            allUserConversations: []
         }
     }
 
@@ -21,6 +24,22 @@ export default class MessagesSideMenu extends Component {
         {
             this.setState({'isMessageBoxExpanded': true})
         }
+    }
+
+    componentDidMount()
+    {
+        Axios.get('http://localhost:3030/GetAllUserConversations', {withCredentials: true})
+        .then((res) => {
+            this.setState({'allUserConversations': res.data.data}, () => {
+                console.log(this.state.allUserConversations)
+            })
+        })
+        .catch((err) => {
+            console.log('An error occured, outer catch: ', err)
+        })
+
+        console.log(this.state.allUserConversations)
+
     }
   render() {
     return (

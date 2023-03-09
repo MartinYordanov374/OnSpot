@@ -427,8 +427,15 @@ async function GetAllUserConversations(userID)
 {
     try{
         let result = await sql.query`
-        SELECT * FROM Conversations c 
-        WHERE UserOneID = ${userID} or UserTwoID = ${userID}`
+        SELECT c.*, m.*
+        FROM Conversations c
+        LEFT JOIN (
+            SELECT ConvoID, MAX(DateSent) AS LatestMessageDate
+            FROM Messages
+            GROUP BY ConvoID
+        ) AS lm ON c.ConvoID = lm.ConvoID
+        LEFT JOIN Messages m ON lm.ConvoID = m.ConvoID AND lm.LatestMessageDate = m.DateSent
+        WHERE c.UserOneID = ${userID} OR c.UserTwoID = ${userID}`
 
         return {status: 200, msg: 'User conversations successfully fetched', data: result.recordset}
     }
@@ -446,7 +453,7 @@ async function GetLatestConversationMessage(ConvoID)
         SELECT TOP (1) * FROM Messages m 
         WHERE ConvoID = ${ConvoID}
         ORDER BY m.DateSent DESC`
-        return {status: 200, msg: 'Latest chat messages successfully fetched', data: result.recordset}
+        return {status: 200, msg: 'Latest chat messages successfully fetched', data: result}
 
     }
     catch(err)

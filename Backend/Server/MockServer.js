@@ -623,9 +623,9 @@ let start = async() =>
             let userToken = validateToken(req.session.userToken)
             if(userToken)
             {
-                let targetConvoID = this.params.ConversationID
+                let targetConvoID = req.params.ConversationID
                 let latestConvoMessage = await GetLatestConversationMessage(targetConvoID)
-                res.status(200).send(latestConvoMessage.data)
+                res.status(200).send(latestConvoMessage)
             }
             else
             {
