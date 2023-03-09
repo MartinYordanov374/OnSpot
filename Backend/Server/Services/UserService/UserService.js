@@ -427,15 +427,30 @@ async function GetAllUserConversations(userID)
 {
     try{
         let result = await sql.query`
-        SELECT c.*, m.*
+        SELECT DISTINCT 
+            c.UserOneID as SenderUserID,  
+            c.UserTwoID as ReceiverUserID, 
+            m.Message as LatestMessage, 
+            m.SenderUserID as MessageSenderID, 
+            u.Username as ReceiverUsername,
+            pp.ProfilePicture as ReceiverProfilePicture
         FROM Conversations c
         LEFT JOIN (
             SELECT ConvoID, MAX(DateSent) AS LatestMessageDate
             FROM Messages
             GROUP BY ConvoID
-        ) AS lm ON c.ConvoID = lm.ConvoID
-        LEFT JOIN Messages m ON lm.ConvoID = m.ConvoID AND lm.LatestMessageDate = m.DateSent
-        WHERE c.UserOneID = ${userID} OR c.UserTwoID = ${userID}`
+        ) AS lm 
+            ON 
+            c.ConvoID = lm.ConvoID
+        LEFT JOIN Messages m 
+            ON 
+            lm.ConvoID = m.ConvoID 
+            AND lm.LatestMessageDate = m.DateSent
+        LEFT JOIN Users u ON 
+            u.id = c.UserTwoID 
+        LEFT JOIN ProfilePictures pp ON
+            u.id = pp.UserID 
+        WHERE c.UserOneID = ${userID}`
 
         return {status: 200, msg: 'User conversations successfully fetched', data: result.recordset}
     }

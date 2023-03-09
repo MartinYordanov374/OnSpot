@@ -66,16 +66,16 @@ export default class MessagesSideMenu extends Component {
                                 <div className='ChatContainer' key = {UserConversation.ConvoID}>
                                     <img src = {conversation} className = 'ChatProfilePicture'/>
                                     <div className='ChatInfoWrapper'>
-                                        <p className='ChatUsername'>Sample user two</p>
+                                        <p className='ChatUsername'>{UserConversation.ReceiverUsername}</p>
                                         <p className='ChatLatestMessage'>
                                             {
-                                                    UserConversation.Message.length > 20 
+                                                    UserConversation.LatestMessage.length > 20 
                                                 ? 
-                                                    UserConversation.Message.slice(0,25) + '...'
+                                                    UserConversation.LatestMessage.slice(0,25) + '...'
                                                 : 
-                                                    UserConversation.Message
+                                                    UserConversation.LatestMessage
                                             }
-                                        </p>
+                                        </p>    
                                     </div>
                                 </div>
                             )
