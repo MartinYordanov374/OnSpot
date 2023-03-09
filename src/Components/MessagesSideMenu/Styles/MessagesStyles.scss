@@ -1,0 +1,92 @@
+.MessagesSideMenu
+{
+    position: fixed;
+    bottom: 0%;
+    right: 0%;
+    box-shadow: rgba(0, 0, 0, 0.198) 0px 0px 40px 0px;
+    background-color: white;
+    min-width: 350px;
+    max-width: 400px;
+    height: 63px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    display: flex;
+    font-weight: 700;
+    line-height: 24px;
+    padding-top: 1.2rem;
+    font-size: 20px;
+}
+
+.MessagesButtonsWrapper{
+    margin-left: auto;
+    margin-right: 2rem;
+    .MessagesIcon{
+        margin-left: 1rem;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+
+.MessagesTextWrapper{
+    width: 70%;
+    &:hover{
+        cursor: pointer;
+    }
+    .MessagesText{
+       
+        padding: 2rem;
+    }
+}
+.ExpandedMessagesSideMenuWrapper {
+    position: fixed;
+    bottom: 0%;
+    right: 0%;
+    .ExpandedMessagesSideMenu{
+        box-shadow: rgba(0, 0, 0, 0.198) 0px 0px 40px 0px;
+        background-color: white;
+        min-width: 350px;
+        max-width: 400px;
+        height: 63px;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        display: flex;
+        font-weight: 700;
+        line-height: 24px;
+        padding-top: 1.2rem;
+        font-size: 20px;
+    }
+    .ChatsWrapper {
+        min-width: 350px;
+        max-width: 400px;
+        height: 80vh;
+        background-color: white;
+        .ChatContainer{
+            display: flex;
+            &:hover{
+                cursor: pointer;
+                background-color: #f3f2f2;
+            }
+            .ChatInfoWrapper{
+                .ChatUsername{
+                    font-weight: 700;
+                    font-size: 15px;
+                    padding-top: 1rem;
+                }
+                .ChatLatestMessage{
+                    color: gray;
+                    margin-top: -10%;
+                }
+            }
+            .ChatProfilePicture{
+                border-radius: 100%;
+                width: 64px;
+                height: 64px;
+                padding: 5px;
+                margin-top: 10px;
+            }
+
+        }
+    }
+}
+

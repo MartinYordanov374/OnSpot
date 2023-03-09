@@ -1,0 +1,87 @@
+.MessagesSideMenu {
+  position: fixed;
+  bottom: 0%;
+  right: 0%;
+  box-shadow: rgba(0, 0, 0, 0.198) 0px 0px 40px 0px;
+  background-color: white;
+  min-width: 350px;
+  max-width: 400px;
+  height: 63px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  display: flex;
+  font-weight: 700;
+  line-height: 24px;
+  padding-top: 1.2rem;
+  font-size: 20px;
+}
+
+.MessagesButtonsWrapper {
+  margin-left: auto;
+  margin-right: 2rem;
+}
+.MessagesButtonsWrapper .MessagesIcon {
+  margin-left: 1rem;
+}
+.MessagesButtonsWrapper .MessagesIcon:hover {
+  cursor: pointer;
+}
+
+.MessagesTextWrapper {
+  width: 70%;
+}
+.MessagesTextWrapper:hover {
+  cursor: pointer;
+}
+.MessagesTextWrapper .MessagesText {
+  padding: 2rem;
+}
+
+.ExpandedMessagesSideMenuWrapper {
+  position: fixed;
+  bottom: 0%;
+  right: 0%;
+}
+.ExpandedMessagesSideMenuWrapper .ExpandedMessagesSideMenu {
+  box-shadow: rgba(0, 0, 0, 0.198) 0px 0px 40px 0px;
+  background-color: white;
+  min-width: 350px;
+  max-width: 400px;
+  height: 63px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  display: flex;
+  font-weight: 700;
+  line-height: 24px;
+  padding-top: 1.2rem;
+  font-size: 20px;
+}
+.ExpandedMessagesSideMenuWrapper .ChatsWrapper {
+  min-width: 350px;
+  max-width: 400px;
+  height: 80vh;
+  background-color: white;
+}
+.ExpandedMessagesSideMenuWrapper .ChatsWrapper .ChatContainer {
+  display: flex;
+}
+.ExpandedMessagesSideMenuWrapper .ChatsWrapper .ChatContainer:hover {
+  cursor: pointer;
+  background-color: #f3f2f2;
+}
+.ExpandedMessagesSideMenuWrapper .ChatsWrapper .ChatContainer .ChatInfoWrapper .ChatUsername {
+  font-weight: 700;
+  font-size: 15px;
+  padding-top: 1rem;
+}
+.ExpandedMessagesSideMenuWrapper .ChatsWrapper .ChatContainer .ChatInfoWrapper .ChatLatestMessage {
+  color: gray;
+  margin-top: -10%;
+}
+.ExpandedMessagesSideMenuWrapper .ChatsWrapper .ChatContainer .ChatProfilePicture {
+  border-radius: 100%;
+  width: 64px;
+  height: 64px;
+  padding: 5px;
+  margin-top: 10px;
+}/*# sourceMappingURL=MessagesStyles.css.map */

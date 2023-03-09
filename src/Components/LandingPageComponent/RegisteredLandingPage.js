@@ -3,6 +3,7 @@ import SidebarComponent from '../SidebarComponent/SidebarComponent';
 import { Container } from 'react-bootstrap'
 import Axios from 'axios'
 import SquareEventCardComponent from '../SquareEventCardComponent/SquareEventCardComponent';
+import MessagesSideMenu from '../MessagesSideMenu/MessagesSideMenu';
 
 export default class RegisteredLandingPage extends Component {
     constructor()
@@ -92,8 +93,9 @@ export default class RegisteredLandingPage extends Component {
         <div>
               <SidebarComponent/>
                 <Container className='EventCardsContainer'>
+                      <MessagesSideMenu/>
                       <div className='EventCardsWrapper row' style={{'margin-left': '2%'}}>
-                        <h2>Recommended for you</h2>
+                        <h2>For you</h2>
                         { this.state.events.map((eventsList) => {
                             return(
                                 eventsList.map((event) => {
