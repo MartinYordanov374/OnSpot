@@ -423,6 +423,22 @@ async function GetConversationMessages(ConvoID)
     }
 }
 
+async function GetAllUserConversations(userID)
+{
+    try{
+        let result = await sql.query`
+        SELECT * FROM Conversations c 
+        WHERE UserOneID = ${userID} or UserTwoID = ${userID}`
+
+        return {status: 200, msg: 'User conversations successfully fetched', data: result.recordset}
+    }
+    catch(err)
+    {
+        return{status: 500, msg: 'Internal server error.', error: err}
+
+    }
+}
+
 async function GetLatestConversationMessage(ConvoID)
 {
     try{
@@ -933,5 +949,6 @@ module.exports = {
     SaveNotification,
     GetUserNotifications,
     MarkNotificationAsRead,
-    GetLatestConversationMessage
+    GetLatestConversationMessage,
+    GetAllUserConversations
 }
