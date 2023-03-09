@@ -619,9 +619,18 @@ let start = async() =>
 
     app.get('/GetLatestConversationMessage/:ConversationID', async(req,res) => {
         try{
-            let targetConvoID = this.params.ConversationID
-            let latestConvoMessage = await GetLatestConversationMessage(targetConvoID)
-            res.status(200).send(latestConvoMessage.data)
+            // TODO: Check if the given user can access this data,  !
+            let userToken = validateToken(req.session.userToken)
+            if(userToken)
+            {
+                let targetConvoID = this.params.ConversationID
+                let latestConvoMessage = await GetLatestConversationMessage(targetConvoID)
+                res.status(200).send(latestConvoMessage.data)
+            }
+            else
+            {
+                res.status(409).send('You cannot access that information!')
+            }
         }
         catch(err)
         {
