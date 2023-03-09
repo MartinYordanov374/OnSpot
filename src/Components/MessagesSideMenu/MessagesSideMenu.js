@@ -4,6 +4,7 @@ import { faEnvelope, faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import conversation from '../../Images/conversation.png'
 import Axios from 'axios'
+import { Buffer } from 'buffer';
 
 export default class MessagesSideMenu extends Component {
     constructor()
@@ -64,7 +65,17 @@ export default class MessagesSideMenu extends Component {
                         {this.state.allUserConversations.map((UserConversation) => {
                             return(
                                 <div className='ChatContainer' key = {UserConversation.ConvoID}>
-                                    <img src = {conversation} className = 'ChatProfilePicture'/>
+                                    {
+                                        UserConversation.ReceiverProfilePicture 
+                                        ?
+                                            <img  src={
+                                                `data: image/png;base64,
+                                                    ${Buffer.from(UserConversation.ReceiverProfilePicture.data).toString('base64')}`
+                                                    } 
+                                                className = 'ChatProfilePicture'/>
+                                        :
+                                            <img src = {conversation} className = 'ChatProfilePicture'/>
+                                    }
                                     <div className='ChatInfoWrapper'>
                                         <p className='ChatUsername'>{UserConversation.ReceiverUsername}</p>
                                         <p className='ChatLatestMessage'>
