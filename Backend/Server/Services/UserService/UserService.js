@@ -422,6 +422,22 @@ async function GetConversationMessages(ConvoID)
         return{status: 500, msg: 'Internal server error.', error: err}
     }
 }
+
+async function GetLatestConversationMessage(ConvoID)
+{
+    try{
+        let result = await sql.query`
+        SELECT TOP (1) * FROM Messages m 
+        WHERE ConvoID = ${ConvoID}
+        ORDER BY m.DateSent DESC`
+        return {status: 200, msg: 'Latest chat messages successfully fetched', data: result.recordset}
+
+    }
+    catch(err)
+    {
+        return{status: 500, msg: 'Internal server error.', error: err}
+    }
+}
 function validateToken(token)
 {
     try{
@@ -870,6 +886,7 @@ async function MarkNotificationAsRead(NotificationID)
         return {status: 500, msg: 'Something went wrong.', err:err}
     }
 }
+
 module.exports = {
     registerUser,
     UserExistsByUsername,
@@ -915,5 +932,6 @@ module.exports = {
     GetPostImages,
     SaveNotification,
     GetUserNotifications,
-    MarkNotificationAsRead
+    MarkNotificationAsRead,
+    GetLatestConversationMessage
 }
