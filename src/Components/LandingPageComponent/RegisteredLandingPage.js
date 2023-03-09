@@ -94,8 +94,8 @@ export default class RegisteredLandingPage extends Component {
               <SidebarComponent/>
                 <Container className='EventCardsContainer'>
                       <MessagesSideMenu/>
-                      <div className='EventCardsWrapper row' style={{'margin-left': '2%'}}>
-                        <h2>For you</h2>
+                      <div className='EventCardsWrapper row' style={{'margin-left': '20%'}}>
+                        <h2 className='EventCardsBanenr'>For you</h2>
                         { this.state.events.map((eventsList) => {
                             return(
                                 eventsList.map((event) => {

@@ -37,6 +37,14 @@
   padding: 20px;
 }
 
+.EventCardsContainer {
+  padding-right: 12% !important;
+}
+
+.EventCardsBanenr {
+  margin-left: 10%;
+}
+
 .spinner-border {
   position: absolute;
   left: 50%;

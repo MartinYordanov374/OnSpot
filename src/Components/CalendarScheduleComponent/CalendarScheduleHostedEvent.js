@@ -28,17 +28,17 @@ export default class CalendarScheduleHostedEvents extends Component {
       this.checkIfUserIsLoggedIn()
       await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
       .then(async (res) => {
-        this.setState({'currentUserData': res.data[0]})
-
-        await Axios.get(`http://localhost:3030/GetAllEventsHostedByUser/${this.state.currentUserData.id}`, {withCredentials: true})
-        .then((res) => {
-          let eventsList = []
-          res.data.map((event) => {
-            console.log(event)
-            eventsList.push({'title': event.EventName, 'start': new Date(event.EventStartDate), 'end': new Date (event.EventEndDate)})
-          })
-          this.setState({'hostedEvents': eventsList})
-        })
+        this.setState({'currentUserData': res.data[0]}, async () =>{
+            await Axios.get(`http://localhost:3030/GetAllEventsHostedByUser/${this.state.currentUserData.id}`, {withCredentials: true})
+              .then((res) => {
+                let eventsList = []
+                res.data.map((event) => {
+                  console.log(event)
+                  eventsList.push({'title': event.EventName, 'start': new Date(event.EventStartDate), 'end': new Date (event.EventEndDate)})
+                })
+                this.setState({'hostedEvents': eventsList})
+              })
+            })
         
         this.setState({'isLoading': false})
       })

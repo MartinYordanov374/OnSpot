@@ -24,21 +24,23 @@ export default class CalendarScheduleAttendedEvents extends Component {
     }
   }
 
-  componentDidMount = async() => {
+  componentDidMount = () => {
     try{
-      this.checkIfUserIsLoggedIn()
-      await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
-      .then(async (res) => {
-        this.setState({'currentUserData': res.data[0]})
 
-        await Axios.get(`http://localhost:3030/GetAllAttendedUserEvents/${this.state.currentUserData.id}`, {withCredentials: true})
-        .then((res) => {
-          let eventsList = []
-          res.data.map((event) => {
-            console.log(event)
-            eventsList.push({'title': event.EventName, 'start': new Date(event.EventStartDate), 'end': new Date (event.EventEndDate)})
-          })
-          this.setState({'attendedEvents': eventsList})
+      this.checkIfUserIsLoggedIn()
+
+      Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
+      .then(async (res) => {
+        this.setState({'currentUserData': res.data[0]}, () => {
+            Axios.get(`http://localhost:3030/GetAllAttendedUserEvents/${this.state.currentUserData.id}`, {withCredentials: true})
+                  .then((res) => {
+                    let eventsList = []
+                    res.data.map((event) => {
+                      console.log(event)
+                      eventsList.push({'title': event.EventName, 'start': new Date(event.EventStartDate), 'end': new Date (event.EventEndDate)})
+                    })
+                    this.setState({'attendedEvents': eventsList})
+                  })
         })
 
         
@@ -51,12 +53,12 @@ export default class CalendarScheduleAttendedEvents extends Component {
     }
   }
 
+
   checkIfUserIsLoggedIn = async () => {
     await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
     .then((res)=>{
       if(res.data == true)
       {
-        
           this.setState({'loginStatus': true})
       }
       else
