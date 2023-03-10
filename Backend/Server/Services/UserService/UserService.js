@@ -412,9 +412,9 @@ async function CreateConversation(SenderID, ReceiverID)
 async function GetConversationMessages(ConvoID)
 {
     try{
-        let result = await sql.query`SELECT * 
-        FROM Messages 
-        WHERE ConvoID = ${ConvoID}`
+        let result = await sql.query`select * from Messages m 
+        WHERE ConvoID = ${ConvoID}
+        ORDER BY DateSent ASC`
         return {status: 200, msg: 'Chat messages successfully fetched', data: result.recordset}
     }
     catch(err)

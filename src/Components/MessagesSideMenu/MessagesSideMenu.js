@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import conversation from '../../Images/conversation.png'
 import Axios from 'axios'
 import {FormControl, Button, InputGroup} from 'react-bootstrap'
-import * as io from 'socket.io-client'
+import io from 'socket.io-client';
 import { Buffer } from 'buffer';
 
 export default class MessagesSideMenu extends Component {
@@ -22,7 +22,7 @@ export default class MessagesSideMenu extends Component {
             receiverUserIdForSpecificChat: null,
             senderUserIdForSpecificChat: null,
             message: '',
-            socket: io.connect('http://localhost:3030/')
+            socket: null
         }
     }
 
@@ -37,7 +37,7 @@ export default class MessagesSideMenu extends Component {
         }
     }
 
-    openChatBox = (targetConvoObject) => {
+    openChatBox = async (targetConvoObject) => {
         let targetConvoID = targetConvoObject.ConversationID
         let senderUserID = targetConvoObject.SenderUserID
         let receiverUserID = targetConvoObject.ReceiverUserID
@@ -51,7 +51,7 @@ export default class MessagesSideMenu extends Component {
         }
         else
         {
-            Axios.get(`http://localhost:3030/getConversationByConversationID/${targetConvoID}`, {withCredentials: true})
+            await Axios.get(`http://localhost:3030/getConversationByConversationID/${targetConvoID}`, {withCredentials: true})
             .then((res) => {
                 this.setState({'currentConversationData': res.data.data.data}, () => {
                     let targetUserUsername = ''
@@ -76,16 +76,16 @@ export default class MessagesSideMenu extends Component {
             this.setState({'isChatBoxOpen': true})
         }
 
-        this.state.socket.on('connect', () => {
-            let socketReceiverID = this.state.currentUserData.id == receiverUserID ? senderUserID : receiverUserID
-            this.state.socket.emit('requestConvo', {'receiverID': Number(socketReceiverID), 'senderID':Number(this.state.currentUserData.id)}, () => {
+        // this.state.socket.on('connect', (socket) => {
+        //     let socketReceiverID = this.state.currentUserData.id == receiverUserID ? senderUserID : receiverUserID
+        //     socket.emit('requestConvo', {'receiverID': Number(socketReceiverID), 'senderID':Number(this.state.currentUserData.id)}, () => {
               
-            })
-            this.state.socket.on('getConvo', (res) => {
-              this.setState({'conversationMessages': res.data})
+        //     })
+        //     socket.on('getConvo', (res) => {
+        //       this.setState({'conversationMessages': res.data})
     
-            })
-          })
+        //     })
+        //   })
     }
 
     closeChatBox = () => {
@@ -102,10 +102,9 @@ export default class MessagesSideMenu extends Component {
         this.setState({'currentUserData': targetUserData})
     }
 
-    getCurrentUserConversations = () => {
-        Axios.get('http://localhost:3030/GetAllUserConversations', {withCredentials: true})
+    getCurrentUserConversations = async() => {
+        await Axios.get('http://localhost:3030/GetAllUserConversations', {withCredentials: true})
         .then((res) => {
-            console.log(res.data.data)
             this.setState({'allUserConversations': res.data.data})
         })
         .catch((err) => {
@@ -113,61 +112,157 @@ export default class MessagesSideMenu extends Component {
         })
     }
 
-    sendMessage = () => 
-    {
-        console.log('sent')
-      try{
-        let message = this.state.message
-        let receiverID = 
-            this.state.currentUserData.id == this.state.receiverUserIdForSpecificChat
-            ? 
-                this.state.senderUserIdForSpecificChat 
-            : 
-                this.state.receiverUserIdForSpecificChat 
+    // sendMessage = async () => 
+    // {
+    //   try{
+    //     let message = this.state.message
+    //     let receiverID = 
+    //         this.state.currentUserData.id == this.state.receiverUserIdForSpecificChat
+    //         ? 
+    //             this.state.senderUserIdForSpecificChat 
+    //         : 
+    //             this.state.receiverUserIdForSpecificChat 
 
 
-        let result = Axios.post(`http://localhost:3030/sendMessage/${receiverID}`, 
-        {message: message}, 
-        {withCredentials: true})
-        // let receiverID = this.state.receiverUserIdForSpecificChat
+    //     let result = await Axios.post(`http://localhost:3030/sendMessage/${receiverID}`, 
+    //     {message: message}, 
+    //     {withCredentials: true})
   
-        let currentUserID = this.state.currentUserData.id
-        this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
+    //     let currentUserID = this.state.currentUserData.id
+
+    //     // this.state.socket.emit('newMessage', {
+    //     //     senderID: currentUserID,
+    //     //     receiverID: receiverID,
+    //     //     message: message
+    //     //   });
+
+    //     // this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
   
-        this.state.socket.on('getConvo', (res) => {
-              this.setState({'conversationMessages': res.data})
+    //     // this.state.socket.on('getConvo', (res) => {
+    //     //       this.setState({'currentConversationData': res.data}, async () => {
+    //     //          await this.getCurrentUserConversations()
+
+    //     //       })
+    //     // })
   
-        })
+    //     // this.state.socket.emit('notify', {
+    //     //     notificationData: {senderID: currentUserID, receiverID: receiverID},
+    //     //     isMessage: true,
+    //     //     isPost: false,
+    //     //     isFollower: false,
+    //     //     isComment: false
+    //     // })
   
-        this.state.socket.emit('notify', {
-            notificationData: {senderID: currentUserID, receiverID: receiverID},
+    //     let messageInputField = document.querySelector('.sendMessageInputField')
+    //     messageInputField.value = ''       
+    //   }
+    //   catch(err)
+    //   {
+    //     console.log(err)
+    //   }
+  
+    // }
+    sendMessage = async () => {
+        try {
+          const receiverID =
+            this.state.currentUserData.id === this.state.receiverUserIdForSpecificChat
+              ? this.state.senderUserIdForSpecificChat
+              : this.state.receiverUserIdForSpecificChat;
+      
+          const result = await Axios.post(
+            `http://localhost:3030/sendMessage/${receiverID}`,
+            { message: this.state.message },
+            { withCredentials: true }
+          );
+      
+          const currentUserID = this.state.currentUserData.id;
+          const socket = io("http://localhost:3030");
+      
+          socket.emit("sendMessage", {
+            senderID: currentUserID,
+            receiverID: receiverID,
+            message: this.state.message
+          });
+      
+        //   socket.on("newMessage", async (data) => {
+        //     const { senderID, receiverID, message } = data;
+        //     if (receiverID === currentUserID && senderID === receiverID) {
+        //       const conversationData = await Axios.get(
+        //         `http://localhost:3030/getConversation/${receiverID}`,
+        //         { withCredentials: true }
+        //       ).then(() => {
+        //           this.setState({ 'currentConversationData': conversationData.data }, () => {
+        //             // console.log(this.state.currentConversationData)
+        //           });
+
+        //           this.setState({'message': null})
+        //       })
+        //     }
+        //   });
+
+
+
+        socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
+  
+        // socket.on('getConvo', (res) => {
+        //       this.setState({'currentConversationData': res.data}, async () => {
+        //          await this.getCurrentUserConversations()
+
+        //       })
+        // })
+      
+          socket.emit("notify", {
+            notificationData: { senderID: currentUserID, receiverID: receiverID },
             isMessage: true,
             isPost: false,
             isFollower: false,
             isComment: false
-        })
-  
-        let messageInputField = document.querySelector('.sendMessageInputField')
-        messageInputField.value = ''
-      }
-      catch(err)
-      {
-        console.log(err)
-      }
-  
-    }
+          });
+      
+          const messageInputField = document.querySelector(".sendMessageInputField");
+          messageInputField.value = "";
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      
 
-    componentDidMount = async() =>
-    {
+    componentDidMount = async() => {
         await this.getCurrentUserData()
-        this.getCurrentUserConversations()       
-    }
+        this.getCurrentUserConversations()
+        // Initialize socket connection
+        this.socket = io('http://localhost:3030');
+        
+        // Listen for incoming messages
+        // this.socket.on('newMessage', (data) => {
+        //   console.log('Received message:', data);
+        // });
+
+        this.socket.on("newMessage", async (data) => {
+            const { senderID, receiverID, message } = data;
+
+                  this.setState({ 'currentConversationData': data.data }, () => {
+                    console.log(this.state.currentConversationData)
+                  });
+
+                  this.setState({'message': null})
+              })
+            
+          
+      }
+    componentWillUnmount() {
+        // Close socket connection
+        if (this.socket) {
+          this.socket.disconnect();
+        }
+      }
   render() {
     return (
         <div className='MessagesMenuWrapper'>
             {this.state.isMessageBoxExpanded == false ?
                 <div className='MessagesSideMenu' >
                     <div className='MessagesTextWrapper' onClick={() => this.handleChatBox()}>
+                        {/* TODO: Make the text be the other user always! */}
                         <span className={this.state.isMessageBoxExpanded ? 'MessagesText-Expanded': 'MessagesText'}>{this.state.receiverUserUsernameForSpecificChat ? this.state.receiverUserUsernameForSpecificChat : 'Messages'}</span>
                     </div>
                     <div className='MessagesButtonsWrapper'>

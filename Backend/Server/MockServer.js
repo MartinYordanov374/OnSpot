@@ -1112,6 +1112,18 @@ let start = async() =>
             }
         })
 
+        socket.on('sendMessage', async (requestData) => {
+            let senderID = requestData.senderID
+            let receiverID = requestData.receiverID
+            let messageText = requestData.message
+            let targetConvo = await CheckIfConversationExists(senderID, receiverID)
+            let targetConvoID = targetConvo.data[0].ConvoID
+            let message = await SendMessage(targetConvoID, messageText, senderID, receiverID)
+            let convoMessages = await GetConversationMessages(targetConvoID)
+            // Emit the new message to the sender and receiver clients
+            io.emit('newMessage', convoMessages)
+        })
+
         socket.on('notify', (requestData) => {
             let isNotificationMessage = requestData.isMessage
             let isNotificationPost = requestData.isPost

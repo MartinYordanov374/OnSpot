@@ -71,10 +71,10 @@ export default class SidebarComponent extends Component {
             withCredentials: true
           })
           .then((res) => {
-            console.log(res)
+            // console.log(res)
           })
           .catch((err) => {
-            console.log(err)
+            // console.log(err)
           })
         }
       }
