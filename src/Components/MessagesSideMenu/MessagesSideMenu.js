@@ -15,7 +15,8 @@ export default class MessagesSideMenu extends Component {
             allUserConversations: [],
             isChatBoxOpen: false,
             currentConversationData: null,
-            currentUserData: null
+            currentUserData: null,
+            receiverUserUsernameForSpecificChat: ''
         }
     }
 
@@ -30,7 +31,13 @@ export default class MessagesSideMenu extends Component {
         }
     }
 
-    openChatBox = (convoID) => {
+    openChatBox = (targetConvoObject) => {
+        let targetConvoID = targetConvoObject.ConversationID
+        console.log(targetConvoObject)
+        let senderUserID = targetConvoObject.SenderUserID
+        let receiverUserID = targetConvoObject.ReceiverUserID
+        let senderUsername = targetConvoObject.SenderUsername
+        let receiverUsername = targetConvoObject.ReceiverUsername
         if(this.state.isChatBoxOpen == true)
         {
             this.setState({'isChatBoxOpen': false})
@@ -39,9 +46,21 @@ export default class MessagesSideMenu extends Component {
         }
         else
         {
-            Axios.get(`http://localhost:3030/getConversationByConversationID/${convoID}`, {withCredentials: true})
+            Axios.get(`http://localhost:3030/getConversationByConversationID/${targetConvoID}`, {withCredentials: true})
             .then((res) => {
-                this.setState({'currentConversationData': res.data.data.data})
+                this.setState({'currentConversationData': res.data.data.data}, () => {
+                    let targetUserUsername = ''
+                    if(this.state.currentUserData == senderUserID)
+                    {
+                        targetUserUsername = receiverUsername
+                    }
+                    else
+                    {
+                        targetUserUsername = senderUsername
+                    }
+
+                    this.setState({'receiverUserUsernameForSpecificChat': targetUserUsername})
+                })
             })
             .catch((err) => {
                 console.log(err)
@@ -79,7 +98,7 @@ export default class MessagesSideMenu extends Component {
             {this.state.isMessageBoxExpanded == false ?
                 <div className='MessagesSideMenu' >
                     <div className='MessagesTextWrapper' onClick={() => this.handleChatBox()}>
-                        <span className='MessagesText'>Messages</span>
+                        <span className='MessagesText'>{this.state.receiverUserUsernameForSpecificChat ? this.state.receiverUserUsernameForSpecificChat : 'Messages'}</span>
                     </div>
                     <div className='MessagesButtonsWrapper'>
                         <FontAwesomeIcon className='MessagesIcon' icon={faEnvelope}/>
@@ -90,7 +109,7 @@ export default class MessagesSideMenu extends Component {
             <div className='ExpandedMessagesSideMenuWrapper'>
                 <div className='ExpandedMessagesSideMenu' onClick={() => this.handleChatBox()}>
                         <div className='MessagesTextWrapper'>
-                            <span className='MessagesText'>Messages</span>
+                            <span className='MessagesText'>{this.state.receiverUserUsernameForSpecificChat ? this.state.receiverUserUsernameForSpecificChat : 'Messages'}</span>
                         </div>
                         <div className='MessagesButtonsWrapper'>
                             <FontAwesomeIcon className='MessagesIcon' icon={faEnvelope}/>
@@ -103,31 +122,40 @@ export default class MessagesSideMenu extends Component {
                     <div className='ChatsWrapper'>
                             {this.state.allUserConversations.map((UserConversation) => {
                                 return(
-                                    <div className='ChatContainer' key = {UserConversation.ConversationID} onClick={() => this.openChatBox(UserConversation.ConversationID)}>
+                                    <div className='ChatContainer' key = {UserConversation.ConversationID} onClick={() => this.openChatBox(UserConversation)}>
                                        {
                                             UserConversation.ReceiverUserID === this.state.currentUserData.id 
                                             ?
-                                            UserConversation.SenderProfilePicture 
+                                                UserConversation.SenderProfilePicture 
                                                 ? 
-                                                <img src={`data:image/png;base64,${Buffer.from(UserConversation.SenderProfilePicture.data).toString('base64')}`} className='ChatProfilePicture'/>
+                                                    <img src={`data:image/png;base64,${Buffer.from(UserConversation.SenderProfilePicture.data).toString('base64')}`} className='ChatProfilePicture'/>
                                                 :
-                                                <img src={conversation} className='ChatProfilePicture'/>
+                                                    <img src={conversation} className='ChatProfilePicture'/>
                                             :
-                                            UserConversation.ReceiverProfilePicture 
+                                                UserConversation.ReceiverProfilePicture 
                                                 ?
-                                                <img src={`data:image/png;base64,${Buffer.from(UserConversation.ReceiverProfilePicture.data).toString('base64')}`} className='ChatProfilePicture'/>
+                                                    <img src={`data:image/png;base64,${Buffer.from(UserConversation.ReceiverProfilePicture.data).toString('base64')}`} className='ChatProfilePicture'/>
                                                 :
-                                                <img src={conversation} className='ChatProfilePicture'/>
+                                                    <img src={conversation} className='ChatProfilePicture'/>
                                         }
                                         <div className='ChatInfoWrapper'>
                                             <p className='ChatUsername'>{this.state.currentUserData.Username == UserConversation.ReceiverUsername ? UserConversation.SenderUsername : UserConversation.ReceiverUsername}</p>
                                             <p className='ChatLatestMessage'>
                                                 {
+
+                                                    UserConversation.MessageSenderID == this.state.currentUserData.id ?
                                                         UserConversation.LatestMessage.length > 20 
-                                                    ? 
-                                                        UserConversation.LatestMessage.slice(0,25) + '...'
+                                                        ?
+                                                            'You: ' + UserConversation.LatestMessage.slice(0,21) + '...'
+                                                        :
+                                                        'You: ' + UserConversation.LatestMessage
                                                     : 
-                                                        UserConversation.LatestMessage
+                                                         UserConversation.LatestMessage.length > 20 
+                                                        ?
+                                                        this.state.currentUserData.Username == UserConversation.ReceiverUsername ? UserConversation.SenderUsername : UserConversation.ReceiverUsername + ': ' + UserConversation.LatestMessage.slice(0,21) + '...'
+                                                        :
+                                                        this.state.currentUserData.Username == UserConversation.ReceiverUsername ? UserConversation.SenderUsername : UserConversation.ReceiverUsername + ': ' + UserConversation.LatestMessage
+
                                                 }
                                             </p>    
                                         </div>
@@ -137,7 +165,6 @@ export default class MessagesSideMenu extends Component {
                     </div>
                 :
                     <div className='ChatsWrapper'>
-                            
                         <div className='SpecificChatContainer'>
                             {this.state.currentConversationData && this.state.currentUserData ? 
                                 this.state.currentConversationData.map((conversationMessageObject) => {
