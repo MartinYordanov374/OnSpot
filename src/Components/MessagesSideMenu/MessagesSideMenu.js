@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './Styles/MessagesStyles.css'
-import { faEnvelope, faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faAngleUp, faAngleDown, faArrowLeft, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import conversation from '../../Images/conversation.png'
 import Axios from 'axios'
@@ -16,7 +16,7 @@ export default class MessagesSideMenu extends Component {
             isChatBoxOpen: false,
             currentConversationData: null,
             currentUserData: null,
-            receiverUserUsernameForSpecificChat: ''
+            receiverUserUsernameForSpecificChat: null
         }
     }
 
@@ -33,7 +33,6 @@ export default class MessagesSideMenu extends Component {
 
     openChatBox = (targetConvoObject) => {
         let targetConvoID = targetConvoObject.ConversationID
-        console.log(targetConvoObject)
         let senderUserID = targetConvoObject.SenderUserID
         let receiverUserID = targetConvoObject.ReceiverUserID
         let senderUsername = targetConvoObject.SenderUsername
@@ -69,6 +68,14 @@ export default class MessagesSideMenu extends Component {
         }
     }
 
+    closeChatBox = () => {
+        this.setState({'isChatBoxOpen': false})
+        this.setState({'isMessageBoxExpanded': true})
+        this.setState({'currentConversationData': null})
+        this.setState({'receiverUserUsernameForSpecificChat': null})
+
+    }
+
     getCurrentUserData = async() => {
         let returnedUserData = await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
         let targetUserData = returnedUserData.data[0]
@@ -98,7 +105,7 @@ export default class MessagesSideMenu extends Component {
             {this.state.isMessageBoxExpanded == false ?
                 <div className='MessagesSideMenu' >
                     <div className='MessagesTextWrapper' onClick={() => this.handleChatBox()}>
-                        <span className='MessagesText'>{this.state.receiverUserUsernameForSpecificChat ? this.state.receiverUserUsernameForSpecificChat : 'Messages'}</span>
+                        <span className={this.state.isMessageBoxExpanded ? 'MessagesText-Expanded': 'MessagesText'}>{this.state.receiverUserUsernameForSpecificChat ? this.state.receiverUserUsernameForSpecificChat : 'Messages'}</span>
                     </div>
                     <div className='MessagesButtonsWrapper'>
                         <FontAwesomeIcon className='MessagesIcon' icon={faEnvelope}/>
@@ -107,11 +114,18 @@ export default class MessagesSideMenu extends Component {
                 </div>
             :
             <div className='ExpandedMessagesSideMenuWrapper'>
-                <div className='ExpandedMessagesSideMenu' onClick={() => this.handleChatBox()}>
-                        <div className='MessagesTextWrapper'>
-                            <span className='MessagesText'>{this.state.receiverUserUsernameForSpecificChat ? this.state.receiverUserUsernameForSpecificChat : 'Messages'}</span>
+                <div className='ExpandedMessagesSideMenu'>
+                        {this.state.isChatBoxOpen ? 
+                                <FontAwesomeIcon className='GoBackMessagesIcon' icon={faAngleLeft} onClick = {() => this.closeChatBox()}/>
+                            : 
+                                ""
+                        }
+                        <div className='MessagesTextWrapper' onClick={() => this.handleChatBox()}>
+                            <span className={this.state.isMessageBoxExpanded ? 'MessagesText-Expanded': 'MessagesText'}>{this.state.receiverUserUsernameForSpecificChat ? this.state.receiverUserUsernameForSpecificChat : 'Messages'}</span>
                         </div>
                         <div className='MessagesButtonsWrapper'>
+
+
                             <FontAwesomeIcon className='MessagesIcon' icon={faEnvelope}/>
                             <FontAwesomeIcon className='MessagesIcon' icon = {faAngleDown} onClick={() => this.handleChatBox()}/>
                         </div>

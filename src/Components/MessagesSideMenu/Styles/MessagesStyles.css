@@ -28,13 +28,24 @@
 }
 
 .MessagesTextWrapper {
-  width: 70%;
+  width: 65%;
 }
 .MessagesTextWrapper:hover {
   cursor: pointer;
 }
 .MessagesTextWrapper .MessagesText {
   padding: 2rem;
+}
+.MessagesTextWrapper .MessagesText-Expanded {
+  padding: 2rem;
+}
+
+.GoBackMessagesIcon {
+  margin-top: 1%;
+  margin-left: 2%;
+}
+.GoBackMessagesIcon:hover {
+  cursor: pointer;
 }
 
 .ExpandedMessagesSideMenuWrapper {
