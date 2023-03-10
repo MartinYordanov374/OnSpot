@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import './Styles/MessagesStyles.css'
-import { faEnvelope, faAngleUp, faAngleDown, faArrowLeft, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faAngleUp, faAngleDown, faArrowLeft, faAngleLeft, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import conversation from '../../Images/conversation.png'
 import Axios from 'axios'
+import {FormControl, Button, InputGroup} from 'react-bootstrap'
+import * as io from 'socket.io-client'
 import { Buffer } from 'buffer';
 
 export default class MessagesSideMenu extends Component {
@@ -16,7 +18,11 @@ export default class MessagesSideMenu extends Component {
             isChatBoxOpen: false,
             currentConversationData: null,
             currentUserData: null,
-            receiverUserUsernameForSpecificChat: null
+            receiverUserUsernameForSpecificChat: null, 
+            receiverUserIdForSpecificChat: null,
+            senderUserIdForSpecificChat: null,
+            message: '',
+            socket: io.connect('http://localhost:3030/')
         }
     }
 
@@ -59,6 +65,9 @@ export default class MessagesSideMenu extends Component {
                     }
 
                     this.setState({'receiverUserUsernameForSpecificChat': targetUserUsername})
+                    this.setState({'receiverUserIdForSpecificChat': receiverUserID})
+                    this.setState({'senderUserIdForSpecificChat': senderUserID})
+
                 })
             })
             .catch((err) => {
@@ -66,6 +75,17 @@ export default class MessagesSideMenu extends Component {
             })
             this.setState({'isChatBoxOpen': true})
         }
+
+        this.state.socket.on('connect', () => {
+            let socketReceiverID = this.state.currentUserData.id == receiverUserID ? senderUserID : receiverUserID
+            this.state.socket.emit('requestConvo', {'receiverID': Number(socketReceiverID), 'senderID':Number(this.state.currentUserData.id)}, () => {
+              
+            })
+            this.state.socket.on('getConvo', (res) => {
+              this.setState({'conversationMessages': res.data})
+    
+            })
+          })
     }
 
     closeChatBox = () => {
@@ -93,11 +113,54 @@ export default class MessagesSideMenu extends Component {
         })
     }
 
+    sendMessage = () => 
+    {
+        console.log('sent')
+      try{
+        let message = this.state.message
+        let receiverID = 
+            this.state.currentUserData.id == this.state.receiverUserIdForSpecificChat
+            ? 
+                this.state.senderUserIdForSpecificChat 
+            : 
+                this.state.receiverUserIdForSpecificChat 
+
+
+        let result = Axios.post(`http://localhost:3030/sendMessage/${receiverID}`, 
+        {message: message}, 
+        {withCredentials: true})
+        // let receiverID = this.state.receiverUserIdForSpecificChat
+  
+        let currentUserID = this.state.currentUserData.id
+        this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
+  
+        this.state.socket.on('getConvo', (res) => {
+              this.setState({'conversationMessages': res.data})
+  
+        })
+  
+        this.state.socket.emit('notify', {
+            notificationData: {senderID: currentUserID, receiverID: receiverID},
+            isMessage: true,
+            isPost: false,
+            isFollower: false,
+            isComment: false
+        })
+  
+        let messageInputField = document.querySelector('.sendMessageInputField')
+        messageInputField.value = ''
+      }
+      catch(err)
+      {
+        console.log(err)
+      }
+  
+    }
+
     componentDidMount = async() =>
     {
         await this.getCurrentUserData()
-        this.getCurrentUserConversations()
-       
+        this.getCurrentUserConversations()       
     }
   render() {
     return (
@@ -198,6 +261,12 @@ export default class MessagesSideMenu extends Component {
                                 :
                                 ""
                             }
+                            <InputGroup className='chatInteractionButtons'>
+                                <FormControl className='sendMessageInputField' onChange={(e) => this.setState({'message': e.target.value})}/>
+                                <Button variant="primary" className='sendMessageBtn' onClick={() => this.sendMessage()}>
+                                    <FontAwesomeIcon icon={faPaperPlane}/>
+                                </Button>
+                            </InputGroup>
                             
                         </div>
                                        

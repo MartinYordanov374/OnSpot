@@ -40,11 +40,28 @@
   padding: 2rem;
 }
 
-.GoBackMessagesIcon {
+.chatInteractionButtons {
+  position: fixed;
+  bottom: 0%;
+  right: 0%;
+  width: 350px;
+  border-top-style: solid;
+  border-width: 1px;
+  border-color: rgb(239, 243, 244);
+}
+.chatInteractionButtons .sendMessageInputField {
+  margin-top: 5%;
+}
+.chatInteractionButtons .sendMessageBtn {
+  height: -moz-fit-content;
+  height: fit-content;
+  margin-top: 5%;
+}
+.chatInteractionButtons .GoBackMessagesIcon {
   margin-top: 1%;
   margin-left: 2%;
 }
-.GoBackMessagesIcon:hover {
+.chatInteractionButtons .GoBackMessagesIcon:hover {
   cursor: pointer;
 }
 
