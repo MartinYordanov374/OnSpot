@@ -59,6 +59,7 @@ export default class MessagesSideMenu extends Component {
     getCurrentUserConversations = () => {
         Axios.get('http://localhost:3030/GetAllUserConversations', {withCredentials: true})
         .then((res) => {
+            console.log(res.data.data)
             this.setState({'allUserConversations': res.data.data})
         })
         .catch((err) => {
@@ -103,19 +104,23 @@ export default class MessagesSideMenu extends Component {
                             {this.state.allUserConversations.map((UserConversation) => {
                                 return(
                                     <div className='ChatContainer' key = {UserConversation.ConversationID} onClick={() => this.openChatBox(UserConversation.ConversationID)}>
-                                        {
-                                            UserConversation.ReceiverProfilePicture 
+                                       {
+                                            UserConversation.ReceiverUserID === this.state.currentUserData.id 
                                             ?
-                                                <img  src={
-                                                    `data: image/png;base64,
-                                                        ${Buffer.from(UserConversation.ReceiverProfilePicture.data).toString('base64')}`
-                                                        } 
-                                                    className = 'ChatProfilePicture'/>
+                                            UserConversation.SenderProfilePicture 
+                                                ? 
+                                                <img src={`data:image/png;base64,${Buffer.from(UserConversation.SenderProfilePicture.data).toString('base64')}`} className='ChatProfilePicture'/>
+                                                :
+                                                <img src={conversation} className='ChatProfilePicture'/>
                                             :
-                                                <img src = {conversation} className = 'ChatProfilePicture'/>
+                                            UserConversation.ReceiverProfilePicture 
+                                                ?
+                                                <img src={`data:image/png;base64,${Buffer.from(UserConversation.ReceiverProfilePicture.data).toString('base64')}`} className='ChatProfilePicture'/>
+                                                :
+                                                <img src={conversation} className='ChatProfilePicture'/>
                                         }
                                         <div className='ChatInfoWrapper'>
-                                            <p className='ChatUsername'>{UserConversation.ReceiverUsername}</p>
+                                            <p className='ChatUsername'>{this.state.currentUserData.Username == UserConversation.ReceiverUsername ? UserConversation.SenderUsername : UserConversation.ReceiverUsername}</p>
                                             <p className='ChatLatestMessage'>
                                                 {
                                                         UserConversation.LatestMessage.length > 20 
@@ -134,18 +139,18 @@ export default class MessagesSideMenu extends Component {
                     <div className='ChatsWrapper'>
                             
                         <div className='SpecificChatContainer'>
-                            <h1>Chat username</h1>
                             {this.state.currentConversationData && this.state.currentUserData ? 
                                 this.state.currentConversationData.map((conversationMessageObject) => {
                                     return(
-                                    conversationMessageObject.SenderUserID == this.state.currentUserData.id ?
-                                        <div className='senderMessage message'>
-                                            {conversationMessageObject.Message}
-                                        </div> 
+                                        conversationMessageObject.SenderUserID == this.state.currentUserData.id 
+                                        ?
+                                            <div className='senderMessage message'>
+                                                {conversationMessageObject.Message}
+                                            </div> 
                                         :
-                                        <div className='receiverMessage message'>
-                                            {conversationMessageObject.Message}
-                                        </div> 
+                                            <div className='receiverMessage message'>
+                                                {conversationMessageObject.Message}
+                                            </div> 
                                     )
                                       
                                 })

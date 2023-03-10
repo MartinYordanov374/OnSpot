@@ -91,21 +91,27 @@
     .SpecificChatContainer{
         height: 80vh;
         overflow: scroll;
+        min-width: 350px;
+        max-width: 400px;
         .receiverMessage{
-            margin-right: 60%;
-            background-color: #a8c9e3;
-            color: white;
+            margin-right: 20%;
+            background-color: rgb(239, 243, 244);
+            color: rgb(15,20,25);
+            max-width: 115px ;
+            min-width: fit-content;
         }
         .senderMessage{
-            margin-left: 25%;
-            background-color: #72B2E4;
+            max-width: 115px ;
+            min-width: fit-content;
+            margin-left: auto;
+            text-align: end;
+            background-color: rgb(29, 155, 240);           
             color: white;
         }
         .message{
             padding:20px;
             margin-top: 2%;
-            border-radius: 4%;
-            width:fit-content;
+            border-radius: 24px;
         }
     }
 }

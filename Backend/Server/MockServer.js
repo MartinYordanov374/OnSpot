@@ -620,7 +620,7 @@ let start = async() =>
         try{
             let convoID = req.params.conversationID
             let currentUserID = validateToken(req.session.userToken).userID
-            if(convoID != undefined && currentUserID)
+            if(convoID != undefined && currentUserID )
             {
                 let conversationMessages = await GetConversationMessages(convoID)
                 res.status(200).send({data: conversationMessages})
