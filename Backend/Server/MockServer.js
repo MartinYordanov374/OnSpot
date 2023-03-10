@@ -616,7 +616,26 @@ let start = async() =>
         }
         
     })
-
+    app.get('/getConversationByConversationID/:conversationID', async(req,res) => {
+        try{
+            let convoID = req.params.conversationID
+            let currentUserID = validateToken(req.session.userToken).userID
+            if(convoID != undefined && currentUserID)
+            {
+                let conversationMessages = await GetConversationMessages(convoID)
+                res.status(200).send({data: conversationMessages})
+            }
+            else
+            {
+                //TODO: Please add an adequate response...
+                console.log('An error occured.')
+            }
+        }
+        catch(err)
+        {
+            res.status(500).send({error: err})
+        }
+    })
     app.get('/GetLatestConversationMessage/:ConversationID', async(req,res) => {
         try{
             // TODO: Check if the given user can access this data,  !

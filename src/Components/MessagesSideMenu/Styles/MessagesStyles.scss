@@ -88,5 +88,25 @@
 
         }
     }
+    .SpecificChatContainer{
+        height: 80vh;
+        overflow: scroll;
+        .receiverMessage{
+            margin-right: 60%;
+            background-color: #a8c9e3;
+            color: white;
+        }
+        .senderMessage{
+            margin-left: 25%;
+            background-color: #72B2E4;
+            color: white;
+        }
+        .message{
+            padding:20px;
+            margin-top: 2%;
+            border-radius: 4%;
+            width:fit-content;
+        }
+    }
 }
 
