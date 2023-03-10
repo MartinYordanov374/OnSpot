@@ -169,11 +169,11 @@ export default class MessagesSideMenu extends Component {
               ? this.state.senderUserIdForSpecificChat
               : this.state.receiverUserIdForSpecificChat;
       
-          const result = await Axios.post(
-            `http://localhost:3030/sendMessage/${receiverID}`,
-            { message: this.state.message },
-            { withCredentials: true }
-          );
+        //   const result = await Axios.post(
+        //     `http://localhost:3030/sendMessage/${receiverID}`,
+        //     { message: this.state.message },
+        //     { withCredentials: true }
+        //   );
       
           const currentUserID = this.state.currentUserData.id;
           const socket = io("http://localhost:3030");
