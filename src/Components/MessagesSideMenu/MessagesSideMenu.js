@@ -27,6 +27,10 @@ export default class MessagesSideMenu extends Component {
         }
     }
 
+    openChatBox = (convoID) => {
+        console.log(convoID)
+    }
+
     componentDidMount()
     {
         Axios.get('http://localhost:3030/GetAllUserConversations', {withCredentials: true})
@@ -64,7 +68,8 @@ export default class MessagesSideMenu extends Component {
                 <div className='ChatsWrapper'>
                         {this.state.allUserConversations.map((UserConversation) => {
                             return(
-                                <div className='ChatContainer' key = {UserConversation.ConvoID}>
+                                <div className='ChatContainer' key = {UserConversation.ConvoID} onClick={() => this.openChatBox(UserConversation.ConvoID)}>
+                                    {console.log(UserConversation)}
                                     {
                                         UserConversation.ReceiverProfilePicture 
                                         ?

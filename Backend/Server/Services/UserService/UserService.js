@@ -428,31 +428,30 @@ async function GetAllUserConversations(userID)
     try{
         let result = await sql.query`
         SELECT DISTINCT 
-    c.UserOneID as SenderUserID,  
-    c.UserTwoID as ReceiverUserID, 
-    m.Message as LatestMessage, 
-    m.SenderUserID as MessageSenderID, 
-    CASE 
-        WHEN c.UserOneID = ${userID} THEN u2.Username
-        ELSE u1.Username
-    END as ReceiverUsername,
-    CASE 
-        WHEN c.UserOneID = ${userID} THEN pp2.ProfilePicture
-        ELSE pp1.ProfilePicture
-    END as ReceiverProfilePicture
-FROM Conversations c
-LEFT JOIN (
-    SELECT ConvoID, MAX(DateSent) AS LatestMessageDate
-    FROM Messages
-    GROUP BY ConvoID
-) AS lm ON c.ConvoID = lm.ConvoID
-LEFT JOIN Messages m ON lm.ConvoID = m.ConvoID AND lm.LatestMessageDate = m.DateSent
-LEFT JOIN Users u1 ON c.UserOneID = u1.id
-LEFT JOIN Users u2 ON c.UserTwoID = u2.id
-LEFT JOIN ProfilePictures pp1 ON u1.id = pp1.UserID 
-LEFT JOIN ProfilePictures pp2 ON u2.id = pp2.UserID 
-WHERE c.UserOneID = ${userID} OR c.UserTwoID = ${userID}
-`
+            c.UserOneID as SenderUserID,  
+            c.ConvoID as ConversationID,
+            c.UserTwoID as ReceiverUserID, 
+            m.Message as LatestMessage, 
+            m.SenderUserID as MessageSenderID, 
+            u.Username as ReceiverUsername,
+            pp.ProfilePicture as ReceiverProfilePicture
+        FROM Conversations c
+        LEFT JOIN (
+            SELECT ConvoID, MAX(DateSent) AS LatestMessageDate
+            FROM Messages
+            GROUP BY ConvoID
+        ) AS lm 
+            ON 
+            c.ConvoID = lm.ConvoID
+        LEFT JOIN Messages m 
+            ON 
+            lm.ConvoID = m.ConvoID 
+            AND lm.LatestMessageDate = m.DateSent
+        LEFT JOIN Users u ON 
+            u.id = c.UserTwoID 
+        LEFT JOIN ProfilePictures pp ON
+            u.id = pp.UserID 
+        WHERE c.UserOneID = ${userID}`
 
         return {status: 200, msg: 'User conversations successfully fetched', data: result.recordset}
     }
