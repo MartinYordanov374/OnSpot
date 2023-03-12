@@ -24,7 +24,6 @@ export default class ChatBoxModalComponent extends Component {
   }
   componentDidMount = async() =>
   {
-      // Figure out how to store the receiver ID in the state
       let currentUserData = await this.getCurrentUserData()
 
       this.setState({'currentUserData': currentUserData}, () => {
@@ -42,7 +41,6 @@ export default class ChatBoxModalComponent extends Component {
             const { senderID, receiverID, message } = data;
 
             this.setState({ 'conversationMessages': data.data }, () => {
-                console.log(this.state.currentConversationData)
             });
 
             this.setState({'message': null})
@@ -52,7 +50,6 @@ export default class ChatBoxModalComponent extends Component {
       chatboxWrapper.scrollTop = chatboxWrapper.scrollHeight;
   }
   componentWillUnmount() {
-    // Close socket connection
     if (this.socket) {
       this.socket.disconnect();
     }
@@ -61,10 +58,7 @@ export default class ChatBoxModalComponent extends Component {
   getConversationMessages = async(receiverID) => {
     try{
       let result = await Axios.get(`http://localhost:3030/getConversationMessages/${receiverID}`, 
-      {withCredentials: true})
-
-      //TODO: RENAME DATA TO SOMETHING MORE MEANINGFUL
-      
+      {withCredentials: true})      
       let conversationMessages = result.data.data.data
       this.setState({'conversationMessages': conversationMessages})
 
@@ -86,8 +80,6 @@ export default class ChatBoxModalComponent extends Component {
     try {
 
       const receiverID = this.state.receiverID
-  
-      console.log(this.state.currentUserData)
       const currentUserID = this.state.currentUserData.id;
       const socket = io("http://localhost:3030");
   
@@ -97,9 +89,7 @@ export default class ChatBoxModalComponent extends Component {
         message: this.state.message
       });
 
-
     socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
-
       socket.emit("notify", {
         notificationData: { senderID: currentUserID, receiverID: receiverID },
         isMessage: true,
@@ -107,7 +97,7 @@ export default class ChatBoxModalComponent extends Component {
         isFollower: false,
         isComment: false
       });
-  
+
       const messageInputField = document.querySelector(".sendMessageInputField");
       messageInputField.value = "";
     } 

@@ -112,56 +112,6 @@ export default class MessagesSideMenu extends Component {
         })
     }
 
-    // sendMessage = async () => 
-    // {
-    //   try{
-    //     let message = this.state.message
-    //     let receiverID = 
-    //         this.state.currentUserData.id == this.state.receiverUserIdForSpecificChat
-    //         ? 
-    //             this.state.senderUserIdForSpecificChat 
-    //         : 
-    //             this.state.receiverUserIdForSpecificChat 
-
-
-    //     let result = await Axios.post(`http://localhost:3030/sendMessage/${receiverID}`, 
-    //     {message: message}, 
-    //     {withCredentials: true})
-  
-    //     let currentUserID = this.state.currentUserData.id
-
-    //     // this.state.socket.emit('newMessage', {
-    //     //     senderID: currentUserID,
-    //     //     receiverID: receiverID,
-    //     //     message: message
-    //     //   });
-
-    //     // this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
-  
-    //     // this.state.socket.on('getConvo', (res) => {
-    //     //       this.setState({'currentConversationData': res.data}, async () => {
-    //     //          await this.getCurrentUserConversations()
-
-    //     //       })
-    //     // })
-  
-    //     // this.state.socket.emit('notify', {
-    //     //     notificationData: {senderID: currentUserID, receiverID: receiverID},
-    //     //     isMessage: true,
-    //     //     isPost: false,
-    //     //     isFollower: false,
-    //     //     isComment: false
-    //     // })
-  
-    //     let messageInputField = document.querySelector('.sendMessageInputField')
-    //     messageInputField.value = ''       
-    //   }
-    //   catch(err)
-    //   {
-    //     console.log(err)
-    //   }
-  
-    // }
     sendMessage = async () => {
         try {
           const receiverID =
@@ -230,14 +180,7 @@ export default class MessagesSideMenu extends Component {
     componentDidMount = async() => {
         await this.getCurrentUserData()
         this.getCurrentUserConversations()
-        // Initialize socket connection
         this.socket = io('http://localhost:3030');
-        
-        // Listen for incoming messages
-        // this.socket.on('newMessage', (data) => {
-        //   console.log('Received message:', data);
-        // });
-
         this.socket.on("newMessage", async (data) => {
             const { senderID, receiverID, message } = data;
 
@@ -247,11 +190,8 @@ export default class MessagesSideMenu extends Component {
 
                   this.setState({'message': null})
               })
-            
-          
       }
     componentWillUnmount() {
-        // Close socket connection
         if (this.socket) {
           this.socket.disconnect();
         }
