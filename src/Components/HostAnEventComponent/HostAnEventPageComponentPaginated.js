@@ -15,7 +15,7 @@ export default class HostAnEventPageComponentPaginated extends Component {
         this.state = {
             eventName: '', 
             eventDescription: '', 
-            eventType: '', 
+            eventType: 'public', 
             eventCategory: '', 
             eventLocation: '', 
             eventStartDate: '', 
@@ -53,7 +53,6 @@ export default class HostAnEventPageComponentPaginated extends Component {
         let dropdown = document.querySelector('.eventStartDateField');
         let formattedStartDate = startDate.toString().split(' ').splice(1,3).join(' ');
         let formattedEndDate = endDate.toString().split(' ').splice(1,3).join(' ');
-        // dropdown.placeholder = formattedStartDate + " - " + formattedEndDate;
         this.setState({'eventStartDate': formattedStartDate, 'eventEndDate': formattedEndDate})
     }
 
@@ -163,34 +162,34 @@ export default class HostAnEventPageComponentPaginated extends Component {
                     </Container>
                 </div>
             )
-        case 1:
-            return (
-                <div className='hostEventPage'>
-                    <ToastContainer/>
-                    <Container>
-                        <div className='eventTypeWrapper row'>
-                            <h2 className='fieldLabel'>Event type</h2>
-                            <InputGroup>
-                                <FormControl className='inputField eventTypeField' placeholder='Public' aria-describedby='dropdownAddon' disabled='true'/>
-                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectType} defaultValue="Public">
-                                    <Dropdown.Item eventKey = {'Public'}>Public</Dropdown.Item>
-                                    <Dropdown.Item eventKey = {'Private'} >Private</Dropdown.Item>
-                                </DropdownButton>
-                            </InputGroup>
-                            <div className='buttonsWrapper'>
-                                <Button className='previousBtn col-sm-2' onClick={() => this.previousPage()}>
-                                    <FontAwesomeIcon icon = {faChevronLeft}/>
-                                </Button>   
-                                <Button className='continueBtn col-sm-2' onClick={(e) => this.nextPage(e)}>
-                                    <FontAwesomeIcon icon = {faChevronRight}/>
-                                </Button>
+        // case 1:
+        //     return (
+        //         <div className='hostEventPage'>
+        //             <ToastContainer/>
+        //             <Container>
+        //                 <div className='eventTypeWrapper row'>
+        //                     <h2 className='fieldLabel'>Event type</h2>
+        //                     <InputGroup>
+        //                         <FormControl className='inputField eventTypeField' placeholder='Public' aria-describedby='dropdownAddon' disabled='true'/>
+        //                         <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectType} defaultValue="Public">
+        //                             <Dropdown.Item eventKey = {'Public'}>Public</Dropdown.Item>
+        //                             <Dropdown.Item eventKey = {'Private'} >Private</Dropdown.Item>
+        //                         </DropdownButton>
+        //                     </InputGroup>
+        //                     <div className='buttonsWrapper'>
+        //                         <Button className='previousBtn col-sm-2' onClick={() => this.previousPage()}>
+        //                             <FontAwesomeIcon icon = {faChevronLeft}/>
+        //                         </Button>   
+        //                         <Button className='continueBtn col-sm-2' onClick={(e) => this.nextPage(e)}>
+        //                             <FontAwesomeIcon icon = {faChevronRight}/>
+        //                         </Button>
 
-                            </div>
-                        </div>
-                    </Container>
-                </div>
-            )
-        case 2:
+        //                     </div>
+        //                 </div>
+        //             </Container>
+        //         </div>
+        //     )
+        case 1:
             return (
                 <div className='hostEventPage'>
                     <ToastContainer/>
@@ -208,7 +207,7 @@ export default class HostAnEventPageComponentPaginated extends Component {
                     </Container>
                 </div>
             )
-        case 3:
+        case 2:
                 return (
                     <div className='hostEventPage'>
                         <ToastContainer/>
@@ -234,7 +233,7 @@ export default class HostAnEventPageComponentPaginated extends Component {
                         </Container>
                     </div>
             )
-        case 4:
+        case 3:
             return (
                 <div className='hostEventPage'>
                     <ToastContainer/>
@@ -252,7 +251,7 @@ export default class HostAnEventPageComponentPaginated extends Component {
                     </Container>
                 </div>
             )
-        case 5:
+        case 4:
             return (
                 <div className='hostEventPage'>
                     <ToastContainer/>
