@@ -31,6 +31,10 @@ export default class RegisteredLandingPage extends Component {
            await this.getNextTwoEvents()
          })
 
+         setTimeout(() => {
+          this.setState({'isLoading': false});
+        }, 1000);
+
          
         }
       }
