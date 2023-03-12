@@ -16,36 +16,32 @@ class NotificationFilters extends Component {
       Notifications: []
     };
   }
-
-  
-  
-  
   render() {
     return (
       <div>
         <div>
-          <div id="notification-filters">
-            <button 
+          <div className="notification-filters">
+            <Button 
               className={`notification-filter ${this.props.selectedFilter === 'all' ? 'selected' : ''}`} 
               onClick={() => this.props.handleClick('all')}
             >
               <FontAwesomeIcon icon={this.props.selectedFilter === 'all' ? faCheckSquare : faSquare} />
               All
-            </button>
-            <button 
+            </Button>
+            <Button 
               className={`notification-filter ${this.props.selectedFilter === 'unread' ? 'selected' : ''}`} 
               onClick={() => this.props.handleClick('unread')}
             >
               <FontAwesomeIcon icon={this.props.selectedFilter === 'unread' ? faCheckSquare : faSquare} />
               Unread
-            </button>
-            <button 
+            </Button>
+            <Button 
               className={`notification-filter ${this.props.selectedFilter === 'read' ? 'selected' : ''}`} 
               onClick={() => this.props.handleClick('read')}
             >
               <FontAwesomeIcon icon={this.props.selectedFilter === 'read' ? faCheckSquare : faSquare} />
               Read
-            </button>
+            </Button>
           </div>
         </div>
           
