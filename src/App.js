@@ -19,6 +19,7 @@ import EditEvent from './Components/EditEventComponent/EditEvent';
 import UserFollowers from './Components/UserFollowersComponent/UserFollowers';
 import Settings from './Components/SettingsComponent/Settings';
 import NotificationsPage from './Components/NotificationsPage/NotificationsPage';
+import MessagesComponent from './Components/MessagesComponent/MessagesComponent';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
       <Route path = '/ExploreEvents' element={<ExploreEventsComponent/>}/>
       <Route path = '/Event/:eventId' element={<EventPageComponent/>}/> 
       <Route path = '/Profile/:id' element={<ProfilePageComponent/>}/> 
+      <Route path = '/Messages' element={<MessagesComponent/>}/> 
       <Route path = '/EventsManager' element={<EventsManagerComponent/>}/> 
       <Route path = '/EventsManager/CalendarSchedule/AttendedEvents' element={<CalendarScheduleAttendedEvents/>}/> 
       <Route path = '/EventsManager/CalendarSchedule/HostedEvents' element={<CalendarScheduleHostedEvents/>}/> 

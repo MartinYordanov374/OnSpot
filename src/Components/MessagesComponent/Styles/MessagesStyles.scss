@@ -1,0 +1,100 @@
+.MessagesWrapper{
+    .MessagesContainer{
+        display: flex;
+        
+        .ConversationContainer{
+            margin-left: 23%;
+            height: 100vh;
+            width: 310px;
+            background-color: white;
+        }
+        .ChatProfilePicture{
+            border-radius: 100%;
+            width: 64px;
+            height: 64px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+        .ConversationBubble{
+            border-style: solid;
+            border-color: gray;
+            border-width: 1px;
+            margin: 5px;
+            width: 300px;
+            display: flex;
+            &:hover{
+                cursor: pointer;
+                background-color: rgb(248, 248, 248);
+            }
+        }
+        .Chat{
+            border-left-style: solid;
+            width: 120vh;
+            height: 100vh;
+           
+            .ReceiverWrapper{
+                display: flex;
+                background-color: white;
+                border-bottom-style: solid;
+                border-color: gray;
+                border-width: 1px;
+                .ReceiverUsername{
+                    font-size: 24px;
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+            .ChatMessagesWrapper
+            {
+                background-color: white;
+                width: 110vh;
+                height: 80vh;
+                .receiverMessage{
+                    margin-right: 20%;
+                    background-color: rgb(239, 243, 244);
+                    color: rgb(15,20,25);
+                    max-width: 115px ;
+                    min-width: fit-content;
+                }
+                .senderMessage{
+                    max-width: 115px ;
+                    min-width: fit-content;
+                    margin-left: auto;
+                    text-align: end;
+                    background-color: rgb(29, 155, 240);           
+                    color: white;
+                }
+                .message{
+                    padding:20px;
+                    margin-top: 2%;
+                    border-radius: 24px;
+                }
+            }
+            .SendMessageWrapper{
+                height: 9vh;
+                .chatInteractionButtons
+                {
+                    width: 110vh;
+                    height: 15vh;
+                    position: fixed;
+                    bottom: 0%;
+                    right: 0%;
+                    border-top-style: none !important;
+                    .sendMessageBtn{
+                        height:10vh;
+                        margin-top: 5%;
+                    }
+                    .GoBackMessagesIcon{
+                        margin-top: 1%;
+                        margin-left: 2%;
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
