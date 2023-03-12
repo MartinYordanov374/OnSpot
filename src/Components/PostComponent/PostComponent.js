@@ -6,7 +6,7 @@ import Axios from 'axios'
 import './Styles/PostStyles.css'
 import { Buffer } from 'buffer';
 import PostCommentComponent from '../PostCommentComponent/PostCommenComponentt';
-import * as io from 'socket.io-client'
+import io from 'socket.io-client'
 
 export default class PostComponent extends Component {
 
@@ -25,7 +25,7 @@ export default class PostComponent extends Component {
       hasUserLikedThisPost: false,
       postSharesAmount: 0,
       isPostShared: false,
-      socket: io.connect('http://localhost:3030/'),
+      socket: null,
       }
   }
   getPosterData = async(userID) => {
@@ -78,7 +78,7 @@ export default class PostComponent extends Component {
     }, {withCredentials: true})
     .then((res) => {
       this.getPostComments(this.props.postData.PostID)
-      this.state.socket.emit('notify', {
+      this.socket.emit('notify', {
         notificationData: {
         senderID: this.state.currentUserData[0].id,
         postID: this.props.postData.PostID,
@@ -141,7 +141,8 @@ export default class PostComponent extends Component {
    .then((res) => {
     this.hasUserLikedThisPost(this.props.postData.PostID)
     this.getPostLikes(this.props.postData.PostID)
-    this.state.socket.emit('notify', {
+
+    this.socket.emit('notify', {
       notificationData: {
       senderID: this.state.currentUserData[0].id,
       postID: this.props.postData.PostID,
@@ -177,7 +178,7 @@ export default class PostComponent extends Component {
       this.getPostShares(this.props.postData.PostID)
       this.getPostComments(this.props.postData.PostID)
       this.props.dataHandler()
-      this.state.socket.emit('notify', {
+      this.socket.emit('notify', {
         notificationData: {
         senderID: this.state.currentUserData[0].id,
         postID: this.props.postData.PostID,
@@ -204,6 +205,7 @@ export default class PostComponent extends Component {
     })
   }
   componentDidMount = () => {
+    this.socket = io.connect('http://localhost:3030/')
     this.getCurrentUserData()
     this.getPosterData(this.props.postData.UserID)
     this.getPostComments(this.props.postData.Post)

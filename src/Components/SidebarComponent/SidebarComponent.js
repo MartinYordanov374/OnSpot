@@ -4,7 +4,7 @@ import { faCog, faSignOut, faCalendarCheck, faCalendar, faCalendarDays, faSearch
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Buffer } from 'buffer';
 import Axios from 'axios'
-import * as io from 'socket.io-client'
+import io from 'socket.io-client'
 
 export default class SidebarComponent extends Component {
   constructor()
@@ -12,7 +12,7 @@ export default class SidebarComponent extends Component {
     super()
     this.state = {username: '', userFollowers: 0, userID: 0, 
     ProfilePicture: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images',
-    socket: io.connect('http://localhost:3030/'),
+    socket: null,
     unreadNotifications: 0,
     Notifications: []}
   }
@@ -22,31 +22,8 @@ export default class SidebarComponent extends Component {
   }
   async componentDidMount()
   {
-    let returnedUserData = await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
-    let targetUserData = returnedUserData.data[0]
-    if(targetUserData.ProfilePicture != null)
-    {
-      this.setState({
-        'username': targetUserData.Username, 
-        'userFollowers': targetUserData.Followers, 
-        'userID': targetUserData.id,
-        'ProfilePicture': targetUserData.ProfilePicture 
-      })
-    }
-    else
-    {
-      this.setState({
-        'username': targetUserData.Username, 'userFollowers': targetUserData.Followers, 'userID': targetUserData.id
-      })
-    }
-
-    this.getUserNotifications()
-
-  }
-
-  componentDidUpdate()
-  {
-    this.state.socket.on('receiveMessageNotification', async (res) => {
+    this.socket = io.connect('http://localhost:3030/')
+    this.socket.once('receiveMessageNotification', async (res) => {
       let senderID = res.senderID
       let receiverID = Number(res.receiverID)
       let notificationType = res.notificationType
@@ -55,10 +32,7 @@ export default class SidebarComponent extends Component {
       {
         if(Number(this.state.userID) == receiverID)
         {
-          // TODO: Make the message notifications count as one notification, if coming from one user
-          // two notifications if coming from 2 users etc.
-          // TODO: CHANGE THE USER ID IN THE NOTIFICATION CONTENT WITH THE USERNAME OF THE GIVEN USER.
-          this.setState({'unreadNotifications': this.state.unreadNotifications+1})
+          this.setState({'unreadNotifications': this.state.unreadNotifications})
           await Axios.post('http://localhost:3030/SaveNotifications', {
             SenderID: senderID,
             ReceiverID: receiverID,
@@ -82,7 +56,7 @@ export default class SidebarComponent extends Component {
       this.getUserNotifications()
     })
 
-    this.state.socket.on('receivePostNotification', async(res) => {
+    this.socket.once('receivePostNotification', async(res) => {
       let posterID = res.senderID
       let notificationType = res.notificationType
       let userFollowers = []
@@ -95,7 +69,7 @@ export default class SidebarComponent extends Component {
           userFollowers.map( async (userFollower) => {
             if(userFollower.FollowerUserID == this.state.userID)
             {
-              this.setState({'unreadNotifications': this.state.unreadNotifications+1})
+              this.setState({'unreadNotifications': this.state.unreadNotifications})
             }
             
             await Axios.post('http://localhost:3030/SaveNotifications', {
@@ -128,7 +102,7 @@ export default class SidebarComponent extends Component {
 
     })
 
-    this.state.socket.on('newFollowerNotification', async(res) => {
+    this.socket.once('newFollowerNotification', async(res) => {
       let senderID = res.senderID
       let receiverID = Number(res.receiverID)
       let notificationType = res.notificationType
@@ -140,7 +114,7 @@ export default class SidebarComponent extends Component {
           // TODO: Make the message notifications count as one notification, if coming from one user
           // two notifications if coming from 2 users etc.
           // TODO: CHANGE THE USER ID IN THE NOTIFICATION CONTENT WITH THE USERNAME OF THE GIVEN USER.
-          this.setState({'unreadNotifications': this.state.unreadNotifications+1})
+          this.setState({'unreadNotifications': this.state.unreadNotifications})
           await Axios.post('http://localhost:3030/SaveNotifications', {
             SenderID: senderID,
             ReceiverID: receiverID,
@@ -163,7 +137,7 @@ export default class SidebarComponent extends Component {
       this.getUserNotifications()
     })
 
-    this.state.socket.on('newCommentNotification', async(res) => {
+    this.socket.once('newCommentNotification', async(res) => {
       let senderID = res.senderID
       let receiverID = Number(res.receiverID)
       let postID = Number(res.postID)
@@ -176,7 +150,7 @@ export default class SidebarComponent extends Component {
           // TODO: Make the message notifications count as one notification, if coming from one user
           // two notifications if coming from 2 users etc.
           // TODO: CHANGE THE USER ID IN THE NOTIFICATION CONTENT WITH THE USERNAME OF THE GIVEN USER.
-          this.setState({'unreadNotifications': this.state.unreadNotifications+1})
+          this.setState({'unreadNotifications': this.state.unreadNotifications})
           await Axios.post('http://localhost:3030/SaveNotifications', {
             SenderID: senderID,
             ReceiverID: receiverID,
@@ -201,7 +175,7 @@ export default class SidebarComponent extends Component {
       this.getUserNotifications()
     })
 
-    this.state.socket.on('newLikeNotification', async(res) => {
+    this.socket.on('newLikeNotification', async(res) => {
       let senderID = res.senderID
       let receiverID = Number(res.receiverID)
       let postID = Number(res.postID)
@@ -214,7 +188,7 @@ export default class SidebarComponent extends Component {
           // TODO: Make the message notifications count as one notification, if coming from one user
           // two notifications if coming from 2 users etc.
           // TODO: CHANGE THE USER ID IN THE NOTIFICATION CONTENT WITH THE USERNAME OF THE GIVEN USER.
-          this.setState({'unreadNotifications': this.state.unreadNotifications+1})
+          this.setState({'unreadNotifications': this.state.unreadNotifications})
           await Axios.post('http://localhost:3030/SaveNotifications', {
             SenderID: senderID,
             ReceiverID: receiverID,
@@ -239,7 +213,7 @@ export default class SidebarComponent extends Component {
       this.getUserNotifications()
     })
 
-    this.state.socket.on('newShareNotification', async(res) => {
+    this.socket.once('newShareNotification', async(res) => {
       let senderID = res.senderID
       let receiverID = Number(res.receiverID)
       let postID = Number(res.postID)
@@ -252,7 +226,7 @@ export default class SidebarComponent extends Component {
           // TODO: Make the message notifications count as one notification, if coming from one user
           // two notifications if coming from 2 users etc.
           // TODO: CHANGE THE USER ID IN THE NOTIFICATION CONTENT WITH THE USERNAME OF THE GIVEN USER.
-          this.setState({'unreadNotifications': this.state.unreadNotifications+1})
+          this.setState({'unreadNotifications': this.state.unreadNotifications})
           await Axios.post('http://localhost:3030/SaveNotifications', {
             SenderID: senderID,
             ReceiverID: receiverID,
@@ -276,14 +250,41 @@ export default class SidebarComponent extends Component {
 
       this.getUserNotifications()
     })
+    let returnedUserData = await Axios.get('http://localhost:3030/getUserData', {withCredentials: true})
+    let targetUserData = returnedUserData.data[0]
+    if(targetUserData.ProfilePicture != null)
+    {
+      this.setState({
+        'username': targetUserData.Username, 
+        'userFollowers': targetUserData.Followers, 
+        'userID': targetUserData.id,
+        'ProfilePicture': targetUserData.ProfilePicture 
+      })
+    }
+    else
+    {
+      this.setState({
+        'username': targetUserData.Username, 'userFollowers': targetUserData.Followers, 'userID': targetUserData.id
+      })
+    }
+
+    this.getUserNotifications()
+
   }
 
-  componentWillUnmount()
+  componentDidUpdate()
   {
-    this.state.socket.off('receiveMessageNotification')
-    this.state.socket.off('receivePostNotification')
 
   }
+
+  componentWillUnmount() {
+    this.socket.off('receiveMessageNotification');
+    this.socket.off('receivePostNotification');
+    this.socket.off('newFollowerNotification');
+    this.socket.off('newCommentNotification');
+    this.socket.off('newLikeNotification');
+  }
+  
 
   async getUserNotifications()
   {
