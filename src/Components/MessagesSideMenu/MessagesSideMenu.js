@@ -93,7 +93,6 @@ export default class MessagesSideMenu extends Component {
         this.setState({'isMessageBoxExpanded': true})
         this.setState({'currentConversationData': null})
         this.setState({'receiverUserUsernameForSpecificChat': null})
-
     }
 
     getCurrentUserData = async() => {

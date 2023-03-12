@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {FormControl, Button, InputGroup} from 'react-bootstrap'
 import io from 'socket.io-client';
 import Axios from 'axios'
+import defaultPp from '../../Images/conversation.png'
+import { Buffer } from 'buffer';
 
 export default class MessagesComponent extends Component {
     constructor()
@@ -13,8 +15,15 @@ export default class MessagesComponent extends Component {
         super();
         this.state = {
             allUserConversations: [],
-            // currentConversationData: null,
-            currentUserData: null
+            currentConversationData: [],
+            currentUserData: null,
+            isChatBoxOpen: false,
+            receiverUserUsernameForSpecificChat: null,
+            receiverUserIdForSpecificChat: null,
+            senderUserIdForSpecificChat: null,
+            senderUserProfilePicture: null,
+            receiverUserProfilePicture: null,
+            senderUserUsernameForSpecificChat: null
         }
     }
 
@@ -66,7 +75,70 @@ export default class MessagesComponent extends Component {
           console.log(err);
         }
       };
-      
+      openChatBox = async (targetConvoObject) => {
+        let targetConvoID = targetConvoObject.ConversationID
+        let senderUserID = targetConvoObject.SenderUserID
+        let receiverUserID = targetConvoObject.ReceiverUserID
+        let senderUsername = targetConvoObject.SenderUsername
+        let receiverUsername = targetConvoObject.ReceiverUsername
+        let senderProfilePicture = targetConvoObject.SenderProfilePicture
+        let receiverProfilePicture = targetConvoObject.ReceiverProfilePicture
+
+        if(this.state.isChatBoxOpen == true)
+        {
+            this.setState({'isChatBoxOpen': false})
+            this.setState({'currentConversationData': null})
+
+        }
+        else
+        {
+            await Axios.get(`http://localhost:3030/getConversationByConversationID/${targetConvoID}`, {withCredentials: true})
+            .then((res) => {
+                this.setState({'currentConversationData': res.data.data.data}, () => {
+                    let targetUserUsername = ''
+                    let targetProfilePicture = {}
+                    if(this.state.currentUserData == senderUserID)
+                    {
+                        targetUserUsername = receiverUsername
+                    }
+                    else
+                    {
+                        targetUserUsername = senderUsername
+                    }
+
+                    if(targetConvoObject.ReceiverUserID === this.state.currentUserData.id )
+                      if(targetConvoObject.SenderProfilePicture )
+                      { 
+                        targetProfilePicture = targetConvoObject.SenderProfilePicture.data
+                      }
+                      else
+                      {
+                        targetProfilePicture = defaultPp
+                      }
+                    else
+                    {
+                      if(targetConvoObject.ReceiverProfilePicture )
+                      {
+                        targetProfilePicture = targetConvoObject.ReceiverProfilePicture.data
+                      }
+                      else
+                      {
+                        targetProfilePicture = defaultPp
+                      }
+                   }
+                    this.setState({'receiverUserUsernameForSpecificChat': targetUserUsername})
+                    this.setState({'receiverUserIdForSpecificChat': receiverUserID})
+                    this.setState({'senderUserIdForSpecificChat': senderUserID})
+                    this.setState({'receiverUserProfilePicture': targetProfilePicture})
+
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+            this.setState({'isChatBoxOpen': true})
+        }
+    }
 
     componentDidMount = async() => {
         await this.getCurrentUserData()
@@ -95,24 +167,61 @@ export default class MessagesComponent extends Component {
             <div className='ConversationContainer'>
                 {this.state.allUserConversations.map((conversation) => {
                     return(
-                        <div className='ConversationBubble'>
-                            {/* image */}
-                            <img src='https://pfpmaker.com/_nuxt/img/profile-3-1.3e702c5.png' className='ChatProfilePicture'/>
-                            {/* username */}
-                            <p className='UserConversationUsername'>{this.state.currentUserData.Username == conversation.ReceiverUsername ? conversation.SenderUsername : conversation.ReceiverUsername}</p>
-                            {/* last message */}
-                            <p className='ConversationLastMessage'> last message</p>
+                        <div className='ConversationBubble' key={conversation.ConversationID} onClick={() => this.openChatBox(conversation)}>
+                            {
+                              conversation.ReceiverUserID === this.state.currentUserData.id 
+                              ?
+                                conversation.SenderProfilePicture 
+                                    ? 
+                                        <img src={`data:image/png;base64,${Buffer.from(conversation.SenderProfilePicture.data).toString('base64')}`} className='ChatProfilePicture'/>
+                                    :
+                                        <img src={defaultPp} className='ChatProfilePicture'/>
+                              :
+                                conversation.ReceiverProfilePicture 
+                                    ?
+                                       <img src={`data:image/png;base64,${Buffer.from(conversation.ReceiverProfilePicture.data).toString('base64')}`} className='ChatProfilePicture'/>
+                                    :
+                                        <img src={defaultPp} className='ChatProfilePicture'/>
+                            }
+                            <div className='ChatInfoWrapper'>
+                              <p className='UserConversationUsername'>{this.state.currentUserData.Username == conversation.ReceiverUsername ? conversation.SenderUsername : conversation.ReceiverUsername}</p>
+                                <p className='ConversationLastMessage'>
+                                  {
+
+                                    conversation.MessageSenderID == this.state.currentUserData.id ?
+                                    conversation.LatestMessage.length > 20 
+                                    ?
+                                      'You: ' + conversation.LatestMessage.slice(0,21) + '...'
+                                          :
+                                      'You: ' + conversation.LatestMessage
+                                    : 
+                                      conversation.LatestMessage.length > 20 
+                                      ?
+                                      this.state.currentUserData.Username == conversation.ReceiverUsername 
+                                        ? 
+                                          conversation.SenderUsername 
+                                        : 
+                                          conversation.ReceiverUsername + ': ' + conversation.LatestMessage.slice(0,21) + '...'
+                                      :
+                                      this.state.currentUserData.Username == conversation.ReceiverUsername ? conversation.SenderUsername : conversation.ReceiverUsername + ': ' + conversation.LatestMessage
+                                  }
+                              </p>    
+                             </div>
                         </div>
                     )
                 })}
             </div>
             <div className='Chat'>
                 <div className='ReceiverWrapper'>
-                    <img src='https://pfpmaker.com/_nuxt/img/profile-3-1.3e702c5.png' className='ChatProfilePicture'/>
-                    <p className='ReceiverUsername'>Username</p>
+                  {this.state.ReceiverProfilePicture ?
+                    <img src={`data:image/png;base64,${Buffer.from(this.state.receiverUserProfilePicture).toString('base64')}`} className='ChatProfilePicture'/>
+                    :
+                    <img src={defaultPp} className='ChatProfilePicture'/>
+                  }
+                    <p className='ReceiverUsername'>{this.state.receiverUserUsernameForSpecificChat} </p>
                 </div>
                 <div className='ChatMessagesWrapper'>
-                    {/* { this.state.currentConversationData.map((conversationMessageObject) => {
+                    { this.state.currentConversationData.map((conversationMessageObject) => {
                             return(
                                 conversationMessageObject.SenderUserID == this.state.currentUserData.id 
                                 ?
@@ -125,7 +234,7 @@ export default class MessagesComponent extends Component {
                                     </div> 
                                 )
                             })
-                        } */}
+                        }
                 </div>
                 <div className='SendMessageWrapper'>
                             <InputGroup className='chatInteractionButtons'>
