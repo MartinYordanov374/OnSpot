@@ -34,12 +34,22 @@ app.use(session({
     cookie: {
         sameSite: false,
         secure: false,
-        expires: new Date(Date.now() + 3600000),
+        maxAge: 3600000,
         httpOnly: false,
         path: '/'
         },
   }));
 
+  app.use((req, res, next) => {
+    if (req.session && req.session.cookie && req.session.cookie.expires && req.session.cookie.expires < new Date()) {
+      req.session.destroy((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
+    next();
+  });
 
 let start = async() =>
 {
@@ -49,14 +59,16 @@ let start = async() =>
         let email = req.body.email;
         let password = req.body.password;
         try{
-            if( req.session.user == null )
+            if( req.session?.userToken == null )
             {
                 let result = await LoginUser(email, password)
                 if(result.status != 404)
                 {
                     const token = jwt.sign(result.targetUserID, process.env.REACT_APP_SECRET)
                     req.session.userToken = token  
-                    req.session.save(() => {})
+                    req.session.save(() => {
+                        
+                    })
                     res.status(result.status).send(result.msg)
                 }
                 else
@@ -199,7 +211,8 @@ let start = async() =>
     app.get('/logout', (req,res) => {
         if(req.session != undefined)
         {
-            delete req.session.userToken
+            req.session.destroy()
+            res.clearCookie('connect.sid', {path: '/'})
             res.status(200).send('Log out successfull.')
         }
         
@@ -304,13 +317,14 @@ let start = async() =>
     })
 
     app.get('/isUserLoggedIn', (req,res) => {
-        if(req.session.userToken)
+        console.log(req.session)
+        if (req.session && req.session.userToken) 
         {
-            res.send(true)
-        }
-        else
+            res.send(true);
+        } 
+        else 
         {
-            res.send(false)
+            res.send(false);
         }
 
     })
@@ -1146,7 +1160,6 @@ let start = async() =>
             let isNotificationLike = requestData.isLike
             let isNotificationShare = requestData.isShare
 
-            console.log(requestData)
             if(isNotificationMessage == true)
             {
                 io.emit('receiveMessageNotification', 

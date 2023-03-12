@@ -13,28 +13,27 @@ export default class LoginPageComponent extends Component {
       super()
       this.state = {email: '',  password: ''}
   }
+  LoginUser = async () =>
+  {
+      let email = this.state.email
+      let password = this.state.password
+      if(email.length <= 0 || password.length <= 0 )
+      {
+          toast.warn('You can not have any empty fields!')
+      }
+      else
+      {
+          let res = await Axios.post(`http://localhost:3030/login`, 
+          {email: email, password: password}, {withCredentials: true})
+          .then((res) => {
+              toast.success(res.data.msg)
+              window.location.href = '/'
+          })
+          .catch((err) => toast.warn(err.response.data) )
+      }
+      
+  }
   render() {
-    const LoginUser = async () =>
-    {
-        let email = this.state.email
-        let password = this.state.password
-        if(email.length <= 0 || password.length <= 0 )
-        {
-            toast.warn('You can not have any empty fields!')
-        }
-        else
-        {
-            let res = await Axios.post(`http://localhost:3030/login`, 
-            {email: email, password: password}, {withCredentials: true})
-            .then((res) => {
-                toast.success(res.data.msg)
-                window.location.href = '/'
-                
-            })
-            .catch((err) => toast.warn(err.response.data) )
-        }
-        
-    }
     return (
       <Container>
         <NavbarComponentNotRegisteredUser/>
@@ -44,7 +43,7 @@ export default class LoginPageComponent extends Component {
             <Form.Control className='EmailField field' placeholder='Email' onChange={(e) => this.setState({'email': e.target.value})}/>      
             <Form.Control className='PasswordField field' placeholder='Password' type='password' onChange={(e) => this.setState({'password': e.target.value})}/>   
             <div className='logInButtonWrapper'>
-                <Button className='LogInButton' onClick={() => LoginUser()}> Log In </Button>
+                <Button className='LogInButton' onClick={() => this.LoginUser()}> Log In </Button>
             </div> 
         </div>
         <div className='NotRegisteredYetWrapper text-center fixed-bottom'>

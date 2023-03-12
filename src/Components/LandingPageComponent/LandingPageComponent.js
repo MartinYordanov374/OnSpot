@@ -11,22 +11,17 @@ export default class LandingPageComponent extends Component {
     this.state = {loginStatus: false}
   }
 
-  checkIfUserIsLoggedIn = async () => {
-    await Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
+  checkIfUserIsLoggedIn = () => {
+    Axios.get('http://localhost:3030/isUserLoggedIn', {withCredentials: true})
     .then((res)=>{
       if(res.data == true)
       {
-        
           this.setState({'loginStatus': true})
       }
       else
       {
         this.setState({'loginStatus': false})
       }})
-  }
-  componentDidUpdate()
-  {
-    this.checkIfUserIsLoggedIn()
   }
 
   componentDidMount()
@@ -35,7 +30,7 @@ export default class LandingPageComponent extends Component {
   }
   componentDidUpdate()
   {
-    this.checkIfUserIsLoggedIn()
+      this.checkIfUserIsLoggedIn()
   }
   render() {
     // TODO: ADD CUSTOM LOADING PAGE UNTIL PAGE IS READY
