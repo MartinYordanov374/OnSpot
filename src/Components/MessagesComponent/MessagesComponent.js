@@ -37,7 +37,9 @@ export default class MessagesComponent extends Component {
         await Axios.get('http://localhost:3030/GetAllUserConversations', {withCredentials: true})
         .then((res) => {
             console.log(res)
-            this.setState({'allUserConversations': res.data.data})
+            this.setState({'allUserConversations': res.data.data}, () => {
+              this.openChatBox(this.state.allUserConversations[0])
+            })
         })
         .catch((err) => {
             console.log('An error occured, outer catch: ', err)
@@ -75,7 +77,7 @@ export default class MessagesComponent extends Component {
           console.log(err);
         }
       };
-      openChatBox = async (targetConvoObject) => {
+    openChatBox = async (targetConvoObject) => {
         let targetConvoID = targetConvoObject.ConversationID
         let senderUserID = targetConvoObject.SenderUserID
         let receiverUserID = targetConvoObject.ReceiverUserID
@@ -244,18 +246,40 @@ export default class MessagesComponent extends Component {
                 </div>
             </div>
             :
-            <div className='Chat'>
-            <div className='ReceiverWrapper'>
-              
-                <p className='ReceiverUsername'>{this.state.receiverUserUsernameForSpecificChat} </p>
+                        <div className='Chat'>
+                <div className='ReceiverWrapper'>
+                  {this.state.ReceiverProfilePicture ?
+                    <img src={`data:image/png;base64,${Buffer.from(this.state.receiverUserProfilePicture).toString('base64')}`} className='ChatProfilePicture'/>
+                    :
+                    <img src={defaultPp} className='ChatProfilePicture'/>
+                  }
+                    <p className='ReceiverUsername'>{this.state.receiverUserUsernameForSpecificChat} </p>
+                </div>
+                <div className='ChatMessagesWrapper'>
+                    { this.state.currentConversationData.map((conversationMessageObject) => {
+                            return(
+                                conversationMessageObject.SenderUserID == this.state.currentUserData.id 
+                                ?
+                                    <div className='senderMessage message'>
+                                        {conversationMessageObject.Message}
+                                    </div> 
+                                :
+                                    <div className='receiverMessage message'>
+                                        {conversationMessageObject.Message}
+                                    </div> 
+                                )
+                            })
+                        }
+                </div>
+                <div className='SendMessageWrapper'>
+                            <InputGroup className='chatInteractionButtons'>
+                                <FormControl className='sendMessageInputField' onChange={(e) => this.setState({'message': e.target.value})}/>
+                                <Button variant="primary" className='sendMessageBtn' onClick={() => this.sendMessage()}>
+                                    <FontAwesomeIcon icon={faPaperPlane}/>
+                                </Button>
+                            </InputGroup>
+                </div>
             </div>
-            <div className='ChatMessagesWrapper'>
-              
-            </div>
-            <div className='SendMessageWrapper'>
-                      
-            </div>
-        </div>
             }
         </div>
       </div>
