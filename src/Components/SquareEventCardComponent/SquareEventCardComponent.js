@@ -45,10 +45,6 @@ export default class SquareEventCardComponent extends Component {
 
                     <div className='EventDetailsContainer row'>
 
-                        <Card.Text className='EventType col-lg-5'>
-                            {eventData.props.EventType == 1 ? <FontAwesomeIcon icon={faLock}/> : <FontAwesomeIcon icon={faLockOpen}/>}
-                            {eventData.props.EventType == 1 ? 'Private' : 'Public'}
-                        </Card.Text>
                         <Card.Text className='EventClass col-lg-4'>
                             {eventData.props.EventClass == 'Business' ? <FontAwesomeIcon icon={faChartLine}/> : ""}
                             {eventData.props.EventClass == 'Tech' ? <FontAwesomeIcon icon={faMicrochip}/> : ""}
@@ -59,13 +55,6 @@ export default class SquareEventCardComponent extends Component {
                         </Card.Text>
                     </div>
                 </Card.Link>
-                    {/* <div className='EventInteractionButtons'>
-                        <Button className='GoingButton Button'> 
-                            <FontAwesomeIcon icon={faPersonWalkingArrowRight}/> Going
-                        </Button>
-
-                    </div> */}
-
             </Card.Body>
         </Card>
     )

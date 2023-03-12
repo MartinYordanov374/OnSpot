@@ -285,9 +285,8 @@ export default class EventPageComponent extends Component {
                              }
                             </div>
                             <div className='eventDetailsMenu d-flex row'>
-                                <p className='eventDetail col-lg-4'>{this.state.targetEventStartDate} - {this.state.targetEventEndDate}</p>
-                                <p className='eventDetail col-lg-4'>{this.state.targetEventType == 0 ? "Public" : "Private"}</p>
-                                <p className='eventDetail col-lg-4'>{this.state.targetEventClass}</p>
+                                <p className='eventDetail col-lg-6'>{this.state.targetEventStartDate} - {this.state.targetEventEndDate}</p>
+                                <p className='eventDetail col-lg-6'>{this.state.targetEventClass}</p>
                                 
                             </div>
                             <hr/>
