@@ -29,6 +29,10 @@ export default class LandingPageComponent extends Component {
   {
     this.checkIfUserIsLoggedIn()
   }
+  componentDidUpdate()
+  {
+    this.checkIfUserIsLoggedIn()
+  }
   render() {
     // TODO: ADD CUSTOM LOADING PAGE UNTIL PAGE IS READY
     return (

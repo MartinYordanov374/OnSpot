@@ -271,12 +271,6 @@ export default class SidebarComponent extends Component {
     this.getUserNotifications()
 
   }
-
-  componentDidUpdate()
-  {
-
-  }
-
   componentWillUnmount() {
     this.socket.off('receiveMessageNotification');
     this.socket.off('receivePostNotification');
