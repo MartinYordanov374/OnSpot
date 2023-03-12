@@ -160,7 +160,10 @@ export default class EventPageComponent extends Component {
             this.setState({'loginStatus': false})
           }})
       }
-
+      componentDidUpdate()
+      {
+        this.checkIfUserIsLoggedIn()
+      }
     handleDeleteModal = async() =>
     {
         if(this.state.isModalShown == true)

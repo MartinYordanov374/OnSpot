@@ -29,6 +29,10 @@ export default class EventsManagerComponent extends Component {
     {
       this.checkIfUserIsLoggedIn()
     }
+    componentDidUpdate()
+    {
+      this.checkIfUserIsLoggedIn()
+    }
   render() {
     return (
       <div>

@@ -99,6 +99,10 @@ export default class HostAnEventPageComponentPaginated extends Component {
             this.setState({'loginStatus': false})
           }})
     }
+    componentDidUpdate()
+    {
+      this.checkIfUserIsLoggedIn()
+    }
 
     nextPage = (element) => {
         let targetElementInputField = element.target.parentElement.children[1]

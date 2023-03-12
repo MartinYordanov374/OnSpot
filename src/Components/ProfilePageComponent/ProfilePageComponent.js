@@ -61,6 +61,11 @@ export default class ProfilePageComponent extends Component {
       }})
     }
 
+    componentDidUpdate()
+    {
+      this.checkIfUserIsLoggedIn()
+    }
+
   getUserData = async() => {
     await Axios.post(`http://localhost:3030/getUserDataById/${this.targetID}`, {}, {withCredentials: true})
       .then((res) => {

@@ -81,7 +81,10 @@ export default class EditEvent extends Component {
             this.setState({'loginStatus': false})
           }})
       }
-
+      componentDidUpdate()
+      {
+        this.checkIfUserIsLoggedIn()
+      }
       handleSelectDate(value)
       {
         let [startDate, endDate] = value

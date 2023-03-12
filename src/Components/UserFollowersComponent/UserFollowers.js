@@ -60,6 +60,11 @@ export default class UserFollowers extends Component {
           this.setState({'loginStatus': false})
         }})
     }
+
+    componentDidUpdate()
+    {
+      this.checkIfUserIsLoggedIn()
+    }
   render() {
     return (
         <div>

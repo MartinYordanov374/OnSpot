@@ -39,6 +39,10 @@ export default class ExploreEventsComponent extends Component {
         this.setState({'loginStatus': false})
       }})
   }
+  componentDidUpdate()
+  {
+    this.checkIfUserIsLoggedIn()
+  }
   searchOnSpot = async() => {
     let allEvents = await this.getAllEvents()
     let allEventsSplittedTitles = []

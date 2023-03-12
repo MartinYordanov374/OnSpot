@@ -186,6 +186,11 @@ export default class Settings extends Component {
       }})
   }
 
+  componentDidUpdate()
+  {
+    this.checkIfUserIsLoggedIn()
+  }
+
   handleCloseModal = () => {
     this.setState({'isModalShown':false})
   }

@@ -83,6 +83,10 @@ export default class HostAnEventPageComponent extends Component {
             this.setState({'loginStatus': false})
           }})
       }
+      componentDidUpdate()
+      {
+        this.checkIfUserIsLoggedIn()
+      }
 
     componentDidMount()
     {

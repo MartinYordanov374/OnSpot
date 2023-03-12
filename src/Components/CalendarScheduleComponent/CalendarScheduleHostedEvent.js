@@ -62,6 +62,10 @@ export default class CalendarScheduleHostedEvents extends Component {
         this.setState({'loginStatus': false})
       }})
   }
+  componentDidUpdate()
+  {
+    this.checkIfUserIsLoggedIn()
+  }
   render() {
     return (
       <div>
