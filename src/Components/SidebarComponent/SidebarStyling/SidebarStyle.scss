@@ -77,9 +77,13 @@ $menu-item-font-weight: 300;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 12px;
+        font-size: 10px;
         font-weight: bold;
         color: white;
+      }
+      .extended{
+        font-size: 7px;
+
       }
       .hiddenNotificatiosCircle{
         display: none;
