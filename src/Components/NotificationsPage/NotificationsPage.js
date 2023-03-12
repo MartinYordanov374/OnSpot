@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquare, faCheckSquare, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faSquare, faCheckSquare, faEye, faCheck } from '@fortawesome/free-solid-svg-icons';
 import './Style/NotificationsPage.css'
 import SidebarComponent from '../SidebarComponent/SidebarComponent';
 import Axios from 'axios'
@@ -116,6 +116,19 @@ export default class NotificationsPage extends Component {
       this.getUserNotifications()
     })
   }
+  MarkAllAsRead()
+  {
+    Axios.post('http://localhost:3030/MarkAllNotificationsAsRead',
+    {},
+    {withCredentials: true})
+    .then((res) => {
+      console.log(res)
+      this.getUserNotifications()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
   render() {
     return (
@@ -126,6 +139,7 @@ export default class NotificationsPage extends Component {
           <Col lg={10}>
             <h2 className="text-center">Notifications</h2>
             <NotificationFilters selectedFilter={this.state.selectedFilter} handleClick = {this.handleClick}/>
+            <span className='markAllButton' onClick = {() => this.MarkAllAsRead()}> <FontAwesomeIcon icon={faCheck}/> Mark all as read.</span>
             <ListGroup>
             {this.state.shownNotifications.map((notification) => {
               return(

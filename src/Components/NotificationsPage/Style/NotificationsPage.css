@@ -8,6 +8,15 @@
   margin-left: 20%;
 }
 
+.markAllButton {
+  margin-left: 87%;
+  color: gray;
+}
+.markAllButton:hover {
+  color: #007bff;
+  cursor: pointer;
+}
+
 .notification-filter {
   background-color: #fff;
   border: 1px solid #ddd;

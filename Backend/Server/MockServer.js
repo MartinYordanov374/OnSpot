@@ -4,7 +4,7 @@ const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
 const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents, UploadEventImages, GetEventImages, UploadPostImages, GetAllSearchedEvents } = require('./Services/EventsService/EventsService.js')
-const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments, CreatePost, DeletePost, UpdatePost, GetTotalPostLikes, GetPostLikers, LikePost, GetPostShares, SharePost, GetUserSharedPosts, DeleteSharedPost, SaveUserPreference, GetUserPreferences, SaveUserLatestPreference, GetPostImages, SaveNotification, GetUserNotifications, MarkNotificationAsRead, GetLatestConversationMessage, GetAllUserConversations } = require('./Services/UserService/UserService.js')
+const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments, CreatePost, DeletePost, UpdatePost, GetTotalPostLikes, GetPostLikers, LikePost, GetPostShares, SharePost, GetUserSharedPosts, DeleteSharedPost, SaveUserPreference, GetUserPreferences, SaveUserLatestPreference, GetPostImages, SaveNotification, GetUserNotifications, MarkNotificationAsRead, GetLatestConversationMessage, GetAllUserConversations, MarkAllNotificationsAsRead } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
@@ -1093,6 +1093,20 @@ let start = async() =>
             console.log(err)
         }
     })
+    app.post('/MarkAllNotificationsAsRead', async(req,res) => {
+        try{
+            const userToken = req.session.userToken;
+            const UserID = validateToken(userToken).userID
+            let result = await MarkAllNotificationsAsRead(UserID)
+            res.status(200).send({msg: 'Notifications successfully marked as read.', data: result})
+
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
+    })
+    
 
     io.on('connection', (socket) => {
     

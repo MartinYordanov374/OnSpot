@@ -7,6 +7,14 @@
     .text-center{
         margin-left: 20%;
     }
+    .markAllButton{
+        margin-left: 87%;
+        color: gray;
+        &:hover{
+            color:#007bff;
+            cursor: pointer;
+        }
+    }
     // Style for each filter button
     .notification-filter {
         background-color: #fff;

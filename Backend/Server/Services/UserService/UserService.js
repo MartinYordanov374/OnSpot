@@ -932,6 +932,21 @@ async function MarkNotificationAsRead(NotificationID)
     }
 }
 
+async function MarkAllNotificationsAsRead(targetUserID)
+{
+    try{
+        let result = await sql.query`UPDATE Notifications 
+        SET IsNotificationRead = 0
+        WHERE ReceiverID = ${targetUserID}`
+
+        return {status: 200, msg:' All notifications successfully marked as read.'}
+    }
+    catch(err)
+    {
+        return {status: 500, msg: 'Something went wrong.', err:err}
+    }
+}
+
 module.exports = {
     registerUser,
     UserExistsByUsername,
@@ -979,5 +994,6 @@ module.exports = {
     GetUserNotifications,
     MarkNotificationAsRead,
     GetLatestConversationMessage,
-    GetAllUserConversations
+    GetAllUserConversations,
+    MarkAllNotificationsAsRead
 }
