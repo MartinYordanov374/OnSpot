@@ -3,7 +3,7 @@ import { Modal, Button, FormControl, InputGroup } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import Axios from 'axios'
-import * as io from 'socket.io-client'
+import io from 'socket.io-client';
 import { Buffer } from 'buffer';
 
 import './Styles/ChatboxModal.css'
@@ -12,30 +12,50 @@ export default class ChatBoxModalComponent extends Component {
   constructor()
   {
     super()
-    this.state = {message: '', conversationMessages: [], receiverID: -1, senderID: -1, socket: io.connect('http://localhost:3030/')}
+    this.state = {
+      message: '', 
+      conversationMessages: [], 
+      receiverID: -1, 
+      senderID: -1, 
+      socket: null,
+      currentUserData: null
+  }
     
   }
   componentDidMount = async() =>
   {
       // Figure out how to store the receiver ID in the state
+      let currentUserData = await this.getCurrentUserData()
+
+      this.setState({'currentUserData': currentUserData}, () => {
+        let currentUserID = this.state.currentUserData.id
+        let receiverID = window.location.href.split('/')[4]
+        this.getConversationMessages(receiverID)
+        setTimeout(() => {
+          this.setState({'receiverID': Number(receiverID)})
+          this.setState({'senderID': Number(currentUserID)})
+        }, 200)
+      });
+
+      this.socket = io('http://localhost:3030');
+      this.socket.on("newMessage", async (data) => {
+            const { senderID, receiverID, message } = data;
+
+            this.setState({ 'conversationMessages': data.data }, () => {
+                console.log(this.state.currentConversationData)
+            });
+
+            this.setState({'message': null})
+      })
+
       let chatboxWrapper = document.querySelector(".chatWrapper");
       chatboxWrapper.scrollTop = chatboxWrapper.scrollHeight;
-      let receiverID = window.location.href.split('/')[4]
-      let currentUserData = await this.getCurrentUserData()
-      let currentUserID = currentUserData.id
-      setTimeout(() => {
-        this.setState({'receiverID': Number(receiverID)})
-        this.setState({'senderID': Number(currentUserID)})
-      }, 200)
-      this.state.socket.on('connect', () => {
-        this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)}, () => {
-          
-        })
-        this.state.socket.on('getConvo', (res) => {
-          this.setState({'conversationMessages': res.data})
-
-        })
-      })
+  }
+  componentWillUnmount() {
+    // Close socket connection
+    if (this.socket) {
+      this.socket.disconnect();
+    }
   }
   
   getConversationMessages = async(receiverID) => {
@@ -62,42 +82,39 @@ export default class ChatBoxModalComponent extends Component {
     return currentUserObject
   }
 
-  sendMessage = async() => 
-  {
-    try{
-      let message = this.state.message
-      let result = await Axios.post(`http://localhost:3030/sendMessage/${this.state.receiverID}`, 
-      {message: message}, 
-      {withCredentials: true})
-      let receiverID = window.location.href.split('/')[4]
+  sendMessage = async () => {
+    try {
 
-      let currentUserData = await this.getCurrentUserData()
-      let currentUserID = currentUserData.id
-      this.state.socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
+      const receiverID = this.state.receiverID
+  
+      console.log(this.state.currentUserData)
+      const currentUserID = this.state.currentUserData.id;
+      const socket = io("http://localhost:3030");
+  
+      socket.emit("sendMessage", {
+        senderID: currentUserID,
+        receiverID: receiverID,
+        message: this.state.message
+      });
 
-      this.state.socket.on('getConvo', (res) => {
-            this.setState({'conversationMessages': res.data})
 
-      })
+    socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
 
-      this.state.socket.emit('notify', {
-          notificationData: {senderID: currentUserID, receiverID: receiverID},
-          isMessage: true,
-          isPost: false,
-          isFollower: false,
-          isComment: false
-      })
-
-      let messageInputField = document.querySelector('.sendMessageInputField')
-      messageInputField.value = ''
+      socket.emit("notify", {
+        notificationData: { senderID: currentUserID, receiverID: receiverID },
+        isMessage: true,
+        isPost: false,
+        isFollower: false,
+        isComment: false
+      });
+  
+      const messageInputField = document.querySelector(".sendMessageInputField");
+      messageInputField.value = "";
+    } 
+    catch (err) {
+      console.log(err);
     }
-    catch(err)
-    {
-      console.log(err)
-    }
-
-  }
-
+  };
   render() {
     
     return (
