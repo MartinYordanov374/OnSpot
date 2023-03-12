@@ -81,8 +81,6 @@ export default class MessagesComponent extends Component {
         let receiverUserID = targetConvoObject.ReceiverUserID
         let senderUsername = targetConvoObject.SenderUsername
         let receiverUsername = targetConvoObject.ReceiverUsername
-        let senderProfilePicture = targetConvoObject.SenderProfilePicture
-        let receiverProfilePicture = targetConvoObject.ReceiverProfilePicture
 
         if(this.state.isChatBoxOpen == true)
         {
@@ -210,6 +208,7 @@ export default class MessagesComponent extends Component {
                     )
                 })}
             </div>
+            {this.state.isChatBoxOpen ?
             <div className='Chat'>
                 <div className='ReceiverWrapper'>
                   {this.state.ReceiverProfilePicture ?
@@ -244,6 +243,20 @@ export default class MessagesComponent extends Component {
                             </InputGroup>
                 </div>
             </div>
+            :
+            <div className='Chat'>
+            <div className='ReceiverWrapper'>
+              
+                <p className='ReceiverUsername'>{this.state.receiverUserUsernameForSpecificChat} </p>
+            </div>
+            <div className='ChatMessagesWrapper'>
+              
+            </div>
+            <div className='SendMessageWrapper'>
+                      
+            </div>
+        </div>
+            }
         </div>
       </div>
     )
