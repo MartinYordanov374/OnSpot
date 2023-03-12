@@ -87,7 +87,6 @@ export default class MessagesComponent extends Component {
         if(this.state.isChatBoxOpen == true)
         {
             this.setState({'isChatBoxOpen': false})
-            this.setState({'currentConversationData': null})
 
         }
         else
