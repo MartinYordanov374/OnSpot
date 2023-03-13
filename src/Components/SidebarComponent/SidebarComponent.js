@@ -335,13 +335,13 @@ export default class SidebarComponent extends Component {
           </a>
         </div>
         <div className='safeMenu menu'>
-        <h2 className='upcomingEvents menuItem'> 
+        <h2 className='Home menuItem'> 
             <a href='/'>
               <FontAwesomeIcon icon={faHome}/> 
               <span className='menuItemName'> Home </span>
             </a>
           </h2>
-          <h2 className='upcomingEvents menuItem'> 
+          <h2 className='Messages menuItem'> 
             <a href='/messages'>
               <div style={{position:'relative'}}>
 
@@ -361,7 +361,7 @@ export default class SidebarComponent extends Component {
 
             </a>
           </h2>
-          <h2 className='exploreEvents menuItem'>
+          <h2 className='Notifications menuItem'>
             <a href='/Notifications'>
               <div style={{position: "relative"}}>
                 <FontAwesomeIcon icon={faBell} />
