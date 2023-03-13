@@ -87,6 +87,9 @@ $menu-item-font-weight: 300;
       .hiddenNotificatiosCircle{
         display: none;
       }
+      .chatNotification{
+        top: -2px !important;
+      }
       
     .dangerousMenu{
         padding:1rem;

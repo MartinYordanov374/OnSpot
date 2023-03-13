@@ -10,11 +10,15 @@ export default class SidebarComponent extends Component {
   constructor()
   {
     super()
-    this.state = {username: '', userFollowers: 0, userID: 0, 
+    this.state = {
+      username: '', 
+    userFollowers: 0, 
+    userID: 0, 
     ProfilePicture: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F8b%2F16%2F7a%2F8b167af653c2399dd93b952a48740620.jpg&f=1&nofb=1&ipt=33608bf0973b950d8a9032fd47b796c156c60bf3f6edf4b174dc2947f2d9b4da&ipo=images',
     socket: null,
     unreadNotifications: 0,
-    Notifications: []}
+    Notifications: [],
+    MessageNotifications: 0}
   }
   async logOut(){
     await Axios.get('http://localhost:3030/logout', {withCredentials: true})
@@ -46,6 +50,7 @@ export default class SidebarComponent extends Component {
           })
           .then((res) => {
             // console.log(res)
+            this.setState({'MessageNotifications': this.state.MessageNotifications + 1})
           })
           .catch((err) => {
             // console.log(err)
@@ -287,6 +292,7 @@ export default class SidebarComponent extends Component {
       let notifications = res.data.data.data
       if(notifications)
       {
+        console.log(notifications)
         let unreadNotifications = notifications.filter((notification) => notification.IsNotificationRead == 1) 
         this.setState({'Notifications': unreadNotifications})
       }
@@ -327,8 +333,6 @@ export default class SidebarComponent extends Component {
                 <h2 className='username menuItemName'>{this.state.username}</h2>
           </div>
           </a>
-
-          {/* <h3 className='followers'> {this.state.userFollowers} Followers </h3> */}
         </div>
         <div className='safeMenu menu'>
         <h2 className='upcomingEvents menuItem'> 
@@ -339,8 +343,22 @@ export default class SidebarComponent extends Component {
           </h2>
           <h2 className='upcomingEvents menuItem'> 
             <a href='/messages'>
-              <FontAwesomeIcon icon={faEnvelope}/> 
-              <span className='menuItemName'> Messages </span>
+              <div style={{position:'relative'}}>
+
+                    <FontAwesomeIcon icon={faEnvelope}/> 
+                    {this.state.MessageNotifications > 99 
+                    ? 
+                        <span className='notificationsCircle chatNotification extended'>
+                          99+
+                        </span>
+                    :
+                        <span className={this.state.MessageNotifications > 0 ? 'notificationsCircle chatNotification' : 'hiddenNotificatiosCircle'}>
+                          {this.state.unreadNotifications + this.state.Notifications.length}
+                        </span>
+                    }
+                <span className='menuItemName'> Messages </span>
+              </div>
+
             </a>
           </h2>
           <h2 className='exploreEvents menuItem'>

@@ -83,6 +83,9 @@
 .sidebarWrapper .hiddenNotificatiosCircle {
   display: none;
 }
+.sidebarWrapper .chatNotification {
+  top: -2px !important;
+}
 .sidebarWrapper .dangerousMenu {
   padding: 1rem;
 }

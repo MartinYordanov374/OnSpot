@@ -37,7 +37,6 @@ export default class PostComponent extends Component {
       })
     })
   }
-
   getCurrentUserData = async() => {
     await Axios.get(`http://localhost:3030/getUserData`, {withCredentials: true})
     .then((res) => {
@@ -47,7 +46,6 @@ export default class PostComponent extends Component {
       console.log(err)
     })
   }
-
   getPostComments = async(postID) => {
     await Axios.get(`http://localhost:3030/getPostComments/${postID}`, {}, {withCredentials: true})
     .then((res) => {
@@ -55,7 +53,6 @@ export default class PostComponent extends Component {
       })
     })
   }
-
   showComments = () => {
     if(this.state.areCommentsSelected == true )
     {
@@ -68,7 +65,6 @@ export default class PostComponent extends Component {
       this.getPostComments(this.props.postData.PostID)
     }
   }
-
   postComment = async() => {
     let targetPostID = this.props.postData.PostID
     let commentContent = this.state.commentContent
@@ -97,9 +93,6 @@ export default class PostComponent extends Component {
       console.log(err)
     })
   }
-
-  
-
   getPostLikes = async(postID) => {
     await Axios.get(`http://localhost:3030/getTotalPostLikes/${postID}`)
     .then((res) => {
@@ -109,7 +102,6 @@ export default class PostComponent extends Component {
       console.log(err)
     })
   }
-
   hasUserLikedThisPost = async(postID) => {
     await Axios.get(`http://localhost:3030/hasUserLikedPost/${postID}`, {withCredentials: true})
     .then((res) => {
@@ -127,7 +119,6 @@ export default class PostComponent extends Component {
       console.log(err)
     })
   }
-
   deletePost = async() => {
     await Axios.delete(`http://localhost:3030/DeletePost/${this.props.postData.PostID}`)
     .then((res) => {
@@ -135,7 +126,6 @@ export default class PostComponent extends Component {
 
     })
   } 
-
   likePost = async() => {
    await Axios.post(`http://localhost:3030/likePost/${this.props.postData.PostID}`, {}, {withCredentials: true})
    .then((res) => {
@@ -160,7 +150,6 @@ export default class PostComponent extends Component {
     console.log(err)
    })
   }
-
   getPostShares = async(postID) => {
     await Axios.get(`http://localhost:3030/getPostShares/${postID}`)
     .then((res) => {
@@ -171,7 +160,6 @@ export default class PostComponent extends Component {
       console.log(err)
     })
   }
-
   sharePost = async() => {
     await Axios.post(`http://localhost:3030/sharePost/${this.props.postData.PostID}`, {},  {withCredentials: true})
     .then((res) => {
@@ -219,7 +207,7 @@ export default class PostComponent extends Component {
 
   render() {
     return (
-      <div>
+      <div className='postWrapper' key={this.props.postData.PostID} id = {this.props.postData.PostID}>
         {this.state.isLoading == false ?
           <div>
             {this.state.isPostShared == true ? 

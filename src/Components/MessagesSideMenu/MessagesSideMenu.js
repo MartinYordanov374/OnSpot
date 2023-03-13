@@ -118,12 +118,6 @@ export default class MessagesSideMenu extends Component {
               ? this.state.senderUserIdForSpecificChat
               : this.state.receiverUserIdForSpecificChat;
       
-        //   const result = await Axios.post(
-        //     `http://localhost:3030/sendMessage/${receiverID}`,
-        //     { message: this.state.message },
-        //     { withCredentials: true }
-        //   );
-      
           const currentUserID = this.state.currentUserData.id;
           const socket = io("http://localhost:3030");
       
@@ -132,33 +126,8 @@ export default class MessagesSideMenu extends Component {
             receiverID: receiverID,
             message: this.state.message
           });
-      
-        //   socket.on("newMessage", async (data) => {
-        //     const { senderID, receiverID, message } = data;
-        //     if (receiverID === currentUserID && senderID === receiverID) {
-        //       const conversationData = await Axios.get(
-        //         `http://localhost:3030/getConversation/${receiverID}`,
-        //         { withCredentials: true }
-        //       ).then(() => {
-        //           this.setState({ 'currentConversationData': conversationData.data }, () => {
-        //             // console.log(this.state.currentConversationData)
-        //           });
-
-        //           this.setState({'message': null})
-        //       })
-        //     }
-        //   });
-
-
 
         socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
-  
-        // socket.on('getConvo', (res) => {
-        //       this.setState({'currentConversationData': res.data}, async () => {
-        //          await this.getCurrentUserConversations()
-
-        //       })
-        // })
       
           socket.emit("notify", {
             notificationData: { senderID: currentUserID, receiverID: receiverID },
@@ -201,7 +170,6 @@ export default class MessagesSideMenu extends Component {
             {this.state.isMessageBoxExpanded == false ?
                 <div className='MessagesSideMenu' >
                     <div className='MessagesTextWrapper' onClick={() => this.handleChatBox()}>
-                        {/* TODO: Make the text be the other user always! */}
                         <span className={this.state.isMessageBoxExpanded ? 'MessagesText-Expanded': 'MessagesText'}>{this.state.receiverUserUsernameForSpecificChat ? this.state.receiverUserUsernameForSpecificChat : 'Messages'}</span>
                     </div>
                     <div className='MessagesButtonsWrapper'>
