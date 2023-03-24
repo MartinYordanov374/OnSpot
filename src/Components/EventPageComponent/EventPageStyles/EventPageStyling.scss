@@ -47,8 +47,8 @@ $shortTextFontSize: 30px;
         font-size: $shortTextFontSize;
     }
     .eventHostData{
-        margin-top: 5rem;
-        margin-left: 5rem;
+        margin-top: 0rem;
+        margin-left: 2rem;
         .eventHostDataContainer{
             margin-top: 2%;
         }
@@ -69,6 +69,12 @@ $shortTextFontSize: 30px;
         .eventDetailComponentLink{
             text-decoration: none;
             color: black;
+        }
+        .ShowAttendeesText{
+            &:hover{
+                cursor: pointer;
+                color: gray;
+            }
         }
     }
     .eventDetailsMenu{

@@ -382,6 +382,29 @@ async function UploadPostImages(UserID, PostID, PostImages)
     }
 }
 
+async function GetAllEventAttendees(EventHosterID, EventID)
+{
+    try
+    {
+        let result = await sql.query`
+        SELECT u.Username, at2.UserID as AttendeeID, pp.ProfilePicture FROM AttendancesTable at2 
+        LEFT JOIN Events e 
+        ON e.EventID = at2.EventID 
+        LEFT JOIN Users u 
+        on u.id = at2.UserID
+        LEFT JOIN ProfilePictures pp 
+        on pp.UserID = at2.UserID
+        WHERE e.EventHosterID = ${EventHosterID} 
+        AND e.EventID = ${EventID}`
+        return {status: 200, msg: 'Event attendees successfully fetched.', data: result.recordset}
+    }
+    catch(err)
+    {
+        return {status: 500, msg: 'Event attendees failed to be fetched.', err: err}
+
+    }
+}
+
 module.exports = {
     HostEvent,
     CheckIfUserAlreadyCreatedEvent,
@@ -399,5 +422,6 @@ module.exports = {
     getLastTwoEvents,
     UploadEventImages,
     GetEventImages,
-    UploadPostImages
+    UploadPostImages,
+    GetAllEventAttendees
 }

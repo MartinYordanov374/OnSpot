@@ -9,6 +9,7 @@ import { Buffer } from 'buffer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisH, faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 import DeleteEventModal from '../DeleteEventModal/DeleteEventModal'
+import FollowersModalComponent from '../FollowersModalComponent/FollowersModalComponent'
 
 export default class EventPageComponent extends Component {
     // TODO: ADD A LOADING SCREEN UNTIL ALL THE STATE DATA IS LOADED
@@ -28,6 +29,7 @@ export default class EventPageComponent extends Component {
             targetEventHostProfilePicture: '',
             targetEventHostId: '', 
             targetEventHostBio: '', 
+            targetEventAttendees: [],
             targetEventID: '', 
             targetEventImages: 
             [
@@ -39,7 +41,8 @@ export default class EventPageComponent extends Component {
             currentDate: this.date,
             isLoading: true,
             isUserHoster: false,
-            isModalShown: false
+            isModalShown: false,
+            isAttendeesModalShown: false
         }
         this.splittedUrl = window.location.href.split('/')
         this.targetID = this.splittedUrl[this.splittedUrl.length - 1]
@@ -56,10 +59,22 @@ export default class EventPageComponent extends Component {
                 'targetEventHostUsername': res.data.Username, 'targetEventHostId': res.data.id, 'targetEventHostBio': res.data.Bio == null ? "This user has not added any bio to their profile." : res.data.Bio,
                 'targetEventID': this.targetID, 'targetEventHostProfilePicture': res.data.ProfilePicture 
             }, () => {
+                this.GetTargetEventAttendees()
                 this.SaveUserPreferences(this.state.targetEventClass)
             })
             this.CheckIfUserIsOwner()
             this.setState({'isLoading': false})
+        })
+    }
+
+    async GetTargetEventAttendees()
+    {
+        await Axios.get(`http://localhost:3030/GetAllEventAttendees/${this.state.targetEventHostId}/${this.state.targetEventID}`, {withCredentials: true})
+        .then((res) => {
+            this.setState({'targetEventAttendees': res.data.data.data})
+        })
+        .catch((err) => {
+            console.log(err)
         })
     }
 
@@ -159,11 +174,11 @@ export default class EventPageComponent extends Component {
           {
             this.setState({'loginStatus': false})
           }})
-      }
-      componentDidUpdate()
+    }
+    componentDidUpdate()
       {
         this.checkIfUserIsLoggedIn()
-      }
+    }
     handleDeleteModal = async() =>
     {
         if(this.state.isModalShown == true)
@@ -175,7 +190,6 @@ export default class EventPageComponent extends Component {
           this.setState({'isModalShown': true})
         }
     }
-
     uploadEventImages = async() => {
         let eventImagesUploadField = document.querySelector('.eventImagesUploadField')
         let eventImages = eventImagesUploadField.files
@@ -199,7 +213,17 @@ export default class EventPageComponent extends Component {
     handleSelectEventImages = () => {
         let eventImagesUploadField = document.querySelector('.eventImagesUploadField')
         eventImagesUploadField.click()
-      }
+    }
+    handleShowAttendeesListModal = () => {
+        if(this.state.isAttendeesModalShown == true)
+        {
+          this.setState({'isAttendeesModalShown': false})
+        }
+        else
+        {
+          this.setState({'isAttendeesModalShown': true})
+        }
+    }
 
     componentDidMount()
     {
@@ -338,7 +362,14 @@ export default class EventPageComponent extends Component {
                                        </a> 
                                     </div>
                                     <p className='eventHostBio'>{this.state.targetEventHostBio}</p>
-
+                                    <div className='AttendeesWrapper'>
+                                        {
+                                        this.state.targetEventAttendees.length > 0 
+                                        ?
+                                        <FollowersModalComponent props = {this.state.targetEventAttendees}/> 
+                                        :
+                                        ""}
+                                    </div>
                                 </div>
                                 <div className='mapWrapper col'>
                                     <p>Location:</p>

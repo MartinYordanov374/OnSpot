@@ -46,8 +46,8 @@
   font-size: 30px;
 }
 .card .eventHostData {
-  margin-top: 5rem;
-  margin-left: 5rem;
+  margin-top: 0rem;
+  margin-left: 2rem;
 }
 .card .eventHostData .eventHostDataContainer {
   margin-top: 2%;
@@ -69,6 +69,10 @@
 .card .eventHostData .eventDetailComponentLink {
   text-decoration: none;
   color: black;
+}
+.card .eventHostData .ShowAttendeesText:hover {
+  cursor: pointer;
+  color: gray;
 }
 .card .eventDetailsMenu {
   padding-top: 2%;

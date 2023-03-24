@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const mssql = require('./MSSQL Configuration/MSSQL-Configuration.js')
 const { validateUsername, validatePassword, validateEmail } = require('./Validations.js')
-const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents, UploadEventImages, GetEventImages, UploadPostImages, GetAllSearchedEvents } = require('./Services/EventsService/EventsService.js')
+const  { CheckIfUserAlreadyCreatedEvent, HostEvent, DeleteEvent, AttendEvent, GetAllEvents, EditEvent, getEventById, DoesUserAttendEvent, GetAllUpcomingEvents, GetAllEventsHostedByUser, GetAllAttendedUserEvents, GetAllUpcomingUserEvents, getLastTwoEvents, UploadEventImages, GetEventImages, UploadPostImages, GetAllSearchedEvents, GetAllEventAttendees } = require('./Services/EventsService/EventsService.js')
 const  { registerUser, GetUserEvents, UserExistsByEmail, LoginUser, FollowUser, validateToken, GetUserFollowers, DeleteProfile, GetUserAttendedEvents, AddUserBio, UserExistsById, ChangeProfilePicture, GetUserProfilePicture, CheckIfConversationExists, CreateConversation, SendMessage, GetConversationMessages, ChangeBackgroundPicture, GetUserBackgroundPicture, updateUsername, updateEmail, updateBio, BlockUser, UnblockUser, GetBlockedUsers, GetUserPosts, GetPostComments, CreatePost, DeletePost, UpdatePost, GetTotalPostLikes, GetPostLikers, LikePost, GetPostShares, SharePost, GetUserSharedPosts, DeleteSharedPost, SaveUserPreference, GetUserPreferences, SaveUserLatestPreference, GetPostImages, SaveNotification, GetUserNotifications, MarkNotificationAsRead, GetLatestConversationMessage, GetAllUserConversations, MarkAllNotificationsAsRead } = require('./Services/UserService/UserService.js')
 const session = require('express-session')
 const jwt = require('jsonwebtoken')
@@ -1113,6 +1113,21 @@ let start = async() =>
             const UserID = validateToken(userToken).userID
             let result = await MarkAllNotificationsAsRead(UserID)
             res.status(200).send({msg: 'Notifications successfully marked as read.', data: result})
+
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
+    })
+
+    app.get('/GetAllEventAttendees/:EventHosterID/:EventID', async(req,res) => {
+        try 
+        {
+            const EventHosterID = req.params.EventHosterID
+            const EventID = req.params.EventID
+            let result = await GetAllEventAttendees(EventHosterID, EventID)
+            res.status(200).send({msg: 'Event attendees successfully fetched.', data: result})
 
         }
         catch(err)

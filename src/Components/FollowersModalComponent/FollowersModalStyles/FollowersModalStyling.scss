@@ -1,0 +1,26 @@
+.ModalWrapper
+{
+    height: 20vh;
+    overflow-y: scroll;
+    .AttendantWrapper
+    {
+        display: flex;
+        border-style: solid;
+        border-width: 1px;
+        border-color: gray;
+        &:hover
+        {
+            background-color: rgb(251, 251, 251);
+        }
+        .attendantPFP
+        {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+        }
+        .attendantUsername
+        {
+            margin-left: 5%;
+        }
+    }
+}
