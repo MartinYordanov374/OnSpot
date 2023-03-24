@@ -1160,11 +1160,25 @@ let start = async() =>
             let receiverID = requestData.receiverID
             let messageText = requestData.message
             let targetConvo = await CheckIfConversationExists(senderID, receiverID)
-            let targetConvoID = targetConvo.data[0].ConvoID
-            let message = await SendMessage(targetConvoID, messageText, senderID, receiverID)
-            let convoMessages = await GetConversationMessages(targetConvoID)
-            // Emit the new message to the sender and receiver clients
-            io.emit('newMessage', convoMessages)
+            console.log(targetConvo)
+            if(targetConvo.data)
+            {
+                let targetConvoID = targetConvo.data[0].ConvoID
+                let message = await SendMessage(targetConvoID, messageText, senderID, receiverID)
+                let convoMessages = await GetConversationMessages(targetConvoID)
+                // Emit the new message to the sender and receiver clients
+                io.emit('newMessage', convoMessages)
+            }
+            else
+            {
+                let newlyCreatedConvo = await CreateConversation(senderID, receiverID)
+                console.log(newlyCreatedConvo)
+                let targetConvoID = newlyCreatedConvo.data[0].ConvoID
+                let message = await SendMessage(targetConvoID, messageText, senderID, receiverID)
+                let convoMessages = await GetConversationMessages(targetConvoID)
+                // Emit the new message to the sender and receiver clients
+                io.emit('newMessage', convoMessages)
+            }
         })
 
         socket.on('notify', (requestData) => {
