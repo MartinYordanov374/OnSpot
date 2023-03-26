@@ -16,14 +16,14 @@ export default class MessagesComponent extends Component {
         this.state = {
             allUserConversations: [],
             currentConversationData: [],
-            currentUserData: null,
+            currentUserData: {},
             isChatBoxOpen: false,
-            receiverUserUsernameForSpecificChat: null,
-            receiverUserIdForSpecificChat: null,
-            senderUserIdForSpecificChat: null,
-            senderUserProfilePicture: null,
-            receiverUserProfilePicture: null,
-            senderUserUsernameForSpecificChat: null
+            receiverUserUsernameForSpecificChat: '',
+            receiverUserIdForSpecificChat: '',
+            senderUserIdForSpecificChat: 0,
+            senderUserProfilePicture: '',
+            receiverUserProfilePicture: defaultPp,
+            senderUserUsernameForSpecificChat: ''
         }
     }
 
@@ -100,61 +100,57 @@ export default class MessagesComponent extends Component {
         let receiverUserID = targetConvoObject.ReceiverUserID
         let senderUsername = targetConvoObject.SenderUsername
         let receiverUsername = targetConvoObject.ReceiverUsername
+        await Axios.get(`http://localhost:3030/getConversationByConversationID/${targetConvoID}`, {withCredentials: true})
+        .then( (res) => {
+            this.setState({'currentConversationData': res.data.data.data}, async () => {
+                let targetUserUsername = ''
+                let targetProfilePicture = {}
+                if(this.state.currentUserData.id == senderUserID)
+                {
+                    targetUserUsername = receiverUsername
+                }
+                else
+                {
+                    targetUserUsername = senderUsername
+                }
 
-        if(this.state.isChatBoxOpen == true)
-        {
-            this.setState({'isChatBoxOpen': false})
-        }
-        else
-        {
-            await Axios.get(`http://localhost:3030/getConversationByConversationID/${targetConvoID}`, {withCredentials: true})
-            .then((res) => {
-                this.setState({'currentConversationData': res.data.data.data}, () => {
-                    let targetUserUsername = ''
-                    let targetProfilePicture = {}
-                    if(this.state.currentUserData == senderUserID)
-                    {
-                        targetUserUsername = receiverUsername
-                    }
-                    else
-                    {
-                        targetUserUsername = senderUsername
-                    }
-
-                    if(targetConvoObject.ReceiverUserID === this.state.currentUserData.id )
-                    {
-                      if(targetConvoObject.SenderProfilePicture )
-                      { 
-                        targetProfilePicture = targetConvoObject.SenderProfilePicture.data
-                      }
-                      else
-                      {
-                        targetProfilePicture = defaultPp
-                      }
-                    }
-                    else
-                    {
-                      if(targetConvoObject.ReceiverProfilePicture )
-                      {
-                        targetProfilePicture = targetConvoObject.ReceiverProfilePicture.data
-                      }
-                      else
-                      {
-                        targetProfilePicture = defaultPp
-                      }
-                   }
-                    this.setState({'receiverUserUsernameForSpecificChat': targetUserUsername})
-                    this.setState({'receiverUserIdForSpecificChat': receiverUserID})
-                    this.setState({'senderUserIdForSpecificChat': senderUserID})
-                    this.setState({'receiverUserProfilePicture': targetProfilePicture})
-
+                if(targetConvoObject.ReceiverUserID === this.state.currentUserData.id )
+                {
+                  if(targetConvoObject.SenderProfilePicture )
+                  { 
+                    targetProfilePicture = targetConvoObject.SenderProfilePicture.data
+                  }
+                  else
+                  {
+                    targetProfilePicture = defaultPp
+                  }
+                }
+                else
+                {
+                  if(targetConvoObject.ReceiverProfilePicture )
+                  {
+                    targetProfilePicture = targetConvoObject.ReceiverProfilePicture.data
+                  }
+                  else
+                  {
+                    targetProfilePicture = defaultPp
+                  }
+               }
+              this.setState({'receiverUserUsernameForSpecificChat': targetUserUsername}, () => {
+                this.setState({'receiverUserIdForSpecificChat': receiverUserID}, () => {
+                  this.setState({'senderUserIdForSpecificChat': senderUserID}, () => {
+                    this.setState({'receiverUserProfilePicture': targetProfilePicture}, () => {
+                      this.setState({'isChatBoxOpen': true})
+                    })
+                  })
                 })
+              })
+
             })
-            .catch((err) => {
-                console.log(err)
-            })
-            this.setState({'isChatBoxOpen': true})
-        }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
 
     componentDidMount = async() => {
@@ -163,7 +159,8 @@ export default class MessagesComponent extends Component {
         this.socket = io('http://localhost:3030');
         this.socket.on("newMessage", async (data) => {
             const { senderID, receiverID, message } = data;
-                  this.updateCurrentUserConversations()
+                  await this.updateCurrentUserConversations()
+
                   this.setState({ 'currentConversationData': data.data }, () => {
                     // console.log(this.state.currentConversationData)
                   });
@@ -179,6 +176,7 @@ export default class MessagesComponent extends Component {
   render() {
     return (
       <div className='MessagesWrapper'>
+        {/* TODO: Users should be able to visit the profile page of any user they're chatting with by pressing their profile name */}
         <SidebarComponent/>
         <div className='MessagesContainer'>
             <div className='ConversationContainer'>
@@ -231,11 +229,12 @@ export default class MessagesComponent extends Component {
             {this.state.isChatBoxOpen ?
             <div className='Chat'>
                 <div className='ReceiverWrapper'>
-                  {this.state.receiverUserProfilePicture 
+                  { this.state.receiverUserProfilePicture != defaultPp 
                   ?
                     <img src={`data:image/png;base64,${Buffer.from(this.state.receiverUserProfilePicture).toString('base64')}`} className='ChatProfilePicture'/>
                     :
                     <img src={defaultPp} className='ChatProfilePicture'/>
+
                   }
                     <p className='ReceiverUsername'>{this.state.receiverUserUsernameForSpecificChat} </p>
                 </div>
