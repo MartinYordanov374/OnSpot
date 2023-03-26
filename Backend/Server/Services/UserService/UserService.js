@@ -436,7 +436,8 @@ async function GetAllUserConversations(userID)
         u1.Username as SenderUsername,
         u2.Username as ReceiverUsername,
         pp2.ProfilePicture as ReceiverProfilePicture,
-        pp1.ProfilePicture as SenderProfilePicture
+        pp1.ProfilePicture as SenderProfilePicture,
+        lm.LatestMessageDate
     FROM Conversations c
     LEFT JOIN (
         SELECT ConvoID, MAX(DateSent) AS LatestMessageDate
@@ -457,7 +458,8 @@ async function GetAllUserConversations(userID)
         u2.id = pp2.UserID 
     LEFT JOIN ProfilePictures pp1 ON
         u1.id = pp1.UserID 
-    WHERE c.UserOneID = ${userID} or c.UserTwoID = ${userID}`
+    WHERE c.UserOneID = ${userID} or c.UserTwoID = ${userID}
+    ORDER BY lm.LatestMessageDate DESC`
 
         return {status: 200, msg: 'User conversations successfully fetched', data: result.recordset}
     }

@@ -223,13 +223,13 @@ export default class MessagesSideMenu extends Component {
                                                 {
 
                                                     UserConversation.MessageSenderID == this.state.currentUserData.id ?
-                                                        UserConversation.LatestMessage.length > 20 
+                                                        UserConversation.LatestMessage != null  && UserConversation.LatestMessage.length > 20 
                                                         ?
                                                             'You: ' + UserConversation.LatestMessage.slice(0,21) + '...'
                                                         :
                                                         'You: ' + UserConversation.LatestMessage
                                                     : 
-                                                         UserConversation.LatestMessage.length > 20 
+                                                        UserConversation.LatestMessage != null && UserConversation.LatestMessage.length > 20 
                                                         ?
                                                         this.state.currentUserData.Username == UserConversation.ReceiverUsername ? UserConversation.SenderUsername : UserConversation.ReceiverUsername + ': ' + UserConversation.LatestMessage.slice(0,21) + '...'
                                                         :
