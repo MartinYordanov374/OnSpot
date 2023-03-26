@@ -7,7 +7,7 @@ import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandi
 import MapComponent from '../MapComponent/MapComponent'
 import { Buffer } from 'buffer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisH, faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisH, faTrash, faPen, faUpload } from "@fortawesome/free-solid-svg-icons";
 import DeleteEventModal from '../DeleteEventModal/DeleteEventModal'
 import FollowersModalComponent from '../FollowersModalComponent/FollowersModalComponent'
 
@@ -279,14 +279,32 @@ export default class EventPageComponent extends Component {
                                         let EventImageData = eventImageObject
                                         if(EventImageData.EventImage)
                                         {
-                                            return(
-                                                <Carousel.Item>
-                                                    <img src= {
-                                                        `data: image/png;base64,
-                                                        ${Buffer.from(EventImageData.EventImage.data).toString('base64')}`} 
-                                                        width='100%' height='426px'
-                                                    />
-                                                </Carousel.Item>)
+                                            if(this.state.targetEventImages.length < 4)
+                                            {
+                                                return(
+                                                    <Carousel.Item>
+                                                        <img src= {
+                                                            `data: image/png;base64,
+                                                            ${Buffer.from(EventImageData.EventImage.data).toString('base64')}`} 
+                                                            width='100%' height='426px'
+                                                        />
+                                                        <FontAwesomeIcon icon={faUpload} className='overlay'/>
+                                                    </Carousel.Item>
+                                                    )
+                                            }
+                                            else
+                                            {
+                                                return(
+                                                    <Carousel.Item>
+                                                        <img src= {
+                                                            `data: image/png;base64,
+                                                            ${Buffer.from(EventImageData.EventImage.data).toString('base64')}`} 
+                                                            width='100%' height='426px'
+                                                        />
+                                                    </Carousel.Item>
+                                                    )
+
+                                            }
                                         }
       
                                     })}
@@ -299,6 +317,8 @@ export default class EventPageComponent extends Component {
                                                         width='100%' 
                                                         height='426px'
                                                     />
+                                                    <FontAwesomeIcon icon={faUpload} className='overlay'/>
+
                                                 </Carousel.Item>
                                                 <Carousel.Item>
                                                     <img 
@@ -306,6 +326,7 @@ export default class EventPageComponent extends Component {
                                                         width='100%' 
                                                         height='426px'
                                                     />
+                                                    <FontAwesomeIcon icon={faUpload} className='overlay'/>
 
                                                 </Carousel.Item>
                                 </Carousel>

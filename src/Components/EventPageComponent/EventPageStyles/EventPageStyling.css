@@ -106,4 +106,26 @@
 }
 .card .card-header {
   background-color: transparent;
+}
+
+.carousel img:hover {
+  opacity: 0.5; /* set the opacity to 50% */
+}
+
+.carousel-item:hover .overlay {
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* set the background color to 50% transparent black */
+  display: none;
+  color: rgba(255, 255, 255, 0.5);
+}
+.overlay:hover {
+  cursor: pointer;
 }/*# sourceMappingURL=EventPageStyling.css.map */

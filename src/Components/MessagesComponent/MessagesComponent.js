@@ -264,7 +264,7 @@ export default class MessagesComponent extends Component {
                 </div>
             </div>
             :
-                        <div className='Chat'>
+              <div className='Chat'>
                 <div className='ReceiverWrapper'>
                   {this.state.ReceiverProfilePicture ?
                     <img src={`data:image/png;base64,${Buffer.from(this.state.receiverUserProfilePicture).toString('base64')}`} className='ChatProfilePicture'/>
@@ -287,7 +287,7 @@ export default class MessagesComponent extends Component {
                                     </div> 
                                 )
                             })
-                        }
+                    }
                 </div>
                 <div className='SendMessageWrapper'>
                             <InputGroup className='chatInteractionButtons'>
