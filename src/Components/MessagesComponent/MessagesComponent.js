@@ -36,7 +36,6 @@ export default class MessagesComponent extends Component {
     getCurrentUserConversations = async() => {
         await Axios.get('http://localhost:3030/GetAllUserConversations', {withCredentials: true})
         .then((res) => {
-            console.log(res)
             this.setState({'allUserConversations': res.data.data}, () => {
               this.openChatBox(this.state.allUserConversations[0])
             })
@@ -46,34 +45,52 @@ export default class MessagesComponent extends Component {
         })
     }
 
+    updateCurrentUserConversations = async() => {
+      await Axios.get('http://localhost:3030/GetAllUserConversations', {withCredentials: true})
+      .then((res) => {
+          this.setState({'allUserConversations': res.data.data})
+      })
+      .catch((err) => {
+          console.log('An error occured, outer catch: ', err)
+      })
+  }
+
     sendMessage = async () => {
         try {
-          const receiverID =
-            this.state.currentUserData.id === this.state.receiverUserIdForSpecificChat
-              ? this.state.senderUserIdForSpecificChat
-              : this.state.receiverUserIdForSpecificChat;
-      
-          const currentUserID = this.state.currentUserData.id;
-          const socket = io("http://localhost:3030");
-      
-          socket.emit("sendMessage", {
-            senderID: currentUserID,
-            receiverID: receiverID,
-            message: this.state.message
-          });
-        socket.emit('requestConvo', {'receiverID': Number(receiverID), 'senderID':Number(currentUserID)})
+            const receiverID =
+              this.state.currentUserData.id === this.state.receiverUserIdForSpecificChat
+                ? this.state.senderUserIdForSpecificChat
+                : this.state.receiverUserIdForSpecificChat;
+        
+            const currentUserID = this.state.currentUserData.id;
+            const socket = io("http://localhost:3030");
+        
+            socket.emit("sendMessage", {
+              senderID: currentUserID,
+              receiverID: receiverID,
+              message: this.state.message
+            });
 
-          socket.emit("notify", {
-            notificationData: { senderID: currentUserID, receiverID: receiverID },
-            isMessage: true,
-            isPost: false,
-            isFollower: false,
-            isComment: false
-          });
-      
-          const messageInputField = document.querySelector(".sendMessageInputField");
-          messageInputField.value = "";
-        } catch (err) {
+            socket.emit('requestConvo', {
+              'receiverID': Number(receiverID), 
+              'senderID':Number(currentUserID)
+            })
+
+            socket.emit("notify", {
+              notificationData: { senderID: currentUserID, receiverID: receiverID },
+              isMessage: true,
+              isPost: false,
+              isFollower: false,
+              isComment: false
+            });
+        
+            const messageInputField = document.querySelector(".sendMessageInputField");
+            messageInputField.value = "";
+
+            
+          } 
+        catch (err) 
+        {
           console.log(err);
         }
       };
@@ -87,7 +104,6 @@ export default class MessagesComponent extends Component {
         if(this.state.isChatBoxOpen == true)
         {
             this.setState({'isChatBoxOpen': false})
-
         }
         else
         {
@@ -106,6 +122,7 @@ export default class MessagesComponent extends Component {
                     }
 
                     if(targetConvoObject.ReceiverUserID === this.state.currentUserData.id )
+                    {
                       if(targetConvoObject.SenderProfilePicture )
                       { 
                         targetProfilePicture = targetConvoObject.SenderProfilePicture.data
@@ -114,6 +131,7 @@ export default class MessagesComponent extends Component {
                       {
                         targetProfilePicture = defaultPp
                       }
+                    }
                     else
                     {
                       if(targetConvoObject.ReceiverProfilePicture )
@@ -145,9 +163,9 @@ export default class MessagesComponent extends Component {
         this.socket = io('http://localhost:3030');
         this.socket.on("newMessage", async (data) => {
             const { senderID, receiverID, message } = data;
-
+                  this.updateCurrentUserConversations()
                   this.setState({ 'currentConversationData': data.data }, () => {
-                    console.log(this.state.currentConversationData)
+                    // console.log(this.state.currentConversationData)
                   });
 
                   this.setState({'message': null})
@@ -188,13 +206,13 @@ export default class MessagesComponent extends Component {
                                   {
 
                                     conversation.MessageSenderID == this.state.currentUserData.id ?
-                                    conversation.LatestMessage.length > 20 
+                                    conversation.LatestMessage != null && conversation.LatestMessage.length > 20 
                                     ?
                                       'You: ' + conversation.LatestMessage.slice(0,21) + '...'
                                           :
                                       'You: ' + conversation.LatestMessage
                                     : 
-                                      conversation.LatestMessage.length > 20 
+                                    conversation.LatestMessage != null && conversation.LatestMessage.length > 20 
                                       ?
                                       this.state.currentUserData.Username == conversation.ReceiverUsername 
                                         ? 
@@ -213,7 +231,8 @@ export default class MessagesComponent extends Component {
             {this.state.isChatBoxOpen ?
             <div className='Chat'>
                 <div className='ReceiverWrapper'>
-                  {this.state.ReceiverProfilePicture ?
+                  {this.state.receiverUserProfilePicture 
+                  ?
                     <img src={`data:image/png;base64,${Buffer.from(this.state.receiverUserProfilePicture).toString('base64')}`} className='ChatProfilePicture'/>
                     :
                     <img src={defaultPp} className='ChatProfilePicture'/>
