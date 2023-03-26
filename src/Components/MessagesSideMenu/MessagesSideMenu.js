@@ -154,6 +154,7 @@ export default class MessagesSideMenu extends Component {
 
                   this.setState({ 'currentConversationData': data.data }, () => {
                     console.log(this.state.currentConversationData)
+                    this.getCurrentUserConversations()
                   });
 
                   this.setState({'message': null})
