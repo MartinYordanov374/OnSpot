@@ -317,7 +317,6 @@ let start = async() =>
     })
 
     app.get('/isUserLoggedIn', (req,res) => {
-        console.log(req.session)
         if (req.session && req.session.userToken) 
         {
             res.send(true);
@@ -482,7 +481,6 @@ let start = async() =>
                 data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             }
             let result = await ChangeBackgroundPicture(userData.userID, pfp)
-            console.log(result.err)
             res.status(result.status).send(result.msg)
         }
         catch(err){
@@ -1160,7 +1158,6 @@ let start = async() =>
             let receiverID = requestData.receiverID
             let messageText = requestData.message
             let targetConvo = await CheckIfConversationExists(senderID, receiverID)
-            console.log(targetConvo)
             if(targetConvo.data)
             {
                 let targetConvoID = targetConvo.data[0].ConvoID
@@ -1200,7 +1197,6 @@ let start = async() =>
             }
             else if(isNotificationPost == true)
             {
-                console.log(`${requestData.notificationData.senderID} posted to their followers.`)
                 io.emit('receivePostNotification', 
                 {   
                     postID: requestData.notificationData.postID,
@@ -1211,7 +1207,7 @@ let start = async() =>
             }
             else if(isNotificationFollower == true)
             {
-                console.log(`${requestData.notificationData.senderID} started following ${requestData.notificationData.receiverID}.`)
+
                 io.emit('newFollowerNotification', 
                 {   
                     receiverID: requestData.notificationData.receiverID,
@@ -1221,7 +1217,7 @@ let start = async() =>
             }
             else if(isNotificationComment == true)
             {
-                console.log(`${requestData.notificationData.senderID} commented on post ${requestData.notificationData.postID}.`)
+
                 io.emit('newCommentNotification', 
                 {   
                     postID: requestData.notificationData.postID,
@@ -1232,7 +1228,7 @@ let start = async() =>
             }
             else if(isNotificationShare == true)
             {
-                console.log(`${requestData.notificationData.senderID} shared post ${requestData.notificationData.postID}.`)
+
                 io.emit('newShareNotification', 
                 {   
                     postID: requestData.notificationData.postID,
@@ -1243,7 +1239,6 @@ let start = async() =>
             }
             else if(isNotificationLike == true)
             {
-                console.log(`${requestData.notificationData.senderID} liked post ${requestData.notificationData.postID}.`)
                 io.emit('newLikeNotification', 
                 {   
                     postID: requestData.notificationData.postID,
@@ -1255,7 +1250,7 @@ let start = async() =>
         })
 
         socket.on('disconnect', function() {
-            console.log('User disconnected.');
+            // console.log('User disconnected.');
         });
     });
 

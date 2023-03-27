@@ -7,6 +7,7 @@ import './Styles/PostStyles.css'
 import { Buffer } from 'buffer';
 import PostCommentComponent from '../PostCommentComponent/PostCommenComponentt';
 import io from 'socket.io-client'
+import PostImagesModalComponent from '../ImagesModalComponent/PostImagesModalComponent';
 
 export default class PostComponent extends Component {
 
@@ -26,6 +27,8 @@ export default class PostComponent extends Component {
       postSharesAmount: 0,
       isPostShared: false,
       socket: null,
+      isImagesModalShown: false,
+      selectedModalImages: []
       }
   }
   getPosterData = async(userID) => {
@@ -192,6 +195,22 @@ export default class PostComponent extends Component {
       console.log(err)
     })
   }
+  showImagesModal = (postImages) => {
+    if(this.state.isImagesModalShown == true)
+    {
+      this.setState({'isImagesModalShown': false})
+    }
+    else
+    {
+      if(postImages)
+      {
+        this.setState({'selectedModalImages': postImages}, () => {
+          this.setState({'isImagesModalShown': true})
+        })
+      }
+      
+    }
+  }
   componentDidMount = () => {
     this.socket = io.connect('http://localhost:3030/')
     this.getCurrentUserData()
@@ -208,6 +227,12 @@ export default class PostComponent extends Component {
   render() {
     return (
       <div className='postWrapper' key={this.props.postData.PostID} id = {this.props.postData.PostID}>
+        {this.state.isImagesModalShown == true && this.state.selectedModalImages != []
+        ?
+          <PostImagesModalComponent props={{'handleImages': this.showImagesModal, 'selectImages': this.state.selectedModalImages}}/>
+        :
+          ""
+        }
         {this.state.isLoading == false ?
           <div>
             {this.state.isPostShared == true ? 
@@ -265,22 +290,35 @@ export default class PostComponent extends Component {
               <Card.Text>
                 {this.props.postData.PostContent}
               </Card.Text>
-              {this.state.postImages.length > 0 ?
+                
                 <div className='PostImageWrapper'>
-                  {this.state.postImages.map((image) => {
-                    return(<img 
-                       src={
-                         `data: image/png;base64,
-                         ${Buffer.from(image.PostImage.data).toString('base64')}`
-                       }
-                       className = 'PostImage'
-                       />)
+                  {this.state.postImages.length > 3 
+                  ?
+                    
+                      <img 
+                        src={
+                          `data: image/png;base64,
+                          ${Buffer.from(this.state.postImages[0].PostImage.data).toString('base64')}`
+                        }
+                        className = 'PostImage'
+                        onClick={() => { this.showImagesModal(this.state.postImages) }}
+                      />
+                    :
+                    this.state.postImages.map((image) => {
+                      return(
+                          <img 
+                            src={
+                              `data: image/png;base64,
+                              ${Buffer.from(image.PostImage.data).toString('base64')}`
+                            }
+                          className = 'PostImage'
+                        />
+                      )
                     })
                   }
+                  
                </div>
-            :
-            ""
-              }
+ 
             </Card.Body>
             <Card.Footer className='postInteractionButtons'>
               <div className='row'>

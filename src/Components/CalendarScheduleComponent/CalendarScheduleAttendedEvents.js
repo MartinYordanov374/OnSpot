@@ -5,10 +5,10 @@ import NavbarComponentRegisteredUser from '../NavbarComponent/NavbarComponentReg
 import SidebarComponent from '../SidebarComponent/SidebarComponent';
 import { Container } from 'react-bootstrap'
 import Axios from 'axios'
-
 import './Styles/CalendarScheduleStyle.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import NonRegisteredLandingPage from '../LandingPageComponent/NonRegisteredLandingPage';
+import { Link } from 'react-router-dom';
 
 export default class CalendarScheduleAttendedEvents extends Component {
   constructor()
@@ -22,6 +22,7 @@ export default class CalendarScheduleAttendedEvents extends Component {
         isLoading: true,
         loginStatus: false
     }
+    this.EventWrapper = this.EventWrapper.bind(this);
   }
 
   componentDidMount = () => {
@@ -36,8 +37,10 @@ export default class CalendarScheduleAttendedEvents extends Component {
                   .then((res) => {
                     let eventsList = []
                     res.data.map((event) => {
-                      console.log(event)
-                      eventsList.push({'title': event.EventName, 'start': new Date(event.EventStartDate), 'end': new Date (event.EventEndDate)})
+                      eventsList.push({'title': event.EventName, 
+                      'start': new Date(event.EventStartDate), 
+                      'end': new Date (event.EventEndDate),
+                      'id': event.EventID})
                     })
                     this.setState({'attendedEvents': eventsList})
                   })
@@ -71,6 +74,21 @@ export default class CalendarScheduleAttendedEvents extends Component {
   {
     this.checkIfUserIsLoggedIn()
   }
+  EventWrapper = ({ event, children }) => {
+    const handleClick = (e) => {
+      e.preventDefault();
+      window.location.href = `http://localhost:3000/Event/${event.id[0]}`;
+    };
+  
+    return (
+      <div onClick={handleClick}>
+        {children}
+      </div>
+    );
+  };
+  
+  
+  
   
   render() {
     return (
@@ -93,7 +111,21 @@ export default class CalendarScheduleAttendedEvents extends Component {
               style={{ height: 800, backgroundColor: 'white' }}
               eventPropGetter={() => ({
                 style: { backgroundColor: "#72B2E4", fontWeight: 'bold' }
-              })}/>
+              })}
+              components={{
+                eventWrapper: (props) => {
+                  const { event } = props;
+                  return (
+                    <div>
+                      <a href={`http://localhost:3000/Event/${event.id[0]}`} onDoubleClick={() => { window.location.href = `http://localhost:3000/Event/${event.id[0]}` }}>
+                        <div {...props} />
+                      </a>
+                    </div>
+                  );
+                },
+              }}
+              
+              />
 
         </Container>}
 
