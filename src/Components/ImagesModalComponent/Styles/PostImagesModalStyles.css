@@ -24,4 +24,11 @@
 .modal-backdrop .carousel {
   width: 32.5vw;
   height: 50vh;
+}
+.modal-backdrop .carousel .carousel-wrapper {
+  border-style: solid;
+  border-color: red;
+}
+.modal-backdrop .carousel .carousel-wrapper .carousel-control-next, .modal-backdrop .carousel .carousel-wrapper .carousel-control-prev {
+  display: none !important;
 }/*# sourceMappingURL=PostImagesModalStyles.css.map */

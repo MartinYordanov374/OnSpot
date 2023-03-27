@@ -24,5 +24,12 @@
     {
         width: 32.5vw;
         height: 50vh;
+        .carousel-wrapper{
+            border-style: solid;
+            border-color: red;
+            .carousel-control-next, .carousel-control-prev{
+                display: none !important;
+            }
+        }
     }
 }

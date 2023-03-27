@@ -25,6 +25,7 @@ export default class PostImagesModalComponent extends Component
   componentDidMount = () => {
     let selectedImages = this.props.props.selectImages
     this.setState({'images': selectedImages}, () => {
+      console.log(this.state.images)
         this.setState({'isLoading': false})
     }) 
   }
@@ -41,9 +42,12 @@ export default class PostImagesModalComponent extends Component
             <div  className=" modal modal-backdrop modal-visible">
                 <Modal.Dialog onClick={this.handleModalClick} >
                     <Modal.Body className='modalImageContainer'>
-                        <Carousel className='carousel' data-mdb-interval="false">
-                            {this.state.images && this.state.images.map((image) => {
+                            {this.state.images && this.state.images.length > 1 
+                            ?
+                              <Carousel className='carousel' data-mdb-interval="false" >
+                              {this.state.images.map((image) => {
                                 return(
+                                  
                                      <CarouselItem className='carousel-item'>
                                          <img 
                                             src={
@@ -55,9 +59,19 @@ export default class PostImagesModalComponent extends Component
                                      </CarouselItem>
                                      
                                 )
-                                
-                            })}
-                        </Carousel>
+                              })}
+                              </Carousel>
+                            :  
+                              <div className=''>
+                                  <img 
+                                     src={
+                                     `data: image/png;base64,
+                                     ${Buffer.from(this.state.images.PostImage.data).toString('base64')}`
+                                     }
+                                     className = 'PostImageScroller'
+                                 />
+                              </div>
+                            }
                     </Modal.Body>
                 </Modal.Dialog>
             </div>

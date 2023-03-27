@@ -316,7 +316,8 @@ export default class PostComponent extends Component {
                               `data: image/png;base64,
                               ${Buffer.from(image.PostImage.data).toString('base64')}`
                             }
-                          className = 'PostImage'
+                            className = 'PostImage'
+                            onClick={() => { this.showImagesModal(image) }}
                         />
                       )
                     })
