@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faCommentAlt, faShare, faThumbsUp, faEllipsis, faTrash, faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import { faComment, faCommentAlt, faShare, faThumbsUp, faEllipsis, faTrash, faShareNodes, faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import { Container, Button,Card, FormControl, InputGroup, Dropdown } from 'react-bootstrap'
 import Axios from 'axios'
 import './Styles/PostStyles.css'
@@ -293,8 +293,8 @@ export default class PostComponent extends Component {
                 
                 <div className='PostImageWrapper'>
                   {this.state.postImages.length > 3 
-                  ?
-                    
+                  ? 
+                    <div className="imageContainer">
                       <img 
                         src={
                           `data: image/png;base64,
@@ -303,6 +303,11 @@ export default class PostComponent extends Component {
                         className = 'PostImage'
                         onClick={() => { this.showImagesModal(this.state.postImages) }}
                       />
+                      <span className="overlayIcon">
+                        <FontAwesomeIcon icon={faSquarePlus} className = ''/>
+                        {/* <p className='overlayText text-center'>click to show {this.state.postImages.length-1}  more pictures.</p> */}
+                      </span>
+                    </div>
                     :
                     this.state.postImages.map((image) => {
                       return(
