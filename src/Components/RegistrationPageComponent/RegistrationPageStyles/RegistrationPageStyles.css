@@ -4,6 +4,9 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.SignUpComponentWrapper .buttonWrapper {
+  margin-right: 6rem;
+}
 .SignUpComponentWrapper .buttonWrapper .signUpButton {
   font-weight: bold;
   width: 10rem;
@@ -24,6 +27,9 @@
   border-radius: 0.375rem !important;
 }
 
+.AlreadyRegisteredWrapper {
+  margin-right: 17rem;
+}
 .AlreadyRegisteredWrapper .alreadyRegistered {
   font-weight: bold;
 }

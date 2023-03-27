@@ -1,6 +1,7 @@
 .commentWrapper {
   margin: 1rem;
-  margin-left: 13rem;
+  margin-top: 2rem !important;
+  margin-left: 10.5rem !important;
   width: 50%;
   box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px !important;
 }

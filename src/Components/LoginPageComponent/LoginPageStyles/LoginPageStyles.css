@@ -21,6 +21,9 @@
   width: 100%;
 }
 
+.NotRegisteredYetWrapper {
+  margin-right: 17rem;
+}
 .NotRegisteredYetWrapper .NotRegisteredYet {
   font-weight: bold;
 }
