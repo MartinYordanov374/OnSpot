@@ -149,11 +149,12 @@ export default class Settings extends Component {
     // TODO: DELETE EVERYTHING RELATED TO THAT USER OR REPLACE IT WITH [DELETED USER]
     let result = await Axios.delete(`http://localhost:3030/deleteProfile/${this.state.currentUserID}`, {withCredentials: true })
     .then((res) => {
-      window.location.href = '/'
     })
     .catch((err) => {
       console.log(err)
     })
+    window.location.href = '/'
+
   }
 
   componentDidMount = () => {
