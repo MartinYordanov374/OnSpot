@@ -4,8 +4,27 @@ const { validateToken } = require('../UserService/UserService')
 async function HostEvent(EventHosterID, EventName, EventDescription, EventLocation, EventClass, EventType, EventStartDate, EventEndDate)
 {
     let result = await sql.query`
-    INSERT INTO dbo.Events(EventHosterID, EventName, EventDescription, EventLocation, EventClass, EventType, EventStartDate, EventEndDate) 
-    VALUES(${EventHosterID}, ${EventName}, ${EventDescription}, ${EventLocation}, ${EventClass}, ${EventType}, ${EventStartDate}, ${EventEndDate})`
+    INSERT INTO 
+    dbo.Events(
+        EventHosterID, 
+        EventName, 
+        EventDescription, 
+        EventLocation, 
+        EventClass, 
+        EventType, 
+        EventStartDate, 
+        EventEndDate
+    ) 
+    VALUES( 
+        ${EventHosterID}, 
+        ${EventName}, 
+        ${EventDescription}, 
+        ${EventLocation}, 
+        ${EventClass}, 
+        ${EventType}, 
+        ${EventStartDate}, 
+        ${EventEndDate}
+    )`
 
     return result
 }
@@ -13,7 +32,8 @@ async function HostEvent(EventHosterID, EventName, EventDescription, EventLocati
 async function CheckIfUserAlreadyCreatedEvent(EventHosterID, EventName,EventStartDate, EventEndDate)
 {
     // TODO: ADD EVENT END DATE AS WELL
-    let result = await sql.query`
+    let result = await sql.query
+    `
     SELECT * FROM dbo.Events 
     WHERE EventHosterID = ${EventHosterID} 
     AND EventName = ${EventName} 
@@ -107,7 +127,7 @@ async function GetAllEvents(userID)
         // let result = await sql.query`SELECT * FROM dbo.Events`
         //TODO: FIX THE BUG WHICH CAUSES
         let result = await sql.query`
-        SELECT DISTINCT
+    SELECT DISTINCT
 		e.EventName, 
 		e.EventDescription, 
 		e.EventHosterID, 
@@ -170,7 +190,8 @@ async function GetEventImages(EventID)
 
 async function getLastTwoEvents(lastEventId, userID)
 {
-    let result = await sql.query(`SELECT DISTINCT
+    let result = await sql.query(`
+SELECT DISTINCT
 	e.EventName, 
 	e.EventDescription, 
 	e.EventHosterID, 
@@ -199,8 +220,8 @@ WHERE NOT EXISTS (
 	OR (bu.BlockedUserID = ${userID} AND bu.BlockerUserID = e.EventHosterID)
 )
 ORDER BY EventOccurences DESC 
-OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY
-    `)
+OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY`
+)
     return result.recordset
 }
 async function EditEvent(TargetEventID, CurrentUserToken, UdpatedEventName, 

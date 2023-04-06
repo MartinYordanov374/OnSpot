@@ -7,7 +7,9 @@ async function registerUser(username, password, email)
 {
     
     let hashedPass = await bcrypt.hash(password, saltRounds)
-    await sql.query`INSERT INTO dbo.USERS(Username, Email, HashedPassword) VALUES(${username}, ${email}, ${hashedPass})`
+    await sql.query`
+    INSERT INTO dbo.USERS(Username, Email, HashedPassword) VALUES(${username}, ${email}, ${hashedPass})
+    `
     
 }
 
@@ -167,8 +169,24 @@ async function DeleteProfile(userToken, ProfileID)
         if(tokenData.userID == ProfileID)
         {
             try{
-                await sql.query`DELETE FROM Users WHERE id = ${ProfileID}`
-                await sql.query`DELETE FROM Events WHERE EventHosterID = ${ProfileID}`
+                await sql.query`DELETE FROM dbo.Users WHERE id = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.Events WHERE EventHosterID = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.AttendancesTable WHERE UserID = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.BackgroundPictures WHERE UserID = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.BlockedUsers WHERE BlockedUserID = ${ProfileID} OR BlockerUserID = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.Conversations WHERE UserOneID = ${ProfileID} OR UserTwoID = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.FollowersTable WHERE FollowerUserID = ${ProfileID} OR FollowedUserID = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.LatestVisitedEvent WHERE UserID = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.Messages WHERE SenderID = ${ProfileID} OR ReceiverID = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.Notifications WHERE SenderID = ${ProfileID} OR ReceiverID = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.PostImages WHERE PostID IN (SELECT PostID FROM Posts WHERE UserID = ${ProfileID})`;
+                await sql.query`DELETE FROM dbo.PostLikes WHERE LikerID = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.PostShares WHERE SharerID = ${ProfileID}`;
+                await sql.query`DELETE from dbo.PostComments WHERE PostID in (select PostID from dbo.Posts p where UserID = ${ProfileID})`;
+                await sql.query`DELETE FROM dbo.Posts WHERE UserID = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.ProfilePictures WHERE UserID = ${ProfileID}`;
+                await sql.query`DELETE FROM dbo.Analytics WHERE UserID = ${ProfileID}`;
+                
                 return {status: 200, msg: 'Profile successfully deleted.'}
             }
             catch(err)
