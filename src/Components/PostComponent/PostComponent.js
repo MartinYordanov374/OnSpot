@@ -163,6 +163,8 @@ export default class PostComponent extends Component {
       console.log(err)
     })
   }
+
+
   sharePost = async() => {
     await Axios.post(`http://localhost:3030/sharePost/${this.props.postData.PostID}`, {},  {withCredentials: true})
     .then((res) => {
@@ -211,7 +213,7 @@ export default class PostComponent extends Component {
       
     }
   }
-  componentDidMount = () => {
+  componentDidMount = async () => {
     this.socket = io.connect('http://localhost:3030/')
     this.getCurrentUserData()
     this.getPosterData(this.props.postData.UserID)
@@ -233,14 +235,20 @@ export default class PostComponent extends Component {
         :
           ""
         }
-        {this.state.isLoading == false ?
+        {this.state.isLoading == false ? 
+
           <div>
-            {this.state.isPostShared == true ? 
+            {this.state.isPostShared == true 
+            ? 
               <div className='sharedPostIndicator'>
                 <FontAwesomeIcon icon={faShareNodes}/>
-                <p className='shareText'>{this.state.currentUserData[0].Username} shared a post </p>
+                {/* TODO: Fix the paragraph below so that it shows the username of the sharer */}
+                
+                <p className='shareText'>{this.props.postData.SharerUsername} shared a post </p>
               </div>
-            : ""}
+            : 
+            ""
+            }
           <Card className='eventPost'>
             {/* TODO: ADD LINK TO THE PROFILE PAGE TO THE HEADER ELEMENT  */}
             <Card.Header className='eventHeader'>

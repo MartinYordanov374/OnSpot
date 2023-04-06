@@ -147,6 +147,7 @@ export default class ProfilePageActivitySection extends Component {
             let PostImages = this.props.props.userPostsImages.filter((postImage) => postImage.PostID == post.PostID)
             if(post.SharerID != undefined)
               {
+
                 return (
                   <PostComponent postImages = {PostImages} postData = {post} dataHandler = {this.props.props.getUserDataFunction} editPost={this.editPost} editModal = {this.props.props.isModalShown} isShared = {true}/>
                 )

@@ -453,7 +453,7 @@ let start = async() =>
         }
         
     })
-
+    
     app.get('/getEventById/:id', async(req,res) => {
         // TODO: CHECKS !
         let result = await getEventById(req.params.id)

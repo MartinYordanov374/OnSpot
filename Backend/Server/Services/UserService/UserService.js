@@ -772,11 +772,13 @@ async function GetUserSharedPosts(sharerID)
 {
     try{
         let result = await sql.query`
-        SELECT p.UserID, p.PostContent, p.PostDate, p.PostID, ps.SharerID 
+        SELECT p.UserID, p.PostContent, p.PostDate, p.PostID, ps.SharerID, u.Username as SharerUsername 
         FROM Posts p 
         inner JOIN PostShares ps
         ON p.PostID = ps.PostID  
-        WHERE ps.SharerID = ${sharerID}`
+        INNER join Users u 
+        on u.id = ps.SharerID 
+         WHERE ps.SharerID = ${sharerID}`
         return {status: 200, msg:'Post successfully shared.', result: result}
     }
     catch(err)
