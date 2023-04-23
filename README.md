@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# OnSpot
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is my high school finals project. It is a social media, networking platform with a main focus on events organisation. Users can sign up, make posts, leave replies, like comments and posts, message each other and follow each other, as well as share images, attend events, host events and manage their events' scheudle.
 
-## Available Scripts
+## Pages accessible to logged users
+<ul>
+    <li> <strong> Dynamic </strong> Home page (Includes peoples' posts and the user's contacts in the message box to the bottom-right side of the screen). </li>
+    <li> <strong> Dynamic </strong> Profile pages for all users</li>
+    <li> <strong> Dynamic </strong> Messenger page</li>
+    <li> <strong> Dynamic </strong> Explore events page</li>
+    <li> <strong> Dynamic </strong> Attended events page</li>
+    <li> <strong> Dynamic </strong> Hosted events page</li>
+    <li> <strong> Dynamic </strong> Upcoming events page</li>
+    <li> <strong> Dynamic </strong> Notifications page</li>
+    <li> Settings page</li>
 
-In the project directory, you can run:
+</ul>
 
-### `npm start`
+## Pages accessible to logged out users
+<ul>
+    <li>Log in page</li>
+    <li>Register page</li>
+</ul>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Backend Structure
+### The project's backend is a locally hosted Express server, that is utilizing MSSQL as a database.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Database structure
+<ul>
+    <li>Analytics Table</li>
+    <li>Attendances Table</li>
+    <li>Background Pictures Table</li>
+    <li>Blocked Users Table</li>
+    <li>Conversations Table</li>
+    <li>Event Keywords Table</li>
+    <li>Events Table</li>
+    <li>Events Images Table</li>
+    <li>Followers Table</li>
+    <li>Keywords Table</li>
+    <li>Latest Visited Event Table</li>
+    <li>Messages Table</li>
+    <li>Notifications Table</li>
+    <li>Post Comments Table</li>
+    <li>Post Images Table</li>
+    <li>Post Likes Table</li>
+    <li>Post Shares Table</li>
+    <li>Posts Table</li>
+    <li>Profile Pictures Table</li>
+    <li>Users Table</li>
+</ul>
 
-### `npm test`
+#### Services
+<ul>
+    <li> Events Service </li>
+    <li> User Service </li>
+</ul>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Messenger System
+### The messenger system works, thanks to socket.io and the follow-unfollow system. 
 
-### `npm run build`
+<ul>
+    <li> Upon sending a message, if the conversations between user A and user B doesn't exist in the database it is then created and then the message is sent. 
+        <br> Thanks to Socket.io and a bit of DOM manipulation the messages sent are displayed in real-time, to the respective user. 
+    </li>
+</ul>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Posts system
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<ul>
+    <li>All registered users can make, delete and edit their posts (the delete and edit functions are available to the owners only).</li>
+    <li>All registered users can Like, Comment and Share any posts, including their own posts.</li>
+    <li>All registered users can Like and Reply to each comment, on any post.</li>
+    <li>The posts show the amount of likes and shares they have.</li>
+</ul>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Profile Page
+### The profile page includes the following sub-categories
+<ul>
+    <li> Followers </li>
+    <li> Following </li>
+    <li> Latest Activity </li>
+    <li> Write a post for the owners of the respective profile </li>
+</ul>
 
-### `npm run eject`
+#### Users can also change their profile pictures from their profile page. In addition to that, users can follow each other through their profile pages.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Technology Stack 
+<ul>
+    <li>Bootstrap</li>
+    <li>ReactJS</li>
+    <li>JavaScript</li>
+    <li>HTML, CSS, SCSS</li>
+    <li>ExpressJS, NodeJS</li>
+    <li>TypeScript</li>
+    <li>MSSQL</li>
+    <li>Socket.io</li>
+    <li>Bcrypt</li>
+</ul>
