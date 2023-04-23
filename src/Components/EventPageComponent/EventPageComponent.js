@@ -56,7 +56,7 @@ export default class EventPageComponent extends Component {
                 'targetEventName': res.data.EventName, 'targetEventClass': res.data.EventClass, 'targetEventType': res.data.EventType,
                 'targetEventDesc': res.data.EventDescription, 'targetEventLocaction': res.data.EventLocation,
                 'targetEventStartDate': res.data.EventStartDate.split('T')[0].split('-').join('/'), 'targetEventEndDate': res.data.EventEndDate.split('T')[0].split('-').join('/'),
-                'targetEventHostUsername': res.data.Username, 'targetEventHostId': res.data.id, 'targetEventHostBio': res.data.Bio == null ? "This user has not added any bio to their profile." : res.data.Bio,
+                'targetEventHostUsername': res.data.Username, 'targetEventHostId': res.data.id, 'targetEventHostBio': res.data.Bio == null ? "" : res.data.Bio,
                 'targetEventID': this.targetID, 'targetEventHostProfilePicture': res.data.ProfilePicture 
             }, () => {
                 this.GetTargetEventAttendees()

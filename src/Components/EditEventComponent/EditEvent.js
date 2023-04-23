@@ -218,14 +218,7 @@ export default class EditEvent extends Component {
                                 </DropdownButton>
                         </InputGroup>
 
-                        <InputGroup className='eventDataForm'>
-                            <FormControl className='eventTypeField' value={this.state.targetEventType == 0 ? "Public" : "Private"} aria-describedby='dropdownAddon' disabled='true' />
-                                <DropdownButton className='inputFieldDropdown' id='dropdownAddon' onSelect={this.handleSelectType} defaultValue="Public">
-                                    <Dropdown.Item eventKey = {'Public'}>Public</Dropdown.Item>
-                                    <Dropdown.Item eventKey = {'Private'} >Private</Dropdown.Item>
-                                </DropdownButton>
-
-                        </InputGroup>
+                       
                     </div>
 
                     <Button className='updateEventButton' onClick={() => this.updateEvent()}>Update event</Button>

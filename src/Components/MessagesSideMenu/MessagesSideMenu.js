@@ -174,7 +174,7 @@ export default class MessagesSideMenu extends Component {
                         <span className={this.state.isMessageBoxExpanded ? 'MessagesText-Expanded': 'MessagesText'}>{this.state.receiverUserUsernameForSpecificChat ? this.state.receiverUserUsernameForSpecificChat : 'Messages'}</span>
                     </div>
                     <div className='MessagesButtonsWrapper'>
-                        <FontAwesomeIcon className='MessagesIcon' icon={faEnvelope}/>
+                        {/* <FontAwesomeIcon className='MessagesIcon' icon={faEnvelope}/> */}
                         <FontAwesomeIcon className='MessagesIcon' icon = {faAngleUp} onClick={() => this.handleChatBox()}/>
                     </div>
                 </div>
@@ -190,9 +190,7 @@ export default class MessagesSideMenu extends Component {
                             <span className={this.state.isMessageBoxExpanded ? 'MessagesText-Expanded': 'MessagesText'}>{this.state.receiverUserUsernameForSpecificChat ? this.state.receiverUserUsernameForSpecificChat : 'Messages'}</span>
                         </div>
                         <div className='MessagesButtonsWrapper'>
-
-
-                            <FontAwesomeIcon className='MessagesIcon' icon={faEnvelope}/>
+                            {/* <FontAwesomeIcon className='MessagesIcon' icon={faEnvelope}/> */}
                             <FontAwesomeIcon className='MessagesIcon' icon = {faAngleDown} onClick={() => this.handleChatBox()}/>
                         </div>
                 </div>
