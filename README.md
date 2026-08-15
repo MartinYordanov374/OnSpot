@@ -55,6 +55,20 @@ Moreover, the **2023 National Tournament of Information Technology** hosted by V
 
 ## Project Architecture
 ## Project Structure
+
+The project is split into two main directories: `backend/` and `Components/` (inside `src/`).
+
+### Backend (`/backend`)
+- **Server code** - Express application setup
+- **Services** - User and event operations (CRUD)
+- **MSSQL Configuration** - Database connection setup
+- **Validations** - Password complexity, username uniqueness, and email validation logic
+- **Utils** - SQL queries used for database and tables initialization
+
+### Frontend (`/src`)
+- **Components** - React class components with lifecycle methods
+- **Styles** - SCSS files for each component
+
 ```
 .
 ├── Backend
