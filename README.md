@@ -15,7 +15,28 @@ This project is my high school finals project. It is a social media, networking 
 8. [Getting Started](#Getting-Started)
 9. [Future Works](#Future-Works)
 
-   
+
+## Tech Stack
+
+**Frontend:**  
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/css-%23663399.svg?style=for-the-badge&logo=css&logoColor=white)
+![Sass](https://img.shields.io/badge/sass-%23CC6699.svg?style=for-the-badge&logo=sass&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+
+**Backend:**  
+![NodeJS](https://img.shields.io/badge/node.js-%236DA55F.svg?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![Socket.io](https://img.shields.io/badge/socket.io-%23010101.svg?style=for-the-badge&logo=socket.io&logoColor=white)
+
+![Bcrypt](https://img.shields.io/badge/Bcrypt-003B57?logo=bcrypt&logoColor=white)
+
+**Database:**  
+![MSSQL](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoftsqlserver&logoColor=white)
+
+
 ## Pages accessible to logged users
 <ul>
     <li> <strong> Dynamic </strong> Home page (Includes peoples' posts and the user's contacts in the message box to the bottom-right side of the screen). </li>
@@ -98,15 +119,3 @@ This project is my high school finals project. It is a social media, networking 
 
 #### Users can also change their profile pictures from their profile page. In addition to that, users can follow each other through their profile pages.
 
-## Technology Stack 
-<ul>
-    <li>Bootstrap</li>
-    <li>ReactJS</li>
-    <li>JavaScript</li>
-    <li>HTML, CSS, SCSS</li>
-    <li>ExpressJS, NodeJS</li>
-    <li>TypeScript</li>
-    <li>MSSQL</li>
-    <li>Socket.io</li>
-    <li>Bcrypt</li>
-</ul>
