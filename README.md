@@ -54,6 +54,12 @@ Moreover, the **2023 National Tournament of Information Technology** hosted by V
 ![MSSQL](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoftsqlserver&logoColor=white)
 
 ## Project Architecture
+### Frontend
+### Backend
+### Database
+<img width="1451" height="609" alt="Screenshot From 2026-08-15 07-57-23" src="https://github.com/user-attachments/assets/73d2039d-37df-4c15-a300-0c0441614223" />
+
+
 ## Project Structure
 
 The project is split into two main directories: `backend/` and `Components/` (inside `src/`).
