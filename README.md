@@ -16,7 +16,9 @@ This project is my high school finals project. It is a social media, networking 
 
 
 ## The motivation behind the project
-By the time I got to work on this project, the idea of a social networking platform had been in my mind for quite a while. Throughout high school I was captivated by the engineering that goes beyond a modern social media platform. In particular, I was interested in how modern feed algorithms worked. How is it that two users on the same platform could see vastly different content? This project was the perfect opportunity for me to investigate that phenomenon. Looking back on the finished project, I am proud of how well the activity-based recommendations turned out without the use of any machine learning algorithms. I would even say that this is the biggest achievement of the project.
+By the time I got to work on this project, the idea of a social networking platform had been in my mind for quite a while. 
+
+Throughout high school I was captivated by the engineering that goes beyond a modern social media platform. In particular, **I was interested in how modern feed algorithms work.** How is it that two users on the same platform could see vastly different content? This project was the perfect opportunity for me to investigate that phenomenon. Looking back on the finished project, **I am proud of how well the activity-based recommendations turned out without the use of any machine learning algorithms.** I would even say that this is the biggest achievement of the project.
 
 ## What I strived to achieve and learn through this project
 Through this project, I applied what I learned during my first **internship at Tieto** (at the time, MentorMate), my high school degree in *Applied Programming*, and online courses in Software Engineering.
@@ -25,7 +27,8 @@ Namely: full-stack web development, relational database normalization, complex S
 
 As for the goals of the project, I wanted to have a social media web platform project on my resume with relevant features described in the [project features section.](#Project-Features) I also wanted to get an excellent grade for my high school final project(which I did).
 
-Moreover, the 2023 National Tournament of Information Technology hosted by Veliko Tarnovo University was approaching, and I wanted to have a strong project to compete with. I ended up getting first place in the "Internet Applications" category!
+Moreover, the **2023 National Tournament of Information Technology** hosted by Veliko Tarnovo University was approaching, and I wanted to have a strong project to compete with. I ended up getting **first place in the "Internet Applications" category!**
+
 <a href='https://www.linkedin.com/in/martinyordanov374/overlay/Honor/117646437/treasury/?profileId=ACoAADc27CYBioWXgSqSD5HGy22Q-MIRy-eYzm4'>Click to see the certificate!</a>
 
 ## Project Features
