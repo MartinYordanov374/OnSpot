@@ -2,6 +2,20 @@
 
 This project is my high school finals project. It is a social media, networking platform with a main focus on events organisation. Users can sign up, make posts, leave replies, like comments and posts, message each other and follow each other, as well as share images, attend events, host events and manage their events' scheudle.
 
+
+
+## Table of Contents
+
+1. [The motivation behind the project](#The-motivation-behind-the-project)
+2. [What I strived to achieve and learn through this project](#What-I-strived-to-achieve-and-learn-through-this-project)
+3. [Project Features](#Project-Features)
+4. [Tech Stack](#Tech-Stack)
+5. [Project Architecture](#Project-Architecture)
+6. [Project Structure](#Project-Structure)
+8. [Getting Started](#Getting-Started)
+9. [Future Works](#Future-Works)
+
+   
 ## Pages accessible to logged users
 <ul>
     <li> <strong> Dynamic </strong> Home page (Includes peoples' posts and the user's contacts in the message box to the bottom-right side of the screen). </li>
