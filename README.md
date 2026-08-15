@@ -53,7 +53,236 @@ Moreover, the **2023 National Tournament of Information Technology** hosted by V
 **Database:**  
 ![MSSQL](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoftsqlserver&logoColor=white)
 
-
+## Project Architecture
+## Project Structure
+```
+.
+├── Backend
+│   ├── ReccommendationAlgorithm_KNN
+│   │   └── KNN_Classifier.js
+│   └── Server
+│       ├── MSSQL Configuration
+│       │   └── MSSQL-Configuration.js
+│       ├── MockServer.js
+│       ├── Services
+│       │   ├── EventsService
+│       │   │   └── EventsService.js
+│       │   └── UserService
+│       │       └── UserService.js
+│       ├── Validations.js
+│       ├── uploads
+│       │   ├── 041d89185c355e21b77e32c13a1a3273
+│       │   ├── 1932b5e42ae4354002d108d372262b85
+│       │   ├── 3a5a92ad6e38a0ad3b4c5c0aee5046ad
+│       │   ├── 44ac273cae3520b9e257b0eaf1a728c3
+│       │   ├── 493420ee9c4f8fec84b24b693b2b47ef
+│       │   ├── 7823f4a87835e8ed7a9ba64631911cbd
+│       │   ├── 81f330f260d82bd59efded02505120aa
+│       │   ├── 8704a406f9975e23a4b4ddcfaed83b6f
+│       │   ├── 8cb3dfce344f4dae8d80a5af7f6c8071
+│       │   ├── 9e3dad67861a2aa3672e7dbb6da200e4
+│       │   ├── a8f0e7fcaea644deb1d71e999eb40098
+│       │   ├── a9669cd13188e94586894c27f9d16cdd
+│       │   ├── adf51bdb182f4337714b04cb8cd7ebc9
+│       │   ├── c1538ac8ca07560dd5bcb3fabf5deee4
+│       │   ├── e7765eaaed5c71caee6aa336e6a2d34c
+│       │   └── fd9c5e80b1830fe8950cc06658ebcc26
+│       └── utils
+│           └── utils.js
+├── README.md
+├── package-lock.json
+├── package.json
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+└── src
+    ├── App.css
+    ├── App.js
+    ├── App.test.js
+    ├── Components
+    │   ├── CalendarScheduleComponent
+    │   │   ├── CalendarScheduleAttendedEvents.js
+    │   │   ├── CalendarScheduleHostedEvent.js
+    │   │   ├── CalendarScheduleUpcomingEvents.js
+    │   │   └── Styles
+    │   │       ├── CalendarScheduleStyle.css
+    │   │       ├── CalendarScheduleStyle.css.map
+    │   │       └── CalendarScheduleStyle.scss
+    │   ├── ChatboxModalComponent
+    │   │   ├── ChatBoxModalComponent.js
+    │   │   └── Styles
+    │   │       ├── ChatboxModal.css
+    │   │       ├── ChatboxModal.css.map
+    │   │       └── ChatboxModal.scss
+    │   ├── DeleteEventModal
+    │   │   ├── DeleteEventModal.js
+    │   │   └── Styles
+    │   │       ├── DeleteEventModal.css
+    │   │       ├── DeleteEventModal.css.map
+    │   │       └── DeleteEventModal.scss
+    │   ├── EditEventComponent
+    │   │   ├── EditEvent.js
+    │   │   └── Styles
+    │   │       ├── EditEventStyle.css
+    │   │       ├── EditEventStyle.css.map
+    │   │       └── EditEventStyle.scss
+    │   ├── ErrorPageComponent
+    │   │   └── ErorPage.js
+    │   ├── EventCardComponent
+    │   │   ├── EventCardComponent.js
+    │   │   └── EventCardStyles
+    │   │       ├── EventCard.css
+    │   │       ├── EventCard.css.map
+    │   │       └── EventCard.scss
+    │   ├── EventPageComponent
+    │   │   ├── EventPageComponent.js
+    │   │   └── EventPageStyles
+    │   │       ├── EventPageStyling.css
+    │   │       ├── EventPageStyling.css.map
+    │   │       └── EventPageStyling.scss
+    │   ├── EventsManagerComponent
+    │   │   ├── EventsManagerComponent.js
+    │   │   ├── Styles
+    │   │   │   ├── UpcomingEventsStyles.css
+    │   │   │   ├── UpcomingEventsStyles.css.map
+    │   │   │   └── UpcomingEventsStyles.scss
+    │   │   └── UpcomingEventsComponent.js
+    │   ├── ExploreEventsComponent
+    │   │   ├── ExploreEventsComponent.js
+    │   │   └── ExploreEventsStyles
+    │   │       ├── ExploreEventsStyle.css
+    │   │       ├── ExploreEventsStyle.css.map
+    │   │       └── ExploreEventsStyle.scss
+    │   ├── FollowersModalComponent
+    │   │   ├── FollowersModalComponent.js
+    │   │   └── FollowersModalStyles
+    │   │       ├── FollowersModalStyling.css
+    │   │       ├── FollowersModalStyling.css.map
+    │   │       └── FollowersModalStyling.scss
+    │   ├── HostAnEventComponent
+    │   │   ├── HostAnEventPageComponent.js
+    │   │   ├── HostAnEventPageComponentPaginated.js
+    │   │   └── HostAnEventPageStyles
+    │   │       ├── HostAnEventComponentStyles.css
+    │   │       ├── HostAnEventComponentStyles.css.map
+    │   │       └── HostAnEventComponentStyles.scss
+    │   ├── ImagesModalComponent
+    │   │   ├── PostImagesModalComponent.js
+    │   │   └── Styles
+    │   │       ├── PostImagesModalStyles.css
+    │   │       ├── PostImagesModalStyles.css.map
+    │   │       └── PostImagesModalStyles.scss
+    │   ├── LandingPageComponent
+    │   │   ├── LandingPageComponent.js
+    │   │   ├── LandingPageStyles
+    │   │   │   ├── LandingPage.css
+    │   │   │   ├── LandingPage.css.map
+    │   │   │   └── LandingPage.scss
+    │   │   ├── NonRegisteredLandingPage.js
+    │   │   └── RegisteredLandingPage.js
+    │   ├── LoginPageComponent
+    │   │   ├── LoginPageComponent.js
+    │   │   └── LoginPageStyles
+    │   │       ├── LoginPageStyles.css
+    │   │       ├── LoginPageStyles.css.map
+    │   │       └── LoginPageStyles.scss
+    │   ├── MakePostComponent
+    │   │   └── MakePostComponent.js
+    │   ├── MapComponent
+    │   │   ├── MapComponent.js
+    │   │   └── MapComponentStyles
+    │   │       ├── MapComponent.css
+    │   │       ├── MapComponent.css.map
+    │   │       └── MapComponent.scss
+    │   ├── MessagesComponent
+    │   │   ├── MessagesComponent.js
+    │   │   └── Styles
+    │   │       ├── MessagesStyles.css
+    │   │       ├── MessagesStyles.css.map
+    │   │       └── MessagesStyles.scss
+    │   ├── MessagesSideMenu
+    │   │   ├── MessagesSideMenu.js
+    │   │   └── Styles
+    │   │       ├── MessagesStyles.css
+    │   │       ├── MessagesStyles.css.map
+    │   │       └── MessagesStyles.scss
+    │   ├── NavbarComponent
+    │   │   ├── NavbarComponentNotRegisteredUser.js
+    │   │   ├── NavbarComponentRegisteredUser.js
+    │   │   ├── NavbarStyles.css
+    │   │   ├── NavbarStyles.css.map
+    │   │   └── NavbarStyles.scss
+    │   ├── NotificationsPage
+    │   │   ├── NotificationsPage.js
+    │   │   └── Style
+    │   │       ├── NotificationsPage.css
+    │   │       ├── NotificationsPage.css.map
+    │   │       └── NotificationsPage.scss
+    │   ├── PostCommentComponent
+    │   │   ├── PostCommenComponentt.js
+    │   │   └── PostCommentStyles
+    │   │       ├── Styles.css
+    │   │       ├── Styles.css.map
+    │   │       └── Styles.scss
+    │   ├── PostComponent
+    │   │   ├── PostComponent.js
+    │   │   └── Styles
+    │   │       ├── PostStyles.css
+    │   │       ├── PostStyles.css.map
+    │   │       └── PostStyles.scss
+    │   ├── ProfilePageComponent
+    │   │   ├── ProfilePageActivitySection.js
+    │   │   ├── ProfilePageComponent.js
+    │   │   └── ProfilePageStyles
+    │   │       ├── ProfilePageStyle.css
+    │   │       ├── ProfilePageStyle.css.map
+    │   │       └── ProfilePageStyle.scss
+    │   ├── RegistrationPageComponent
+    │   │   ├── RegistrationPageComponent.js
+    │   │   └── RegistrationPageStyles
+    │   │       ├── RegistrationPageStyles.css
+    │   │       ├── RegistrationPageStyles.css.map
+    │   │       └── RegistrationPageStyles.scss
+    │   ├── SettingsComponent
+    │   │   ├── Settings.js
+    │   │   └── Styles
+    │   │       ├── SettingsStyles.css
+    │   │       ├── SettingsStyles.css.map
+    │   │       └── SettingsStyles.scss
+    │   ├── SidebarComponent
+    │   │   ├── SidebarComponent.js
+    │   │   └── SidebarStyling
+    │   │       ├── SidebarStyle.css
+    │   │       ├── SidebarStyle.css.map
+    │   │       └── SidebarStyle.scss
+    │   ├── SquareEventCardComponent
+    │   │   ├── SquareEventCardComponent.js
+    │   │   └── Styles
+    │   │       ├── SquareEventCardStyles.css
+    │   │       ├── SquareEventCardStyles.css.map
+    │   │       └── SquareEventCardStyles.scss
+    │   └── UserFollowersComponent
+    │       ├── Styles
+    │       │   ├── UserFollowers.css
+    │       │   ├── UserFollowers.css.map
+    │       │   └── UserFollowers.scss
+    │       └── UserFollowers.js
+    ├── Images
+    │   ├── conversation.png
+    │   └── location-pin-solid.svg
+    ├── KeyWordSimilarityAlgorithm
+    │   ├── KeywordSimilarity.js
+    │   └── LevenshteinDistance.js
+    ├── index.css
+    ├── index.js
+    ├── logo.svg
+    ├── reportWebVitals.js
+    └── setupTests.js
+```
 ## Pages accessible to logged users
 <ul>
     <li> <strong> Dynamic </strong> Home page (Includes peoples' posts and the user's contacts in the message box to the bottom-right side of the screen). </li>
