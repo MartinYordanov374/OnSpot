@@ -57,6 +57,41 @@ Moreover, the **2023 National Tournament of Information Technology** hosted by V
 ### Frontend
 ### Backend
 ### Database
+The database consists of 20 tables separated into 4 different domains: Users, Events, Posts, and Analytics.
+
+#### The Users Domain
+This domain concerns tables related to everything that directly affects the user:
+- Followers
+- Block list
+- Chats
+- Notifications
+
+#### The Events Domain
+The events domain concerns all data related to the events:
+- Keywords
+- Images
+- Organizer
+- Name
+- Location
+
+#### The Posts Domain
+This domain concerns all of the data related to a post:
+- Post author
+- Timestamp
+- Attached images (if applicable)
+- Comments
+- Likes
+- Shares
+
+#### The Analytics Domain
+The analytics domain concerns everything about a user's activity on the platform. The tables here are utilized to recommend relevant events to each user's feed. 
+
+Data points of interest include:
+- The latest event category that a user visited
+- Searched event types
+- Previously attended event categories
+
+Refer to the database diagram below for more information.
 <img width="1451" height="609" alt="Screenshot From 2026-08-15 07-57-23" src="https://github.com/user-attachments/assets/73d2039d-37df-4c15-a300-0c0441614223" />
 
 
@@ -325,30 +360,6 @@ The project is split into two main directories: `backend/` and `Components/` (in
 
 ## Backend Structure
 ### The project's backend is a locally hosted Express server, that is utilizing MSSQL as a database.
-
-#### Database structure
-<ul>
-    <li>Analytics Table</li>
-    <li>Attendances Table</li>
-    <li>Background Pictures Table</li>
-    <li>Blocked Users Table</li>
-    <li>Conversations Table</li>
-    <li>Event Keywords Table</li>
-    <li>Events Table</li>
-    <li>Events Images Table</li>
-    <li>Followers Table</li>
-    <li>Keywords Table</li>
-    <li>Latest Visited Event Table</li>
-    <li>Messages Table</li>
-    <li>Notifications Table</li>
-    <li>Post Comments Table</li>
-    <li>Post Images Table</li>
-    <li>Post Likes Table</li>
-    <li>Post Shares Table</li>
-    <li>Posts Table</li>
-    <li>Profile Pictures Table</li>
-    <li>Users Table</li>
-</ul>
 
 #### Services
 <ul>
