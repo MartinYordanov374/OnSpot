@@ -115,6 +115,9 @@ Another option is to replace the Levenshtein Distance approach and use real-time
 ### Database
 The database consists of 20 tables separated into 4 different domains: Users, Events, Posts, and Analytics.
 
+<img width="1451" height="609" alt="Screenshot From 2026-08-15 07-57-23" src="https://github.com/user-attachments/assets/73d2039d-37df-4c15-a300-0c0441614223" />
+
+
 #### The Users Domain
 This domain concerns tables related to everything that directly affects the user:
 - Followers
@@ -146,9 +149,6 @@ Data points of interest include:
 - The latest event category that a user visited
 - Searched event types
 - Previously attended event categories
-
-Refer to the database diagram below for more information.
-<img width="1451" height="609" alt="Screenshot From 2026-08-15 07-57-23" src="https://github.com/user-attachments/assets/73d2039d-37df-4c15-a300-0c0441614223" />
 
 
 ## Project Structure
