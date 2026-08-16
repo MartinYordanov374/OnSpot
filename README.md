@@ -642,3 +642,13 @@ The project is split into two main directories: `backend/` and `Components/` (in
 ```
 
 ## Improvement Areas
+Reflecting on this project years later, several things could improve its architecture, performance, and scalability:
+
+- **Rewrite backend in Go** - Rewrite the backend in Go because of its concurrency model and better performance for high workloads.
+- **Containerization** - Dockerize the entire application for cross-platform compatibility for local development.
+- **Caching Layer** - Implement Redis for caching data, i.e., when retrieving chat history to reduce database load.
+- **Switch to non-relational database** - (Possibly) switch from MSSQL to a non-relational database to simplify horizontal scalability.
+- **CI Security Pipeline** - Create a CI pipeline to detect exposed secrets and vulnerabilities in the application before merging to the main branch. 
+- **Rate Limiter** - Implement API rate limiter to protect the backend from getting overwhelmed by excessive requests amount.
+- **Observability & Monitoring** - Integrate Prometheus and Grafana to monitor and visualize platform performance data in real time.
+- **More Modularization** - Modularize the Node.js server into more microservices.
