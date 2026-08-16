@@ -108,6 +108,16 @@ Another option is to replace the Levenshtein Distance approach and use real-time
 
 ## Project Architecture
 ### Frontend
+The frontend is built with React and communicates with the other architectural components via the Node & Express API.
+
+The table below gives an overview of the technologies that the frontend makes use of.
+| Technology | Purpose |
+|------------|---------|
+| **React** | UI component framework (functional components with hooks) |
+| **Axios** | HTTP client for REST API calls |
+| **React Router** | Client-side routing and navigation |
+| **CSS Modules / Styled Components** | Component-scoped styling |
+
 
 ### Backend
 #### The API
