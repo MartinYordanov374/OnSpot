@@ -293,10 +293,11 @@ The tables below describe all available API endpoints.
 - **Sessions**: Configured with 1-hour max age, `httpOnly=false`
 
 ### Database
-The database consists of 20 tables separated into 4 different domains: Users, Events, Posts, and Analytics.
+The database consists of 20 tables separated into 4 different domains: Users, Events, Posts, and Analytics. The database diagram below shows the structure of the database. It is normalized to 3NF.
 
 <img width="1451" height="609" alt="Screenshot From 2026-08-15 07-57-23" src="https://github.com/user-attachments/assets/73d2039d-37df-4c15-a300-0c0441614223" />
 
+Below is a description of the four domains.
 
 #### The Users Domain
 This domain concerns tables related to everything that directly affects the user:
