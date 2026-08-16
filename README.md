@@ -12,7 +12,7 @@ This project is my high school finals project. It is a social media, networking 
 4. [Tech Stack](#Tech-Stack)
 5. [Project Architecture](#Project-Architecture)
 6. [Project Structure](#Project-Structure)
-7. [Future Works](#Future-Works)
+7. [Improvement-Areas](#Improvement-Areas)
 
 
 ## The motivation behind the project
@@ -567,61 +567,5 @@ The project is split into two main directories: `backend/` and `Components/` (in
     ├── reportWebVitals.js
     └── setupTests.js
 ```
-## Pages accessible to logged users
-<ul>
-    <li> <strong> Dynamic </strong> Home page (Includes peoples' posts and the user's contacts in the message box to the bottom-right side of the screen). </li>
-    <li> <strong> Dynamic </strong> Profile pages for all users</li>
-    <li> <strong> Dynamic </strong> Messenger page</li>
-    <li> <strong> Dynamic </strong> Explore events page</li>
-    <li> <strong> Dynamic </strong> Attended events page</li>
-    <li> <strong> Dynamic </strong> Hosted events page</li>
-    <li> <strong> Dynamic </strong> Upcoming events page</li>
-    <li> <strong> Dynamic </strong> Notifications page</li>
-    <li> Settings page</li>
 
-</ul>
-
-## Pages accessible to logged out users
-<ul>
-    <li>Log in page</li>
-    <li>Register page</li>
-</ul>
-
-## Backend Structure
-### The project's backend is a locally hosted Express server, that is utilizing MSSQL as a database.
-
-#### Services
-<ul>
-    <li> Events Service </li>
-    <li> User Service </li>
-</ul>
-
-## Messenger System
-### The messenger system works, thanks to socket.io and the follow-unfollow system. 
-
-<ul>
-    <li> Upon sending a message, if the conversations between user A and user B doesn't exist in the database it is then created and then the message is sent. 
-        <br> Thanks to Socket.io and a bit of DOM manipulation the messages sent are displayed in real-time, to the respective user. 
-    </li>
-</ul>
-
-## Posts system
-
-<ul>
-    <li>All registered users can make, delete and edit their posts (the delete and edit functions are available to the owners only).</li>
-    <li>All registered users can Like, Comment and Share any posts, including their own posts.</li>
-    <li>All registered users can Like and Reply to each comment, on any post.</li>
-    <li>The posts show the amount of likes and shares they have.</li>
-</ul>
-
-## Profile Page
-### The profile page includes the following sub-categories
-<ul>
-    <li> Followers </li>
-    <li> Following </li>
-    <li> Latest Activity </li>
-    <li> Write a post for the owners of the respective profile </li>
-</ul>
-
-#### Users can also change their profile pictures from their profile page. In addition to that, users can follow each other through their profile pages.
-
+## Improvement Areas
