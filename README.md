@@ -49,8 +49,73 @@ Moreover, the **2023 National Tournament of Information Technology** hosted by V
 <a href='https://www.linkedin.com/in/martinyordanov374/overlay/Honor/117646437/treasury/?profileId=ACoAADc27CYBioWXgSqSD5HGy22Q-MIRy-eYzm4'>Click to see the certificate!</a>
 
 ## Project Features
-### User Interactions
+The platform enables rich social engagement between users through multiple interaction channels including following, messaging, and content sharing.
+
+#### Social Networking Features
+
+| Feature | Endpoint | Description |
+|---------|----------|-------------|
+| Follow User | `POST /followUser/:userToBeFollowedId` | Establishes connection with another user |
+| Get Followers | `GET /getUserFollowers/:id` | Retrieves follower list for any user |
+| Block User | `POST /blockUser/:blockedUserID` | Prevents unwanted user interactions |
+| Unblock User | `POST /unblockUser/:blockedUserID` | Reverses previous block |
+| Get Blocked Users | `GET /getBlockedUsers` | Lists all users blocked by current user |
+
+#### Real-Time Messaging
+
+All conversations are created automatically upon first message between two users. The system leverages Socket.IO for bidirectional communication.
+
+| Feature | Socket Event | Behavior |
+|---------|--------------|----------|
+| Send Message | `sendMessage` | Creates or extends existing conversation |
+| Receive Messages | `getConvo` | Emits conversation history to client |
+| Live Notifications | `newMessage` | Broadcasts new message to both parties |
+
+#### Profile Customization
+
+Users can personalize their profiles with bio text, profile pictures, and background images. All uploads are processed server-side using `multer` middleware.
+
+| Field | Validation | Storage |
+|-------|------------|---------|
+| Bio | Max 120 characters | MSSQL TEXT column |
+| Profile Picture | JPG/PNG via upload | Binary blob in database |
+| Background Picture | JPG/PNG via upload | Binary blob in database |
+
+#### Notification System
+
+The platform tracks user activity and sends real-time alerts for the following events:
+
+| Type | Trigger | Delivery |
+|------|---------|----------|
+| Message | New private message | Push via Socket.IO |
+| Post | Someone posts content | In-app notification |
+| Follower | New user follows you | Push + stored record |
+| Comment | Comment on your post | Real-time alert |
+| Like | Post receives likes | Stored notification |
+| Share | Your post is shared | Stored notification |
+
 ### Events Management
+Users can discover, create, and attend events. 
+
+| Operation | Endpoint | Requirements |
+|-----------|----------|--------------|
+| Host Event | `POST /hostEvent` | Valid session token, unique name/dates |
+| Edit Event | `POST /EditEvent/:eventID` | Owner verification |
+| Delete Event | `DELETE /deleteEvent/:userID/:eventId` | Owner verification |
+| Attend Event | `POST /attendEvent/:eventId` | Valid session token |
+| Check Attendance | `POST /doesUserAttendEvent/:eventId` | Valid session token |
+
+#### Event Discovery
+
+The platform offers multiple discovery pathways for finding relevant events:
+
+| Query Type | Endpoint | Filter Criteria |
+|------------|----------|-----------------|
+| All Events | `GET /getAllEvents` | Personalized ranking |
+| Upcoming Events | `GET /GetAllUpcomingEvents` | Future start dates only |
+| Hosted by User | `GET /GetAllEventsHostedByUser/:id` | Event hoster ID match |
+| Attended by User | `GET /GetAllAttendedUserEvents/:id` | Attendance records |
+| Search Events | `GET /GetAllSearchedEvents` | Text-based fuzzy match |
 
 ### Activity-based Events Recommendation Algorithm
 This algorithm is based on the number of times that a user has visited a certain kind of event where the event type is relevant. Predetermined weight coefficients are assigned to different kinds of activities. 
