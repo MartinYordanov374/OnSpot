@@ -32,6 +32,55 @@ Moreover, the **2023 National Tournament of Information Technology** hosted by V
 <a href='https://www.linkedin.com/in/martinyordanov374/overlay/Honor/117646437/treasury/?profileId=ACoAADc27CYBioWXgSqSD5HGy22Q-MIRy-eYzm4'>Click to see the certificate!</a>
 
 ## Project Features
+### User Interactions
+### Events Management
+
+### Activity-based Events Recommendation Algorithm
+This algorithm is based on the number of times that a user has visited a certain kind of event where the event type is relevant. Predetermined weight coefficients are assigned to different kinds of activities. 
+For example, if a user has visited the event pages for multiple events of the same category in the past, then visiting an event page of the same category in the future will have a higher activity weight than visiting event pages of different categories.
+
+The algorithm also considers events that the user has registered for and attended in the past. Thus, it is more likely that they will be recommended events of a similar nature in the future.
+
+All of this is performed via the SQL query below:
+
+```SQL
+SELECT DISTINCT
+	e.EventName, 
+	e.EventDescription, 
+	e.EventHosterID, 
+	e.EventType, 
+	e.EventClass, 
+	e.EventStartDate, 
+	e.EventEndDate, 
+	e.EventID, 
+	e.EventLocation, 
+	(SELECT 
+		CASE 
+			WHEN lve.EventType = e.EventClass
+			THEN COUNT(*) * 5 
+			ELSE COUNT(*) 
+		END 
+	FROM Analytics a 
+		WHERE a.EventType = e.EventClass  
+		AND a.UserID = ${userID}) AS EventOccurences
+FROM Events e
+LEFT JOIN LatestVisitedEvent lve 
+	ON e.EventClass = lve.EventType 
+WHERE NOT EXISTS (
+	SELECT 1 
+	FROM BlockedUsers bu 
+	WHERE (bu.BlockedUserID = e.EventHosterID AND bu.BlockerUserID = ${userID}) 
+	OR (bu.BlockedUserID = ${userID} AND bu.BlockerUserID = e.EventHosterID)
+)
+ORDER BY EventOccurences DESC 
+OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY`
+```
+
+Notice the offset at the end. The idea behind it is that a user is only shown two events based on their preferences, and the other events (if available) are shown only upon scrolling down. This is achieved by calling the ```GetLastTwoEvents``` API endpoint upon scrolling. Thus, the effect of an **infinite scroll** is achieved. 
+
+### Levenshtein Distance for searching events by title
+
+
 
 ## Tech Stack
 
