@@ -1,6 +1,25 @@
 # OnSpot
+OnSpot is a social event discovery platform that connects users with nearby events through personalized recommendations, real-time messaging, and community engagement features.
+It is also my high school finals project.
+## Tech Stack
 
-This project is my high school finals project. It is a social media, networking platform with a main focus on events organisation. Users can sign up, make posts, leave replies, like comments and posts, message each other and follow each other, as well as share images, attend events, host events and manage their events' scheudle.
+**Frontend:**  
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/css-%23663399.svg?style=for-the-badge&logo=css&logoColor=white)
+![Sass](https://img.shields.io/badge/sass-%23CC6699.svg?style=for-the-badge&logo=sass&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+
+**Backend:**  
+![NodeJS](https://img.shields.io/badge/node.js-%236DA55F.svg?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![Socket.io](https://img.shields.io/badge/socket.io-%23010101.svg?style=for-the-badge&logo=socket.io&logoColor=white)
+
+![Bcrypt](https://img.shields.io/badge/Bcrypt-003B57?logo=bcrypt&logoColor=white)
+
+**Database:**  
+![MSSQL](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoftsqlserver&logoColor=white)
 
 
 
@@ -13,7 +32,6 @@ This project is my high school finals project. It is a social media, networking 
 5. [Project Architecture](#Project-Architecture)
 6. [Project Structure](#Project-Structure)
 7. [Improvement Areas](#Improvement-Areas)
-
 
 ## The motivation behind the project
 By the time I got to work on this project, the idea of a social networking platform had been in my mind for quite a while. 
@@ -88,26 +106,6 @@ On the technical side, all inputs are converted to lowercase, so the algorithm i
 It is crucial to note that the time complexity of the algorithm is O(m×n). As such, it is incredibly computationally expensive when querying databases with millions, if not billions, of records. To mitigate this, the search could be scoped down to a certain subset of events that the algorithm has estimated the user may show interest in.
 
 Another option is to replace the Levenshtein Distance approach and use real-time fetching of event titles that correspond to the user input. This could be done via N-grams. Additionally, caching solutions could be implemented via Redis for an additional performance boost.
-
-## Tech Stack
-
-**Frontend:**  
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS](https://img.shields.io/badge/css-%23663399.svg?style=for-the-badge&logo=css&logoColor=white)
-![Sass](https://img.shields.io/badge/sass-%23CC6699.svg?style=for-the-badge&logo=sass&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
-
-**Backend:**  
-![NodeJS](https://img.shields.io/badge/node.js-%236DA55F.svg?style=for-the-badge&logo=node.js&logoColor=white)
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
-![Socket.io](https://img.shields.io/badge/socket.io-%23010101.svg?style=for-the-badge&logo=socket.io&logoColor=white)
-
-![Bcrypt](https://img.shields.io/badge/Bcrypt-003B57?logo=bcrypt&logoColor=white)
-
-**Database:**  
-![MSSQL](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoftsqlserver&logoColor=white)
 
 ## Project Architecture
 ### Frontend
