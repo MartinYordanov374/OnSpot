@@ -12,7 +12,7 @@ This project is my high school finals project. It is a social media, networking 
 4. [Tech Stack](#Tech-Stack)
 5. [Project Architecture](#Project-Architecture)
 6. [Project Structure](#Project-Structure)
-7. [Improvement-Areas](#Improvement-Areas)
+7. [Improvement Areas](#Improvement-Areas)
 
 
 ## The motivation behind the project
