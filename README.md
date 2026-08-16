@@ -79,8 +79,15 @@ OFFSET ${lastEventId} ROWS FETCH NEXT 2 ROWS ONLY`
 Notice the offset at the end. The idea behind it is that a user is only shown two events based on their preferences, and the other events (if available) are shown only upon scrolling down. This is achieved by calling the ```GetLastTwoEvents``` API endpoint upon scrolling. Thus, the effect of an **infinite scroll** is achieved. 
 
 ### Levenshtein Distance for searching events by title
+Levenshtein Distance is used to calculate the similarity between the search term entered by a user and the events' titles. Levenshtein Distance calculates the minimum number of operations needed to transform one string into another. An operation could be inserting, deleting, or replacing a letter. Lower scores indicate closer matches!
 
+This is useful because the platform can estimate how close two words are to one another and find the best-matching event title to what the user used as a search term.
 
+On the technical side, all inputs are converted to lowercase, so the algorithm is case-insensitive. The search results are ranked in ascending order by the Levenshtein distance score.
+
+It is crucial to note that the time complexity of the algorithm is O(m×n). As such, it is incredibly computationally expensive when querying databases with millions, if not billions, of records. To mitigate this, the search could be scoped down to a certain subset of events that the algorithm has estimated the user may show interest in.
+
+Another option is to replace the Levenshtein Distance approach and use real-time fetching of event titles that correspond to the user input. This could be done via N-grams. Additionally, caching solutions could be implemented via Redis for an additional performance boost.
 
 ## Tech Stack
 
